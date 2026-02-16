@@ -1118,6 +1118,7 @@
     if (ui.comboView) ui.comboView.dataset.character = state.currentCharacter;
     cleanupStorageBuckets();
     loadState();
+    ensureGroupCount(state.combos.length);
     loadUiPrefs();
     ensureSampleCombo();
     applyStateToTable();
@@ -4240,7 +4241,7 @@
     state.activeCell = el;
     if (state.activeCell) state.activeCell.classList.add('cmd-active');
     const rowIndex = Number(state.activeCell && state.activeCell.dataset ? state.activeCell.dataset.row : NaN);
-    if (Number.isFinite(rowIndex)) setSelectedGroup(rowIndex);
+    if (Number.isFinite(rowIndex)) setSelectedGroup(rowIndex, { scroll: false });
   }
 
   function autoResizeNotesInput(el) {
@@ -8087,6 +8088,7 @@ ${table.outerHTML}
     state.currentCharacter = slug;
     if (ui.comboView) ui.comboView.dataset.character = slug;
     loadState({ resetIfMissing: true });
+    ensureGroupCount(state.combos.length);
     ensureSampleCombo();
     applyStateToTable();
     updateEmptyGroups();
@@ -8107,13 +8109,3 @@ ${table.outerHTML}
     switchCharacterCombos(slug);
   };
 })();
-if (allowedRows && allowedRows.size) {
-  Array.from(table.tBodies).forEach((tbody) => {
-    Array.from(tbody.rows).forEach((row) => {
-      const rowIndex = row.dataset && row.dataset.row != null ? Number(row.dataset.row) : null;
-      if (rowIndex != null && !allowedRows.has(rowIndex)) {
-        row.remove();
-      }
-    });
-  });
-}

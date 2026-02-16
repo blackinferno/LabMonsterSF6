@@ -876,8 +876,8 @@
 #comboView #comboTableScroll {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: #6a6a6a rgba(255, 255, 255, 0.06);
     border-bottom: 2px solid #3a3a3a;
     height: 754px;
     max-height: 754px;
@@ -902,7 +902,17 @@
 }
 
 #comboView #comboTableScroll::-webkit-scrollbar {
-    display: none;
+    width: 9px;
+    height: 9px;
+}
+
+#comboView #comboTableScroll::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.72);
+    border-radius: 10px;
+}
+
+#comboView #comboTableScroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 #comboView #Table1 tr.combo-group-odd td {
@@ -2178,6 +2188,15 @@ body[data-theme="light"] #comboView .combo-ui-backdrop {
 
 body[data-theme="light"] #comboView #comboTableScroll {
     background: #efefef;
+    scrollbar-color: #8a8a8a rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] #comboView #comboTableScroll::-webkit-scrollbar-thumb {
+    background: rgba(120, 120, 120, 0.72);
+}
+
+body[data-theme="light"] #comboView #comboTableScroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 body[data-theme="light"] #comboView .combo-row-toggles {
