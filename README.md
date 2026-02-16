@@ -30,8 +30,3 @@ No Python/server setup is required for normal offline usage.
 
 - This repo is runtime-only.
 - Development scripts and internal data-pipeline assets are intentionally excluded.
-
-## Deployment
-
-- Workflow: `.github/workflows/deploy-pages.yml`
-- Deploy target: `sf6_viewer_unified/`
