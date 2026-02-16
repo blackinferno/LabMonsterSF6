@@ -16,17 +16,9 @@ Public runtime repository for the Lab Monster SF6 tool.
 
 ## Run locally
 
-Serve `sf6_viewer_unified/index.html` from a local web server and open it in a browser.
+Open `sf6_viewer_unified/index.html` directly in your browser.
 
-Example:
-
-```bash
-python -m http.server 8080
-```
-
-Then open:
-
-`http://localhost:8080/sf6_viewer_unified/index.html`
+No Python/server setup is required for normal offline usage.
 
 ## Data and save behavior
 

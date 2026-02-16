@@ -6466,6 +6466,8 @@ ${table.outerHTML}
   }
 
   async function fetchAsDataUrl(src) {
+    const imageInline = await inlineImageFromSource(src);
+    if (imageInline) return imageInline;
     try {
       const response = await fetch(src);
       if (!response.ok) return null;
@@ -6479,6 +6481,38 @@ ${table.outerHTML}
     } catch {
       return null;
     }
+  }
+
+  async function inlineImageFromSource(src) {
+    return await new Promise((resolve) => {
+      try {
+        const img = new Image();
+        img.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth || img.width || 0;
+            canvas.height = img.naturalHeight || img.height || 0;
+            if (!canvas.width || !canvas.height) {
+              resolve(null);
+              return;
+            }
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              resolve(null);
+              return;
+            }
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL('image/png'));
+          } catch {
+            resolve(null);
+          }
+        };
+        img.onerror = () => resolve(null);
+        img.src = src;
+      } catch {
+        resolve(null);
+      }
+    });
   }
 
   function buildCellMatrixFromRows(rows, options = {}) {

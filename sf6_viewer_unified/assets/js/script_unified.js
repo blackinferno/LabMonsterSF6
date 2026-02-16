@@ -23,6 +23,13 @@ const headerTemplateHTMLByLang = new Map();
 const DEFAULT_FRAME_DATA_VERSION = '2025.12.16';
 let currentFrameDataVersion = DEFAULT_FRAME_DATA_VERSION;
 const FRAME_VERSION_MANIFEST_PATH = 'assets/data/versions.json';
+const OFFLINE_DATA_BUNDLE = (
+  typeof window !== 'undefined'
+  && window.OFFLINE_DATA_BUNDLE
+  && typeof window.OFFLINE_DATA_BUNDLE === 'object'
+)
+  ? window.OFFLINE_DATA_BUNDLE
+  : null;
 const DEFAULT_FRAME_DATA_VERSION_ENTRY = {
   id: DEFAULT_FRAME_DATA_VERSION,
   label: DEFAULT_FRAME_DATA_VERSION,
@@ -36,6 +43,46 @@ const frameDataViewState = {
   compareEnabled: false,
   compareVersion: '',
 };
+
+function normalizeOfflineResourcePath(path) {
+  return String(path || '')
+    .replace(/^[./]+/, '')
+    .replace(/\\/g, '/')
+    .trim();
+}
+
+function getOfflineResourceText(path) {
+  if (!OFFLINE_DATA_BUNDLE) return null;
+  const normalized = normalizeOfflineResourcePath(path);
+  if (!normalized) return null;
+  return Object.prototype.hasOwnProperty.call(OFFLINE_DATA_BUNDLE, normalized)
+    ? OFFLINE_DATA_BUNDLE[normalized]
+    : null;
+}
+
+async function loadTextResource(path) {
+  const offlineText = getOfflineResourceText(path);
+  if (offlineText != null) {
+    return offlineText;
+  }
+  const res = await fetch(path, { cache: 'no-cache' });
+  if (!res.ok) {
+    throw new Error(`Missing ${path}`);
+  }
+  return await res.text();
+}
+
+async function loadJsonResource(path) {
+  const offlineText = getOfflineResourceText(path);
+  if (offlineText != null) {
+    return JSON.parse(offlineText);
+  }
+  const res = await fetch(path, { cache: 'no-cache' });
+  if (!res.ok) {
+    throw new Error(`Missing ${path}`);
+  }
+  return await res.json();
+}
 const CHARACTER_ART_PRESETS = {
   "ryu": {
     "top": "min(1.04167vw, 20px)",
@@ -304,9 +351,7 @@ async function getHeaderTemplateHTML(lang = null) {
 
   for (const templatePath of templateCandidates) {
     try {
-      const res = await fetch(templatePath, { cache: 'no-cache' });
-      if (!res.ok) continue;
-      const raw = await res.text();
+      const raw = await loadTextResource(templatePath);
       const parsed = extractHeaderRows(raw);
       headerTemplateHTMLByLang.set(activeLang, parsed);
       return parsed;
@@ -1032,12 +1077,7 @@ async function fetchFrameJsonByCandidates(paths) {
   let lastError = null;
   for (const path of paths) {
     try {
-      const res = await fetch(path, { cache: 'no-cache' });
-      if (!res.ok) {
-        lastError = new Error(`Missing ${path}`);
-        continue;
-      }
-      const data = await res.json();
+      const data = await loadJsonResource(path);
       return { data, path };
     } catch (err) {
       lastError = err;
@@ -1052,9 +1092,7 @@ async function ensureFrameDataVersionsLoaded() {
   if (frameDataVersionsPromise) return frameDataVersionsPromise;
   frameDataVersionsPromise = (async () => {
     try {
-      const res = await fetch(FRAME_VERSION_MANIFEST_PATH, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(`Missing ${FRAME_VERSION_MANIFEST_PATH}`);
-      const data = await res.json();
+      const data = await loadJsonResource(FRAME_VERSION_MANIFEST_PATH);
       const versions = Array.isArray(data && data.versions) ? data.versions : [];
       const parsed = versions
         .map((entry) => ({
