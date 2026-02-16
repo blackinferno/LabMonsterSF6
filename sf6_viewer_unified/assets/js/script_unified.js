@@ -769,7 +769,7 @@ const I18N_CORE = {
     'update.notes.1': 'v1.0.0 (2026-02-16): 基礎的なコンボ表とフレーム表の機能をリリース。',
 
     'info.button': '情報',
-    'offline.button': 'オフライン',
+    'offline.button': 'オフライン版',
     'offline.warning': 'オンライン版とオフライン版のセーブデータは共有されません。\n切り替え前にバックアップを出力してください。\nオフライン版をダウンロードしますか？',
     'info.title': 'INFORMATION',
     'info.description': '連絡先、関連リンク、クレジット。',
@@ -887,7 +887,7 @@ const I18N_CORE = {
     'update.notes.1': 'v1.0.0 (2026-02-16): Initial version release with basic combo table and frame data functions.',
 
     'info.button': 'INFO',
-    'offline.button': 'OFFLINE',
+    'offline.button': 'OFFLINE Ver.',
     'offline.warning': 'Online and offline versions do not share saved data.\nPlease export a backup before switching.\nDownload offline version now?',
     'info.title': 'INFORMATION',
     'info.description': 'Contact, useful links, and project credits.',
