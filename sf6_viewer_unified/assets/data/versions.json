@@ -1,0 +1,17 @@
+{
+  "latest": "2025.12.16",
+  "versions": [
+    {
+      "id": "2025.12.16",
+      "label": "2025.12.16",
+      "path": "assets/data_2025_12_16",
+      "path_en": "assets/data_2025_12_16_en"
+    },
+    {
+      "id": "2025.11.13",
+      "label": "2025.11.13",
+      "path": "assets/data_2025_11_13",
+      "path_en": "assets/data_2025_11_13_en"
+    }
+  ]
+}
