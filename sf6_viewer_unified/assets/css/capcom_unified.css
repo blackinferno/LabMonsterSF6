@@ -138,6 +138,9 @@ body {
 }
 
 .header-help-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     height: 24px;
     border: 1px solid var(--border-light);
     background: #1a1a1a;
@@ -148,6 +151,7 @@ body {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .header-help-btn:hover {
@@ -159,6 +163,11 @@ body {
     color: var(--text-main);
     border-color: var(--accent);
     background: linear-gradient(135deg, rgba(249, 115, 6, 0.14), rgba(249, 115, 6, 0.04));
+}
+
+.header-help-btn.is-disabled {
+    opacity: 0.55;
+    pointer-events: none;
 }
 
 .header-donate-btn {

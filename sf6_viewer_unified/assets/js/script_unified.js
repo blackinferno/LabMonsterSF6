@@ -769,6 +769,8 @@ const I18N_CORE = {
     'update.notes.1': 'v1.0.0 (2026-02-16): 基礎的なコンボ表とフレーム表の機能をリリース。',
 
     'info.button': '情報',
+    'offline.button': 'オフライン',
+    'offline.warning': 'オンライン版とオフライン版のセーブデータは共有されません。\n切り替え前にバックアップを出力してください。\nオフライン版をダウンロードしますか？',
     'info.title': 'INFORMATION',
     'info.description': '連絡先、関連リンク、クレジット。',
     'info.team.title': 'チーム',
@@ -885,6 +887,8 @@ const I18N_CORE = {
     'update.notes.1': 'v1.0.0 (2026-02-16): Initial version release with basic combo table and frame data functions.',
 
     'info.button': 'INFO',
+    'offline.button': 'OFFLINE',
+    'offline.warning': 'Online and offline versions do not share saved data.\nPlease export a backup before switching.\nDownload offline version now?',
     'info.title': 'INFORMATION',
     'info.description': 'Contact, useful links, and project credits.',
     'info.team.title': 'TEAM',
@@ -939,6 +943,23 @@ function resolveOfflineReleaseUrl() {
     return `https://github.com/${parts[0]}/${parts[1]}/releases/latest`;
   }
   return null;
+}
+
+function getOfflineDownloadWarningMessage(lang) {
+  const active = ((lang || getCurrentLang() || 'jp').toLowerCase() === 'en') ? 'en' : 'jp';
+  return translateKey('offline.warning', active)
+    || translateKey('offline.warning', 'jp')
+    || 'Online and offline versions do not share saved data. Continue?';
+}
+
+function openOfflineDownloadWithWarning(url) {
+  if (!url || url === '#') return;
+  const approved = window.confirm(getOfflineDownloadWarningMessage(getCurrentLang()));
+  if (!approved) return;
+  const popup = window.open(url, '_blank', 'noopener,noreferrer');
+  if (!popup) {
+    window.location.href = url;
+  }
 }
 
 let helpTranslations = (window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object')
@@ -1262,8 +1283,9 @@ function applyOfficialLinks(lang) {
     officialSiteLink.href = OFFICIAL_SITE_LINKS[active] || OFFICIAL_SITE_LINKS.jp;
   }
   const offlineLink = document.getElementById('infoOfflineDownloadLink');
+  const offlineTopButton = document.getElementById('appOfflineBtn');
+  const releaseUrl = resolveOfflineReleaseUrl();
   if (offlineLink) {
-    const releaseUrl = resolveOfflineReleaseUrl();
     if (releaseUrl) {
       offlineLink.href = releaseUrl;
       offlineLink.classList.remove('is-disabled');
@@ -1274,6 +1296,19 @@ function applyOfficialLinks(lang) {
       offlineLink.classList.add('is-disabled');
       offlineLink.setAttribute('aria-disabled', 'true');
       offlineLink.setAttribute('tabindex', '-1');
+    }
+  }
+  if (offlineTopButton) {
+    if (releaseUrl) {
+      offlineTopButton.href = releaseUrl;
+      offlineTopButton.classList.remove('is-disabled');
+      offlineTopButton.removeAttribute('aria-disabled');
+      offlineTopButton.removeAttribute('tabindex');
+    } else {
+      offlineTopButton.href = '#';
+      offlineTopButton.classList.add('is-disabled');
+      offlineTopButton.setAttribute('aria-disabled', 'true');
+      offlineTopButton.setAttribute('tabindex', '-1');
     }
   }
 }
@@ -1535,6 +1570,8 @@ function initInfoModals() {
   const updateBtn = document.getElementById('appUpdateBtn');
   const updateClose = document.getElementById('updateClose');
   const frameOfficialPatchBtn = document.getElementById('frameOfficialPatchBtn');
+  const appOfflineBtn = document.getElementById('appOfflineBtn');
+  const infoOfflineDownloadLink = document.getElementById('infoOfflineDownloadLink');
 
   helpBtn?.addEventListener('click', () => {
     if (typeof window.setMainView === 'function') window.setMainView('help');
@@ -1633,6 +1670,19 @@ function initInfoModals() {
       window.location.href = url;
     }
   });
+
+  const bindOfflineDownload = (el) => {
+    if (!el || el.dataset.offlineBound) return;
+    el.dataset.offlineBound = '1';
+    el.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const href = el.getAttribute('href') || '';
+      if (!href || href === '#' || el.classList.contains('is-disabled')) return;
+      openOfflineDownloadWithWarning(href);
+    });
+  };
+  bindOfflineDownload(appOfflineBtn);
+  bindOfflineDownload(infoOfflineDownloadLink);
 }
 function fmt(v) { if (v == null || v === '') return ''; const n = Number(v); return isNaN(n) ? v : n.toLocaleString(); }
 function fmtSigned(v) {
