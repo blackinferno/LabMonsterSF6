@@ -1645,6 +1645,20 @@
     gap: 6px 10px;
 }
 
+#comboView .combo-search-shell .field-command-scope {
+    margin-top: 2px;
+    margin-left: 18px;
+    gap: 4px 10px;
+}
+
+#comboView .combo-search-shell .field-command-scope.hidden {
+    display: none;
+}
+
+#comboView .combo-search-shell .field-command-scope .checkbox-item {
+    font-size: 10px;
+}
+
 #comboView .combo-search-shell .field-search-row {
     display: flex;
     align-items: center;

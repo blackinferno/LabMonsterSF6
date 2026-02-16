@@ -190,6 +190,8 @@
         field_search: 'フィールド検索',
         keyword: 'キーワード',
         field_spec: '指定検索:',
+        command_first_hit: '初段',
+        command_any: 'Any',
         range_title: '数値範囲',
         control: '操作方法',
         distance: '距離',
@@ -372,6 +374,8 @@
         field_search: 'Field Search',
         keyword: 'Keyword',
         field_spec: 'Field:',
+        command_first_hit: 'First Hit',
+        command_any: 'Any',
         range_title: 'Range Search',
         control: 'Control',
         distance: 'Distance',
@@ -1033,6 +1037,7 @@
       search: '',
       fieldQuery: '',
       fieldFields: [],
+      command_scope: [],
       mode: [],
       position: [],
       distance: [],
@@ -3197,6 +3202,9 @@
         if (input.value === '可') span.textContent = comboValueLabel('yes', '可', active);
         if (input.value === '準') span.textContent = comboValueLabel('semi', '準', active);
         if (input.value === '不可') span.textContent = comboValueLabel('no', '不可', active);
+      } else if (name.includes('comboFilter-command_scope')) {
+        if (input.value === 'first_hit') span.textContent = comboT('filter.command_first_hit', active) || 'First Hit';
+        if (input.value === 'any') span.textContent = comboT('filter.command_any', active) || 'Any';
       }
     });
 
@@ -4618,6 +4626,7 @@
     const search = (state.filters.search || '').toLowerCase();
     const fieldQuery = (state.filters.fieldQuery || '').toLowerCase();
     const fieldFilters = state.filters.fieldFields || [];
+    const commandScopeFilters = state.filters.command_scope || [];
     const modeFilters = state.filters.mode || [];
     const positionFilters = state.filters.position || [];
     const distanceFilters = state.filters.distance || [];
@@ -4638,6 +4647,40 @@
       return Number.isFinite(num) ? num : null;
     };
 
+    const commandQueryVariants = Array.from(new Set([
+      fieldQuery,
+      canonicalizeCommandForStorage(fieldQuery).toLowerCase(),
+      localizeCommandForDisplay(canonicalizeCommandForStorage(fieldQuery), 'en').toLowerCase(),
+    ].filter(Boolean)));
+
+    const getFirstCommandPart = (command) =>
+      String(command || '')
+        .split(/\s*(?:>>|>)\s*/)
+        .map((part) => part.trim())
+        .find(Boolean) || '';
+
+    const commandFieldMatches = (commandRaw) => {
+      const rawCommand = String(commandRaw || '');
+      if (!rawCommand || !commandQueryVariants.length) return false;
+      const canonical = canonicalizeCommandForStorage(rawCommand);
+      const localizedEn = localizeCommandForDisplay(canonical, 'en');
+      const scope = new Set(commandScopeFilters);
+      const useFirstHit = scope.has('first_hit');
+      const useAny = scope.size === 0 || scope.has('any');
+      const haystacks = [];
+
+      if (useAny) {
+        haystacks.push(rawCommand.toLowerCase(), canonical.toLowerCase(), localizedEn.toLowerCase());
+      }
+      if (useFirstHit) {
+        const first = getFirstCommandPart(canonical);
+        if (first) {
+          haystacks.push(first.toLowerCase(), localizeCommandForDisplay(first, 'en').toLowerCase());
+        }
+      }
+      return commandQueryVariants.some((query) => haystacks.some((hay) => hay.includes(query)));
+    };
+
     state.groups.forEach((group) => {
       const combo = state.combos[group.index] || defaultCombo();
       let visible = true;
@@ -4655,17 +4698,32 @@
           notes: ['combo_notes'],
           oki: ['oki'],
         };
-        const fields = fieldFilters.length
-          ? fieldFilters.flatMap((key) => fieldMap[key] || [])
-          : null;
-        const hay = (fields || Object.keys(combo).filter((key) => !searchExclude.has(key)))
-          .map((field) => {
+        if (fieldFilters.length) {
+          const fields = fieldFilters.flatMap((key) => fieldMap[key] || []);
+          visible = fields.some((field) => {
+            if (field === 'command') return commandFieldMatches(combo.command);
             const value = combo[field];
-            return Array.isArray(value) ? value.join(',') : value;
-          })
-          .join(' ')
-          .toLowerCase();
-        visible = hay.includes(fieldQuery);
+            const text = Array.isArray(value) ? value.join(',') : String(value || '');
+            return text.toLowerCase().includes(fieldQuery);
+          });
+        } else {
+          const hay = Object.keys(combo)
+            .filter((key) => !searchExclude.has(key))
+            .map((field) => {
+              if (field === 'command') {
+                return [
+                  String(combo.command || ''),
+                  canonicalizeCommandForStorage(combo.command || ''),
+                  localizeCommandForDisplay(combo.command || '', 'en'),
+                ].join(' ');
+              }
+              const value = combo[field];
+              return Array.isArray(value) ? value.join(',') : value;
+            })
+            .join(' ')
+            .toLowerCase();
+          visible = hay.includes(fieldQuery) || commandFieldMatches(combo.command);
+        }
       }
       if (visible && modeFilters.length) {
         const raw = String(combo.control_mode || '').trim();
@@ -5284,6 +5342,58 @@
         container.appendChild(label);
       });
     };
+    const ensureCommandScopeGroup = () => {
+      const container = panel.querySelector('#comboFilterFieldSearchGroup');
+      if (!container) return;
+      const commandInput = container.querySelector('input[name="comboFilter-field"][value="command"]');
+      if (!commandInput) return;
+      const commandLabel = commandInput.closest('label.checkbox-item');
+      if (!commandLabel) return;
+      let scope = commandLabel.querySelector('.field-command-scope');
+      if (!scope) {
+        scope = document.createElement('div');
+        scope.className = 'checkbox-group field-command-scope hidden';
+        const items = [
+          { value: 'first_hit', text: comboT('filter.command_first_hit') || 'First Hit' },
+          { value: 'any', text: comboT('filter.command_any') || 'Any' },
+        ];
+        items.forEach((item) => {
+          const label = document.createElement('label');
+          label.className = 'checkbox-item';
+          const input = document.createElement('input');
+          input.type = 'checkbox';
+          input.name = 'comboFilter-command_scope';
+          input.value = item.value;
+          const span = document.createElement('span');
+          span.textContent = item.text;
+          label.appendChild(input);
+          label.appendChild(span);
+          scope.appendChild(label);
+        });
+        commandLabel.appendChild(scope);
+      }
+      const scopeInputs = Array.from(scope.querySelectorAll('input[name="comboFilter-command_scope"]'));
+      const sync = () => {
+        const active = !!commandInput.checked;
+        scope.classList.toggle('hidden', !active);
+        scopeInputs.forEach((input) => {
+          input.disabled = !active;
+          if (!active) input.checked = false;
+        });
+        if (active && !scopeInputs.some((input) => input.checked)) {
+          const anyInput = scopeInputs.find((input) => input.value === 'any');
+          if (anyInput) anyInput.checked = true;
+        }
+      };
+      commandInput.addEventListener('change', sync);
+      scopeInputs.forEach((input) => {
+        input.addEventListener('change', () => {
+          if (input.checked && !commandInput.checked) commandInput.checked = true;
+          sync();
+        });
+      });
+      sync();
+    };
     const populateGroups = () => {
       buildCheckboxGroup('comboFilterModeGroup', 'mode', [
         { value: 'classic', label: comboValueLabel('classic', 'Classic') },
@@ -5352,10 +5462,12 @@
       return ranges;
     };
     populateGroups();
+    ensureCommandScopeGroup();
     if (applyBtn) {
       applyBtn.addEventListener('click', () => {
         state.filters.fieldQuery = panel.querySelector('#comboFilterFieldQuery')?.value || '';
         state.filters.fieldFields = readChecks('field');
+        state.filters.command_scope = readChecks('command_scope');
         state.filters.mode = readChecks('mode');
         state.filters.position = readChecks('position');
         state.filters.distance = readChecks('distance');
@@ -5385,6 +5497,7 @@
         });
         state.filters.fieldQuery = '';
         state.filters.fieldFields = [];
+        state.filters.command_scope = [];
         state.filters.mode = [];
         state.filters.position = [];
         state.filters.distance = [];
