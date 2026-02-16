@@ -2,6 +2,11 @@
 
 Public runtime repository for Lab Monster SF6.
 
+## For users
+
+- Online version: `https://blackinferno.github.io/LabMonsterSF6/`
+- Offline package: download the latest ZIP from **Releases**.
+
 ## Run locally
 
 Serve `sf6_viewer_unified/index.html` from a local web server and open it in a browser.
