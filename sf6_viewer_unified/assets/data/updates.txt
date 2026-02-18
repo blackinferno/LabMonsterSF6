@@ -17,18 +17,19 @@ CURRENT_VERSION: 1.0.1
 - その他UIの調整（バージョン表記、ヘッダーの高さの調整など）
 
 ### EN
-- Improved startup speed.
-- Made the tool to remember the character and control mode you were using.
-- Adjusted the frequency of auto-saves.
-- Added a function to automatically backup data before imports and other major changes.
-- Added notation dictionary for imporing with JP/EN alias normalization and user-defined entries.
+- Improved startup performance.
+- The tool now remembers the character and control mode you were using.
+- Adjusted the autosave interval.
+- Added automatic backups before imports and other major changes.
+- Added restore points so data can be recovered from multiple backup snapshots.
+- Added an import notation dictionary with JP/EN alias normalization and user-defined entries.
 - Added XLSX column mapping import to handle non-standard sheets more reliably.
-- Now the selected control mode will be automatically selected based on the mode you are currently using (automatically applied to already saved combos).
-- Now only combos for the selected control mode will be displayed.
+- Control mode is now applied automatically based on your current mode (also applied to existing saved combos).
+- The combo table now shows only combos for the selected control mode.
 - Added command validation and control-mode mismatch warnings.
-- Added automatic Drive Gauge efficiency calculation (damage/drive gauge spent[nagative value]) based on entered value.
-- Unified changelog/roadmap under Information and added version-diff update popup.
-- Other UI adjustments (version display, header height adjustment, etc.)
+- Added automatic Drive Gauge efficiency calculation (damage / drive gauge spent [negative value]) from entered values.
+- Unified changelog and roadmap under Information, and added a version-diff update popup.
+- Included additional UI refinements (version display, header height, etc.).
 
 ## UPDATE 1.0.0 | 2026-02-16 | tags: Release
 ### JP
@@ -36,7 +37,7 @@ CURRENT_VERSION: 1.0.1
 - フレームデータ閲覧、コンボ編集、基本的な入出力機能を実装。
 ### EN
 - Initial release of Lab Monster SF6.
-- Included frame-data viewer, combo editor, and baseline import/export workflow.
+- Included the frame-data viewer, combo editor, and baseline import/export workflow.
 
 ## ROADMAP REALISTIC
 ### JP
@@ -46,10 +47,10 @@ CURRENT_VERSION: 1.0.1
 - [planned] UI改善（ツールチップ/詳細検索/小画面対応） :: 項目説明の明確化、検索UI整理、小さい画面表示時の視認性改善。
 - [planned] 継続的なパフォーマンス最適化 :: 起動、検索/並び替え、大規模データ表示の処理を改善。
 ### EN
-- [planned] Tags, favorites, and star ratings :: Add tags and other markers to make managing and finding combos easier.
-- [planned] Auto-calculation (Damage fields) :: Plan assist calculations for punish counters, SA3 low-health values, etc.
-- [planned] Classic/Modern conversion assist :: Phase in command/button conversion assistance and impossible-route hints.
-- [planned] UI polish (tooltips/advanced search/small screens support) :: Clarify field guidance, reorganize search UI, and improve compact-window readability.
+- [planned] Tags, favorites, and star ratings :: Add metadata to make combo management and filtering easier.
+- [planned] Auto-calculation (damage fields) :: Add assist calculations for punish-counter and low-health SA3 scenarios.
+- [planned] Classic/Modern conversion assist :: Phase in command/button conversion support and impossible-route hints.
+- [planned] UI polish (tooltips/advanced search/small-screen support) :: Clarify field guidance, organize search UI, and improve compact-window readability.
 - [planned] Continuous performance optimization :: Keep improving startup, search/sort, and large-table rendering performance.
 
 ## ROADMAP STRETCH
@@ -60,8 +61,8 @@ CURRENT_VERSION: 1.0.1
 - [planned] コンボ自動生成 :: データ整備と検証コストが非常に高く、実現性を継続検討。
 - [planned] モバイル版（タブレット向け） :: UI再設計が必要なため、優先度は低め。（現時点でもタブレットでは最低限機能するはず）
 ### EN
-- [planned] Automatic calculation of carry distance and other in-game values :: Very high data/validation cost; feasibility under review.
-- [planned] Automatic fame meter generation :: Requires normalizing cancel timing and other elements; feasibility under review.
-- [planned] Combo quality analytics :: Needs a reliable quality metric; high implementation complexity.
+- [planned] Automatic carry-distance and other in-game value calculations :: Very high data/validation cost; feasibility under review.
+- [planned] Automatic frame-meter generation :: Requires normalization of cancel timing and related logic; feasibility under review.
+- [planned] Combo quality analytics :: Requires a reliable quality metric; high implementation complexity.
 - [planned] Automatic combo generation :: Very high data/validation cost; feasibility under review.
-- [planned] Mobile/tablet build :: Requires substantial UI redesign; low near-term priority. (Should technically work on tablets already)
+- [planned] Mobile/tablet build :: Requires substantial UI redesign; low near-term priority. (Should technically work on tablets already.)

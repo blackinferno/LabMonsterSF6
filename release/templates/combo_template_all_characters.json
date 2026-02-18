@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "template": true,
+    "name": "combo_import_all_characters",
+    "created_at": "2026-02-16T09:52:14+00:00",
+    "note": "Fill combos for each character. Keep schema keys unchanged."
+  },
+  "characters": [
+    {
+      "character": "aki",
+      "combos": []
+    },
+    {
+      "character": "blanka",
+      "combos": []
+    },
+    {
+      "character": "cammy",
+      "combos": []
+    },
+    {
+      "character": "chunli",
+      "combos": []
+    },
+    {
+      "character": "cviper",
+      "combos": []
+    },
+    {
+      "character": "deejay",
+      "combos": []
+    },
+    {
+      "character": "dhalsim",
+      "combos": []
+    },
+    {
+      "character": "ed",
+      "combos": []
+    },
+    {
+      "character": "ehonda",
+      "combos": []
+    },
+    {
+      "character": "elena",
+      "combos": []
+    },
+    {
+      "character": "gouki_akuma",
+      "combos": []
+    },
+    {
+      "character": "guile",
+      "combos": []
+    },
+    {
+      "character": "jamie",
+      "combos": []
+    },
+    {
+      "character": "jp",
+      "combos": []
+    },
+    {
+      "character": "juri",
+      "combos": []
+    },
+    {
+      "character": "ken",
+      "combos": []
+    },
+    {
+      "character": "kimberly",
+      "combos": []
+    },
+    {
+      "character": "lily",
+      "combos": []
+    },
+    {
+      "character": "luke",
+      "combos": []
+    },
+    {
+      "character": "mai",
+      "combos": []
+    },
+    {
+      "character": "manon",
+      "combos": []
+    },
+    {
+      "character": "marisa",
+      "combos": []
+    },
+    {
+      "character": "rashid",
+      "combos": []
+    },
+    {
+      "character": "ryu",
+      "combos": []
+    },
+    {
+      "character": "sagat",
+      "combos": []
+    },
+    {
+      "character": "terry",
+      "combos": []
+    },
+    {
+      "character": "vega_mbison",
+      "combos": []
+    },
+    {
+      "character": "zangief",
+      "combos": []
+    }
+  ],
+  "combo_example": {
+    "command": "",
+    "buttons": "",
+    "combo_notes": "",
+    "frame_meter": "",
+    "game_version": "",
+    "control_mode": "",
+    "distance": "",
+    "position": "",
+    "counter_type": "",
+    "bo_state": "",
+    "drive_req": "",
+    "sa_req": "",
+    "vs_character": "",
+    "special_condition": "",
+    "damage_jp": "",
+    "damage_bo_guard": "",
+    "damage_normal": "",
+    "damage_counter": "",
+    "damage_punish": "",
+    "damage_normal_ca": "",
+    "damage_counter_ca": "",
+    "damage_punish_ca": "",
+    "d_guard": "",
+    "d_normal": "",
+    "d_pc": "",
+    "drive_delta": "",
+    "drive_delta_opponent": "",
+    "drive_efficiency": "",
+    "sa_delta": "",
+    "sa_delta_opponent": "",
+    "carry_distance": "",
+    "end_distance": "",
+    "frame_adv": "",
+    "safe_jump": "",
+    "interrupt": "",
+    "oki": ""
+  },
+  "combo_examples_by_mode": {
+    "classic": {
+      "command": "",
+      "buttons": "",
+      "combo_notes": "",
+      "frame_meter": "",
+      "game_version": "",
+      "control_mode": "Classic",
+      "distance": "",
+      "position": "",
+      "counter_type": "",
+      "bo_state": "",
+      "drive_req": "",
+      "sa_req": "",
+      "vs_character": "",
+      "special_condition": "",
+      "damage_jp": "",
+      "damage_bo_guard": "",
+      "damage_normal": "",
+      "damage_counter": "",
+      "damage_punish": "",
+      "damage_normal_ca": "",
+      "damage_counter_ca": "",
+      "damage_punish_ca": "",
+      "d_guard": "",
+      "d_normal": "",
+      "d_pc": "",
+      "drive_delta": "",
+      "drive_delta_opponent": "",
+      "drive_efficiency": "",
+      "sa_delta": "",
+      "sa_delta_opponent": "",
+      "carry_distance": "",
+      "end_distance": "",
+      "frame_adv": "",
+      "safe_jump": "",
+      "interrupt": "",
+      "oki": ""
+    },
+    "modern": {
+      "command": "",
+      "buttons": "",
+      "combo_notes": "",
+      "frame_meter": "",
+      "game_version": "",
+      "control_mode": "Modern",
+      "distance": "",
+      "position": "",
+      "counter_type": "",
+      "bo_state": "",
+      "drive_req": "",
+      "sa_req": "",
+      "vs_character": "",
+      "special_condition": "",
+      "damage_jp": "",
+      "damage_bo_guard": "",
+      "damage_normal": "",
+      "damage_counter": "",
+      "damage_punish": "",
+      "damage_normal_ca": "",
+      "damage_counter_ca": "",
+      "damage_punish_ca": "",
+      "d_guard": "",
+      "d_normal": "",
+      "d_pc": "",
+      "drive_delta": "",
+      "drive_delta_opponent": "",
+      "drive_efficiency": "",
+      "sa_delta": "",
+      "sa_delta_opponent": "",
+      "carry_distance": "",
+      "end_distance": "",
+      "frame_adv": "",
+      "safe_jump": "",
+      "interrupt": "",
+      "oki": ""
+    }
+  }
+}
