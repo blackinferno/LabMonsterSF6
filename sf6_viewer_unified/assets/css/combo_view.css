@@ -535,7 +535,8 @@
 /* ======================================================================== */
 #comboView {
     position: relative;
-    height: 100%;
+    height: auto;
+    flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
     background: #0f0f0f;
@@ -549,7 +550,7 @@
     --ui-desc-row-height: 20px;
     --shortcut-cell-size: 150px;
     --combo-col-size: 60px;
-    --combo-ui-reserve: 47px;
+    --combo-ui-reserve: 30px;
     --command-font-size: 13px;
 }
 
@@ -571,8 +572,23 @@
 
 #comboView.active {
     display: block;
+    flex: 1 1 auto;
+    min-height: 0;
     padding: 0;
     gap: 0;
+}
+
+/* Prevent flash of legacy static combo rows before JS rebuild completes */
+#comboView:not(.combo-ready) #comboTableScroll,
+#comboView:not(.combo-ready) #comboRowToggles,
+#comboView:not(.combo-ready) .combo-col-controls,
+#comboView:not(.combo-ready) #comboColumnTogglePanel,
+#comboView:not(.combo-ready) #comboCrudBar,
+#comboView:not(.combo-ready) #Table2,
+#comboView:not(.combo-ready) #Table3,
+#comboView:not(.combo-ready) #Table4,
+#comboView:not(.combo-ready) #Table5 {
+    visibility: hidden;
 }
 
 #comboView #FlexGrid1 {
@@ -587,7 +603,7 @@
 
 #comboView #Table1 th,
 #comboView #Table1 td {
-    border: 1px solid #2a2a2a;
+    border: 1px solid #343434;
     background: #121212;
     color: #f1f1f1;
     padding: 4px 6px;
@@ -597,10 +613,12 @@
 }
 
 #comboView #Table1 {
-    --combo-header-row-height: 25px;
-    --combo-subheader-row-height: 25px;
+    --combo-header-row-height: 22px;
+    --combo-subheader-row-height: 22px;
     --combo-sticky-col1-width: 0px;
     --combo-sticky-col2-width: 0px;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
 }
 
 #comboView #Table1 thead {
@@ -615,6 +633,7 @@
     height: var(--combo-header-row-height, 25px);
     min-height: var(--combo-header-row-height, 25px);
     background-clip: padding-box;
+    padding: 2px 5px;
 }
 
 #comboView #Table1 thead tr:nth-child(2)>th,
@@ -625,6 +644,7 @@
     height: var(--combo-subheader-row-height, 25px);
     min-height: var(--combo-subheader-row-height, 25px);
     background-clip: padding-box;
+    padding: 2px 5px;
 }
 
 #comboView #Table1 .combo-sticky-col {
@@ -653,7 +673,8 @@
 }
 
 #comboView #comboTableHeader {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     table-layout: fixed;
 }
 
@@ -716,12 +737,12 @@
 
 #comboView #comboTableHeader th,
 #comboView #comboTableHeader td {
-    border: 1px solid #2a2a2a;
+    border: 1px solid #454545;
     background: #1b1b1b;
     color: #f1f1f1;
-    padding: 4px 6px;
-    font-size: 10px;
-    line-height: 1.2;
+    padding: 2px 5px;
+    font-size: 9px;
+    line-height: 1.05;
     box-sizing: border-box;
     text-align: center;
     vertical-align: middle;
@@ -732,6 +753,18 @@
     font-weight: 700;
     text-align: center;
     vertical-align: middle;
+    border-color: #4a4a4a;
+}
+
+#comboView #comboTableHeader tr:nth-child(1) th,
+#comboView #comboTableHeader tr:nth-child(1) td {
+    background: #222;
+}
+
+#comboView #comboTableHeader tr:nth-child(2) th,
+#comboView #comboTableHeader tr:nth-child(2) td {
+    background: #1a1a1a;
+    border-bottom: 2px solid #5a5a5a;
 }
 
 #comboView #Table1 .combo-sortable {
@@ -742,9 +775,9 @@
 #comboView #Table1 .combo-sortable::after {
     content: "\25B2/\25BC";
     position: absolute;
-    right: 4px;
-    bottom: 4px;
-    font-size: 9px;
+    right: 3px;
+    bottom: 2px;
+    font-size: 8px;
     color: #9a9a9a;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
@@ -762,9 +795,9 @@
 #comboView #comboTableHeader .combo-sortable::after {
     content: "\25B2/\25BC";
     position: absolute;
-    right: 4px;
-    bottom: 4px;
-    font-size: 9px;
+    right: 3px;
+    bottom: 2px;
+    font-size: 8px;
     color: #9a9a9a;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
@@ -807,7 +840,7 @@
 #comboView #comboTableHeader tr:nth-child(1) th span,
 #comboView #comboTableHeader tr:nth-child(1) td p,
 #comboView #comboTableHeader tr:nth-child(1) td span {
-    font-size: 10px !important;
+    font-size: 9px !important;
     line-height: 1.1 !important;
     font-family: inherit !important;
 }
@@ -820,7 +853,7 @@
 #comboView #comboTableHeader tr:nth-child(2) th span,
 #comboView #comboTableHeader tr:nth-child(2) td p,
 #comboView #comboTableHeader tr:nth-child(2) td span {
-    font-size: 10px !important;
+    font-size: 9px !important;
     line-height: 1.1 !important;
     font-family: inherit !important;
 }
@@ -833,7 +866,7 @@
 #comboView #comboTableHeader tr:nth-child(1) td,
 #comboView #comboTableHeader tr:nth-child(2) th,
 #comboView #comboTableHeader tr:nth-child(2) td {
-    font-size: 10px !important;
+    font-size: 9px !important;
     line-height: 1.1 !important;
     font-family: inherit !important;
 }
@@ -915,8 +948,30 @@
     background: rgba(255, 255, 255, 0.06);
 }
 
-#comboView #Table1 tr.combo-group-odd td {
-    background: #0c0c0c;
+/* Keep group zebra backgrounds explicit (non-selected rows). */
+#comboView #Table1 tbody tr.combo-group-even:not(.selected) td {
+    background: #151515;
+}
+
+#comboView #Table1 tbody tr.combo-group-odd:not(.selected) td {
+    background: #0b0b0b;
+}
+
+#comboView #Table1 tr.combo-group-even:not(.selected) td {
+    background: #151515;
+}
+
+#comboView #Table1 tr.combo-group-odd:not(.selected) td {
+    background: #0b0b0b;
+}
+
+/* Re-striped by currently visible groups (after filters/mode). */
+#comboView #Table1 tr.combo-group-visible-even:not(.selected) td {
+    background: #151515 !important;
+}
+
+#comboView #Table1 tr.combo-group-visible-odd:not(.selected) td {
+    background: #0b0b0b !important;
 }
 
 #comboView #Table1 tr.selected td {
@@ -932,6 +987,32 @@
     padding: 0 1px;
     line-height: 1;
     vertical-align: middle;
+    border-top-width: 0 !important;
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #2a2a2a !important;
+}
+
+#comboView #Table1 tr.combo-group-row:not(.selected) td {
+    border-top-color: transparent !important;
+    border-bottom-color: #2a2a2a !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible td {
+    border-top-color: transparent !important;
+    border-bottom-color: #2a2a2a !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible-start td {
+    border-top-color: #2f2f2f !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-color: #333333 !important;
+    box-shadow: none !important;
 }
 
 #comboView #Table1 tbody td,
@@ -961,39 +1042,102 @@
     line-height: 1.1 !important;
 }
 
-/* Remove inner vertical grid lines on non-metric display rows */
-#comboView #Table1 tr.combo-row-frame td,
-#comboView #Table1 tr.combo-row-buttons td,
-#comboView #Table1 tr.combo-row-notes td {
+/* Dynamic vertical separators (driven by field columns in JS) */
+#comboView #Table1 .combo-sep-right,
+#comboView #comboTableHeader .combo-sep-right {
+    border-right-color: #515151 !important;
+    border-right-width: 1px !important;
+}
+
+#comboView #Table1 .combo-sticky-col.combo-sep-right,
+#comboView #comboTableHeader .combo-sticky-col.combo-sep-right {
+    box-shadow: inset -1px 0 0 #515151;
+}
+
+/* Remove vertical grid lines on frame-meter/notes rows (col 3+) */
+#comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
     border-left-color: transparent;
     border-right-color: transparent;
 }
 
-/* Keep the outer frame border for those rows */
+/* Non-command rows: remove grid on column 3 like the row body region */
+#comboView #Table1 tr.combo-row-frame td:nth-child(3),
+#comboView #Table1 tr.combo-row-buttons td:nth-child(3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(3) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Keep first-column borders stable even when rows are hidden/shown */
+#comboView #Table1 tr.combo-row-frame td:first-child,
+#comboView #Table1 tr.combo-row-notes td:first-child {
+    border-left-color: #343434;
+    border-right-color: #343434;
+    border-top-color: #2a2a2a;
+    border-bottom-color: #2a2a2a;
+}
+
 #comboView #Table1 tr.combo-row-frame td:first-child,
 #comboView #Table1 tr.combo-row-buttons td:first-child,
 #comboView #Table1 tr.combo-row-notes td:first-child {
-    border-left-color: #2a2a2a;
+    border-top-color: #2a2a2a !important;
+    border-bottom-color: #2a2a2a !important;
 }
 
-#comboView #Table1 tr.combo-row-frame td:last-child,
-#comboView #Table1 tr.combo-row-buttons td:last-child,
-#comboView #Table1 tr.combo-row-notes td:last-child {
-    border-right-color: #2a2a2a;
-}
-
-/* Keep separator at the right edge of command column (col 2) */
-#comboView #Table1 tr.combo-row-frame td:nth-child(2),
-#comboView #Table1 tr.combo-row-buttons td:nth-child(2),
-#comboView #Table1 tr.combo-row-notes td:nth-child(2) {
-    border-right-color: #2a2a2a;
-}
-
-/* Keep separator at the right edge of label column (col 1) */
-#comboView #Table1 tr.combo-row-frame td:nth-child(1),
+/* Keep separator on button row only */
 #comboView #Table1 tr.combo-row-buttons td:nth-child(1),
-#comboView #Table1 tr.combo-row-notes td:nth-child(1) {
+#comboView #Table1 tr.combo-row-buttons td:nth-child(2) {
     border-right-color: #2a2a2a;
+}
+
+/* Match frame/notes styling on button row after column 3 */
+#comboView #Table1 tr.combo-row-buttons td:nth-child(n+4) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Main table body rule: keep grid lines only on command rows. */
+#comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-buttons td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Keep the top separator for command rows on col 3+. */
+#comboView #Table1 tr.combo-row-command td:nth-child(n+3) {
+    border-top-style: solid !important;
+    border-top-width: 1px !important;
+    border-top-color: #2f2f2f !important;
+}
+
+/* Keep group separator visible across col 3+ even when row grids are suppressed. */
+#comboView #Table1 tr.combo-row-visible-end td:nth-child(n+3) {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #333333 !important;
+}
+
+/* Keep only the group separator line across visible group end rows. */
+#comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #333333 !important;
 }
 
 #comboView #Table2,
@@ -1303,6 +1447,36 @@
     box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.4);
 }
 
+#comboView .cmd-input.cmd-warning {
+    position: relative;
+    padding-right: 14px;
+    border-color: #f5c451;
+    box-shadow: 0 0 0 1px rgba(245, 196, 81, 0.35);
+}
+
+#comboView .cmd-input.cmd-warning::after {
+    content: "!";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f5c451;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+body[data-theme="light"] #comboView .cmd-input.cmd-warning {
+    border-color: #b45309;
+    background: rgba(245, 158, 11, 0.14);
+    box-shadow: 0 0 0 1px rgba(180, 83, 9, 0.42);
+}
+
+body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
+    color: #92400e;
+}
+
 #comboView .btn-token {
     position: relative;
     display: inline-flex;
@@ -1383,6 +1557,7 @@
     gap: 8px;
     color: #fff;
     position: absolute;
+    padding-top: 14px;
 }
 
 #comboView .combo-search-shell .search-header {
@@ -1457,8 +1632,30 @@
 
 #comboView .combo-search-shell .combo-search-actions {
     display: flex;
+    align-items: center;
     gap: 6px;
     margin-left: auto;
+}
+
+#comboView .combo-save-status {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 30;
+    font-size: 11px;
+    opacity: 0.8;
+    white-space: nowrap;
+    color: #d1d5db;
+}
+
+#comboView .combo-save-status.dirty {
+    opacity: 1;
+    color: #f97306;
+}
+
+#comboView .combo-save-status.recovered {
+    opacity: 1;
+    color: #f59e0b;
 }
 
 #comboView .combo-search-shell .combo-export-wrapper {
@@ -1973,6 +2170,17 @@ body[data-theme="light"] #comboView #comboTableHeader td {
     border-color: #dcdcdc;
 }
 
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) th,
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) td {
+    background: #d8d8d8;
+}
+
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) th,
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) td {
+    background: #ececec;
+    border-bottom-color: #b9b9b9;
+}
+
 body[data-theme="light"] #comboView .combo-col-eye {
     background: #ececec;
     color: #111;
@@ -1989,44 +2197,148 @@ body[data-theme="light"] #comboView #comboColumnTogglePanel .combo-col-checkbox 
     color: #111;
 }
 
-body[data-theme="light"] #comboView #Table1 tr.combo-group-odd td {
-    background: #e1e1e1;
+body[data-theme="light"] #comboView #Table1 tbody tr.combo-group-even:not(.selected) td {
+    background: #f1f1f1;
 }
 
-body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td,
-body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td,
-body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td {
+body[data-theme="light"] #comboView #Table1 tbody tr.combo-group-odd:not(.selected) td {
+    background: #dddddd;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-even:not(.selected) td {
+    background: #f1f1f1;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-odd:not(.selected) td {
+    background: #dddddd;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-visible-even:not(.selected) td {
+    background: #f1f1f1 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-visible-odd:not(.selected) td {
+    background: #dddddd !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-row:not(.selected) td {
+    border-top-color: transparent !important;
+    border-bottom-color: #d6d6d6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-row td {
+    border-bottom-color: #d6d6d6 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible td {
+    border-top-color: transparent !important;
+    border-bottom-color: #d6d6d6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-start td {
+    border-top-color: #cbcbcb !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-color: #c6c6c6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
     border-left-color: transparent;
     border-right-color: transparent;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(3) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(1),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(2) {
+    border-right-color: #d6d6d6;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(n+4) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sep-right,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sep-right {
+    border-right-color: #b4b4b4 !important;
+    border-right-width: 1px !important;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sticky-col.combo-sep-right,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sticky-col.combo-sep-right {
+    box-shadow: inset -1px 0 0 #b4b4b4;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:first-child,
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:first-child {
+    border-left-color: #d6d6d6;
+    border-right-color: #d6d6d6;
+    border-top-color: #dcdcdc;
+    border-bottom-color: #dcdcdc;
 }
 
 body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:first-child,
 body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:first-child,
 body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:first-child {
-    border-left-color: #d6d6d6;
-}
-
-body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:last-child,
-body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:last-child,
-body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:last-child {
-    border-right-color: #d6d6d6;
-}
-
-body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(2),
-body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(2),
-body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(2) {
-    border-right-color: #d6d6d6;
-}
-
-body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(1),
-body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(1),
-body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(1) {
-    border-right-color: #d6d6d6;
+    border-top-color: #dcdcdc !important;
+    border-bottom-color: #dcdcdc !important;
 }
 
 body[data-theme="light"] #comboView #Table1 tr.selected td {
     background: rgba(249, 115, 6, 0.16);
     border-color: #f97306;
+}
+
+/* Light mode: same body-line rule (command row only + group separator). */
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-command td:nth-child(n+3) {
+    border-top-style: solid !important;
+    border-top-width: 1px !important;
+    border-top-color: #cbcbcb !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td:nth-child(n+3) {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #c6c6c6 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #c6c6c6 !important;
 }
 
 body[data-theme="light"] #comboView #Table1 .combo-sortable::after,
@@ -2072,6 +2384,16 @@ body[data-theme="light"] #comboView .combo-search-shell .filter-actions button {
     background: #e7e7e7;
     color: #111;
     border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-save-status {
+    color: #2b313a;
+    opacity: 0.85;
+}
+
+body[data-theme="light"] #comboView .combo-game-version-info {
+    color: #4b5563;
+    opacity: 0.9;
 }
 
 body[data-theme="light"] #comboView #Button1,
@@ -2131,6 +2453,12 @@ body[data-theme="light"] #comboView .combo-action-dedupe {
     background: #fff4d6;
     border-color: #e3c070;
     color: #7a4b00;
+}
+
+body[data-theme="light"] #comboView .combo-action-restore {
+    background: #ececec;
+    border-color: #bdbdbd;
+    color: #2b2b2b;
 }
 
 body[data-theme="light"] #comboView .combo-bottom-toggle {
@@ -2453,6 +2781,18 @@ body[data-theme="light"] #comboView #wb_Text1 span {
     outline-offset: 2px;
 }
 
+#comboView .combo-game-version-info {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 10px;
+    line-height: 1;
+    color: #9ca3af;
+    white-space: nowrap;
+    z-index: 30;
+    pointer-events: none;
+}
+
 #comboView.hide-buttons tr.combo-row-buttons {
     display: none;
 }
@@ -2598,6 +2938,16 @@ body[data-theme="light"] #comboView #wb_Text1 span {
 
 #comboView .combo-action-dedupe:hover {
     border-color: #f5c451;
+}
+
+#comboView .combo-action-restore {
+    background: #2b2b2b;
+    border-color: #5b5b5b;
+    color: #f0f0f0;
+}
+
+#comboView .combo-action-restore:hover {
+    border-color: #f97306;
 }
 
 #comboView .sticky-col {
@@ -2921,6 +3271,503 @@ body[data-theme="light"] #comboView #wb_Text1 span {
     color: #fff;
     padding: 6px 10px;
     cursor: pointer;
+}
+
+.combo-restore-content {
+    width: 560px;
+    max-width: 94vw;
+}
+
+.combo-restore-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0 8px;
+    max-height: 42vh;
+    overflow-y: auto;
+}
+
+.combo-restore-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #3a3a3a;
+    background: #161616;
+    color: #f3f3f3;
+    border-radius: 6px;
+    min-height: 34px;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.combo-restore-option .source {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.combo-restore-option .time {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.combo-restore-option.active {
+    border-color: #f97306;
+    background: #241a12;
+}
+
+.combo-restore-notice {
+    margin: 0;
+    font-size: 11px;
+    opacity: 0.85;
+}
+
+.combo-notation-content {
+    width: min(980px, 96vw);
+    max-width: 96vw;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.combo-notation-desc {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.combo-notation-hints {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.combo-notation-hints li {
+    margin: 2px 0;
+}
+
+.combo-notation-section-title {
+    margin: 2px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.combo-notation-add,
+.combo-notation-tools {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.combo-notation-add {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-tools {
+    justify-content: flex-end;
+    padding-top: 6px;
+    border-top: 1px solid #2b2b2b;
+}
+
+.combo-notation-add input {
+    min-width: 150px;
+    flex: 1 1 0;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-tools button,
+.combo-notation-add button {
+    border: 1px solid #4a4a4a;
+    background: #1b1b1b;
+    color: #f5f5f5;
+    border-radius: 4px;
+    padding: 4px 9px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.combo-notation-test-desc {
+    margin: 2px 0 4px;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.combo-notation-test {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-test-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.combo-notation-test textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    height: 44px;
+    resize: none;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-preview {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.combo-notation-preview .line {
+    display: grid;
+    grid-template-columns: 98px 1fr;
+    gap: 8px;
+    align-items: start;
+}
+
+.combo-notation-preview pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 12px;
+    color: #e5e7eb;
+}
+
+.combo-notation-preview .chip {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #2b2b2b;
+    font-size: 11px;
+}
+
+.combo-notation-preview .chip.unknown {
+    background: #5a3b09;
+    color: #fcd34d;
+}
+
+.combo-notation-table-wrap {
+    flex: 1 1 auto;
+    overflow: auto;
+    border: 1px solid #323232;
+    border-radius: 6px;
+}
+
+.combo-notation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-notation-table th,
+.combo-notation-table td {
+    border-bottom: 1px solid #262626;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.combo-notation-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #141414;
+}
+
+.combo-notation-table .notation-category-row td {
+    background: #1b1b1b;
+    font-weight: 700;
+    border-bottom-color: #343434;
+    border-top: 1px solid #3a3a3a;
+}
+
+.combo-notation-table .notation-category-row:first-child td {
+    border-top: 0;
+}
+
+.combo-notation-table td:nth-child(5) {
+    text-align: center;
+}
+
+.combo-notation-table td button {
+    margin-right: 4px;
+}
+
+.combo-notation-buttons {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.combo-notation-table th:nth-child(3) {
+    text-align: center;
+}
+
+.combo-notation-buttons-wrap {
+    min-width: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 18px;
+    margin: 0 auto;
+}
+
+.combo-notation-buttons-wrap .btn-token {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.combo-notation-buttons-wrap .btn-token img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+}
+
+.combo-notation-buttons-wrap .btn-token-text {
+    display: none;
+}
+
+.combo-notation-buttons-wrap .btn-token.btn-token-fallback {
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+body[data-theme="light"] .combo-notation-add input,
+body[data-theme="light"] .combo-notation-test textarea {
+    background: #fff;
+    color: #222;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-notation-tools button,
+body[data-theme="light"] .combo-notation-add button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-notation-add {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-tools {
+    border-top-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-test {
+    border-bottom-color: #d7dce4;
+}
+
+
+body[data-theme="light"] .combo-notation-table-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-table th,
+body[data-theme="light"] .combo-notation-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-table thead th {
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-table .notation-category-row td {
+    background: #eef2f7;
+    border-bottom-color: #d4dbe5;
+    border-top-color: #d4dbe5;
+}
+
+body[data-theme="light"] .combo-notation-preview .chip {
+    background: #dfe4ea;
+    color: #2b3542;
+}
+
+body[data-theme="light"] .combo-notation-preview .chip.unknown {
+    background: #f2d68f;
+    color: #5f3500;
+}
+
+body[data-theme="light"] .combo-notation-buttons-wrap .btn-token.btn-token-fallback {
+    border-color: #bcc2cc;
+}
+
+.combo-xlsx-map-content {
+    width: min(1080px, 96vw);
+    max-width: 96vw;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.combo-xlsx-map-desc {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.88;
+}
+
+.combo-xlsx-map-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.combo-xlsx-map-top label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-top select {
+    min-width: 64px;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 4px 6px;
+}
+
+.combo-xlsx-map-save {
+    opacity: 0.92;
+}
+
+.combo-xlsx-map-groups {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.combo-xlsx-map-groups h4 {
+    margin: 2px 0 0;
+    font-size: 13px;
+}
+
+.combo-xlsx-map-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    border: 1px solid #313131;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.combo-xlsx-map-table th,
+.combo-xlsx-map-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #262626;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.combo-xlsx-map-table td .req {
+    color: #f97316;
+    font-weight: 700;
+}
+
+.combo-xlsx-map-table select {
+    width: 100%;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-advanced summary {
+    cursor: pointer;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.combo-xlsx-map-preview-wrap {
+    border: 1px solid #313131;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 32vh;
+}
+
+.combo-xlsx-map-preview-wrap h4 {
+    margin: 0;
+    padding: 6px 8px;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-preview-table th,
+.combo-xlsx-map-preview-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #242424;
+    text-align: left;
+    vertical-align: top;
+}
+
+.combo-xlsx-map-actions {
+    justify-content: flex-end;
+}
+
+body[data-theme="light"] .combo-xlsx-map-top select,
+body[data-theme="light"] .combo-xlsx-map-table select {
+    background: #fff;
+    color: #1f2937;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table,
+body[data-theme="light"] .combo-xlsx-map-preview-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table th,
+body[data-theme="light"] .combo-xlsx-map-table td,
+body[data-theme="light"] .combo-xlsx-map-preview-table th,
+body[data-theme="light"] .combo-xlsx-map-preview-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-xlsx-map-preview-wrap h4 {
+    border-bottom-color: #d4dbe5;
 }
 
 .combo-multi-panel {

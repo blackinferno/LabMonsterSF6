@@ -3,6 +3,7 @@
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  renderAppVersionBadge();
   initMainTabs();
   initCharacterControls();
   initCharacterSelect();
@@ -10,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initDragScroll('#frameScroll');
   initLanguageToggle();
   initInfoModals();
+  initFirstRunGuide();
+  maybeShowWelcomePopup().catch((err) => {
+    console.warn('Failed to show welcome popup:', err);
+  });
   syncHeaderHeightVar();
   window.addEventListener('resize', handleViewportResize);
 });
@@ -20,16 +25,23 @@ window.addEventListener('load', () => {
 
 let loadDataRequestId = 0;
 const headerTemplateHTMLByLang = new Map();
+const frameMovesCache = new Map();
+const APP_VERSION_FALLBACK = '1.0.1';
+const APP_VERSION = getCurrentAppVersion();
+const FIRST_RUN_GUIDE_KEY = 'lm_first_run_guide_v1';
+const LAST_SEEN_VERSION_KEY = 'lm_last_seen_version';
+const UPDATES_DATA_PATH = 'assets/data/updates.json';
+const UPDATES_TEXT_PATH = 'assets/data/updates.txt';
+const WELCOME_MAX_ITEMS = 20;
 const DEFAULT_FRAME_DATA_VERSION = '2025.12.16';
+const FRAME_VIEW_STATE_KEY = 'lm_frame_view_state_v1';
+const MAIN_VIEW_STATE_KEY = 'lm_main_view_state_v1';
 let currentFrameDataVersion = DEFAULT_FRAME_DATA_VERSION;
 const FRAME_VERSION_MANIFEST_PATH = 'assets/data/versions.json';
-const OFFLINE_DATA_BUNDLE = (
-  typeof window !== 'undefined'
-  && window.OFFLINE_DATA_BUNDLE
-  && typeof window.OFFLINE_DATA_BUNDLE === 'object'
-)
-  ? window.OFFLINE_DATA_BUNDLE
-  : null;
+let offlineBundlePromise = null;
+let updatesDataCache = null;
+let updatesDataPromise = null;
+let pendingWelcomeGroups = [];
 const DEFAULT_FRAME_DATA_VERSION_ENTRY = {
   id: DEFAULT_FRAME_DATA_VERSION,
   label: DEFAULT_FRAME_DATA_VERSION,
@@ -44,6 +56,53 @@ const frameDataViewState = {
   compareVersion: '',
 };
 
+function normalizeFrameControlType(value) {
+  return String(value || '').toLowerCase() === 'modern' ? 'modern' : 'classic';
+}
+
+function loadPersistedFrameViewState() {
+  try {
+    const raw = localStorage.getItem(FRAME_VIEW_STATE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    return {
+      char: String(parsed.char || '').trim(),
+      control: normalizeFrameControlType(parsed.control),
+      version: normalizeGameVersion(parsed.version) || DEFAULT_FRAME_DATA_VERSION,
+      compareVersion: normalizeGameVersion(parsed.compareVersion),
+      compareEnabled: !!parsed.compareEnabled,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function savePersistedFrameViewState(payload) {
+  try {
+    localStorage.setItem(FRAME_VIEW_STATE_KEY, JSON.stringify({
+      char: String(payload && payload.char ? payload.char : ''),
+      control: normalizeFrameControlType(payload && payload.control),
+      version: normalizeGameVersion(payload && payload.version) || DEFAULT_FRAME_DATA_VERSION,
+      compareVersion: normalizeGameVersion(payload && payload.compareVersion),
+      compareEnabled: !!(payload && payload.compareEnabled),
+    }));
+  } catch { /* ignore quota / private mode failures */ }
+}
+
+function resolveCharacterNamesBySlug(slug) {
+  if (!slug) return { jp: '', en: '' };
+  const card = document.querySelector(`.char-card[data-char="${slug}"]`);
+  if (!card) {
+    return { jp: slug, en: slug.toUpperCase() };
+  }
+  const spanEl = card.querySelector('span');
+  const imgEl = card.querySelector('img');
+  const jp = card.dataset.nameJp || ((spanEl && spanEl.textContent) || slug);
+  const en = card.dataset.nameEn || ((imgEl && imgEl.getAttribute('alt')) || slug.toUpperCase());
+  return { jp, en };
+}
+
 function normalizeOfflineResourcePath(path) {
   return String(path || '')
     .replace(/^[./]+/, '')
@@ -51,38 +110,86 @@ function normalizeOfflineResourcePath(path) {
     .trim();
 }
 
+function loadOfflineBundleScript() {
+  if (
+    typeof window !== 'undefined'
+    && window.OFFLINE_DATA_BUNDLE
+    && typeof window.OFFLINE_DATA_BUNDLE === 'object'
+  ) {
+    return Promise.resolve(window.OFFLINE_DATA_BUNDLE);
+  }
+  if (offlineBundlePromise) return offlineBundlePromise;
+
+  offlineBundlePromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'assets/js/offline_data_bundle.js';
+    script.defer = true;
+    script.onload = () => resolve(window.OFFLINE_DATA_BUNDLE || {});
+    script.onerror = () => reject(new Error('Failed to load offline_data_bundle.js'));
+    document.head.appendChild(script);
+  });
+
+  return offlineBundlePromise;
+}
+
+function getOfflineBundle() {
+  return (
+    typeof window !== 'undefined'
+    && window.OFFLINE_DATA_BUNDLE
+    && typeof window.OFFLINE_DATA_BUNDLE === 'object'
+  )
+    ? window.OFFLINE_DATA_BUNDLE
+    : null;
+}
+
 function getOfflineResourceText(path) {
-  if (!OFFLINE_DATA_BUNDLE) return null;
+  const bundle = getOfflineBundle();
+  if (!bundle) return null;
   const normalized = normalizeOfflineResourcePath(path);
   if (!normalized) return null;
-  return Object.prototype.hasOwnProperty.call(OFFLINE_DATA_BUNDLE, normalized)
-    ? OFFLINE_DATA_BUNDLE[normalized]
+  return Object.prototype.hasOwnProperty.call(bundle, normalized)
+    ? bundle[normalized]
     : null;
 }
 
 async function loadTextResource(path) {
-  const offlineText = getOfflineResourceText(path);
-  if (offlineText != null) {
-    return offlineText;
-  }
-  const res = await fetch(path, { cache: 'no-cache' });
-  if (!res.ok) {
-    throw new Error(`Missing ${path}`);
-  }
-  return await res.text();
+  const bundledText = getOfflineResourceText(path);
+  if (bundledText != null) return bundledText;
+
+  try {
+    const res = await fetch(path, { cache: 'no-cache' });
+    if (res.ok) return await res.text();
+  } catch { /* fall through to lazy offline bundle load */ }
+
+  try {
+    await loadOfflineBundleScript();
+    const offlineText = getOfflineResourceText(path);
+    if (offlineText != null) return offlineText;
+  } catch { /* keep final error below */ }
+
+  throw new Error(`Missing ${path}`);
 }
 
 async function loadJsonResource(path) {
-  const offlineText = getOfflineResourceText(path);
-  if (offlineText != null) {
-    return JSON.parse(offlineText);
+  const bundledText = getOfflineResourceText(path);
+  if (bundledText != null) {
+    return JSON.parse(bundledText);
   }
-  const res = await fetch(path, { cache: 'no-cache' });
-  if (!res.ok) {
-    throw new Error(`Missing ${path}`);
-  }
-  return await res.json();
+
+  try {
+    const res = await fetch(path, { cache: 'no-cache' });
+    if (res.ok) return await res.json();
+  } catch { /* fall through to lazy offline bundle load */ }
+
+  try {
+    await loadOfflineBundleScript();
+    const offlineText = getOfflineResourceText(path);
+    if (offlineText != null) return JSON.parse(offlineText);
+  } catch { /* keep final error below */ }
+
+  throw new Error(`Missing ${path}`);
 }
+
 const CHARACTER_ART_PRESETS = {
   "ryu": {
     "top": "min(1.04167vw, 20px)",
@@ -411,7 +518,6 @@ async function loadCharacterData(char = '', control = 'classic') {
   const requestId = ++loadDataRequestId;
   const selectedVersion = frameDataViewState.selectedVersion || DEFAULT_FRAME_DATA_VERSION;
   const activeLang = getCurrentLang();
-  const pathCandidates = getFrameDataPathCandidatesForVersion(char, control, selectedVersion, activeLang);
   const tbody = document.getElementById('frameBody');
   const thead = document.getElementById('frameHeader');
   const table = document.querySelector('.frame-table');
@@ -436,9 +542,7 @@ async function loadCharacterData(char = '', control = 'classic') {
     return;
   }
   try {
-    const { data: raw } = await fetchFrameJsonByCandidates(pathCandidates);
-    const version = extractFrameDataVersion(raw);
-    const moves = normalizeMoves(raw);
+    const { version, moves } = await getFrameMovesCached(char, control, selectedVersion, activeLang);
     if (requestId !== loadDataRequestId) return;
     renderFrameDataVersion(selectedVersion || version);
     let diffMap = new Map();
@@ -446,15 +550,13 @@ async function loadCharacterData(char = '', control = 'classic') {
       && frameDataViewState.compareVersion
       && frameDataViewState.compareVersion !== selectedVersion) {
       try {
-        const compareCandidates = getFrameDataPathCandidatesForVersion(
+        const compareData = await getFrameMovesCached(
           char,
           control,
           frameDataViewState.compareVersion,
           activeLang
         );
-        const { data: compareRaw } = await fetchFrameJsonByCandidates(compareCandidates);
-        const compareMoves = normalizeMoves(compareRaw);
-        diffMap = buildFrameDiffMap(moves, compareMoves);
+        diffMap = buildFrameDiffMap(moves, compareData.moves);
       } catch (compareErr) {
         console.warn('Frame compare data load failed:', compareErr);
       }
@@ -717,7 +819,7 @@ const I18N_CORE = {
     'combo.rows.frame': 'フレームメーター',
     'combo.rows.buttons': 'ボタン',
     'combo.rows.notes': '備考',
-    'combo.rows.all': 'ALL',
+    'combo.rows.all': '全表示',
     'combo.filter.apply': '適用',
     'combo.filter.clear': 'クリア',
     'help.button': 'ヘルプ',
@@ -760,37 +862,38 @@ const I18N_CORE = {
     'help.quickstart.1': 'キャラ画像をクリックしてキャラを切り替えます。',
     'help.quickstart.2': 'Classic/Modern を選んでコンボ表を編集します。',
     'help.quickstart.3': 'Import / Export でデータを入出力できます。',
-    'update.button': '更新履歴',
-    'update.title': '更新履歴',
-    'update.description': 'Lab Monster SF6 の更新履歴です。',
-    'update.version_label': 'バージョン',
-    'update.date_label': '日付',
+    'update.button': '\u66f4\u65b0\u5c65\u6b74',
+    'update.title': '\u66f4\u65b0\u5c65\u6b74',
+    'update.description': 'Lab Monster SF6 \u306e\u66f4\u65b0\u5c65\u6b74\u3067\u3059\u3002',
+    'update.version_label': '\u30d0\u30fc\u30b8\u30e7\u30f3',
+    'update.date_label': '\u65e5\u4ed8',
     'update.notes.title': 'ツール更新履歴',
     'update.notes.1': 'v1.0.0 (2026-02-16): 基礎的なコンボ表とフレーム表の機能をリリース。',
 
-    'info.button': '情報',
-    'offline.button': 'オフライン版',
+    'info.button': '\u60c5\u5831',
+    'offline.button': '\u30aa\u30d5\u30e9\u30a4\u30f3\u7248',
     'offline.warning': 'オンライン版とオフライン版のセーブデータは共有されません。\n切り替え前にバックアップを出力してください。\nオフライン版をダウンロードしますか？',
     'info.title': 'INFORMATION',
-    'info.description': '連絡先、関連リンク、クレジット。',
-    'info.team.title': 'チーム',
+    'info.description': '\u9023\u7d61\u5148\u3001\u95a2\u9023\u30ea\u30f3\u30af\u3001\u30af\u30ec\u30b8\u30c3\u30c8\u3002',
+    'info.team.title': '\u30c1\u30fc\u30e0',
     'info.team.body': 'Marshial Law: Lab Monster SF6 の企画・開発担当。コンボ研究と実戦準備に使える実用ツールを継続的に改善してきます。傍らでSF6のMOD制作も行っています。',
-    'info.contact.title': '連絡先',
+    'info.contact.title': '\u9023\u7d61\u5148',
     'info.contact.body': '要望やフィードバックはこちらから。',
     'info.contact.discord_label': 'Discord',
-    'info.contact.email_label': 'メール',
-    'info.links.title': 'リンク',
-    'info.links.patch': '公式 SF6 パッチノート',
-    'info.links.site': '公式 SF6 サイト',
-    'info.links.offline': 'オフライン版ダウンロード',
-    'info.thanks.title': '謝辞',
+    'info.contact.email_label': '\u30e1\u30fc\u30eb',
+    'info.contact.report_label': '\u4e0d\u5177\u5408\u5831\u544a',
+    'info.links.title': '\u30ea\u30f3\u30af',
+    'info.links.patch': '\u516c\u5f0f SF6 \u30d1\u30c3\u30c1\u30ce\u30fc\u30c8',
+    'info.links.site': '\u516c\u5f0f SF6 \u30b5\u30a4\u30c8',
+    'info.links.offline': '\u30aa\u30d5\u30e9\u30a4\u30f3\u7248\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9',
+    'info.thanks.title': '\u8b1d\u8f9e',
     'info.thanks.body': '検証・データ共有・フィードバックを提供してくれるSF6コミュニティに感謝。',
-    'info.donate.title': 'サポート',
+    'info.donate.title': '\u30b5\u30dd\u30fc\u30c8',
     'info.donate.bmc': 'Buy Me a Coffee',
     'info.donate.patreon': 'Patreon',
     'info.donate.kofi': 'Ko-fi',
 
-    'info.roadmap.title': '今後の予定',
+    'info.roadmap.title': '\u4eca\u5f8c\u306e\u4e88\u5b9a',
     'info.roadmap.1': 'データ入力の負担を減らすために、自動計算と自動入力機能。',
     'info.roadmap.2': 'クラシックとモダンの間で、コマンド・ボタン・ダメージを自動変換する機能。',
     'info.roadmap.3': 'コンボが成立可能かや、操作タイプ別に自動判定する機能。',
@@ -798,6 +901,13 @@ const I18N_CORE = {
     'info.roadmap.5': 'コンボ自動生成機能の検討（おそらく実装しない）',
     'info.roadmap.6': 'コンボ品質の分析・レポート機能の検討（おそらく実装しない）',
     'info.roadmap.note': 'ロードマップは段階的に更新され、内容は変更される場合があります。',
+    'onboarding.title': 'クイックスタート',
+    'onboarding.desc': '最初にこの4点だけ確認してください。',
+    'onboarding.item.1': 'Classic / Modern はキャラ画像の下にあるタブで切り替えます。',
+    'onboarding.item.2': 'コンボは「新規」で行を作成し、コマンド欄に入力します。',
+    'onboarding.item.3': '検索と詳細検索で必要なルートだけを絞り込めます。',
+    'onboarding.item.4': 'データはブラウザに保存されます。共有・退避はEXPORTを使ってください。',
+    'onboarding.close': '開始する',
 
   },
   en: {
@@ -897,6 +1007,7 @@ const I18N_CORE = {
     'info.contact.body': 'For requests and feedback, please use your preferred contact channel.',
     'info.contact.discord_label': 'Discord',
     'info.contact.email_label': 'Email',
+    'info.contact.report_label': 'Report Issue',
     'info.links.title': 'LINKS',
     'info.links.patch': 'Official SF6 Patch Notes',
     'info.links.site': 'Official SF6 Website',
@@ -916,6 +1027,13 @@ const I18N_CORE = {
     'info.roadmap.5': 'Function to automatically generate combo (probably not).',
     'info.roadmap.6': 'Function to analyze and report quality combos (probably not).',
     'info.roadmap.note': 'Roadmap is iterative and subject to change.',
+    'onboarding.title': 'Quick Start',
+    'onboarding.desc': 'Check these four points first.',
+    'onboarding.item.1': 'Switch Classic / Modern with the tabs under the character portrait.',
+    'onboarding.item.2': 'Create a row with Create, then enter your route in Command.',
+    'onboarding.item.3': 'Use Search and Advanced Search to filter only the routes you need.',
+    'onboarding.item.4': 'Data is stored in your browser. Use EXPORT for backup and sharing.',
+    'onboarding.close': 'Get Started',
 
   }
 
@@ -966,6 +1084,7 @@ let helpTranslations = (window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRAN
   ? window.HELP_TRANSLATIONS_DATA
   : { jp: {} };
 let helpTranslationsPromise = null;
+let helpTranslationsScriptPromise = null;
 const helpTextOriginalCache = new WeakMap();
 const helpElementOriginalHtmlCache = new WeakMap();
 
@@ -1026,6 +1145,500 @@ function normalizeGameVersion(value) {
   return raw.replace(/^v(?:er(?:sion)?)?\.?\s*/i, '');
 }
 
+function getCurrentAppVersion() {
+  const bodyVersion = document.body?.getAttribute('data-version');
+  if (bodyVersion && String(bodyVersion).trim()) {
+    return String(bodyVersion).trim();
+  }
+  const metaVersion = document
+    .querySelector('meta[name="lm-version"]')
+    ?.getAttribute('content');
+  if (metaVersion && String(metaVersion).trim()) {
+    return String(metaVersion).trim();
+  }
+  return APP_VERSION_FALLBACK;
+}
+
+function parseSemver(value) {
+  const cleaned = String(value || '')
+    .trim()
+    .replace(/^v/i, '');
+  const parts = cleaned.split('.');
+  const normalized = [0, 0, 0];
+  for (let i = 0; i < normalized.length; i += 1) {
+    const parsed = Number.parseInt(parts[i] || '0', 10);
+    normalized[i] = Number.isFinite(parsed) ? parsed : 0;
+  }
+  return normalized;
+}
+
+function cmpSemver(a, b) {
+  const av = parseSemver(a);
+  const bv = parseSemver(b);
+  for (let i = 0; i < 3; i += 1) {
+    if (av[i] > bv[i]) return 1;
+    if (av[i] < bv[i]) return -1;
+  }
+  return 0;
+}
+
+function getLastSeenAppVersion() {
+  try {
+    return String(localStorage.getItem(LAST_SEEN_VERSION_KEY) || '').trim();
+  } catch {
+    return '';
+  }
+}
+
+function setLastSeenAppVersion(version) {
+  try {
+    localStorage.setItem(LAST_SEEN_VERSION_KEY, String(version || '').trim());
+  } catch { /* ignore localStorage write failures */ }
+}
+
+function normalizeMainView(value) {
+  return String(value || '').toLowerCase() === 'frame' ? 'frame' : 'combos';
+}
+
+function loadPersistedMainView() {
+  try {
+    return normalizeMainView(localStorage.getItem(MAIN_VIEW_STATE_KEY));
+  } catch {
+    return 'combos';
+  }
+}
+
+function savePersistedMainView(viewKey) {
+  try {
+    localStorage.setItem(MAIN_VIEW_STATE_KEY, normalizeMainView(viewKey));
+  } catch { /* ignore quota / private mode failures */ }
+}
+
+function normalizeRoadmapStatus(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw) return 'planned';
+  if (raw === 'in-progress' || raw === 'in_progress' || raw === 'progress' || raw === 'inprogress') {
+    return 'in-progress';
+  }
+  if (raw === 'done' || raw === 'complete' || raw === 'completed') {
+    return 'done';
+  }
+  return 'planned';
+}
+
+function parseUpdatesText(source) {
+  const output = {
+    current_version: APP_VERSION,
+    updates: [],
+    roadmap: { jp: [], en: [] },
+  };
+  const lines = String(source || '').split(/\r?\n/);
+  let currentSection = '';
+  let currentLang = '';
+  let currentUpdate = null;
+  let currentRoadmapTrack = '';
+
+  lines.forEach((rawLine) => {
+    const line = String(rawLine || '').trim();
+    if (!line) return;
+
+    const versionMatch = line.match(/^CURRENT_VERSION\s*:\s*(.+)$/i);
+    if (versionMatch) {
+      output.current_version = normalizeGameVersion(versionMatch[1]) || APP_VERSION;
+      return;
+    }
+
+    const updateMatch = line.match(/^##\s*UPDATE\s+([^\s|]+)\s*\|\s*([0-9]{4}-[0-9]{2}-[0-9]{2})(?:\s*\|\s*(.+))?$/i);
+    if (updateMatch) {
+      const version = normalizeGameVersion(updateMatch[1]) || '';
+      const date = String(updateMatch[2] || '').trim();
+      const flagsRaw = String(updateMatch[3] || '').trim();
+      const updateEntry = {
+        version,
+        date,
+        important: false,
+        tags: [],
+        items: { jp: [], en: [] },
+      };
+      if (flagsRaw) {
+        flagsRaw.split('|').map((part) => part.trim()).filter(Boolean).forEach((flag) => {
+          if (/^important$/i.test(flag)) {
+            updateEntry.important = true;
+            return;
+          }
+          const tagsMatch = flag.match(/^tags?\s*:\s*(.+)$/i);
+          if (tagsMatch) {
+            updateEntry.tags = tagsMatch[1]
+              .split(',')
+              .map((tag) => String(tag || '').trim())
+              .filter(Boolean);
+          }
+        });
+      }
+      output.updates.push(updateEntry);
+      currentUpdate = updateEntry;
+      currentSection = 'update';
+      currentLang = '';
+      currentRoadmapTrack = '';
+      return;
+    }
+
+    const roadmapMatch = line.match(/^##\s*ROADMAP\s+(REALISTIC|STRETCH)\s*$/i);
+    if (roadmapMatch) {
+      currentSection = 'roadmap';
+      currentRoadmapTrack = String(roadmapMatch[1] || '').trim().toLowerCase() === 'stretch'
+        ? 'stretch'
+        : 'realistic';
+      currentLang = '';
+      currentUpdate = null;
+      return;
+    }
+
+    const langMatch = line.match(/^###\s*(JP|EN)\s*$/i);
+    if (langMatch) {
+      currentLang = String(langMatch[1] || '').trim().toLowerCase();
+      return;
+    }
+
+    const bulletMatch = line.match(/^-\s+(.+)$/);
+    if (!bulletMatch || !currentLang) return;
+    const bulletBody = String(bulletMatch[1] || '').trim();
+    if (!bulletBody) return;
+
+    if (currentSection === 'update' && currentUpdate) {
+      currentUpdate.items[currentLang] = currentUpdate.items[currentLang] || [];
+      currentUpdate.items[currentLang].push(bulletBody);
+      return;
+    }
+
+    if (currentSection === 'roadmap' && currentRoadmapTrack) {
+      let status = 'planned';
+      let content = bulletBody;
+      const statusMatch = content.match(/^\[([^\]]+)\]\s*(.*)$/);
+      if (statusMatch) {
+        status = normalizeRoadmapStatus(statusMatch[1]);
+        content = String(statusMatch[2] || '').trim();
+      }
+      const parts = content.split(/\s*::\s*/);
+      const title = String(parts[0] || '').trim();
+      const notes = String(parts.slice(1).join(' :: ') || '').trim();
+      if (!title) return;
+      output.roadmap[currentLang] = output.roadmap[currentLang] || [];
+      output.roadmap[currentLang].push({
+        track: currentRoadmapTrack,
+        status,
+        title,
+        notes,
+      });
+    }
+  });
+
+  return output;
+}
+
+function normalizeUpdatesPayload(raw) {
+  const payload = (raw && typeof raw === 'object') ? raw : {};
+  const updates = Array.isArray(payload.updates) ? payload.updates : [];
+  const normalizedUpdates = updates
+    .map((entry) => {
+      const version = String(entry && entry.version ? entry.version : '').trim();
+      if (!version) return null;
+      const items = (entry && entry.items && typeof entry.items === 'object') ? entry.items : {};
+      return {
+        version,
+        date: String(entry && entry.date ? entry.date : '').trim(),
+        important: !!(entry && entry.important),
+        tags: Array.isArray(entry && entry.tags) ? entry.tags.filter(Boolean).map((tag) => String(tag)) : [],
+        items: {
+          jp: Array.isArray(items.jp) ? items.jp.filter(Boolean).map((item) => String(item)) : [],
+          en: Array.isArray(items.en) ? items.en.filter(Boolean).map((item) => String(item)) : [],
+        },
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => cmpSemver(b.version, a.version));
+  const roadmapRaw = (payload.roadmap && typeof payload.roadmap === 'object') ? payload.roadmap : {};
+  const normalizeRoadmapEntries = (entries) => (Array.isArray(entries) ? entries : [])
+    .map((entry) => ({
+      title: String(entry && entry.title ? entry.title : '').trim(),
+      status: String(entry && entry.status ? entry.status : 'planned').trim().toLowerCase(),
+      track: String(entry && entry.track ? entry.track : 'realistic').trim().toLowerCase() === 'stretch'
+        ? 'stretch'
+        : 'realistic',
+      notes: String(entry && entry.notes ? entry.notes : '').trim(),
+    }))
+    .filter((entry) => entry.title);
+
+  const currentVersion = String(payload.current_version || payload.currentVersion || APP_VERSION).trim() || APP_VERSION;
+
+  return {
+    current_version: currentVersion,
+    updates: normalizedUpdates,
+    roadmap: {
+      jp: normalizeRoadmapEntries(roadmapRaw.jp),
+      en: normalizeRoadmapEntries(roadmapRaw.en),
+    },
+  };
+}
+
+async function ensureUpdatesDataLoaded() {
+  if (updatesDataCache) return updatesDataCache;
+  if (updatesDataPromise) return updatesDataPromise;
+
+  updatesDataPromise = (async () => {
+    try {
+      const rawText = await loadTextResource(UPDATES_TEXT_PATH);
+      if (rawText && String(rawText).trim()) {
+        const parsedText = parseUpdatesText(rawText);
+        updatesDataCache = normalizeUpdatesPayload(parsedText);
+        return updatesDataCache;
+      }
+    } catch (err) {
+      console.warn('updates.txt load failed. Falling back to updates.json.', err);
+    }
+
+    try {
+      const rawJson = await loadJsonResource(UPDATES_DATA_PATH);
+      updatesDataCache = normalizeUpdatesPayload(rawJson);
+      return updatesDataCache;
+    } catch (err) {
+      console.warn('Failed to load updates data. Falling back to minimal payload.', err);
+      updatesDataCache = normalizeUpdatesPayload({
+        current_version: APP_VERSION,
+        updates: [],
+        roadmap: { jp: [], en: [] },
+      });
+      return updatesDataCache;
+    }
+  })();
+
+  return updatesDataPromise;
+}
+
+function getWelcomeLocaleStrings(lang = null) {
+  const active = (lang || getCurrentLang() || 'jp').toLowerCase() === 'en' ? 'en' : 'jp';
+  if (active === 'en') {
+    return {
+      title: 'What\'s new',
+      version: (v) => `Current version: v${v}`,
+      viewFull: 'View full notes',
+      ok: 'OK',
+      skip: 'Don\'t show again for this version',
+      noItems: 'No updates available for this range.',
+      sectionLabel: 'Version',
+      changelogTitle: 'Changelog',
+      roadmapTitle: 'Roadmap',
+      roadmapGroupRealistic: 'Realistic Plan',
+      roadmapGroupStretch: 'Stretch / Long-shot',
+      status: {
+        planned: 'Planned',
+        'in-progress': 'In Progress',
+        done: 'Done',
+      },
+    };
+  }
+  return {
+    title: '\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8\u60c5\u5831',
+    version: (v) => `\u73fe\u5728\u306e\u30d0\u30fc\u30b8\u30e7\u30f3: v${v}`,
+    viewFull: '\u8a73\u7d30\u3092\u898b\u308b',
+    ok: 'OK',
+    skip: '\u3053\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u3067\u306f\u4eca\u5f8c\u8868\u793a\u3057\u306a\u3044',
+    noItems: '\u8868\u793a\u3067\u304d\u308b\u66f4\u65b0\u9805\u76ee\u304c\u3042\u308a\u307e\u305b\u3093\u3002',
+    sectionLabel: '\u30d0\u30fc\u30b8\u30e7\u30f3',
+    changelogTitle: '\u66f4\u65b0\u5c65\u6b74',
+    roadmapTitle: '\u4eca\u5f8c\u306e\u4e88\u5b9a',
+    roadmapGroupRealistic: '\u5b9f\u73fe\u6027\u306e\u9ad8\u3044\u8a08\u753b',
+    roadmapGroupStretch: '\u30b9\u30c8\u30ec\u30c3\u30c1\uff08\u9577\u671f/\u9ad8\u96e3\u5ea6\uff09',
+    status: {
+      planned: '\u4e88\u5b9a',
+      'in-progress': '\u9032\u884c\u4e2d',
+      done: '\u5b8c\u4e86',
+    },
+  };
+}
+
+function getLocalizedUpdateItems(entry, lang = null) {
+  const active = (lang || getCurrentLang() || 'jp').toLowerCase() === 'en' ? 'en' : 'jp';
+  const preferred = Array.isArray(entry?.items?.[active]) ? entry.items[active] : [];
+  if (preferred.length) return preferred;
+  const fallback = active === 'en' ? entry?.items?.jp : entry?.items?.en;
+  return Array.isArray(fallback) ? fallback : [];
+}
+
+function buildWelcomeUpdateGroups(data, lang = null) {
+  const current = APP_VERSION;
+  const lastSeen = getLastSeenAppVersion();
+  if (lastSeen && cmpSemver(lastSeen, current) === 0) return [];
+
+  const updates = Array.isArray(data?.updates) ? data.updates : [];
+  if (!updates.length) return [];
+
+  if (!lastSeen) {
+    const currentEntry = updates.find((entry) => cmpSemver(entry.version, current) === 0) || updates[0];
+    if (!currentEntry) return [];
+    const localized = getLocalizedUpdateItems(currentEntry, lang);
+    const picked = currentEntry.important ? localized : localized.slice(0, 5);
+    return picked.length
+      ? [{ ...currentEntry, displayItems: picked }]
+      : [];
+  }
+
+  let remaining = WELCOME_MAX_ITEMS;
+  return updates
+    .filter((entry) => cmpSemver(entry.version, lastSeen) > 0 && cmpSemver(entry.version, current) <= 0)
+    .sort((a, b) => cmpSemver(b.version, a.version))
+    .map((entry) => {
+      const localized = getLocalizedUpdateItems(entry, lang);
+      if (!localized.length || remaining <= 0) return null;
+      const sliced = localized.slice(0, remaining);
+      remaining -= sliced.length;
+      return { ...entry, displayItems: sliced };
+    })
+    .filter(Boolean);
+}
+
+function renderWelcomePopup(lang = null) {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+  const strings = getWelcomeLocaleStrings(lang);
+  const titleEl = document.getElementById('welcomeTitle');
+  const versionEl = document.getElementById('welcomeVersionLine');
+  const listEl = document.getElementById('welcomeUpdateList');
+  const skipLabelEl = document.getElementById('welcomeSkipLabel');
+  const viewFullBtn = document.getElementById('welcomeViewFull');
+  const okBtn = document.getElementById('welcomeOk');
+
+  if (titleEl) titleEl.textContent = strings.title;
+  if (versionEl) versionEl.textContent = strings.version(APP_VERSION);
+  if (skipLabelEl) skipLabelEl.textContent = strings.skip;
+  if (viewFullBtn) viewFullBtn.textContent = strings.viewFull;
+  if (okBtn) okBtn.textContent = strings.ok;
+  if (!listEl) return;
+
+  if (!pendingWelcomeGroups.length) {
+    listEl.innerHTML = `<li>${escapeHtml(strings.noItems)}</li>`;
+    return;
+  }
+
+  const chunks = [];
+  pendingWelcomeGroups.forEach((group) => {
+    let items = Array.isArray(group.displayItems) ? group.displayItems : [];
+    const sourceEntry = updatesDataCache?.updates?.find?.((entry) => entry.version === group.version);
+    if (sourceEntry && items.length) {
+      const localized = getLocalizedUpdateItems(sourceEntry, lang);
+      if (localized.length) {
+        items = localized.slice(0, items.length);
+      }
+    }
+    if (!items.length) return;
+    chunks.push(
+      `<li class="welcome-group-header"><strong>${escapeHtml(`${strings.sectionLabel} v${group.version}`)}</strong>${group.date ? ` <span class="welcome-group-date">${escapeHtml(group.date)}</span>` : ''}</li>`
+    );
+    items.forEach((item) => {
+      chunks.push(`<li>${escapeHtml(item)}</li>`);
+    });
+  });
+  listEl.innerHTML = chunks.join('');
+}
+
+async function renderInfoUpdatesAndRoadmap(lang = null) {
+  const updatesRoot = document.getElementById('infoUpdates');
+  const roadmapRoot = document.getElementById('infoRoadmap');
+  if (!updatesRoot && !roadmapRoot) return;
+
+  const data = await ensureUpdatesDataLoaded();
+  const active = (lang || getCurrentLang() || 'jp').toLowerCase() === 'en' ? 'en' : 'jp';
+  const strings = getWelcomeLocaleStrings(active);
+
+  if (updatesRoot) {
+    const updateBlocks = [];
+    data.updates.forEach((entry) => {
+      const items = getLocalizedUpdateItems(entry, active);
+      if (!items.length) return;
+      const itemHtml = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+      const tagsHtml = entry.tags.length
+        ? `<div class="info-tag-list">${entry.tags.map((tag) => `<span class="info-tag">${escapeHtml(tag)}</span>`).join('')}</div>`
+        : '';
+      updateBlocks.push(
+        `<article class="info-update-entry">
+          <header class="info-update-head">
+            <strong>v${escapeHtml(entry.version)}</strong>
+            ${entry.date ? `<time datetime="${escapeHtml(entry.date)}">${escapeHtml(entry.date)}</time>` : ''}
+          </header>
+          ${tagsHtml}
+          <ul class="welcome-list">${itemHtml}</ul>
+        </article>`
+      );
+    });
+    updatesRoot.innerHTML = updateBlocks.length
+      ? updateBlocks.join('')
+      : `<p class="help-note">${escapeHtml(strings.noItems)}</p>`;
+  }
+
+  if (roadmapRoot) {
+    const roadmapEntries = Array.isArray(data.roadmap?.[active]) ? data.roadmap[active] : [];
+    const grouped = {
+      realistic: roadmapEntries.filter((entry) => (entry.track || 'realistic') !== 'stretch'),
+      stretch: roadmapEntries.filter((entry) => (entry.track || 'realistic') === 'stretch'),
+    };
+    const buildGroupHtml = (entries, groupLabel) => {
+      if (!entries.length) return '';
+      const roadmapHtml = entries.map((entry) => {
+        const statusKey = entry.status === 'in_progress' ? 'in-progress' : entry.status;
+        const label = strings.status[statusKey] || strings.status.planned;
+        return `<li class="info-roadmap-item">
+          <span class="info-status info-status-${escapeHtml(statusKey)}">${escapeHtml(label)}</span>
+          <div class="info-roadmap-copy">
+            <strong>${escapeHtml(entry.title)}</strong>
+            ${entry.notes ? `<p>${escapeHtml(entry.notes)}</p>` : ''}
+          </div>
+        </li>`;
+      }).join('');
+      return `<section class="info-roadmap-group"><h4 class="info-roadmap-group-title">${escapeHtml(groupLabel)}</h4><ul class="info-roadmap-list">${roadmapHtml}</ul></section>`;
+    };
+
+    const realisticHtml = buildGroupHtml(grouped.realistic, strings.roadmapGroupRealistic || strings.roadmapTitle);
+    const stretchHtml = buildGroupHtml(grouped.stretch, strings.roadmapGroupStretch || strings.roadmapTitle);
+    const finalHtml = `${realisticHtml}${stretchHtml}`;
+    roadmapRoot.innerHTML = finalHtml
+      ? finalHtml
+      : `<p class="help-note">${escapeHtml(strings.noItems)}</p>`;
+  }
+}
+
+function openWelcomeOverlay() {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+  const skipCheckbox = document.getElementById('welcomeSkipVersion');
+  if (skipCheckbox) skipCheckbox.checked = false;
+  renderWelcomePopup(getCurrentLang());
+  overlay.classList.remove('hidden');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function closeWelcomeOverlay({ markSeen = false } = {}) {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+  if (markSeen) setLastSeenAppVersion(APP_VERSION);
+  overlay.classList.add('hidden');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+async function maybeShowWelcomePopup() {
+  try {
+    if (localStorage.getItem(FIRST_RUN_GUIDE_KEY) !== '1') return;
+  } catch { /* ignore */ }
+  const lastSeen = getLastSeenAppVersion();
+  if (lastSeen && cmpSemver(lastSeen, APP_VERSION) === 0) return;
+  const data = await ensureUpdatesDataLoaded();
+  pendingWelcomeGroups = buildWelcomeUpdateGroups(data, getCurrentLang());
+  if (!pendingWelcomeGroups.length) {
+    setLastSeenAppVersion(APP_VERSION);
+    return;
+  }
+  openWelcomeOverlay();
+}
+
 function extractFrameDataVersion(raw) {
   if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
     const meta = raw.meta || raw._meta || raw.info || {};
@@ -1040,10 +1653,24 @@ function extractFrameDataVersion(raw) {
   return DEFAULT_FRAME_DATA_VERSION;
 }
 
+function renderHeaderGameVersion(version = null, lang = null) {
+  const badge = document.getElementById('footerGameVersionText');
+  if (!badge) return;
+  const value = normalizeGameVersion(version || currentFrameDataVersion) || DEFAULT_FRAME_DATA_VERSION;
+  badge.textContent = `Game Ver: ${value}`;
+}
+
 function renderFrameDataVersion(version = null) {
   if (version != null) {
     currentFrameDataVersion = normalizeGameVersion(version) || DEFAULT_FRAME_DATA_VERSION;
   }
+  if (document && document.body) {
+    document.body.dataset.frameDataVersion = currentFrameDataVersion;
+  }
+  renderHeaderGameVersion(currentFrameDataVersion, getCurrentLang());
+  document.dispatchEvent(new CustomEvent('lm:frame-version-changed', {
+    detail: { version: currentFrameDataVersion },
+  }));
 }
 
 function versionSortValue(versionId) {
@@ -1106,6 +1733,30 @@ async function fetchFrameJsonByCandidates(paths) {
   }
   if (lastError) throw lastError;
   throw new Error('No frame data path candidates available.');
+}
+
+async function getFrameMovesCached(char, control, versionId, lang) {
+  const safeChar = String(char || '').trim();
+  const safeControl = String(control || 'classic').trim();
+  const safeVersion = normalizeGameVersion(versionId) || DEFAULT_FRAME_DATA_VERSION;
+  const safeLang = (lang || getCurrentLang() || 'jp').toLowerCase() === 'en' ? 'en' : 'jp';
+  const cacheKey = `${safeLang}|${safeVersion}|${safeChar}|${safeControl}`;
+  if (frameMovesCache.has(cacheKey)) {
+    return frameMovesCache.get(cacheKey);
+  }
+  const pathCandidates = getFrameDataPathCandidatesForVersion(
+    safeChar,
+    safeControl,
+    safeVersion,
+    safeLang
+  );
+  const { data: raw } = await fetchFrameJsonByCandidates(pathCandidates);
+  const cached = {
+    version: extractFrameDataVersion(raw),
+    moves: normalizeMoves(raw),
+  };
+  frameMovesCache.set(cacheKey, cached);
+  return cached;
 }
 
 async function ensureFrameDataVersionsLoaded() {
@@ -1329,9 +1980,49 @@ function preserveHelpTextWhitespace(original, translated) {
 }
 
 function ensureHelpTranslationsLoaded() {
-  if (!helpTranslationsPromise) {
-    helpTranslationsPromise = Promise.resolve(helpTranslations);
+  if (window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object') {
+    helpTranslations = window.HELP_TRANSLATIONS_DATA;
+    return Promise.resolve(helpTranslations);
   }
+  if (helpTranslationsPromise) return helpTranslationsPromise;
+
+  if (!helpTranslationsScriptPromise) {
+    helpTranslationsScriptPromise = new Promise((resolve, reject) => {
+      const src = 'assets/js/help_translations_data.js';
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === 'true') {
+          resolve();
+          return;
+        }
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.onload = () => {
+        script.dataset.loaded = 'true';
+        resolve();
+      };
+      script.onerror = () => reject(new Error(`Failed to load ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
+  helpTranslationsPromise = helpTranslationsScriptPromise
+    .then(() => {
+      helpTranslations = (window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object')
+        ? window.HELP_TRANSLATIONS_DATA
+        : { jp: {} };
+      return helpTranslations;
+    })
+    .catch(() => {
+      helpTranslations = helpTranslations && typeof helpTranslations === 'object' ? helpTranslations : { jp: {} };
+      return helpTranslations;
+    });
+
   return helpTranslationsPromise;
 }
 
@@ -1370,7 +2061,11 @@ function applyHelpTextLanguage(lang, skipFetch = false) {
   if (!helpView) return;
 
   if (!skipFetch) {
+    const isHelpActive = document.body.getAttribute('data-view') === 'help';
+    const hasInline = window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object';
+    if (!isHelpActive && !hasInline && !helpTranslationsPromise) return;
     ensureHelpTranslationsLoaded().then(() => applyHelpTextLanguage(active, true));
+    return;
   }
 
   const dict = (helpTranslations && helpTranslations[active]) || {};
@@ -1527,6 +2222,12 @@ function initLanguageToggle() {
     applyCoreI18n(nextLang);
     applyOfficialLinks(nextLang);
     applyHelpTextLanguage(nextLang);
+    if (updatesDataCache) {
+      renderInfoUpdatesAndRoadmap(nextLang).catch((err) => {
+        console.warn('Failed to rerender updates/roadmap for language switch:', err);
+      });
+    }
+    renderWelcomePopup(nextLang);
     applyFrameHeaderLanguage(nextLang);
     renderFrameDataVersion();
     // Reload current frame table immediately so locale-specific data swaps without requiring mode/character changes.
@@ -1554,24 +2255,42 @@ function initLanguageToggle() {
 }
 
 function initInfoModals() {
-  const updateOverlay = document.getElementById('updateOverlay');
-  const openOverlay = (overlay) => {
-    if (!overlay) return;
-    overlay.classList.remove('hidden');
-    overlay.setAttribute('aria-hidden', 'false');
-  };
-  const closeOverlay = (overlay) => {
-    if (!overlay) return;
-    overlay.classList.add('hidden');
-    overlay.setAttribute('aria-hidden', 'true');
-  };
+  const welcomeOverlay = document.getElementById('welcomeOverlay');
   const infoBtn = document.getElementById('appInfoBtn');
   const helpBtn = document.getElementById('appHelpBtn');
-  const updateBtn = document.getElementById('appUpdateBtn');
-  const updateClose = document.getElementById('updateClose');
+  const welcomeClose = document.getElementById('welcomeClose');
+  const welcomeOk = document.getElementById('welcomeOk');
+  const welcomeViewFull = document.getElementById('welcomeViewFull');
+  const welcomeSkipCheckbox = document.getElementById('welcomeSkipVersion');
   const frameOfficialPatchBtn = document.getElementById('frameOfficialPatchBtn');
   const appOfflineBtn = document.getElementById('appOfflineBtn');
   const infoOfflineDownloadLink = document.getElementById('infoOfflineDownloadLink');
+  const infoReportLink = document.getElementById('infoReportLink');
+
+  const scrollInfoSection = (targetId, behavior = 'smooth') => {
+    const infoView = document.getElementById('infoView');
+    if (!infoView || !targetId) return;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    const targetRect = target.getBoundingClientRect();
+    const viewRect = infoView.getBoundingClientRect();
+    const nextTop = infoView.scrollTop + (targetRect.top - viewRect.top) - 10;
+    infoView.scrollTo({ top: Math.max(0, nextTop), behavior });
+  };
+
+  const openInfoSection = (targetId = 'info-team', options = {}) => {
+    const behavior = options.behavior || 'smooth';
+    if (typeof window.setMainView === 'function') window.setMainView('info');
+    ensureUpdatesDataLoaded()
+      .then(() => renderInfoUpdatesAndRoadmap(getCurrentLang()))
+      .catch((err) => console.warn('Failed to render info updates/roadmap:', err))
+      .finally(() => {
+        requestAnimationFrame(() => {
+          scrollInfoSection(targetId, behavior);
+        });
+      });
+  };
+  window.openInfoSection = openInfoSection;
 
   helpBtn?.addEventListener('click', () => {
     if (typeof window.setMainView === 'function') window.setMainView('help');
@@ -1634,30 +2353,39 @@ function initInfoModals() {
       if (!trigger) return;
       ev.preventDefault();
       const targetId = trigger.getAttribute('data-info-target') || '';
-      const target = targetId ? document.getElementById(targetId) : null;
-      if (!target) return;
-      const targetRect = target.getBoundingClientRect();
-      const viewRect = infoView.getBoundingClientRect();
-      const nextTop = infoView.scrollTop + (targetRect.top - viewRect.top) - 10;
-      infoView.scrollTo({ top: Math.max(0, nextTop), behavior: 'smooth' });
+      if (!targetId) return;
+      if (targetId === 'info-updates' || targetId === 'info-roadmap') {
+        ensureUpdatesDataLoaded()
+          .then(() => renderInfoUpdatesAndRoadmap(getCurrentLang()))
+          .catch((err) => console.warn('Failed to render info updates/roadmap:', err))
+          .finally(() => scrollInfoSection(targetId));
+        return;
+      }
+      scrollInfoSection(targetId);
     });
   }
   if (window.location.hash && /^#help-/.test(window.location.hash)) {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
   infoBtn?.addEventListener('click', () => {
-    if (typeof window.setMainView === 'function') window.setMainView('info');
+    openInfoSection('info-team', { behavior: 'auto' });
   });
-  updateBtn?.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    openOverlay(updateOverlay);
+  const handleWelcomeDismiss = (markSeenDefault = false) => {
+    const markSeen = markSeenDefault || !!welcomeSkipCheckbox?.checked;
+    closeWelcomeOverlay({ markSeen });
+  };
+  welcomeClose?.addEventListener('click', () => handleWelcomeDismiss(false));
+  welcomeOverlay?.querySelector('.modal-backdrop')?.addEventListener('click', () => handleWelcomeDismiss(false));
+  welcomeOk?.addEventListener('click', () => closeWelcomeOverlay({ markSeen: true }));
+  welcomeViewFull?.addEventListener('click', () => {
+    closeWelcomeOverlay({ markSeen: true });
+    openInfoSection('info-updates');
   });
-  updateClose?.addEventListener('click', () => closeOverlay(updateOverlay));
-  updateOverlay?.querySelector('.modal-backdrop')?.addEventListener('click', () => closeOverlay(updateOverlay));
+
   window.addEventListener('keydown', (ev) => {
     if (ev.key !== 'Escape') return;
-    if (updateOverlay && !updateOverlay.classList.contains('hidden')) {
-      closeOverlay(updateOverlay);
+    if (welcomeOverlay && !welcomeOverlay.classList.contains('hidden')) {
+      handleWelcomeDismiss(false);
     }
   });
 
@@ -1683,6 +2411,72 @@ function initInfoModals() {
   };
   bindOfflineDownload(appOfflineBtn);
   bindOfflineDownload(infoOfflineDownloadLink);
+  if (infoReportLink && !infoReportLink.dataset.bound) {
+    infoReportLink.dataset.bound = '1';
+    infoReportLink.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const report = buildReportMailto();
+      const popup = window.open(report, '_blank', 'noopener,noreferrer');
+      if (!popup) window.location.href = report;
+    });
+  }
+}
+
+function buildReportMailto() {
+  const lang = getCurrentLang() === 'en' ? 'en' : 'jp';
+  const selectedChar = (document.body.dataset.currentCharSlug || '').trim() || '(none)';
+  const mode = document.getElementById('tabModern')?.classList.contains('active') ? 'modern' : 'classic';
+  const comboCtx = (typeof window.getComboReportContext === 'function')
+    ? window.getComboReportContext()
+    : null;
+  const lines = [
+    `App Version: v${APP_VERSION}`,
+    `Frame Data Version: ${currentFrameDataVersion || DEFAULT_FRAME_DATA_VERSION}`,
+    `Language: ${lang}`,
+    `Character: ${selectedChar}`,
+    `Mode: ${mode}`,
+  ];
+  if (comboCtx && comboCtx.snippet) {
+    lines.push(`Row: ${comboCtx.row}`);
+    lines.push(`Command: ${comboCtx.snippet.command || ''}`);
+    lines.push(`Notes: ${comboCtx.snippet.notes || ''}`);
+    lines.push(`Authored Version: ${comboCtx.snippet.authoredVersion || ''}`);
+  }
+  const subject = encodeURIComponent(`[Lab Monster SF6] Feedback / Bug Report`);
+  const body = encodeURIComponent(lines.join('\n'));
+  return `mailto:labmonster0718@gmail.com?subject=${subject}&body=${body}`;
+}
+
+function initFirstRunGuide() {
+  const overlay = document.getElementById('onboardingOverlay');
+  if (!overlay) return;
+  if (overlay.dataset.bound !== '1') {
+    overlay.dataset.bound = '1';
+    const close = () => {
+      overlay.classList.add('hidden');
+      overlay.setAttribute('aria-hidden', 'true');
+      try {
+        localStorage.setItem(FIRST_RUN_GUIDE_KEY, '1');
+      } catch { }
+      maybeShowWelcomePopup().catch(() => { /* no-op */ });
+    };
+    const closeBtn = document.getElementById('onboardingClose');
+    const doneBtn = document.getElementById('onboardingDone');
+    closeBtn?.addEventListener('click', close);
+    doneBtn?.addEventListener('click', close);
+    overlay.querySelector('.modal-backdrop')?.addEventListener('click', close);
+    window.addEventListener('keydown', (ev) => {
+      if (ev.key !== 'Escape') return;
+      if (!overlay.classList.contains('hidden')) close();
+    });
+  }
+  let seen = false;
+  try {
+    seen = localStorage.getItem(FIRST_RUN_GUIDE_KEY) === '1';
+  } catch { }
+  if (seen) return;
+  overlay.classList.remove('hidden');
+  overlay.setAttribute('aria-hidden', 'false');
 }
 function fmt(v) { if (v == null || v === '') return ''; const n = Number(v); return isNaN(n) ? v : n.toLocaleString(); }
 function fmtSigned(v) {
@@ -1713,7 +2507,28 @@ function initCharacterControls() {
   const nameJP = document.getElementById('charNameJP');
   const nameEN = document.getElementById('charNameEN');
 
-  const current = { char: '', control: 'classic' };
+  const persistedView = loadPersistedFrameViewState();
+  if (persistedView && persistedView.version) {
+    frameDataViewState.selectedVersion = persistedView.version;
+    if (persistedView.compareVersion) {
+      frameDataViewState.compareVersion = persistedView.compareVersion;
+      frameDataViewState.compareEnabled = !!persistedView.compareEnabled
+        && frameDataViewState.compareVersion !== frameDataViewState.selectedVersion;
+    }
+  }
+  const current = {
+    char: persistedView && persistedView.char ? persistedView.char : '',
+    control: normalizeFrameControlType(persistedView && persistedView.control),
+  };
+  const persistFrameViewState = () => {
+    savePersistedFrameViewState({
+      char: current.char,
+      control: current.control,
+      version: frameDataViewState.selectedVersion,
+      compareVersion: frameDataViewState.compareVersion,
+      compareEnabled: frameDataViewState.compareEnabled,
+    });
+  };
   document.body.dataset.frameCharSelected = current.char ? '1' : '0';
   const refreshFrameData = () => loadCharacterData(current.char, current.control);
 
@@ -1730,6 +2545,7 @@ function initCharacterControls() {
     versionSelect.addEventListener('change', () => {
       frameDataViewState.selectedVersion = normalizeGameVersion(versionSelect.value) || DEFAULT_FRAME_DATA_VERSION;
       populateFrameVersionSelects();
+      persistFrameViewState();
       refreshFrameData();
     });
   }
@@ -1769,6 +2585,7 @@ function initCharacterControls() {
     compareVersionSelect.dataset.bound = '1';
     compareVersionSelect.addEventListener('change', () => {
       frameDataViewState.compareVersion = normalizeGameVersion(compareVersionSelect.value);
+      persistFrameViewState();
     });
   }
 
@@ -1780,6 +2597,7 @@ function initCharacterControls() {
       frameDataViewState.compareEnabled = !!frameDataViewState.compareVersion
         && frameDataViewState.compareVersion !== frameDataViewState.selectedVersion;
       setFrameComparePanelVisible(false);
+      persistFrameViewState();
       refreshFrameData();
     });
   }
@@ -1789,6 +2607,7 @@ function initCharacterControls() {
     compareClearBtn.addEventListener('click', () => {
       frameDataViewState.compareEnabled = false;
       setFrameComparePanelVisible(false);
+      persistFrameViewState();
       refreshFrameData();
     });
   }
@@ -1799,6 +2618,7 @@ function initCharacterControls() {
     if (modern) modern.classList.toggle('active', type === 'modern');
     if (classic) classic.setAttribute('aria-selected', String(type === 'classic'));
     if (modern) modern.setAttribute('aria-selected', String(type === 'modern'));
+    persistFrameViewState();
     refreshFrameData();
   };
   const setCharacter = (slug, jp, en) => {
@@ -1816,6 +2636,7 @@ function initCharacterControls() {
     if (nameJP) nameJP.textContent = displayJP;
     if (nameEN) nameEN.textContent = displayEN;
     applyCharacterArtPreset(slug);
+    persistFrameViewState();
     refreshFrameData();
   };
 
@@ -1844,9 +2665,17 @@ function initCharacterControls() {
   window.switchCharacter = setCharacter;
   document.body.dataset.currentCharSlug = current.char || '';
   if (current.char) {
-    if (nameJP) nameJP.textContent = formatDisplayName(current.char, nameJP.textContent, 'primary', getCurrentLang());
-    if (nameEN) nameEN.textContent = formatDisplayName(current.char, nameEN.textContent, 'english', getCurrentLang());
+    const { jp, en } = resolveCharacterNamesBySlug(current.char);
+    if (portrait) {
+      portrait.src = `assets/images/characters/${current.char}.png`;
+      portrait.style.display = '';
+      portrait.alt = `${en || current.char} portrait`;
+    }
+    if (bg) bg.style.backgroundImage = `url('assets/images/backgrounds/bg_${current.char}.jpg')`;
+    if (nameJP) nameJP.textContent = formatDisplayName(current.char, jp, 'primary', getCurrentLang());
+    if (nameEN) nameEN.textContent = formatDisplayName(current.char, en, 'english', getCurrentLang());
     applyCharacterArtPreset(current.char);
+    // Keep Combo List unselected on load; sync only when user explicitly picks a character.
   } else {
     document.body.dataset.frameCharSelected = '0';
     if (nameJP) nameJP.textContent = '';
@@ -1858,11 +2687,12 @@ function initCharacterControls() {
       portrait.style.display = 'none';
     }
   }
+  setControl(current.control);
+  persistFrameViewState();
   renderFrameDataVersion(frameDataViewState.selectedVersion);
   if (comparePanel && !comparePanel.classList.contains('hidden')) {
     setFrameComparePanelVisible(true);
   }
-  refreshFrameData();
 }
 
 // ---------------------------------------------------------------------------
@@ -1889,8 +2719,16 @@ function initCharacterSelect() {
       const imgEl = card.querySelector('img');
       const jp = card.dataset.nameJp || ((spanEl && spanEl.textContent) || slug);
       const en = card.dataset.nameEn || ((imgEl && imgEl.getAttribute('alt')) || slug.toUpperCase());
-      if (window.switchCharacter) window.switchCharacter(slug, jp, en);
-      if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
+      const activeView = String(document.body.getAttribute('data-view') || '').toLowerCase();
+      if (activeView === 'frame') {
+        if (window.switchCharacter) window.switchCharacter(slug, jp, en);
+      } else if (activeView === 'combos') {
+        if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
+      } else {
+        // Fallback: keep previous behavior outside the primary views.
+        if (window.switchCharacter) window.switchCharacter(slug, jp, en);
+        if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
+      }
       close();
     });
     const spanEl = card.querySelector('span');
@@ -2290,6 +3128,7 @@ function getSelectThumbForSlug(slug, lang = null) {
   const number = idx + 1;
   return `assets/images/characters/select_character${number}_over.png`;
 }
+window.getSelectThumbForSlug = getSelectThumbForSlug;
 
 // ---------------------------------------------------------------------------
 // App-level tabs (Frame Data / Combo List)
@@ -2327,6 +3166,12 @@ function initMainTabs() {
     if (helpBtn) helpBtn.classList.toggle('active', viewKey === 'help');
     if (infoBtn) infoBtn.classList.toggle('active', viewKey === 'info');
     body.setAttribute('data-view', viewKey);
+    if (viewKey === 'frame' || viewKey === 'combos') {
+      savePersistedMainView(viewKey);
+    }
+    if (viewKey === 'help') {
+      applyHelpTextLanguage(getCurrentLang());
+    }
     if (headerTitle) {
       const titleKey = viewKey === 'combos'
         ? 'nav.combo'
@@ -2354,6 +3199,14 @@ function initMainTabs() {
 
   window.setMainView = setView;
 
-  // Default to combo view
-  setView('combos');
+  // Restore last primary view (Frame Data / Combo List)
+  setView(loadPersistedMainView());
+}
+
+window.getCurrentFrameDataVersion = () => currentFrameDataVersion || DEFAULT_FRAME_DATA_VERSION;
+window.getLabMonsterAppVersion = () => APP_VERSION;
+function renderAppVersionBadge() {
+  const badge = document.getElementById('footerAppVersionText');
+  if (!badge) return;
+  badge.textContent = `Tool Ver: ${APP_VERSION}`;
 }

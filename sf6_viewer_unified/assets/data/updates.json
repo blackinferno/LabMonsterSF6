@@ -1,0 +1,140 @@
+{
+  "current_version": "1.0.1",
+  "updates": [
+    {
+      "version": "1.0.1",
+      "date": "2026-02-18",
+      "important": true,
+      "tags": [
+        "Combo",
+        "Import",
+        "Validation",
+        "Updates"
+      ],
+      "items": {
+        "jp": [
+          "\u30a4\u30f3\u30dd\u30fc\u30c8\u7528\u306e\u8868\u8a18\u8f9e\u66f8\u3092\u8ffd\u52a0\u3057\u3001JP/EN\u5225\u540d\u306e\u6b63\u898f\u5316\u3068\u30e6\u30fc\u30b6\u30fc\u8ffd\u52a0\u9805\u76ee\u306b\u5bfe\u5fdc\u3057\u307e\u3057\u305f\u3002",
+          "XLSX\u30a4\u30f3\u30dd\u30fc\u30c8\u306b\u5217\u30de\u30c3\u30d4\u30f3\u30b0\u6a5f\u80fd\u3092\u8ffd\u52a0\u3057\u3001\u975e\u6a19\u6e96\u30b7\u30fc\u30c8\u306e\u53d6\u308a\u8fbc\u307f\u3092\u5f37\u5316\u3057\u307e\u3057\u305f\u3002",
+          "\u30b3\u30de\u30f3\u30c9\u691c\u8a3c\u3068\u64cd\u4f5c\u30e2\u30fc\u30c9\u4e0d\u4e00\u81f4\u8b66\u544a\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002",
+          "D\u30b2\u30fc\u30b8\u52b9\u7387\u306e\u81ea\u52d5\u8a08\u7b97\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002",
+          "\u66f4\u65b0\u5c65\u6b74\u3068\u4eca\u5f8c\u306e\u4e88\u5b9a\u3092\u60c5\u5831\u30da\u30fc\u30b8\u306b\u7d71\u5408\u3057\u3001\u66f4\u65b0\u6642\u306f\u5dee\u5206\u8868\u793a\u306e\u30dd\u30c3\u30d7\u30a2\u30c3\u30d7\u3092\u8868\u793a\u3059\u308b\u3088\u3046\u306b\u3057\u307e\u3057\u305f\u3002"
+        ],
+        "en": [
+          "Added import notation dictionary with JP/EN alias normalization and user-defined entries.",
+          "Added XLSX column mapping import to handle non-standard sheets more reliably.",
+          "Added command validation and control-mode mismatch warnings.",
+          "Added automatic Drive Gauge efficiency calculation.",
+          "Unified changelog/roadmap under Information and added version-diff update popup."
+        ]
+      }
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-02-16",
+      "important": false,
+      "tags": [
+        "Release"
+      ],
+      "items": {
+        "jp": [
+          "Lab Monster SF6 \u306e\u521d\u56de\u30ea\u30ea\u30fc\u30b9\u3002",
+          "\u30d5\u30ec\u30fc\u30e0\u30c7\u30fc\u30bf\u95b2\u89a7\u3001\u30b3\u30f3\u30dc\u7de8\u96c6\u3001\u57fa\u672c\u7684\u306a\u5165\u51fa\u529b\u6a5f\u80fd\u3092\u5b9f\u88c5\u3002"
+        ],
+        "en": [
+          "Initial release of Lab Monster SF6.",
+          "Included frame-data viewer, combo editor, and baseline import/export workflow."
+        ]
+      }
+    }
+  ],
+  "roadmap": {
+    "jp": [
+      {
+        "track": "realistic",
+        "title": "Classic/Modern \u9593\u306e\u5909\u63db\u88dc\u52a9",
+        "status": "planned",
+        "notes": "\u30b3\u30de\u30f3\u30c9/\u30dc\u30bf\u30f3\u5909\u63db\u3068\u4e0d\u53ef\u30eb\u30fc\u30c8\u5224\u5b9a\u306e\u88dc\u52a9\u6a5f\u80fd\u3092\u6bb5\u968e\u5b9f\u88c5\u3002"
+      },
+      {
+        "track": "realistic",
+        "title": "\u81ea\u52d5\u8a08\u7b97\uff08CA\u30c0\u30e1\u30fc\u30b8\u7cfb\uff09",
+        "status": "planned",
+        "notes": "SA3\u6642\u306e\u4f53\u529b25%\u4ee5\u4e0b\u60f3\u5b9a\u5024\uff08\u901a\u5e38(CA)/C(CA)/PC(CA)\uff09\u306e\u88dc\u52a9\u8a08\u7b97\u3092\u691c\u8a0e\u3002"
+      },
+      {
+        "track": "realistic",
+        "title": "UI\u6539\u5584\uff08\u30c4\u30fc\u30eb\u30c1\u30c3\u30d7/\u8a73\u7d30\u691c\u7d22/\u5c0f\u753b\u9762\uff09",
+        "status": "planned",
+        "notes": "\u9805\u76ee\u8aac\u660e\u306e\u660e\u78ba\u5316\u3001\u691c\u7d22UI\u6574\u7406\u3001\u72ed\u5e45\u6642\u306e\u8996\u8a8d\u6027\u6539\u5584\u3002"
+      },
+      {
+        "track": "realistic",
+        "title": "\u7d99\u7d9a\u7684\u306a\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u6700\u9069\u5316",
+        "status": "planned",
+        "notes": "\u8d77\u52d5\u3001\u691c\u7d22/\u4e26\u3073\u66ff\u3048\u3001\u5927\u898f\u6a21\u30c7\u30fc\u30bf\u8868\u793a\u306e\u51e6\u7406\u3092\u6539\u5584\u3002"
+      },
+      {
+        "track": "stretch",
+        "title": "\u30b3\u30f3\u30dc\u54c1\u8cea\u306e\u5206\u6790\u30ec\u30dd\u30fc\u30c8",
+        "status": "planned",
+        "notes": "\u54c1\u8cea\u6307\u6a19\u306e\u5b9a\u7fa9\u304c\u5fc5\u8981\u3067\u3001\u5b9f\u88c5\u30b3\u30b9\u30c8\u304c\u9ad8\u3044\u305f\u3081\u9577\u671f\u691c\u8a0e\u3002"
+      },
+      {
+        "track": "stretch",
+        "title": "\u30b3\u30f3\u30dc\u81ea\u52d5\u751f\u6210",
+        "status": "planned",
+        "notes": "\u30c7\u30fc\u30bf\u6574\u5099\u3068\u691c\u8a3c\u30b3\u30b9\u30c8\u304c\u975e\u5e38\u306b\u9ad8\u304f\u3001\u5b9f\u73fe\u6027\u3092\u7d99\u7d9a\u691c\u8a0e\u3002"
+      },
+      {
+        "track": "stretch",
+        "title": "\u30e2\u30d0\u30a4\u30eb\u7248\uff08\u30bf\u30d6\u30ec\u30c3\u30c8\u542b\u3080\uff09",
+        "status": "planned",
+        "notes": "UI\u518d\u8a2d\u8a08\u304c\u5fc5\u8981\u306a\u305f\u3081\u3001\u512a\u5148\u5ea6\u306f\u4f4e\u3081\u3002"
+      }
+    ],
+    "en": [
+      {
+        "track": "realistic",
+        "title": "Classic/Modern conversion assist",
+        "status": "planned",
+        "notes": "Phase in command/button conversion assistance and impossible-route hints."
+      },
+      {
+        "track": "realistic",
+        "title": "Auto-calculation (CA damage fields)",
+        "status": "planned",
+        "notes": "Plan assist calculations for SA3 low-health values (Normal(CA)/C(CA)/PC(CA))."
+      },
+      {
+        "track": "realistic",
+        "title": "UI polish (tooltips/advanced search/small screens)",
+        "status": "planned",
+        "notes": "Clarify field guidance, reorganize search UI, and improve compact-window readability."
+      },
+      {
+        "track": "realistic",
+        "title": "Continuous performance optimization",
+        "status": "planned",
+        "notes": "Keep improving startup, search/sort, and large-table rendering performance."
+      },
+      {
+        "track": "stretch",
+        "title": "Combo quality analytics",
+        "status": "planned",
+        "notes": "Needs a reliable quality metric; high implementation complexity."
+      },
+      {
+        "track": "stretch",
+        "title": "Automatic combo generation",
+        "status": "planned",
+        "notes": "Very high data/validation cost; feasibility under review."
+      },
+      {
+        "track": "stretch",
+        "title": "Mobile/tablet build",
+        "status": "planned",
+        "notes": "Requires substantial UI redesign; low near-term priority."
+      }
+    ]
+  }
+}

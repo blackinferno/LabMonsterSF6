@@ -5,7 +5,31 @@
   const UI_PREFS_KEY = 'sf6_combo_ui_prefs_v1';
   const KEYMAP_KEY = 'sf6_combo_keymap_v1';
   const SHORTCUT_KEY = 'sf6_combo_shortcuts_v1';
+  const XLSX_IMPORT_MAPS_KEY = 'lm_xlsx_import_maps_v1';
+  const COMBO_CHARACTER_KEY = 'lm_combo_selected_char_v1';
+  const COMBO_CONTROL_MODE_KEY = 'lm_combo_control_mode_v1';
   const UNSELECTED_STORAGE_SLUG = '__unselected__';
+  const STORAGE_DRAFT_KEY_BASE = 'sf6_combo_table_draft_v1';
+  const STORAGE_BACKUP_KEY_BASE = 'sf6_combo_table_backup_short_v1';
+  const STORAGE_BACKUP_LONG_KEY_BASE = 'sf6_combo_table_backup_long_v1';
+  const STORAGE_BACKUP_IMPORT_KEY_BASE = 'sf6_combo_table_backup_import_v1';
+  const STORAGE_META_KEY_BASE = 'sf6_combo_table_meta_v1';
+  const AUTOSAVE_DELAY_MS = 600;
+  const SHORT_BACKUP_INTERVAL_MS = 90 * 1000;
+  const LONG_BACKUP_INTERVAL_MS = 10 * 60 * 1000;
+  const XLSX_MAP_BASIC_FIELDS = [
+    'command',
+    'combo_notes',
+    'control_mode',
+    'position',
+    'distance',
+    'damage_normal',
+    'drive_req',
+    'drive_delta',
+    'sa_req',
+    'sa_delta',
+    'frame_adv',
+  ];
 
   const DEFAULT_KEYMAP = {
     '4(タメ)': 'q',
@@ -53,6 +77,8 @@
   };
 
   const DEFAULT_MODERN_KEYMAP = buildModernMap(DEFAULT_KEYMAP);
+  const CLASSIC_ONLY_TOKEN_REGEX = /(?:\b(?:LP|MP|HP|LK|MK|HK|PP|KK|P|K)\b|\d+(?:LP|MP|HP|LK|MK|HK|PP|KK|P|K)\b)/i;
+  const MODERN_ONLY_TOKEN_REGEX = /(?:\b(?:SP|Auto|[LMH]{1,3})\b|\d+(?:SP|Auto|[LMH]{1,3})\b)/i;
 
   const DEFAULT_PS5_KEYMAP = {
     LP: 'Square',
@@ -213,6 +239,65 @@
         duplicate: '複製',
         delete: '削除',
         dedupe: '重複削除',
+        restore: '復元',
+        rows_show_all: '全表示',
+        rows_hide_all: '全非表示',
+        notation_dict: '表記辞書',
+        notation_title: '表記辞書（インポート用）',
+        notation_close: '閉じる',
+        notation_desc: 'インポート/貼り付け時の表記ゆれを、LMトークンに自動変換します。',
+        notation_hint_1: '例: 「弱昇竜」→「623LP」',
+        notation_hint_2: '標準辞書は編集不可。必要な別名だけユーザー辞書に追加してください。',
+        notation_hint_3: '変換はJSON/XLSXインポート時と、コマンド貼り付け時に自動で実行されます。',
+        notation_existing_dict: '既存の辞書',
+        notation_normalize_title: '正規化テスト',
+        notation_normalize_desc: '入力すると自動で変換結果が更新されます。',
+        notation_add: '追加/更新',
+        notation_reset: '初期化',
+        notation_export: '書き出し',
+        notation_import: '読み込み',
+        notation_test_preview: 'プレビュー',
+        notation_test_original: '入力',
+        notation_test_normalized: '正規化結果',
+        notation_test_replacements: '置換',
+        notation_test_unknown: '未認識',
+        notation_table_alias: '別名',
+        notation_table_lm: 'コマンド',
+        notation_table_display: 'ボタン',
+        notation_table_source: '種別',
+        notation_table_enabled: '有効',
+        notation_table_actions: '操作',
+        notation_category_directional: '方向',
+        notation_category_attack: '攻撃',
+        notation_category_utility: 'ユーティリティ',
+        notation_category_frequent: 'よく使うコマンド',
+        notation_category_user: 'ユーザー追加',
+        notation_source_default: '標準',
+        notation_source_user: 'ユーザー',
+        notation_action_edit: '編集',
+        notation_action_delete: '削除',
+        notation_input_alias: '別名 (例: 弱昇竜)',
+        notation_input_lm: 'LM表記 (例: 623LP)',
+        notation_test_placeholder: 'ここに入力して変換結果を確認 (例: 弱昇竜 > 236LP)',
+        xlsx_map_title: 'XLSX列マッピング',
+        xlsx_map_desc: 'このシートの列を、読み込み先フィールドに割り当ててください。',
+        xlsx_map_header_row: 'ヘッダー行',
+        xlsx_map_basic: '基本フィールド',
+        xlsx_map_advanced: '詳細フィールド',
+        xlsx_map_field: 'フィールド',
+        xlsx_map_column: '列',
+        xlsx_map_preview: 'プレビュー (先頭5行)',
+        xlsx_map_raw_command: 'コマンド(元)',
+        xlsx_map_norm_command: 'コマンド(正規化)',
+        xlsx_map_summary: '取り込み内容',
+        xlsx_map_apply: '取り込み',
+        xlsx_map_cancel: 'キャンセル',
+        xlsx_map_save_preset: 'このマッピングを保存',
+        xlsx_map_none: '(未設定)',
+        restore_title: '復元元を選択',
+        restore_apply: '復元',
+        restore_cancel: 'キャンセル',
+        restore_notice: '自動バックアップはローカル保存のみです。重要なデータはEXPORTで保存してください。',
         bottom_open: '開く▲',
         bottom_close: '閉じる▼',
         bottom_open_title: '下部セクションを表示',
@@ -227,6 +312,8 @@
         keymap_reassigned: 'キー {key} を {from} から {to} に移動しました。',
         multi_apply: '適用',
         multi_clear: 'クリア',
+        frame_version_prefix: 'データVer',
+        game_version_prefix: 'ゲームVer',
       },
       ui_labels: {
         throw: '投げ',
@@ -329,6 +416,12 @@
       },
       versionLabel: 'Ver.',
       sample_notes: '基本コンボ',
+      restore_sources: {
+        import: 'インポート前',
+        short: '直近',
+        long: '長期',
+        draft: '下書き',
+      },
       messages: {
         exporting: '書き出し中...',
         export_html_complete: 'HTML書き出し完了。',
@@ -345,6 +438,13 @@
         no_empty_rows: '空き行がありません。',
         dedupe_none: '重複は見つかりませんでした。',
         dedupe_confirm: '重複が{count}件見つかりました。削除しますか？',
+        restore_no_backup: '復元できるバックアップがありません。',
+        restore_confirm: '{source}バックアップから復元しますか？',
+        restore_choose_prompt: '復元元を番号で選択してください:\\n{options}\\n番号を入力:',
+        restore_invalid_choice: '無効な番号です。',
+        restore_done: 'バックアップから復元しました。',
+        restore_failed: '復元に失敗しました。',
+        restore_time_unknown: '時刻不明',
         import_select_character: 'インポートする前にキャラクターを選択してください。',
         import_filetype_only: 'JSONまたはXLSXファイルのみ読み込めます。',
         import_exceljs_missing: 'ExcelJSが読み込めていません。',
@@ -352,6 +452,23 @@
         import_unknown_sheets: '未知のシート名があるため中止しました: {sheets}\\nキャラ名と一致するシート名にしてください。',
         import_no_importable: '読み込めるデータがありません。',
         import_xlsx_failed: 'XLSXの読み込みに失敗しました。',
+        import_notation_partial: '表記辞書で未認識の語がありました: {items}',
+        notation_load_failed: '表記辞書の読み込みに失敗しました。',
+        notation_add_failed: 'AliasとLMトークンを入力してください。',
+        notation_add_warning: '追加しました（注意: {warnings}）',
+        notation_add_done: '追加/更新しました。',
+        notation_reset_confirm: 'ユーザー辞書を初期化しますか？',
+        notation_import_failed: '辞書JSONの読み込みに失敗しました。',
+        notation_import_done: '辞書JSONを読み込みました。',
+        notation_delete_confirm: 'このユーザーAliasを削除しますか？',
+        xlsx_map_required_command: 'コマンド列の割り当てが必要です。',
+        xlsx_map_failed: 'XLSX列マッピングの処理に失敗しました。',
+        warn_unknown_notation: '未認識の表記: {value}',
+        warn_modern_mismatch: 'モダンでクラシック専用入力が含まれています',
+        warn_classic_mismatch: 'クラシックでモダン専用入力が含まれています',
+        save_status_saved: '保存済み',
+        save_status_unsaved: '● 未保存',
+        save_status_recovered: '● 復旧データ',
       },
     },
     en: {
@@ -397,6 +514,65 @@
         duplicate: 'Duplicate',
         delete: 'Delete',
         dedupe: 'Dedupe',
+        restore: 'Restore',
+        rows_show_all: 'Show All',
+        rows_hide_all: 'Hide All',
+        notation_dict: 'Notation Dict',
+        notation_title: 'Notation Dictionary (Import)',
+        notation_close: 'Close',
+        notation_desc: 'Automatically converts import/paste notation aliases into LM tokens.',
+        notation_hint_1: 'Example: "Light DP" -> "623LP"',
+        notation_hint_2: 'Default entries are read-only. Add only the aliases you need.',
+        notation_hint_3: 'Normalization runs automatically on JSON/XLSX import and command-field paste.',
+        notation_existing_dict: 'Existing Dictionary',
+        notation_normalize_title: 'Normalization Test',
+        notation_normalize_desc: 'Preview updates automatically as you type.',
+        notation_add: 'Add/Update',
+        notation_reset: 'Reset',
+        notation_export: 'Export',
+        notation_import: 'Import',
+        notation_test_preview: 'Preview',
+        notation_test_original: 'Input',
+        notation_test_normalized: 'Normalized',
+        notation_test_replacements: 'Replacements',
+        notation_test_unknown: 'Unknown',
+        notation_table_alias: 'Alias',
+        notation_table_lm: 'Command',
+        notation_table_display: 'Buttons',
+        notation_table_source: 'Source',
+        notation_table_enabled: 'Enabled',
+        notation_table_actions: 'Actions',
+        notation_category_directional: 'Directional',
+        notation_category_attack: 'Attack',
+        notation_category_utility: 'Utility',
+        notation_category_frequent: 'Frequent Commands',
+        notation_category_user: 'User Custom',
+        notation_source_default: 'Default',
+        notation_source_user: 'User',
+        notation_action_edit: 'Edit',
+        notation_action_delete: 'Delete',
+        notation_input_alias: 'Alias (e.g. Light DP)',
+        notation_input_lm: 'LM Notation (e.g. 623LP)',
+        notation_test_placeholder: 'Type here to preview normalization (e.g. Light DP > 236LP)',
+        xlsx_map_title: 'XLSX Column Mapping',
+        xlsx_map_desc: 'Map this sheet columns to import fields.',
+        xlsx_map_header_row: 'Header row',
+        xlsx_map_basic: 'Basic fields',
+        xlsx_map_advanced: 'Advanced fields',
+        xlsx_map_field: 'Field',
+        xlsx_map_column: 'Column',
+        xlsx_map_preview: 'Preview (first 5 rows)',
+        xlsx_map_raw_command: 'Raw command',
+        xlsx_map_norm_command: 'Normalized command',
+        xlsx_map_summary: 'Imported fields',
+        xlsx_map_apply: 'Import',
+        xlsx_map_cancel: 'Cancel',
+        xlsx_map_save_preset: 'Save this mapping',
+        xlsx_map_none: '(none)',
+        restore_title: 'Choose Restore Source',
+        restore_apply: 'Restore',
+        restore_cancel: 'Cancel',
+        restore_notice: 'Auto backups are local-only. Use EXPORT for reliable external backups.',
         bottom_open: 'Open ▲',
         bottom_close: 'Close ▼',
         bottom_open_title: 'Show bottom section',
@@ -411,6 +587,8 @@
         keymap_reassigned: 'Moved {key} from {from} to {to}.',
         multi_apply: 'Apply',
         multi_clear: 'Clear',
+        frame_version_prefix: 'Data Ver',
+        game_version_prefix: 'Game Ver',
       },
       ui_labels: {
         throw: 'Throw',
@@ -513,6 +691,12 @@
       },
       versionLabel: 'Ver.',
       sample_notes: 'Basic Combo',
+      restore_sources: {
+        import: 'Pre-Import',
+        short: 'Recent',
+        long: 'Long',
+        draft: 'Draft',
+      },
       messages: {
         exporting: 'Exporting...',
         export_html_complete: 'HTML export complete.',
@@ -529,6 +713,13 @@
         no_empty_rows: 'No empty rows available.',
         dedupe_none: 'No duplicates were found.',
         dedupe_confirm: '{count} duplicates found. Delete them?',
+        restore_no_backup: 'No backup is available to restore.',
+        restore_confirm: 'Restore from the {source} backup?',
+        restore_choose_prompt: 'Select a restore source by number:\\n{options}\\nEnter number:',
+        restore_invalid_choice: 'Invalid selection.',
+        restore_done: 'Restored from backup.',
+        restore_failed: 'Restore failed.',
+        restore_time_unknown: 'Unknown time',
         import_select_character: 'Select a character before importing.',
         import_filetype_only: 'Only JSON or XLSX files are supported.',
         import_exceljs_missing: 'ExcelJS is not loaded.',
@@ -536,6 +727,23 @@
         import_unknown_sheets: 'Import aborted due to unknown sheet names: {sheets}\\nUse sheet names that match character names.',
         import_no_importable: 'No importable data found.',
         import_xlsx_failed: 'Failed to import XLSX.',
+        import_notation_partial: 'Some terms were not recognized by notation dictionary: {items}',
+        notation_load_failed: 'Failed to load notation dictionary.',
+        notation_add_failed: 'Enter both alias and LM token.',
+        notation_add_warning: 'Mapping saved (warning: {warnings})',
+        notation_add_done: 'Mapping saved.',
+        notation_reset_confirm: 'Reset all user notation mappings?',
+        notation_import_failed: 'Failed to import notation JSON.',
+        notation_import_done: 'Notation JSON imported.',
+        notation_delete_confirm: 'Delete this user alias?',
+        xlsx_map_required_command: 'Command column mapping is required.',
+        xlsx_map_failed: 'Failed to process XLSX column mapping.',
+        warn_unknown_notation: 'Unrecognized notation: {value}',
+        warn_modern_mismatch: 'Contains Classic-only tokens while mode is Modern',
+        warn_classic_mismatch: 'Contains Modern-only tokens while mode is Classic',
+        save_status_saved: 'Saved',
+        save_status_unsaved: '● Unsaved',
+        save_status_recovered: '● Recovered Draft',
       },
     },
   };
@@ -702,6 +910,52 @@
       }
     });
     return out;
+  }
+
+  function getNotationDictApi() {
+    return window.LMNotationDict && typeof window.LMNotationDict === 'object'
+      ? window.LMNotationDict
+      : null;
+  }
+
+  async function ensureNotationDictionaryLoaded() {
+    const api = getNotationDictApi();
+    if (!api || typeof api.ensureNotationDefaultsLoaded !== 'function') {
+      return false;
+    }
+    try {
+      await api.ensureNotationDefaultsLoaded();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function normalizeCommandWithNotation(rawText, unknownCollector = null) {
+    const api = getNotationDictApi();
+    let normalized = String(rawText || '');
+    let unknown = [];
+    if (api && typeof api.normalizeCommandText === 'function') {
+      const result = api.normalizeCommandText(normalized);
+      if (result && typeof result === 'object') {
+        if (typeof result.normalizedText === 'string') normalized = result.normalizedText;
+        if (Array.isArray(result.unknown)) unknown = result.unknown.slice();
+      }
+    }
+    if (unknownCollector && unknown.length) {
+      unknown.forEach((term) => unknownCollector.add(term));
+    }
+    return {
+      canonical: canonicalizeCommandForStorage(normalized),
+      unknown,
+    };
+  }
+
+  function notifyNotationUnknown(terms) {
+    if (!terms || !terms.size) return;
+    const list = Array.from(terms).slice(0, 8);
+    const suffix = terms.size > list.length ? ' ...' : '';
+    showExportToast(comboMsg('import_notation_partial', { items: `${list.join(', ')}${suffix}` }), false, { dim: false });
   }
 
   const COMBO_HEADER_LOOKUP = (() => {
@@ -931,6 +1185,75 @@
     'frame_adv',
   ]);
 
+  const XLSX_MAP_ALL_FIELDS = [
+    'command',
+    'buttons',
+    'combo_notes',
+    'frame_meter',
+    'game_version',
+    ...FIELD_ORDER,
+  ];
+
+  const XLSX_MAP_NONE_VALUE = '';
+
+  const XLSX_FIELD_LABELS = {
+    command: { jp: 'コマンド', en: 'Command' },
+    buttons: { jp: 'ボタン', en: 'Buttons' },
+    combo_notes: { jp: '備考', en: 'Notes' },
+    frame_meter: { jp: 'フレームメーター', en: 'Frame Meter' },
+    game_version: { jp: 'Ver.', en: 'Ver.' },
+    control_mode: { jp: '操作方法', en: 'Controls' },
+    distance: { jp: '距離', en: 'Distance' },
+    position: { jp: '位置', en: 'Position' },
+    counter_type: { jp: 'カウンター', en: 'Counter' },
+    bo_state: { jp: 'BO/スタン', en: 'BO/Stun' },
+    drive_req: { jp: '最小Dゲージ', en: 'Min D Gauge' },
+    sa_req: { jp: '最小SAゲージ', en: 'Min SA Gauge' },
+    vs_character: { jp: '対応キャラ', en: 'Opp Character' },
+    special_condition: { jp: '特殊条件', en: 'Special Conditions' },
+    damage_jp: { jp: 'ジャスパ後', en: 'After Just Parry' },
+    damage_bo_guard: { jp: 'BOガード時', en: 'BO Block' },
+    damage_normal: { jp: '通常', en: 'Normal' },
+    damage_counter: { jp: 'C', en: 'C' },
+    damage_punish: { jp: 'PC', en: 'PC' },
+    damage_normal_ca: { jp: '通常(CA)', en: 'Normal (CA)' },
+    damage_counter_ca: { jp: 'C(CA)', en: 'C (CA)' },
+    damage_punish_ca: { jp: 'PC(CA)', en: 'PC (CA)' },
+    d_guard: { jp: 'Dゲージ削り/ガード時', en: 'D Gauge Chip/Block' },
+    d_normal: { jp: 'Dゲージ削り/通常', en: 'D Gauge Chip/Normal' },
+    d_pc: { jp: 'Dゲージ削り/PC', en: 'D Gauge Chip/PC' },
+    drive_delta: { jp: 'Dゲージ増減/自分', en: 'D Gauge Delta/Self' },
+    drive_delta_opponent: { jp: 'Dゲージ増減/相手', en: 'D Gauge Delta/Opp' },
+    drive_efficiency: { jp: 'Dゲージ効率', en: 'D Gauge Efficiency' },
+    sa_delta: { jp: 'SAゲージ増減/自分', en: 'SA Delta/Self' },
+    sa_delta_opponent: { jp: 'SAゲージ増減/相手', en: 'SA Delta/Opp' },
+    carry_distance: { jp: '運びヒット時', en: 'Carry on Hit' },
+    end_distance: { jp: 'コンボ後距離ヒット時', en: 'End Distance on Hit' },
+    frame_adv: { jp: 'フレーム差ヒット時', en: 'Frame Adv on Hit' },
+    safe_jump: { jp: '詐欺飛び', en: 'Safe Jump' },
+    interrupt: { jp: '割込', en: 'Interrupt' },
+    oki: { jp: '重ね', en: 'Meaty' },
+  };
+
+  const XLSX_HEADER_KEYWORDS = {
+    command: ['コンボ', '入力', 'コマンド', 'combo', 'command', 'input'],
+    buttons: ['ボタン', 'button', 'buttons'],
+    combo_notes: ['備考', 'メモ', 'コメント', 'notes', 'note', 'memo', 'comment'],
+    control_mode: ['操作方法', 'm/c', 'control', 'mode'],
+    position: ['状況', '位置', '画面端', '中央', 'コーナー', 'position', 'corner', 'midscreen'],
+    distance: ['距離', '間合', 'レンジ', 'distance', 'range'],
+    special_condition: ['始動', 'スターター', '特殊条件', 'special', 'starter', 'condition'],
+    damage_normal: ['ダメージ', 'damage', 'dmg'],
+    frame_adv: ['有利', 'フレーム', 'frame', 'adv', 'advantage'],
+    frame_meter: ['フレームメーター', 'framemeter', 'frame meter'],
+    game_version: ['ver', 'version', 'バージョン'],
+  };
+
+  const XLSX_DRIVE_KEYWORDS = ['dゲージ', 'ドライブ', 'drive'];
+  const XLSX_SA_KEYWORDS = ['sa', 'super', 'スーパー'];
+  const XLSX_REQ_KEYWORDS = ['使用', '消費', '必要', 'コスト', 'spent', 'cost', 'required', 'req'];
+  const XLSX_DELTA_KEYWORDS = ['増減', '変化', 'delta', 'change', 'net', '+/-', '±', 'plusminus', '変動'];
+
   const SEARCH_FIELD_GROUPS = {
     command: ['command'],
     buttons: ['buttons'],
@@ -1006,6 +1329,7 @@
   ];
 
   const ALWAYS_VISIBLE_FIELDS = new Set(['command', 'buttons', 'combo_notes', 'frame_meter']);
+  const ALWAYS_HIDDEN_FIELDS = new Set();
 
   const SEARCH_CATEGORY_FIELDS = {
     combo: ['combo_notes'],
@@ -1059,7 +1383,20 @@
       buttons: true,
       notes: true,
     },
+    isDirty: false,
+    autosaveTimer: null,
+    lastSavedAt: 0,
+    draftSavedAt: 0,
+    lastShortBackupAt: 0,
+    lastLongBackupAt: 0,
+    importBackupAt: 0,
+    recoverySource: '',
     customShortcuts: [],
+    searchDebounceTimer: null,
+    notationUnknownTerms: new Set(),
+    notationManagerRows: [],
+    xlsxMapPresets: null,
+    xlsxMapModalContext: null,
     gamepad: {
       raf: null,
       lastButtons: {},
@@ -1068,12 +1405,138 @@
   };
 
   const ui = {};
+  const vendorScriptPromises = {};
+  let dirtyStateGuardsBound = false;
+  let frameVersionEventsBound = false;
 
   const qs = (id) => document.getElementById(id);
+
+  function ensureSaveStatusUi() {
+    if (ui.saveStatus) return;
+    const host = ui.comboView || qs('comboView');
+    if (!host) return;
+    const el = document.createElement('div');
+    el.id = 'comboSaveStatus';
+    el.className = 'combo-save-status';
+    el.setAttribute('aria-live', 'polite');
+    host.appendChild(el);
+    ui.saveStatus = el;
+  }
+
+  function ensureFrameVersionUi() {
+    // Data version display has been retired; keep function for compatibility.
+    ui.frameVersionInfo = null;
+  }
+
+  function ensureGameVersionUi() {
+    // Game version is shown in the global header.
+    ui.gameVersionInfo = null;
+  }
+
+  function getCurrentFrameVersionForCombo() {
+    const fromBody = (document.body && document.body.dataset && document.body.dataset.frameDataVersion) || '';
+    if (fromBody) return String(fromBody).trim();
+    if (typeof window.getCurrentFrameDataVersion === 'function') {
+      const fromApi = window.getCurrentFrameDataVersion();
+      if (fromApi) return String(fromApi).trim();
+    }
+    return '2025.12.16';
+  }
+
+  function updateComboFrameVersionInfo(lang) {
+    return;
+  }
+
+  function getSelectedComboGameVersion() {
+    const idx = Number(state.selectedGroup);
+    if (!Number.isFinite(idx) || idx < 0) return '';
+    const combo = state.combos[idx];
+    return combo ? String(combo.game_version || '').trim() : '';
+  }
+
+  function updateComboGameVersionInfo(lang) {
+    if (!ui.gameVersionInfo) return;
+    const active = lang || getComboLang();
+    const prefix = comboT('ui.game_version_prefix', active) || 'Game Ver';
+    const value = getSelectedComboGameVersion() || getCurrentFrameVersionForCombo();
+    ui.gameVersionInfo.textContent = `${prefix}: ${value}`;
+  }
+
+  function updateSaveStatusUI(dirty, recovery = false) {
+    if (!ui.saveStatus) return;
+    const key = recovery ? 'save_status_recovered' : (dirty ? 'save_status_unsaved' : 'save_status_saved');
+    ui.saveStatus.textContent = comboMsg(key);
+    ui.saveStatus.classList.toggle('dirty', !!dirty);
+    ui.saveStatus.classList.toggle('recovered', !!recovery);
+    const ts = Number(state.lastSavedAt);
+    ui.saveStatus.title = ts > 0 ? new Date(ts).toLocaleString() : '';
+  }
+
+  function bindDirtyStateGuards() {
+    if (dirtyStateGuardsBound) return;
+    dirtyStateGuardsBound = true;
+    window.addEventListener('beforeunload', (ev) => {
+      if (!state.isDirty) return;
+      try {
+        autosaveDraftNow();
+      } catch { }
+      ev.preventDefault();
+      ev.returnValue = '';
+    });
+  }
+
+  function bindFrameVersionEvents() {
+    if (frameVersionEventsBound) return;
+    frameVersionEventsBound = true;
+    document.addEventListener('lm:frame-version-changed', () => {
+      updateComboGameVersionInfo(getComboLang());
+    });
+  }
+
+  function loadVendorScript(src) {
+    if (vendorScriptPromises[src]) return vendorScriptPromises[src];
+    vendorScriptPromises[src] = new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === 'true') {
+          resolve();
+          return;
+        }
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      script.onload = () => {
+        script.dataset.loaded = 'true';
+        resolve();
+      };
+      script.onerror = () => reject(new Error(`Failed to load ${src}`));
+      document.head.appendChild(script);
+    });
+    return vendorScriptPromises[src];
+  }
+
+  async function ensureVendorLoaded({ excel = false, zip = false } = {}) {
+    const promises = [];
+    if (zip && !window.JSZip) {
+      promises.push(loadVendorScript('assets/vendor/jszip.min.js'));
+    }
+    if (excel && !window.ExcelJS) {
+      promises.push(loadVendorScript('assets/vendor/exceljs.min.js'));
+    }
+    if (promises.length) {
+      await Promise.all(promises);
+    }
+  }
 
   function init() {
     ui.table = qs('Table1');
     if (!ui.table) return;
+    ui.comboView = qs('comboView');
+    if (ui.comboView) ui.comboView.classList.remove('combo-ready');
 
     if (ui.table.style.left) ui.table.dataset.baseLeft = ui.table.style.left;
     if (ui.table.style.top) ui.table.dataset.baseTop = ui.table.style.top;
@@ -1095,8 +1558,11 @@
     ui.filterBtn = qs('Button2');
     ui.exportBtn = qs('Button3');
     ui.importBtn = qs('Button4');
+    ui.notationBtn = qs('comboNotationBtn');
     ui.exportMenu = qs('comboExportMenu');
     ui.exportWrapper = qs('comboExportWrapper');
+    ui.saveStatus = qs('comboSaveStatus');
+    ui.gameVersionInfo = qs('comboGameVersionInfo');
     ui.charBtn = qs('wb_Image1');
     ui.charImg = qs('Image1');
     ui.tabClassic = qs('comboTabClassic') || qs('Image3');
@@ -1106,6 +1572,10 @@
     ui.customizeBtn = qs('comboCustomizeBtn');
 
     setupCustomizeControls();
+    ensureSaveStatusUi();
+    ensureGameVersionUi();
+    bindDirtyStateGuards();
+    bindFrameVersionEvents();
     ensureVersionColumn();
     removeFirstColumn();
     mergeMainTableHeader();
@@ -1119,8 +1589,14 @@
     buildInputs();
     initSortHeaders();
     applyComboColumnWidths();
-    state.currentCharacter = getCharacterSlugFromUi();
+    const persistedComboCharacter = getPersistedComboCharacter();
+    const frameCharacter = resolveCharacterSlug(
+      (document.body && document.body.dataset && document.body.dataset.currentCharSlug) || '',
+    ) || '';
+    state.currentCharacter = persistedComboCharacter || frameCharacter || getCharacterSlugFromUi();
     if (ui.comboView) ui.comboView.dataset.character = state.currentCharacter;
+    applyComboPortrait(state.currentCharacter);
+    if (state.currentCharacter) persistComboCharacter(state.currentCharacter);
     cleanupStorageBuckets();
     loadState();
     ensureGroupCount(state.combos.length);
@@ -1138,9 +1614,10 @@
     layoutInputButtons();
     layoutHeaderActions();
     bindComboTabSizing();
-    setControlMode('classic');
+    setControlMode(state.controlMode || 'classic');
     updateGamepadPolling();
     applyComboLanguage(getComboLang());
+    if (ui.comboView) ui.comboView.classList.add('combo-ready');
   }
 
   function buildGroups() {
@@ -1149,6 +1626,13 @@
     const groups = [];
     let current = null;
     const fallbackOrder = ['frame_meter', 'command', 'buttons', 'notes'];
+    const hasCompleteRows = (group) =>
+      !!(group
+        && group.rows
+        && group.rows.frame_meter
+        && group.rows.command
+        && group.rows.buttons
+        && group.rows.notes);
     const fallbackLabels = {
       frame_meter: comboT('rows.frame_meter') || 'フレームメーター',
       command: comboT('rows.command') || 'コマンド',
@@ -1156,17 +1640,14 @@
       notes: comboT('rows.notes') || '備考',
     };
     let sawLabel = false;
-    let fallbackIndex = 0;
-    let lastLabel = '';
 
     dataRows.forEach((row) => {
       let label = getRowLabel(row);
       if (label) {
         sawLabel = true;
-        fallbackIndex = 0;
-      } else if (sawLabel) {
-        if (lastLabel === 'notes') fallbackIndex = 0;
-        label = fallbackOrder[fallbackIndex] || '';
+      } else if (sawLabel && current) {
+        const slot = Math.max(0, current.rowList.length % fallbackOrder.length);
+        label = fallbackOrder[slot] || '';
         if (label) {
           const cells = row.querySelectorAll('td');
           const labelCell = cells[0];
@@ -1174,7 +1655,6 @@
             const target = labelCell.querySelector('p') || labelCell;
             target.textContent = fallbackLabels[label] || '';
           }
-          fallbackIndex = (fallbackIndex + 1) % fallbackOrder.length;
         }
       }
       if (!label) return;
@@ -1193,17 +1673,28 @@
       row.dataset.rowLabel = label || '';
       current.rowList.push(row);
       if (label && !current.rows[label]) current.rows[label] = row;
-      lastLabel = label;
+    });
+
+    while (groups.length && !hasCompleteRows(groups[groups.length - 1])) {
+      const trailing = groups.pop();
+      if (trailing && Array.isArray(trailing.rowList)) {
+        trailing.rowList.forEach((row) => row.remove());
+      }
+    }
+    dataRows.forEach((row) => {
+      if (!row.dataset.row) row.remove();
     });
 
     groups.forEach((group, idx) => {
       const isEven = idx % 2 === 0;
       group.rowList.forEach((row, rowIdx) => {
-        const rowLabel = getRowLabel(row);
+        const rowLabel = (row.dataset.rowLabel || getRowLabel(row) || fallbackOrder[rowIdx % fallbackOrder.length] || '');
+        row.dataset.rowLabel = rowLabel;
         row.classList.add('combo-group-row');
         row.classList.add(isEven ? 'combo-group-even' : 'combo-group-odd');
         if (rowLabel === 'frame_meter') row.classList.add('combo-group-start');
         if (rowIdx === group.rowList.length - 1) row.classList.add('combo-group-end');
+        if (rowLabel === 'command') row.classList.add('combo-row-command');
         if (rowLabel === 'buttons') row.classList.add('combo-row-buttons');
         if (rowLabel === 'notes') row.classList.add('combo-row-notes');
         if (rowLabel === 'frame_meter') row.classList.add('combo-row-frame');
@@ -2056,7 +2547,7 @@
       sa_delta_opponent: 60,
     };
 
-    const hiddenCols = new Set(state.hiddenColumns || []);
+    const hiddenCols = enforceForcedHiddenColumns(new Set(state.hiddenColumns || []));
     if (!hiddenCols.size) {
       collectHiddenColumns(ui.table).forEach((colIndex) => hiddenCols.add(colIndex));
     }
@@ -2341,6 +2832,7 @@
     updateSortIndicators();
     applyComboHeaderTranslations(ui.headerTable, getComboLang());
     applyHiddenColumns();
+    applyComboVerticalSeparators();
   }
 
   function bindComboHeaderSort() {
@@ -2380,7 +2872,7 @@
   }
 
   function applyHiddenColumns() {
-    const hiddenCols = new Set(state.hiddenColumns || []);
+    const hiddenCols = enforceForcedHiddenColumns(new Set(state.hiddenColumns || []));
     const compact = isCompactColumnMode();
     const tables = [ui.table, ui.headerTable].filter(Boolean);
     const entryMap = new Map();
@@ -2454,6 +2946,7 @@
       });
       updateHeaderGroupSpans(table);
     });
+    applyComboVerticalSeparators();
   }
 
   function applyHiddenColumnsToColgroup(table, hiddenCols, compact) {
@@ -2480,7 +2973,7 @@
     if (!row1) return;
     const headerRows = row2 ? [row1, row2] : [row1];
     const { cellPositions } = buildCellMatrixFromRows(headerRows, { table });
-    const hiddenCols = new Set(state.hiddenColumns || []);
+    const hiddenCols = enforceForcedHiddenColumns(new Set(state.hiddenColumns || []));
     const compact = isCompactColumnMode();
 
     Array.from(row1.cells).forEach((cell) => {
@@ -2634,6 +3127,81 @@
     return map;
   }
 
+  function getForcedHiddenColumns(fieldMapOverride = null) {
+    const fieldMap = fieldMapOverride || getFieldColumnMap();
+    const cols = new Set();
+    ALWAYS_HIDDEN_FIELDS.forEach((field) => {
+      const colIndex = Number(fieldMap.get(field) || 0);
+      if (colIndex > 0) cols.add(colIndex);
+    });
+    return cols;
+  }
+
+  function enforceForcedHiddenColumns(hiddenSet, fieldMapOverride = null) {
+    const next = hiddenSet instanceof Set ? new Set(hiddenSet) : new Set(hiddenSet || []);
+    const forced = getForcedHiddenColumns(fieldMapOverride);
+    forced.forEach((colIndex) => next.add(colIndex));
+    return next;
+  }
+
+  function getComboSeparatorColumns() {
+    const fieldMap = getFieldColumnMap();
+    const boundaryFields = [
+      'special_condition',
+      'damage_punish_ca',
+      'd_pc',
+      'drive_delta_opponent',
+      'drive_efficiency',
+      'sa_delta_opponent',
+    ];
+    const boundaryCols = new Set();
+    boundaryFields.forEach((field) => {
+      const col = Number(fieldMap.get(field) || 0);
+      if (col > 0) boundaryCols.add(col);
+    });
+    const tailCols = new Set();
+    const tailStart = FIELD_ORDER.indexOf('sa_delta_opponent');
+    if (tailStart >= 0) {
+      for (let i = tailStart; i < FIELD_ORDER.length; i += 1) {
+        const col = Number(fieldMap.get(FIELD_ORDER[i]) || 0);
+        if (col > 0) {
+          boundaryCols.add(col);
+          tailCols.add(col);
+        }
+      }
+    }
+    return { boundaryCols, tailCols };
+  }
+
+  function applyComboVerticalSeparators() {
+    const { boundaryCols, tailCols } = getComboSeparatorColumns();
+    const tables = [ui.table, ui.headerTable].filter(Boolean);
+    tables.forEach((table) => {
+      table.querySelectorAll('.combo-sep-right, .combo-sep-right-tail').forEach((cell) => {
+        cell.classList.remove('combo-sep-right', 'combo-sep-right-tail');
+      });
+      if (!boundaryCols.size) return;
+      const rows = Array.from(table.rows || []);
+      if (!rows.length) return;
+      const { cellPositions } = buildCellMatrixFromRows(rows, { table });
+      rows.forEach((row) => {
+        const isFrameOrNotesRow = row.classList
+          && (row.classList.contains('combo-row-frame') || row.classList.contains('combo-row-notes'));
+        if (isFrameOrNotesRow) return;
+        Array.from(row.children || []).forEach((cell) => {
+          const pos = cellPositions.get(cell);
+          if (!pos) return;
+          const colEnd = pos.col + pos.colspan - 1;
+          if (!boundaryCols.has(colEnd)) return;
+          cell.classList.add('combo-sep-right');
+          if (tailCols.has(colEnd)) {
+            cell.classList.add('combo-sep-right-tail');
+          }
+        });
+      });
+    });
+  }
+
   function buildComboColumnEntriesFromHeader(table) {
     if (!table) return [];
     const thead = table.tHead || table.querySelector('thead');
@@ -2722,9 +3290,11 @@
     if (!panel) return;
     panel.innerHTML = '';
     if (!entries || !entries.length) return;
+    const forcedHiddenCols = getForcedHiddenColumns();
     const grid = document.createElement('div');
     grid.className = 'combo-col-panel-grid';
     entries.forEach((entry) => {
+      if ((entry.columns || []).some((col) => forcedHiddenCols.has(col))) return;
       const label = document.createElement('label');
       label.className = 'combo-col-checkbox';
       const input = document.createElement('input');
@@ -2751,6 +3321,7 @@
 
   function setComboColumnsHidden(columns, hidden) {
     if (!columns || !columns.length) return;
+    const forcedHiddenCols = getForcedHiddenColumns();
     let changed = false;
     columns.forEach((col) => {
       if (!Number.isFinite(col)) return;
@@ -2759,7 +3330,7 @@
           state.hiddenColumns.add(col);
           changed = true;
         }
-      } else if (state.hiddenColumns.has(col)) {
+      } else if (!forcedHiddenCols.has(col) && state.hiddenColumns.has(col)) {
         state.hiddenColumns.delete(col);
         changed = true;
       }
@@ -2782,13 +3353,16 @@
     const fieldMap = getFieldColumnMap();
     if (!fieldMap.size) return new Set();
     if (!presetKey || presetKey === 'full' || presetKey === 'all') {
-      return new Set(fieldMap.keys());
+      const visibleAll = new Set(fieldMap.keys());
+      ALWAYS_HIDDEN_FIELDS.forEach((field) => visibleAll.delete(field));
+      return visibleAll;
     }
     const preset = COLUMN_PRESETS.find((item) => item.key === presetKey);
     const visible = new Set(ALWAYS_VISIBLE_FIELDS);
     if (preset && Array.isArray(preset.fields)) {
       preset.fields.forEach((field) => visible.add(field));
     }
+    ALWAYS_HIDDEN_FIELDS.forEach((field) => visible.delete(field));
     return visible;
   }
 
@@ -2810,8 +3384,9 @@
       const nextHidden = (state.customHiddenColumns && state.customHiddenColumns.size)
         ? new Set(state.customHiddenColumns)
         : new Set(state.hiddenColumns || []);
-      state.hiddenColumns = nextHidden;
-      state.customHiddenColumns = new Set(nextHidden);
+      const enforcedHidden = enforceForcedHiddenColumns(nextHidden, fieldMap);
+      state.hiddenColumns = enforcedHidden;
+      state.customHiddenColumns = new Set(enforcedHidden);
       state.columnPreset = 'custom';
       updateColumnCompactMode();
       applyHiddenColumns();
@@ -2835,7 +3410,8 @@
         nextHidden.add(colIndex);
       }
     });
-    state.hiddenColumns = nextHidden;
+    const enforcedHidden = enforceForcedHiddenColumns(nextHidden, fieldMap);
+    state.hiddenColumns = enforcedHidden;
     state.columnPreset = presetKey || 'custom';
     updateColumnCompactMode();
     applyHiddenColumns();
@@ -3334,6 +3910,10 @@
     if (deleteBtn) deleteBtn.textContent = comboT('ui.delete', active) || deleteBtn.textContent;
     const dedupeBtn = qs('comboDedupeBtn');
     if (dedupeBtn) dedupeBtn.textContent = comboT('ui.dedupe', active) || dedupeBtn.textContent;
+    const restoreBtn = qs('comboRestoreBtn');
+    if (restoreBtn) restoreBtn.textContent = comboT('ui.restore', active) || restoreBtn.textContent;
+    const notationBtn = qs('comboNotationBtn');
+    if (notationBtn) notationBtn.textContent = comboT('ui.notation_dict', active) || notationBtn.textContent;
 
     const deviceSelect = qs('comboDeviceSelect');
     if (deviceSelect) {
@@ -3355,6 +3935,73 @@
       if (cancelBtn) cancelBtn.textContent = comboT('ui.keymap_cancel', active) || cancelBtn.textContent;
     }
 
+    const restoreModal = qs('comboRestoreModal');
+    if (restoreModal) {
+      const title = restoreModal.querySelector('h3');
+      if (title) title.textContent = comboT('ui.restore_title', active) || title.textContent;
+      const applyBtn = restoreModal.querySelector('button[data-action="apply"]');
+      if (applyBtn) applyBtn.textContent = comboT('ui.restore_apply', active) || applyBtn.textContent;
+      const cancelBtn = restoreModal.querySelector('button[data-action="close"]');
+      if (cancelBtn) cancelBtn.textContent = comboT('ui.restore_cancel', active) || cancelBtn.textContent;
+      const notice = restoreModal.querySelector('.combo-restore-notice');
+      if (notice) notice.textContent = comboT('ui.restore_notice', active) || notice.textContent;
+      renderRestoreModalList(restoreModal);
+    }
+
+    const notationModal = qs('comboNotationModal');
+    if (notationModal) {
+      const title = notationModal.querySelector('h3');
+      if (title) title.textContent = comboT('ui.notation_title', active) || title.textContent;
+      const closeBtn = notationModal.querySelector('button[data-action="close"]');
+      if (closeBtn) closeBtn.textContent = comboT('ui.notation_close', active) || closeBtn.textContent;
+      const desc = notationModal.querySelector('.combo-notation-desc');
+      if (desc) desc.textContent = comboT('ui.notation_desc', active) || desc.textContent;
+      const hints = notationModal.querySelectorAll('.combo-notation-hints li');
+      if (hints[0]) hints[0].textContent = comboT('ui.notation_hint_1', active) || hints[0].textContent;
+      if (hints[1]) hints[1].textContent = comboT('ui.notation_hint_2', active) || hints[1].textContent;
+      if (hints[2]) hints[2].textContent = comboT('ui.notation_hint_3', active) || hints[2].textContent;
+      const addBtn = notationModal.querySelector('button[data-action="add"]');
+      if (addBtn) addBtn.textContent = comboT('ui.notation_add', active) || addBtn.textContent;
+      const resetBtn = notationModal.querySelector('button[data-action="reset"]');
+      if (resetBtn) resetBtn.textContent = comboT('ui.notation_reset', active) || resetBtn.textContent;
+      const exportBtn = notationModal.querySelector('button[data-action="export"]');
+      if (exportBtn) exportBtn.textContent = comboT('ui.notation_export', active) || exportBtn.textContent;
+      const importBtn = notationModal.querySelector('button[data-action="import"]');
+      if (importBtn) importBtn.textContent = comboT('ui.notation_import', active) || importBtn.textContent;
+      const aliasInput = notationModal.querySelector('#comboNotationAliasInput');
+      if (aliasInput) aliasInput.placeholder = comboT('ui.notation_input_alias', active) || aliasInput.placeholder;
+      const lmInput = notationModal.querySelector('#comboNotationLmInput');
+      if (lmInput) lmInput.placeholder = comboT('ui.notation_input_lm', active) || lmInput.placeholder;
+      const testInput = notationModal.querySelector('#comboNotationTestInput');
+      if (testInput) testInput.placeholder = comboT('ui.notation_test_placeholder', active) || testInput.placeholder;
+      const labels = notationModal.querySelectorAll('[data-notation-label]');
+      labels.forEach((el) => {
+        const key = el.dataset.notationLabel || '';
+        const text = comboT(`ui.${key}`, active);
+        if (text) el.textContent = text;
+      });
+      renderNotationManagerRows();
+      runNotationTestPreview();
+    }
+
+    const xlsxModal = qs('comboXlsxMapModal');
+    if (xlsxModal) {
+      const labels = xlsxModal.querySelectorAll('[data-xlsx-label]');
+      labels.forEach((el) => {
+        const key = el.dataset.xlsxLabel || '';
+        const text = comboT(`ui.${key}`, active);
+        if (text) el.textContent = text;
+      });
+      const applyBtn = xlsxModal.querySelector('button[data-action="apply"]');
+      if (applyBtn) applyBtn.textContent = comboT('ui.xlsx_map_apply', active) || applyBtn.textContent;
+      const cancelBtn = xlsxModal.querySelector('button[data-action="cancel"]');
+      if (cancelBtn) cancelBtn.textContent = comboT('ui.xlsx_map_cancel', active) || cancelBtn.textContent;
+      if (xlsxModal._ctx) {
+        renderXlsxMapFieldTables(xlsxModal);
+        renderXlsxMapPreview(xlsxModal);
+      }
+    }
+
     const panel = qs('comboMultiPanel');
     if (panel && panel.classList.contains('active')) {
       const applyBtn = panel.querySelector('button[data-action="apply"]');
@@ -3362,7 +4009,15 @@
       const clearBtn = panel.querySelector('button[data-action="clear"]');
       if (clearBtn) clearBtn.textContent = comboT('ui.multi_clear', active) || clearBtn.textContent;
     }
+    updateAllRowsToggleLabel(
+      qs('toggleFrameRows'),
+      qs('toggleButtonsRows'),
+      qs('toggleNotesRows'),
+      qs('toggleAllRowsBtn'),
+      active
+    );
     refreshMultiSelectPanel(active);
+    updateComboGameVersionInfo(active);
   }
 
   function applyComboLanguage(lang) {
@@ -3401,6 +4056,7 @@
     if (qs('comboKeymapGrid')) renderKeymapGrid();
     const bottomToggle = qs('comboBottomToggle');
     if (bottomToggle) updateBottomToggleState(bottomToggle);
+    updateSaveStatusUI(state.isDirty, !!state.recoverySource);
   }
 
   function applySampleComboLocalization(lang) {
@@ -3455,6 +4111,85 @@
     return combo;
   }
 
+  function ensureComboAuthoredVersion(combo) {
+    if (!combo || typeof combo !== 'object') return;
+    if (String(combo.game_version || '').trim()) return;
+    combo.game_version = getCurrentFrameVersionForCombo();
+  }
+
+  function syncAuthoredVersionInput(row) {
+    const idx = Number(row);
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const group = state.groups[idx];
+    const combo = state.combos[idx];
+    if (!group || !combo) return;
+    const select = group.inputs && group.inputs.game_version;
+    if (!select || select.tagName !== 'SELECT') return;
+    if (!String(select.value || '').trim()) {
+      select.value = combo.game_version || '';
+    }
+  }
+
+  function getCommandWarnings(command, mode) {
+    const normalized = canonicalizeCommandForStorage(command || '');
+    if (!normalized) return [];
+    const warnings = [];
+    const modeKey = String(mode || '').toLowerCase();
+    const modernMismatch = CLASSIC_ONLY_TOKEN_REGEX.test(normalized);
+    const classicMismatch = MODERN_ONLY_TOKEN_REGEX.test(normalized);
+    if (modeKey === 'modern' && modernMismatch) {
+      warnings.push(comboMsg('warn_modern_mismatch'));
+    }
+    if (modeKey === 'classic' && classicMismatch) {
+      warnings.push(comboMsg('warn_classic_mismatch'));
+    }
+    const tokenRegex = /(>>|>|-|360|\[\s*\]|\[\d+F?\]|投げ|4\(タメ\)|2\(タメ\)|\d+(?:LP|MP|HP|LK|MK|HK|SP|Auto|Any|DP|DI|DR|CR|Jump|Hold\d*|or|PP|KK|[PLMHK]{1,3})|\b(?:LP|MP|HP|LK|MK|HK|SP|Auto|Any|DP|DI|DR|CR|Jump|Hold\d*|or|PP|KK|[PLMHK]{1,3})\b|[1-9])/gi;
+    const rest = normalized
+      .replace(tokenRegex, '')
+      .replace(/\s+/g, '')
+      .replace(/[,+]/g, '');
+    // Ignore separator/punctuation leftovers to avoid false positives on valid notation.
+    const restCore = rest
+      .replace(/[(){}\[\].,:;+/\\'"`~!@#$%^&*_=|<>?-]/g, '')
+      .replace(/[↑↓←→↖↗↙↘]/g, '');
+    if (/[A-Za-z0-9\u3040-\u30ff\u3400-\u9fff]/.test(restCore)) {
+      warnings.push(comboMsg('warn_unknown_notation', { value: restCore }));
+    }
+    return warnings;
+  }
+
+  function getWarningModeForCombo(combo) {
+    const explicit = canonicalControlMode(combo && combo.control_mode ? combo.control_mode : '');
+    if (explicit === 'classic' || explicit === 'modern') return explicit;
+    if (explicit === '両方') return 'both';
+    return state.controlMode || 'classic';
+  }
+
+  function applyCommandWarningToInput(input, warnings) {
+    if (!input) return;
+    const hasWarning = Array.isArray(warnings) && warnings.length > 0;
+    input.classList.toggle('cmd-warning', hasWarning);
+    if (hasWarning) {
+      input.dataset.warning = warnings.join(' / ');
+      input.title = warnings.join('\n');
+    } else {
+      delete input.dataset.warning;
+      input.removeAttribute('title');
+    }
+  }
+
+  function refreshCommandWarning(row) {
+    const idx = Number(row);
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const group = state.groups[idx];
+    const combo = state.combos[idx];
+    if (!group || !combo) return;
+    const commandInput = group.inputs && group.inputs.command;
+    if (!commandInput) return;
+    const warnings = getCommandWarnings(combo.command || '', getWarningModeForCombo(combo));
+    applyCommandWarningToInput(commandInput, warnings);
+  }
+
   function formatNumberText(value) {
     const raw = String(value == null ? '' : value).replace(/,/g, '').trim();
     if (!raw) return '';
@@ -3467,6 +4202,48 @@
       ? `${formattedInt}.${decPart}`
       : formattedInt;
     return negative ? `-${formatted}` : formatted;
+  }
+
+  function parseNumericText(value) {
+    const raw = String(value == null ? '' : value).replace(/,/g, '').trim();
+    if (!raw) return null;
+    const num = Number(raw);
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function computeDriveEfficiencyValue(combo) {
+    if (!combo || typeof combo !== 'object') return '';
+    const damage = parseNumericText(combo.damage_normal);
+    const driveDelta = parseNumericText(combo.drive_delta);
+    if (damage == null || driveDelta == null || driveDelta === 0) return '';
+    const efficiency = damage / Math.abs(driveDelta);
+    if (!Number.isFinite(efficiency)) return '';
+    const compact = efficiency.toFixed(2).replace(/\.?0+$/, '');
+    return formatNumberText(compact);
+  }
+
+  function syncDerivedComboFields(combo) {
+    if (!combo || typeof combo !== 'object') return false;
+    const nextEff = computeDriveEfficiencyValue(combo);
+    const prevEff = String(combo.drive_efficiency || '').trim();
+    if (prevEff === nextEff) return false;
+    combo.drive_efficiency = nextEff;
+    return true;
+  }
+
+  function syncDerivedComboFieldsForRow(rowIndex) {
+    const row = Number(rowIndex);
+    if (!Number.isFinite(row) || row < 0) return false;
+    const combo = state.combos[row];
+    if (!combo) return false;
+    const changed = syncDerivedComboFields(combo);
+    if (!changed) return false;
+    const group = state.groups[row];
+    const input = group && group.inputs ? group.inputs.drive_efficiency : null;
+    if (input && Object.prototype.hasOwnProperty.call(input, 'value')) {
+      input.value = combo.drive_efficiency || '';
+    }
+    return true;
   }
 
   function ensureSampleCombo() {
@@ -3508,9 +4285,603 @@
     return '';
   }
 
+  function getPersistedComboCharacter() {
+    try {
+      const raw = localStorage.getItem(COMBO_CHARACTER_KEY);
+      const resolved = resolveCharacterSlug(raw);
+      if (resolved) return resolved;
+      const fallback = String(raw || '').trim().toLowerCase();
+      if (!fallback) return '';
+      if (/select_character|selectchar/i.test(fallback)) return '';
+      return fallback;
+    } catch {
+      return '';
+    }
+  }
+
+  function loadPersistedComboControlMode() {
+    try {
+      const direct = String(localStorage.getItem(COMBO_CONTROL_MODE_KEY) || '').trim().toLowerCase();
+      if (direct === 'classic' || direct === 'modern') return direct;
+    } catch { }
+    // Legacy fallback (migration from combined UI prefs).
+    try {
+      const raw = localStorage.getItem(UI_PREFS_KEY);
+      if (!raw) return '';
+      const parsed = JSON.parse(raw);
+      const legacy = String(parsed && parsed.controlMode ? parsed.controlMode : '').trim().toLowerCase();
+      if (legacy === 'classic' || legacy === 'modern') return legacy;
+    } catch { }
+    return '';
+  }
+
+  function savePersistedComboControlMode(mode) {
+    try {
+      localStorage.setItem(COMBO_CONTROL_MODE_KEY, mode === 'modern' ? 'modern' : 'classic');
+    } catch { }
+  }
+
+  function persistComboCharacter(slug) {
+    try {
+      const resolved = resolveCharacterSlug(slug) || '';
+      if (resolved) {
+        localStorage.setItem(COMBO_CHARACTER_KEY, resolved);
+      } else {
+        localStorage.removeItem(COMBO_CHARACTER_KEY);
+      }
+    } catch { }
+  }
+
+  function applyComboPortrait(slug) {
+    if (!ui.charImg) return;
+    const resolved = resolveCharacterSlug(slug) || '';
+    if (!resolved) {
+      ui.charImg.src = 'assets/images/characters/select_character_random_over.png';
+      ui.charImg.alt = 'Select Character';
+      return;
+    }
+    const thumb = typeof window.getSelectThumbForSlug === 'function'
+      ? window.getSelectThumbForSlug(resolved, getComboLang())
+      : '';
+    const src = thumb || `assets/images/characters/${resolved}.png`;
+    ui.charImg.src = src;
+  }
+
+  function getStorageSafeSlug(slug) {
+    return slug || state.currentCharacter || getCharacterSlugFromUi() || UNSELECTED_STORAGE_SLUG;
+  }
+
   function getStorageKey(slug) {
-    const safe = slug || state.currentCharacter || getCharacterSlugFromUi() || UNSELECTED_STORAGE_SLUG;
-    return `${STORAGE_KEY_BASE}:${safe}`;
+    return `${STORAGE_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function getDraftStorageKey(slug) {
+    return `${STORAGE_DRAFT_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function getBackupStorageKey(slug) {
+    return `${STORAGE_BACKUP_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function getLongBackupStorageKey(slug) {
+    return `${STORAGE_BACKUP_LONG_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function getImportBackupStorageKey(slug) {
+    return `${STORAGE_BACKUP_IMPORT_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function getMetaStorageKey(slug) {
+    return `${STORAGE_META_KEY_BASE}:${getStorageSafeSlug(slug)}`;
+  }
+
+  function exportCombosState() {
+    return { combos: state.combos };
+  }
+
+  function parseStoredCombos(raw) {
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Array.isArray(parsed.combos)) return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  }
+
+  function normalizeStoredCombos(combos, options = {}) {
+    if (!Array.isArray(combos)) return [];
+    const fallbackMode = canonicalControlMode(options && options.fallbackMode ? options.fallbackMode : '') || '';
+    const normalized = combos.map((c) => {
+      const merged = { ...defaultCombo(), ...(c || {}) };
+      merged.command = canonicalizeCommandForStorage(merged.command || '');
+      if (merged.buttons) merged.buttons = canonicalizeCommandForStorage(merged.buttons);
+      ensureComboControlMode(merged, fallbackMode);
+      return merged;
+    });
+    const hasComboData = (combo) => {
+      if (!combo) return false;
+      if (combo._manual) return true;
+      const fields = [
+        'command',
+        'buttons',
+        'combo_notes',
+        'frame_meter',
+        'game_version',
+        ...FIELD_ORDER,
+      ];
+      return fields.some((field) => String(combo[field] || '').trim().length > 0);
+    };
+    let lastDataIndex = -1;
+    for (let i = normalized.length - 1; i >= 0; i -= 1) {
+      if (hasComboData(normalized[i])) {
+        lastDataIndex = i;
+        break;
+      }
+    }
+    if (lastDataIndex < 0) return [defaultCombo(true)];
+    const keepCount = Math.max(1, lastDataIndex + 2); // keep one trailing blank row for quick entry
+    return normalized.slice(0, Math.min(keepCount, normalized.length));
+  }
+
+  function getPreferredControlModeForMigration() {
+    if (state.controlMode === 'modern') return 'modern';
+    if (state.controlMode === 'classic') return 'classic';
+    try {
+      const raw = localStorage.getItem(UI_PREFS_KEY);
+      if (!raw) return 'classic';
+      const parsed = JSON.parse(raw);
+      const pref = String(parsed && parsed.controlMode ? parsed.controlMode : '').trim().toLowerCase();
+      if (pref === 'modern') return 'modern';
+      if (pref === 'classic') return 'classic';
+    } catch { }
+    return 'classic';
+  }
+
+  function loadXlsxMapPresets() {
+    if (Array.isArray(state.xlsxMapPresets)) return state.xlsxMapPresets;
+    state.xlsxMapPresets = [];
+    try {
+      const raw = localStorage.getItem(XLSX_IMPORT_MAPS_KEY);
+      if (!raw) return state.xlsxMapPresets;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.presets)) return state.xlsxMapPresets;
+      state.xlsxMapPresets = parsed.presets
+        .map((entry) => {
+          if (!entry || typeof entry !== 'object') return null;
+          const map = entry.map && typeof entry.map === 'object' ? { ...entry.map } : {};
+          return {
+            name: String(entry.name || '').trim(),
+            headerSignature: String(entry.headerSignature || '').trim(),
+            headerRow: Number(entry.headerRow) === 2 ? 2 : 1,
+            map,
+          };
+        })
+        .filter(Boolean);
+    } catch {
+      state.xlsxMapPresets = [];
+    }
+    return state.xlsxMapPresets;
+  }
+
+  function saveXlsxMapPresets() {
+    try {
+      const payload = {
+        version: 1,
+        presets: Array.isArray(state.xlsxMapPresets) ? state.xlsxMapPresets : [],
+      };
+      localStorage.setItem(XLSX_IMPORT_MAPS_KEY, JSON.stringify(payload));
+    } catch { }
+  }
+
+  function buildHeaderSignature(headers) {
+    return (headers || [])
+      .map((value) => normalizeLabel(value || ''))
+      .join('|');
+  }
+
+  function findXlsxPresetBySignature(signature) {
+    if (!signature) return null;
+    const presets = loadXlsxMapPresets();
+    return presets.find((entry) => String(entry.headerSignature || '') === signature) || null;
+  }
+
+  function upsertXlsxPreset(entry) {
+    if (!entry || typeof entry !== 'object') return;
+    const signature = String(entry.headerSignature || '').trim();
+    if (!signature) return;
+    const presets = loadXlsxMapPresets();
+    const next = {
+      name: String(entry.name || '').trim() || 'Preset',
+      headerSignature: signature,
+      headerRow: Number(entry.headerRow) === 2 ? 2 : 1,
+      map: entry.map && typeof entry.map === 'object' ? { ...entry.map } : {},
+    };
+    const index = presets.findIndex((item) => String(item.headerSignature || '') === signature);
+    if (index >= 0) presets[index] = next;
+    else presets.push(next);
+    state.xlsxMapPresets = presets;
+    saveXlsxMapPresets();
+  }
+
+  function columnIndexToName(index) {
+    let value = Number(index) || 1;
+    let out = '';
+    while (value > 0) {
+      const rem = (value - 1) % 26;
+      out = String.fromCharCode(65 + rem) + out;
+      value = Math.floor((value - 1) / 26);
+    }
+    return out || 'A';
+  }
+
+  function getXlsxFieldLabel(field, lang) {
+    const active = lang || getComboLang();
+    const entry = XLSX_FIELD_LABELS[field];
+    if (!entry) return field;
+    return active === 'en' ? (entry.en || entry.jp || field) : (entry.jp || entry.en || field);
+  }
+
+  function getSheetMaxColumn(sheet, rowNumbers = [1, 2]) {
+    if (!sheet) return 1;
+    let maxCol = 1;
+    rowNumbers.forEach((rowNumber) => {
+      const row = sheet.getRow(Number(rowNumber) || 1);
+      if (!row) return;
+      const valueLength = Array.isArray(row.values) ? Math.max(0, row.values.length - 1) : 0;
+      maxCol = Math.max(maxCol, Number(row.actualCellCount) || 0, Number(row.cellCount) || 0, valueLength);
+    });
+    return maxCol || 1;
+  }
+
+  function buildSheetHeaderEntries(sheet, rowNumber, maxColHint = 0) {
+    const row = sheet ? sheet.getRow(Number(rowNumber) || 1) : null;
+    const maxCol = Math.max(1, maxColHint || 0, row ? getSheetMaxColumn(sheet, [rowNumber]) : 1);
+    const entries = [];
+    for (let col = 1; col <= maxCol; col += 1) {
+      const header = row ? getCellText(row.getCell(col)) : '';
+      entries.push({
+        col,
+        value: `col:${col}`,
+        header,
+        lower: String(header || '').toLowerCase(),
+        compact: normalizeLabel(header || ''),
+        label: header || `Column ${columnIndexToName(col)}`,
+      });
+    }
+    return entries;
+  }
+
+  function headerEntriesScore(entries) {
+    return (entries || []).reduce((score, entry) => {
+      const header = String(entry && entry.header ? entry.header : '').trim();
+      if (!header) return score;
+      let next = score + 1;
+      if (/[A-Za-z\u3040-\u30FF\u3400-\u9FFF]/.test(header)) next += 0.6;
+      if (!/^\d+(\.\d+)?$/.test(header)) next += 0.4;
+      return next;
+    }, 0);
+  }
+
+  function chooseLikelyHeaderRow(entriesByRow) {
+    const row1 = entriesByRow[1] || [];
+    const row2 = entriesByRow[2] || [];
+    const score1 = headerEntriesScore(row1);
+    const score2 = headerEntriesScore(row2);
+    const hasRow2 = row2.some((entry) => String(entry.header || '').trim());
+    if (!score1 && hasRow2) return 2;
+    if (hasRow2 && score2 > score1 * 1.2) return 2;
+    return 1;
+  }
+
+  function buildHeaderSignatureFromEntries(entries) {
+    return buildHeaderSignature((entries || []).map((entry) => String(entry && entry.header ? entry.header : '')));
+  }
+
+  function headerIncludesKeyword(entry, keyword) {
+    const token = String(keyword || '').trim().toLowerCase();
+    if (!token) return false;
+    const compactToken = token.replace(/\s+/g, '');
+    return String(entry.lower || '').includes(token) || String(entry.compact || '').includes(compactToken);
+  }
+
+  function entryMatchesAnyKeyword(entry, keywords) {
+    return (keywords || []).some((keyword) => headerIncludesKeyword(entry, keyword));
+  }
+
+  function suggestXlsxMapping(entries) {
+    const map = {};
+    const used = new Set();
+    const rows = Array.isArray(entries) ? entries : [];
+
+    const pick = (field, predicate, allowReuse = false) => {
+      if (map[field]) return true;
+      const hit = rows.find((entry) => {
+        if (!entry || !String(entry.header || '').trim()) return false;
+        if (!allowReuse && used.has(entry.value)) return false;
+        return predicate(entry);
+      });
+      if (!hit) return false;
+      map[field] = hit.value;
+      if (!allowReuse) used.add(hit.value);
+      return true;
+    };
+
+    const pickByKeywords = (field, keywords, options = {}) => pick(field, (entry) => {
+      if (!entryMatchesAnyKeyword(entry, keywords)) return false;
+      if (options.exclude && entryMatchesAnyKeyword(entry, options.exclude)) return false;
+      return true;
+    }, options.allowReuse === true);
+
+    pickByKeywords('command', XLSX_HEADER_KEYWORDS.command);
+    pickByKeywords('combo_notes', XLSX_HEADER_KEYWORDS.combo_notes);
+    pickByKeywords('control_mode', XLSX_HEADER_KEYWORDS.control_mode);
+    pickByKeywords('position', XLSX_HEADER_KEYWORDS.position);
+    pickByKeywords('distance', XLSX_HEADER_KEYWORDS.distance);
+    pickByKeywords('special_condition', XLSX_HEADER_KEYWORDS.special_condition);
+    pickByKeywords('buttons', XLSX_HEADER_KEYWORDS.buttons);
+    pickByKeywords('frame_meter', XLSX_HEADER_KEYWORDS.frame_meter);
+    pickByKeywords('game_version', XLSX_HEADER_KEYWORDS.game_version);
+
+    pickByKeywords('frame_adv', XLSX_HEADER_KEYWORDS.frame_adv, {
+      exclude: ['メーター', 'meter'],
+    });
+
+    pickByKeywords('damage_normal', XLSX_HEADER_KEYWORDS.damage_normal, {
+      exclude: ['ca', '(ca)', 'just parry', 'ジャスパ'],
+    });
+
+    pick('drive_delta', (entry) =>
+      entryMatchesAnyKeyword(entry, XLSX_DRIVE_KEYWORDS) && entryMatchesAnyKeyword(entry, XLSX_DELTA_KEYWORDS));
+    pick('drive_req', (entry) =>
+      entryMatchesAnyKeyword(entry, XLSX_DRIVE_KEYWORDS) && entryMatchesAnyKeyword(entry, XLSX_REQ_KEYWORDS));
+    if (!map.drive_delta && !map.drive_req) {
+      pick('drive_req', (entry) => entryMatchesAnyKeyword(entry, XLSX_DRIVE_KEYWORDS));
+    }
+
+    pick('sa_delta', (entry) =>
+      entryMatchesAnyKeyword(entry, XLSX_SA_KEYWORDS) && entryMatchesAnyKeyword(entry, XLSX_DELTA_KEYWORDS));
+    pick('sa_req', (entry) =>
+      entryMatchesAnyKeyword(entry, XLSX_SA_KEYWORDS) && entryMatchesAnyKeyword(entry, XLSX_REQ_KEYWORDS));
+    if (!map.sa_delta && !map.sa_req) {
+      pick('sa_req', (entry) => entryMatchesAnyKeyword(entry, XLSX_SA_KEYWORDS));
+    }
+
+    return map;
+  }
+
+  function sanitizeXlsxMapping(mapping, entries) {
+    const out = {};
+    const valid = new Set((entries || []).map((entry) => entry.value));
+    XLSX_MAP_ALL_FIELDS.forEach((field) => {
+      const value = String(mapping && mapping[field] ? mapping[field] : '');
+      if (value && valid.has(value)) out[field] = value;
+    });
+    return out;
+  }
+
+  function getMappedCellValue(row, mapValue) {
+    const token = String(mapValue || '');
+    if (!token.startsWith('col:')) return '';
+    const col = Number(token.slice(4));
+    if (!Number.isFinite(col) || col <= 0) return '';
+    return getCellText(row.getCell(col));
+  }
+
+  function canonicalControlMode(raw) {
+    const value = normalizeLabel(raw);
+    if (!value) return '';
+    if (value === 'classic' || value === 'クラシック' || value === 'c') return 'classic';
+    if (value === 'modern' || value === 'モダン' || value === 'm') return 'modern';
+    if (value === 'both' || value === '両方' || value === 'common' || value === 'all' || value === 'shared') return '両方';
+    return '';
+  }
+
+  function inferControlModeFromCombo(combo) {
+    const command = canonicalizeCommandForStorage(combo && combo.command ? combo.command : '');
+    const buttons = canonicalizeCommandForStorage(combo && combo.buttons ? combo.buttons : '');
+    const route = `${command} ${buttons}`.trim();
+    if (!route) return '';
+    const hasClassicTokens = CLASSIC_ONLY_TOKEN_REGEX.test(route);
+    const hasModernTokens = MODERN_ONLY_TOKEN_REGEX.test(route);
+    if (hasClassicTokens && !hasModernTokens) return 'classic';
+    if (hasModernTokens && !hasClassicTokens) return 'modern';
+    if (hasClassicTokens && hasModernTokens) return '両方';
+    return '';
+  }
+
+  function getComboModeForMatch(combo) {
+    const mode = canonicalControlMode(combo && combo.control_mode ? combo.control_mode : '');
+    if (mode) return mode;
+    const inferred = inferControlModeFromCombo(combo);
+    return inferred || '';
+  }
+
+  function ensureComboControlMode(combo, fallbackMode = '') {
+    if (!combo || typeof combo !== 'object') return '';
+    const explicit = canonicalControlMode(combo.control_mode);
+    if (explicit) {
+      combo.control_mode = explicit;
+      return explicit;
+    }
+    const inferred = inferControlModeFromCombo(combo);
+    if (inferred) {
+      combo.control_mode = inferred;
+      return inferred;
+    }
+    const command = canonicalizeCommandForStorage(combo.command || '');
+    const buttons = canonicalizeCommandForStorage(combo.buttons || '');
+    if (!command && !buttons) return '';
+    const fallback = canonicalControlMode(fallbackMode);
+    combo.control_mode = fallback || '両方';
+    return combo.control_mode;
+  }
+
+  function normalizeControlModeValue(raw) {
+    const canonical = canonicalControlMode(raw);
+    if (canonical) return canonical;
+    return String(raw || '').trim();
+  }
+
+  function normalizeImportedCombos(combos, unknownCollector = null) {
+    if (!Array.isArray(combos)) return [];
+    return combos.map((combo) => {
+      const merged = { ...defaultCombo(), ...(combo || {}) };
+      const normalizedCommand = normalizeCommandWithNotation(merged.command || '', unknownCollector);
+      merged.command = normalizedCommand.canonical;
+      if (String(merged.buttons || '').trim()) {
+        const normalizedButtons = normalizeCommandWithNotation(merged.buttons || '', unknownCollector);
+        merged.buttons = normalizedButtons.canonical;
+      } else {
+        merged.buttons = merged.command;
+      }
+      ensureComboControlMode(merged);
+      return merged;
+    });
+  }
+
+  function persistMeta(slug, dirty) {
+    try {
+      const payload = {
+        dirty: !!dirty,
+        draftSavedAt: Number(state.draftSavedAt) || 0,
+        lastSavedAt: Number(state.lastSavedAt) || 0,
+        lastShortBackupAt: Number(state.lastShortBackupAt) || 0,
+        lastLongBackupAt: Number(state.lastLongBackupAt) || 0,
+        importBackupAt: Number(state.importBackupAt) || 0,
+      };
+      localStorage.setItem(getMetaStorageKey(slug), JSON.stringify(payload));
+    } catch { }
+  }
+
+  function snapshotImportBackup(slugOverride) {
+    try {
+      const slug = getStorageSafeSlug(slugOverride);
+      const mainRaw = localStorage.getItem(getStorageKey(slug));
+      if (!mainRaw) return;
+      localStorage.setItem(getImportBackupStorageKey(slug), mainRaw);
+      state.importBackupAt = Date.now();
+      persistMeta(slug, state.isDirty);
+    } catch { }
+  }
+
+  function getRestoreCandidates(slugOverride) {
+    const slug = getStorageSafeSlug(slugOverride);
+    const candidates = [
+      {
+        source: 'import',
+        raw: localStorage.getItem(getImportBackupStorageKey(slug)),
+        savedAt: Number(state.importBackupAt) || 0,
+      },
+      {
+        source: 'short',
+        raw: localStorage.getItem(getBackupStorageKey(slug)),
+        savedAt: Number(state.lastShortBackupAt) || 0,
+      },
+      {
+        source: 'long',
+        raw: localStorage.getItem(getLongBackupStorageKey(slug)),
+        savedAt: Number(state.lastLongBackupAt) || 0,
+      },
+      {
+        source: 'draft',
+        raw: localStorage.getItem(getDraftStorageKey(slug)),
+        savedAt: Number(state.draftSavedAt) || 0,
+      },
+    ];
+    return candidates
+      .map((item) => ({ ...item, parsed: parseStoredCombos(item.raw) }))
+      .filter((item) => item.parsed && Array.isArray(item.parsed.combos));
+  }
+
+  function getRestoreSourceLabel(source, lang) {
+    return comboT(`restore_sources.${source}`, lang) || source;
+  }
+
+  function formatRestoreSavedAt(savedAt, lang) {
+    const ts = Number(savedAt) || 0;
+    if (!ts) return comboMsg('restore_time_unknown', null, lang);
+    const locale = (lang || getComboLang()) === 'en' ? 'en-US' : 'ja-JP';
+    try {
+      return new Date(ts).toLocaleString(locale);
+    } catch {
+      return comboMsg('restore_time_unknown', null, lang);
+    }
+  }
+
+  function markDirty() {
+    state.isDirty = true;
+    state.recoverySource = '';
+    updateSaveStatusUI(true);
+    queueAutosaveDraft();
+  }
+
+  function autosaveDraftNow(slugOverride) {
+    const slug = getStorageSafeSlug(slugOverride);
+    const raw = JSON.stringify(exportCombosState());
+    localStorage.setItem(getDraftStorageKey(slug), raw);
+    state.draftSavedAt = Date.now();
+    persistMeta(slug, true);
+  }
+
+  function commitSaveNow(slugOverride) {
+    const slug = getStorageSafeSlug(slugOverride);
+    const nextRaw = JSON.stringify(exportCombosState());
+    const mainKey = getStorageKey(slug);
+    const backupKey = getBackupStorageKey(slug);
+    const longBackupKey = getLongBackupStorageKey(slug);
+    const prevRaw = localStorage.getItem(mainKey);
+    const now = Date.now();
+    if (prevRaw && prevRaw !== nextRaw) {
+      const shouldWriteShort = !state.lastShortBackupAt || (now - state.lastShortBackupAt) >= SHORT_BACKUP_INTERVAL_MS;
+      const shouldWriteLong = !state.lastLongBackupAt || (now - state.lastLongBackupAt) >= LONG_BACKUP_INTERVAL_MS;
+      if (shouldWriteShort) {
+        localStorage.setItem(backupKey, prevRaw);
+        state.lastShortBackupAt = now;
+      }
+      if (shouldWriteLong) {
+        localStorage.setItem(longBackupKey, prevRaw);
+        state.lastLongBackupAt = now;
+      }
+    }
+    localStorage.setItem(mainKey, nextRaw);
+    localStorage.setItem(getDraftStorageKey(slug), nextRaw);
+    state.lastSavedAt = now;
+    state.draftSavedAt = now;
+    state.isDirty = false;
+    state.recoverySource = '';
+    persistMeta(slug, false);
+    updateSaveStatusUI(false);
+  }
+
+  function queueAutosaveDraft(delayMs = AUTOSAVE_DELAY_MS) {
+    if (state.autosaveTimer) {
+      window.clearTimeout(state.autosaveTimer);
+    }
+    state.autosaveTimer = window.setTimeout(() => {
+      state.autosaveTimer = null;
+      try {
+        autosaveDraftNow();
+        commitSaveNow();
+      } catch (err) {
+        console.error('Combo autosave failed:', err);
+      }
+    }, delayMs);
+  }
+
+  function flushAutosaveNow() {
+    if (state.autosaveTimer) {
+      window.clearTimeout(state.autosaveTimer);
+      state.autosaveTimer = null;
+    }
+    if (!state.isDirty) return;
+    try {
+      autosaveDraftNow();
+      commitSaveNow();
+    } catch (err) {
+      console.error('Combo save flush failed:', err);
+    }
   }
 
   function migrateLegacyCombos(slug) {
@@ -3531,22 +4902,67 @@
       const slug = state.currentCharacter || getCharacterSlugFromUi();
       if (!state.currentCharacter) state.currentCharacter = slug;
       migrateLegacyCombos(slug);
-      const raw = localStorage.getItem(getStorageKey(slug));
-      if (!raw) {
+      const mainRaw = localStorage.getItem(getStorageKey(slug));
+      const mainParsed = parseStoredCombos(mainRaw);
+      const draftParsed = parseStoredCombos(localStorage.getItem(getDraftStorageKey(slug)));
+      const backupParsed = parseStoredCombos(localStorage.getItem(getBackupStorageKey(slug)));
+      const backupLongParsed = parseStoredCombos(localStorage.getItem(getLongBackupStorageKey(slug)));
+      const backupImportParsed = parseStoredCombos(localStorage.getItem(getImportBackupStorageKey(slug)));
+      const metaRaw = localStorage.getItem(getMetaStorageKey(slug));
+      if (metaRaw) {
+        try {
+          const meta = JSON.parse(metaRaw);
+          state.lastSavedAt = Number(meta && meta.lastSavedAt) || 0;
+          state.draftSavedAt = Number(meta && meta.draftSavedAt) || 0;
+          state.lastShortBackupAt = Number(meta && meta.lastShortBackupAt) || 0;
+          state.lastLongBackupAt = Number(meta && meta.lastLongBackupAt) || 0;
+          state.importBackupAt = Number(meta && meta.importBackupAt) || 0;
+        } catch { }
+      }
+
+      let source = '';
+      let parsed = null;
+      if (mainParsed) {
+        parsed = mainParsed;
+        source = 'main';
+      } else if (draftParsed) {
+        parsed = draftParsed;
+        source = 'draft';
+      } else if (backupParsed) {
+        parsed = backupParsed;
+        source = 'backup_short';
+      } else if (backupLongParsed) {
+        parsed = backupLongParsed;
+        source = 'backup_long';
+      } else if (backupImportParsed) {
+        parsed = backupImportParsed;
+        source = 'backup_import';
+      }
+
+      if (!parsed) {
         if (resetIfMissing) {
           state.combos = state.groups.map((_, idx) => (idx === 0 ? defaultCombo(true) : defaultCombo()));
+          persist({ immediate: true });
         }
+        state.isDirty = false;
+        state.recoverySource = '';
+        updateSaveStatusUI(false);
         return;
       }
-      const parsed = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.combos)) {
-        state.combos = parsed.combos.map((c) => {
-          const merged = { ...defaultCombo(), ...c };
-          merged.command = canonicalizeCommandForStorage(merged.command || '');
-          if (merged.buttons) merged.buttons = canonicalizeCommandForStorage(merged.buttons);
-          return merged;
-        });
+      const migrationMode = getPreferredControlModeForMigration();
+      state.combos = normalizeStoredCombos(parsed.combos, { fallbackMode: migrationMode });
+      if (source === 'main') {
+        const normalizedRaw = JSON.stringify({ combos: state.combos });
+        const shouldPersistNormalized = normalizedRaw !== String(mainRaw || '');
+        if (shouldPersistNormalized) {
+          try {
+            commitSaveNow(slug);
+          } catch { }
+        }
       }
+      state.recoverySource = source === 'main' ? '' : source;
+      state.isDirty = source !== 'main';
+      updateSaveStatusUI(state.isDirty, source !== 'main');
     } catch { }
   }
 
@@ -3578,7 +4994,12 @@
           notes: parsed.rowVisibility.notes !== false,
         };
       }
+
     } catch { }
+    const persistedMode = loadPersistedComboControlMode();
+    if (persistedMode === 'classic' || persistedMode === 'modern') {
+      state.controlMode = persistedMode;
+    }
   }
 
   function saveUiPrefs() {
@@ -3598,17 +5019,31 @@
     } catch { }
   }
 
-  function persist() {
+  function persist(options = {}) {
+    const opts = options || {};
+    const immediate = opts.immediate === true;
+    const dirty = opts.dirty !== false;
     try {
+      if (Array.isArray(state.combos) && state.combos.length) {
+        state.combos.forEach((combo) => {
+          syncDerivedComboFields(combo);
+        });
+      }
       const slug = state.currentCharacter || getCharacterSlugFromUi();
       if (!state.currentCharacter) state.currentCharacter = slug;
-      localStorage.setItem(getStorageKey(slug), JSON.stringify({ combos: state.combos }));
+      if (dirty) {
+        markDirty();
+      }
+      if (immediate) {
+        flushAutosaveNow();
+      }
     } catch { }
   }
 
   function applyStateToTable() {
     state.groups.forEach((group) => {
       const combo = state.combos[group.index] || defaultCombo();
+      syncDerivedComboFields(combo);
       if (combo && typeof combo.command === 'string') {
         const canonical = canonicalizeCommandForStorage(combo.command);
         if (canonical !== combo.command) {
@@ -3648,6 +5083,7 @@
           autoResizeNotesInput(input);
         }
       });
+      refreshCommandWarning(group.index);
     });
     updateEmptyGroups();
     applyCommandFontSize();
@@ -3664,7 +5100,7 @@
   }
 
   function bindEvents() {
-    if (ui.search) ui.search.addEventListener('input', onSearch);
+    if (ui.search) ui.search.addEventListener('input', onSearchInput);
     if (ui.searchBtn) ui.searchBtn.addEventListener('click', onSearch);
     if (ui.filterBtn) ui.filterBtn.addEventListener('click', toggleFilterPanel);
     if (ui.exportBtn) {
@@ -3688,6 +5124,7 @@
     }
     document.addEventListener('click', handleExportMenuOutside);
     if (ui.importBtn) ui.importBtn.addEventListener('click', () => ui.importInput && ui.importInput.click());
+    if (ui.notationBtn) ui.notationBtn.addEventListener('click', openNotationManager);
     if (ui.tabClassic) ui.tabClassic.addEventListener('click', () => setControlMode('classic'));
     if (ui.tabModern) ui.tabModern.addEventListener('click', () => setControlMode('modern'));
     if (ui.charBtn) ui.charBtn.addEventListener('click', openCharSelect);
@@ -3727,6 +5164,7 @@
         openMultiSelect(target);
       }
     });
+    ui.table.addEventListener('paste', handleCommandPaste);
     ui.table.addEventListener('blur', handleContentEditableBlur, true);
 
     if (ui.comboView) {
@@ -3766,6 +5204,7 @@
 
   async function handleExport(type, options = {}) {
     const opts = { scope: 'current', mode: 'current', includeHidden: false, ...options };
+    flushAutosaveNow();
     try {
       const shouldShow = type === 'html' || type === 'xlsx' || (type === 'json' && opts.scope === 'all');
       if (shouldShow) showExportToast(comboMsg('exporting'), false, { sticky: true, dim: true });
@@ -3899,12 +5338,9 @@
         buttons: buttonToggle ? !!buttonToggle.checked : true,
         notes: notesToggle ? !!notesToggle.checked : true,
       };
+      refreshVisibleGroupRowClasses();
       saveUiPrefs();
-      if (allToggle) {
-        const toggles = [frameToggle, buttonToggle, notesToggle].filter(Boolean);
-        const anyUnchecked = toggles.some((t) => !t.checked);
-        allToggle.textContent = anyUnchecked ? '全表示' : '全非表示';
-      }
+      updateAllRowsToggleLabel(frameToggle, buttonToggle, notesToggle, allToggle);
     };
     [frameToggle, buttonToggle, notesToggle].forEach((toggle) => {
       if (!toggle) return;
@@ -3923,6 +5359,54 @@
     update();
   }
 
+  function updateAllRowsToggleLabel(frameToggle, buttonToggle, notesToggle, allToggle, lang) {
+    if (!allToggle) return;
+    const active = lang || getComboLang();
+    const toggles = [frameToggle, buttonToggle, notesToggle].filter(Boolean);
+    const anyUnchecked = toggles.some((t) => !t.checked);
+    allToggle.textContent = anyUnchecked
+      ? (comboT('ui.rows_show_all', active) || '全表示')
+      : (comboT('ui.rows_hide_all', active) || '全非表示');
+  }
+
+  function isRowVisibleByToggleState(row) {
+    if (!row || row.classList.contains('combo-group-empty')) return false;
+    if (row.classList.contains('combo-row-frame')) return !!(state.rowVisibility && state.rowVisibility.frame);
+    if (row.classList.contains('combo-row-buttons')) return !!(state.rowVisibility && state.rowVisibility.buttons);
+    if (row.classList.contains('combo-row-notes')) return !!(state.rowVisibility && state.rowVisibility.notes);
+    return true;
+  }
+
+  function refreshVisibleGroupRowClasses() {
+    if (!state.groups || !state.groups.length) return;
+    let visibleGroupIndex = 0;
+    state.groups.forEach((group) => {
+      if (!group || !Array.isArray(group.rowList)) return;
+      group.rowList.forEach((row) => {
+        row.classList.remove(
+          'combo-row-visible',
+          'combo-row-visible-start',
+          'combo-row-visible-end',
+          'combo-group-visible-even',
+          'combo-group-visible-odd',
+        );
+      });
+      const visibleRows = group.rowList.filter((row) => (
+        isRowVisibleByToggleState(row)
+        && row.style.display !== 'none'
+      ));
+      if (!visibleRows.length) return;
+      const isVisibleEven = visibleGroupIndex % 2 === 0;
+      visibleGroupIndex += 1;
+      visibleRows.forEach((row, idx) => {
+        row.classList.add('combo-row-visible');
+        row.classList.add(isVisibleEven ? 'combo-group-visible-even' : 'combo-group-visible-odd');
+        if (idx === 0) row.classList.add('combo-row-visible-start');
+        if (idx === visibleRows.length - 1) row.classList.add('combo-row-visible-end');
+      });
+    });
+  }
+
   function updateEmptyGroups() {
     if (!state.groups.length) return;
     state.groups.forEach((group, idx) => {
@@ -3932,6 +5416,7 @@
         row.classList.toggle('combo-group-empty', isEmpty);
       });
     });
+    refreshVisibleGroupRowClasses();
   }
 
   function bindCrudButtons() {
@@ -3939,10 +5424,12 @@
     const duplicateBtn = qs('comboDuplicateBtn');
     const deleteBtn = qs('comboDeleteBtn');
     const dedupeBtn = qs('comboDedupeBtn');
+    const restoreBtn = qs('comboRestoreBtn');
     if (createBtn) createBtn.addEventListener('click', handleCreateCombo);
     if (duplicateBtn) duplicateBtn.addEventListener('click', handleDuplicateCombo);
     if (deleteBtn) deleteBtn.addEventListener('click', handleDeleteCombo);
     if (dedupeBtn) dedupeBtn.addEventListener('click', handleDedupeCombos);
+    if (restoreBtn) restoreBtn.addEventListener('click', handleRestoreCombos);
   }
 
   function getActiveGroupIndex() {
@@ -3979,10 +5466,27 @@
 
   function appendEmptyGroup() {
     if (!ui.table || !state.groups.length) return null;
-    const template = state.groups[state.groups.length - 1];
-    if (!template || !template.rowList.length) return null;
+    const fallbackOrder = ['frame_meter', 'command', 'buttons', 'notes'];
+    let template = null;
+    for (let i = state.groups.length - 1; i >= 0; i -= 1) {
+      const group = state.groups[i];
+      if (
+        group
+        && group.rows
+        && group.rows.frame_meter
+        && group.rows.command
+        && group.rows.buttons
+        && group.rows.notes
+      ) {
+        template = group;
+        break;
+      }
+    }
+    if (!template) return null;
     const newIndex = state.groups.length;
-    const clonedRows = template.rowList.map((row) => row.cloneNode(true));
+    const sourceRows = fallbackOrder.map((key) => template.rows[key]).filter(Boolean);
+    if (sourceRows.length !== fallbackOrder.length) return null;
+    const clonedRows = sourceRows.map((row) => row.cloneNode(true));
 
     clonedRows.forEach((row) => {
       row.classList.remove(
@@ -3991,6 +5495,7 @@
         'combo-group-odd',
         'combo-group-start',
         'combo-group-end',
+        'combo-row-command',
         'combo-row-buttons',
         'combo-row-notes',
         'combo-row-frame',
@@ -4012,25 +5517,22 @@
       inputs: {},
       rowList: clonedRows,
     };
-    const fallbackOrder = ['frame_meter', 'command', 'buttons', 'notes'];
-    let fallbackIndex = 0;
-    clonedRows.forEach((row) => {
-      let label = getRowLabel(row);
-      if (!label) {
-        label = fallbackOrder[fallbackIndex] || '';
-        fallbackIndex = (fallbackIndex + 1) % fallbackOrder.length;
-      }
+    clonedRows.forEach((row, rowIdx) => {
+      let label = (row.dataset.rowLabel || '').trim();
+      if (!label) label = fallbackOrder[rowIdx % fallbackOrder.length] || '';
+      row.dataset.rowLabel = label;
       if (label && !group.rows[label]) group.rows[label] = row;
     });
 
     const isEven = newIndex % 2 === 0;
     clonedRows.forEach((row, rowIdx) => {
-      const rowLabel = getRowLabel(row);
+      const rowLabel = (row.dataset.rowLabel || fallbackOrder[rowIdx % fallbackOrder.length] || '');
       row.dataset.row = String(newIndex);
       row.dataset.rowLabel = rowLabel || '';
       row.classList.add('combo-group-row');
       row.classList.add(isEven ? 'combo-group-even' : 'combo-group-odd');
       if (rowLabel === 'frame_meter') row.classList.add('combo-group-start', 'combo-row-frame');
+      if (rowLabel === 'command') row.classList.add('combo-row-command');
       if (rowLabel === 'buttons') row.classList.add('combo-row-buttons');
       if (rowLabel === 'notes') row.classList.add('combo-row-notes');
       if (rowIdx === clonedRows.length - 1) row.classList.add('combo-group-end');
@@ -4065,6 +5567,7 @@
   function setSelectedGroup(index, options = {}) {
     if (!state.groups.length) return;
     state.selectedGroup = index;
+    updateComboGameVersionInfo(getComboLang());
     state.groups.forEach((group, idx) => {
       group.rowList.forEach((row) => {
         row.classList.toggle('selected', idx === index);
@@ -4168,6 +5671,483 @@
     setSelectedGroup(0);
   }
 
+  function renderRestoreModalList(modal) {
+    if (!modal) return;
+    const list = modal.querySelector('#comboRestoreList');
+    if (!list) return;
+    const lang = getComboLang();
+    const candidates = Array.isArray(modal._candidates) ? modal._candidates : [];
+    const selected = Number.parseInt(modal.dataset.selectedIndex || '0', 10);
+    list.innerHTML = candidates.map((item, idx) => {
+      const sourceLabel = getRestoreSourceLabel(item.source, lang);
+      const when = formatRestoreSavedAt(item.savedAt, lang);
+      const activeClass = idx === selected ? ' active' : '';
+      return `<button type="button" class="combo-restore-option${activeClass}" data-index="${idx}">
+        <span class="source">${sourceLabel}</span>
+        <span class="time">${when}</span>
+      </button>`;
+    }).join('');
+    const applyBtn = modal.querySelector('button[data-action="apply"]');
+    if (applyBtn) applyBtn.disabled = !candidates.length;
+  }
+
+  function openRestoreModal(candidates) {
+    return new Promise((resolve) => {
+      let modal = qs('comboRestoreModal');
+      if (!modal) {
+        const lang = getComboLang();
+        const title = comboT('ui.restore_title', lang) || 'Choose Restore Source';
+        const applyLabel = comboT('ui.restore_apply', lang) || 'Restore';
+        const cancelLabel = comboT('ui.restore_cancel', lang) || 'Cancel';
+        const noticeText = comboT('ui.restore_notice', lang) || '';
+        modal = document.createElement('div');
+        modal.id = 'comboRestoreModal';
+        modal.className = 'combo-keymap-modal combo-restore-modal hidden';
+        modal.innerHTML = `
+          <div class="combo-keymap-content combo-restore-content">
+            <header>
+              <h3>${title}</h3>
+            </header>
+            <div id="comboRestoreList" class="combo-restore-list"></div>
+            <p class="combo-restore-notice">${noticeText}</p>
+            <div class="combo-keymap-actions combo-restore-actions">
+              <button type="button" data-action="apply">${applyLabel}</button>
+              <button type="button" data-action="close">${cancelLabel}</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.addEventListener('click', (ev) => {
+          if (ev.target === modal) {
+            closeRestoreModal(null);
+            return;
+          }
+          const optionBtn = ev.target.closest('.combo-restore-option');
+          if (optionBtn) {
+            modal.dataset.selectedIndex = optionBtn.dataset.index || '0';
+            renderRestoreModalList(modal);
+            return;
+          }
+          const action = ev.target && ev.target.dataset && ev.target.dataset.action;
+          if (action === 'close') {
+            closeRestoreModal(null);
+            return;
+          }
+          if (action === 'apply') {
+            const idx = Number.parseInt(modal.dataset.selectedIndex || '0', 10);
+            const list = Array.isArray(modal._candidates) ? modal._candidates : [];
+            const selected = Number.isFinite(idx) && idx >= 0 && idx < list.length ? list[idx] : null;
+            closeRestoreModal(selected);
+          }
+        });
+      }
+      modal._resolve = resolve;
+      modal._candidates = Array.isArray(candidates) ? candidates : [];
+      modal.dataset.selectedIndex = '0';
+      applyComboUiLabels(getComboLang());
+      renderRestoreModalList(modal);
+      modal.classList.remove('hidden');
+    });
+  }
+
+  function closeRestoreModal(selected) {
+    const modal = qs('comboRestoreModal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+    const resolve = modal._resolve;
+    modal._resolve = null;
+    modal._candidates = [];
+    if (typeof resolve === 'function') {
+      resolve(selected || null);
+    }
+  }
+
+  function getNotationManagerRows(lang) {
+    const api = getNotationDictApi();
+    if (!api || typeof api.getNotationManagerRows !== 'function') return [];
+    return api.getNotationManagerRows(lang || getComboLang());
+  }
+
+  function ensureNotationManagerModal() {
+    let modal = qs('comboNotationModal');
+    if (modal) return modal;
+    const lang = getComboLang();
+    const title = comboT('ui.notation_title', lang) || 'Notation Dictionary (Import)';
+    const closeLabel = comboT('ui.notation_close', lang) || 'Close';
+    const desc = comboT('ui.notation_desc', lang) || '';
+    const hint1 = comboT('ui.notation_hint_1', lang) || '';
+    const hint2 = comboT('ui.notation_hint_2', lang) || '';
+    const hint3 = comboT('ui.notation_hint_3', lang) || '';
+    const existingDictTitle = comboT('ui.notation_existing_dict', lang) || 'Existing Dictionary';
+    const normalizeTitle = comboT('ui.notation_normalize_title', lang) || 'Normalization Test';
+    const normalizeDesc = comboT('ui.notation_normalize_desc', lang) || '';
+    const aliasPlaceholder = comboT('ui.notation_input_alias', lang) || 'Alias';
+    const lmPlaceholder = comboT('ui.notation_input_lm', lang) || 'LM Token';
+    const testPlaceholder = comboT('ui.notation_test_placeholder', lang) || '';
+    const addLabel = comboT('ui.notation_add', lang) || 'Add/Update';
+    const resetLabel = comboT('ui.notation_reset', lang) || 'Reset';
+    const exportLabel = comboT('ui.notation_export', lang) || 'Export';
+    const importLabel = comboT('ui.notation_import', lang) || 'Import';
+
+    modal = document.createElement('div');
+    modal.id = 'comboNotationModal';
+    modal.className = 'combo-keymap-modal combo-notation-modal hidden';
+    modal.innerHTML = `
+      <div class="combo-keymap-content combo-notation-content">
+        <header><h3>${title}</h3></header>
+        <p class="combo-notation-desc">${desc}</p>
+        <ul class="combo-notation-hints">
+          <li>${hint1}</li>
+          <li>${hint2}</li>
+          <li>${hint3}</li>
+        </ul>
+        <div class="combo-notation-add">
+          <input type="text" id="comboNotationAliasInput" placeholder="${aliasPlaceholder}">
+          <input type="text" id="comboNotationLmInput" placeholder="${lmPlaceholder}">
+          <button type="button" data-action="add">${addLabel}</button>
+        </div>
+        <div class="combo-notation-test">
+          <h4 class="combo-notation-section-title" data-notation-label="notation_normalize_title">${normalizeTitle}</h4>
+          <p class="combo-notation-test-desc" data-notation-label="notation_normalize_desc">${normalizeDesc}</p>
+          <div class="combo-notation-test-head">
+            <label data-notation-label="notation_test_original">${comboT('ui.notation_test_original', lang) || 'Input'}</label>
+          </div>
+          <textarea id="comboNotationTestInput" rows="2" placeholder="${testPlaceholder}"></textarea>
+          <div class="combo-notation-preview">
+            <div class="line"><span data-notation-label="notation_test_normalized">${comboT('ui.notation_test_normalized', lang) || 'Normalized'}</span><pre id="comboNotationPreviewNormalized"></pre></div>
+            <div class="line"><span data-notation-label="notation_test_replacements">${comboT('ui.notation_test_replacements', lang) || 'Replacements'}</span><div id="comboNotationPreviewReplacements"></div></div>
+            <div class="line"><span data-notation-label="notation_test_unknown">${comboT('ui.notation_test_unknown', lang) || 'Unknown'}</span><div id="comboNotationPreviewUnknown"></div></div>
+          </div>
+        </div>
+        <h4 class="combo-notation-section-title" data-notation-label="notation_existing_dict">${existingDictTitle}</h4>
+        <div class="combo-notation-table-wrap">
+          <table class="combo-notation-table">
+            <thead>
+              <tr>
+                <th data-notation-label="notation_table_alias">${comboT('ui.notation_table_alias', lang) || 'Alias'}</th>
+                <th data-notation-label="notation_table_lm">${comboT('ui.notation_table_lm', lang) || 'LM'}</th>
+                <th data-notation-label="notation_table_display">${comboT('ui.notation_table_display', lang) || 'Display'}</th>
+                <th data-notation-label="notation_table_source">${comboT('ui.notation_table_source', lang) || 'Source'}</th>
+                <th data-notation-label="notation_table_enabled">${comboT('ui.notation_table_enabled', lang) || 'Enabled'}</th>
+                <th data-notation-label="notation_table_actions">${comboT('ui.notation_table_actions', lang) || 'Actions'}</th>
+              </tr>
+            </thead>
+            <tbody id="comboNotationTableBody"></tbody>
+          </table>
+        </div>
+        <div class="combo-notation-tools">
+          <button type="button" data-action="reset">${resetLabel}</button>
+          <button type="button" data-action="export">${exportLabel}</button>
+          <button type="button" data-action="import">${importLabel}</button>
+          <input type="file" id="comboNotationImportInput" accept=".json,application/json" hidden>
+        </div>
+        <div class="combo-keymap-actions">
+          <button type="button" data-action="close">${closeLabel}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (ev) => {
+      if (ev.target === modal) {
+        closeNotationManager();
+        return;
+      }
+      const action = ev.target && ev.target.dataset && ev.target.dataset.action;
+      if (!action) return;
+      if (action === 'close') {
+        closeNotationManager();
+        return;
+      }
+      if (action === 'add') {
+        handleNotationAdd();
+        return;
+      }
+      if (action === 'reset') {
+        handleNotationReset();
+        return;
+      }
+      if (action === 'export') {
+        handleNotationExport();
+        return;
+      }
+      if (action === 'import') {
+        const input = qs('comboNotationImportInput');
+        if (input) input.click();
+        return;
+      }
+      if (action === 'edit') {
+        handleNotationEdit(ev.target.dataset.alias || '');
+        return;
+      }
+      if (action === 'delete') {
+        handleNotationDelete(ev.target.dataset.alias || '');
+        return;
+      }
+      if (action === 'toggle-default') {
+        handleNotationToggleDefault(ev.target.dataset.alias || '', ev.target.checked);
+      }
+    });
+
+    const importInput = modal.querySelector('#comboNotationImportInput');
+    if (importInput) {
+      importInput.addEventListener('change', handleNotationImportFile);
+    }
+
+    const testInput = modal.querySelector('#comboNotationTestInput');
+    if (testInput) {
+      testInput.addEventListener('input', runNotationTestPreview);
+    }
+
+    return modal;
+  }
+
+  function renderNotationManagerRows() {
+    const modal = qs('comboNotationModal');
+    if (!modal || modal.classList.contains('hidden')) return;
+    const body = modal.querySelector('#comboNotationTableBody');
+    if (!body) return;
+    const lang = getComboLang();
+    const rows = getNotationManagerRows(lang);
+    state.notationManagerRows = rows.slice();
+    if (!rows.length) {
+      body.innerHTML = '<tr><td colspan="6">-</td></tr>';
+      return;
+    }
+    const categoryOrder = ['user', 'directional', 'attack', 'utility', 'frequent'];
+    const grouped = new Map();
+    categoryOrder.forEach((key) => grouped.set(key, []));
+    rows.forEach((row) => {
+      const key = row.source === 'user'
+        ? 'user'
+        : (categoryOrder.includes(row.category) ? row.category : 'utility');
+      grouped.get(key).push(row);
+    });
+
+    const sectionLabel = (category) => comboT(`ui.notation_category_${category}`, lang) || category;
+    const renderButtonsFromLm = (lmToken) => {
+      const canonical = canonicalizeCommandForStorage(String(lmToken || ''));
+      const tokens = parseButtonsValue(canonical);
+      if (!tokens.length) {
+        return escapeHtml(localizeCommandForDisplay(canonical, lang));
+      }
+      return tokens.map((token) => {
+        const icon = getButtonIcon(token);
+        const label = localizeCommandForDisplay(displayLabelForToken(token), lang);
+        if (!icon) {
+          return `<span class="btn-token btn-token-fallback">${escapeHtml(label)}</span>`;
+        }
+        return `<span class="btn-token" title="${escapeHtml(label)}"><img alt="${escapeHtml(label)}" src="${icon.src}"><span class="btn-token-text">${escapeHtml(label)}</span></span>`;
+      }).join('');
+    };
+
+    const html = [];
+    categoryOrder.forEach((category) => {
+      const items = grouped.get(category) || [];
+      if (!items.length) return;
+      html.push(`<tr class="notation-category-row"><td colspan="6">${escapeHtml(sectionLabel(category))}</td></tr>`);
+      items.forEach((row) => {
+        const aliasEsc = escapeHtml(row.alias);
+        const lmLabel = localizeCommandForDisplay(row.lmToken, lang);
+        const lmEsc = escapeHtml(lmLabel);
+        const displayHtml = renderButtonsFromLm(row.lmToken);
+        const sourceLabel = row.source === 'user'
+          ? (comboT('ui.notation_source_user', lang) || 'User')
+          : (comboT('ui.notation_source_default', lang) || 'Default');
+        const enabledCell = row.source === 'default'
+          ? `<input type="checkbox" data-action="toggle-default" data-alias="${aliasEsc}" ${row.enabled ? 'checked' : ''}>`
+          : '-';
+        const actions = row.source === 'user'
+          ? `<button type="button" data-action="edit" data-alias="${aliasEsc}">${comboT('ui.notation_action_edit', lang) || 'Edit'}</button>
+           <button type="button" data-action="delete" data-alias="${aliasEsc}">${comboT('ui.notation_action_delete', lang) || 'Delete'}</button>`
+          : '-';
+        html.push(`<tr>
+        <td>${aliasEsc}</td>
+        <td>${lmEsc}</td>
+        <td class="combo-notation-buttons"><div class="combo-notation-buttons-wrap">${displayHtml}</div></td>
+        <td>${escapeHtml(sourceLabel)}</td>
+        <td>${enabledCell}</td>
+        <td>${actions}</td>
+      </tr>`);
+      });
+    });
+    body.innerHTML = html.join('');
+  }
+
+  function runNotationTestPreview() {
+    const modal = qs('comboNotationModal');
+    if (!modal || modal.classList.contains('hidden')) return;
+    const input = modal.querySelector('#comboNotationTestInput');
+    const outNormalized = modal.querySelector('#comboNotationPreviewNormalized');
+    const outReplacements = modal.querySelector('#comboNotationPreviewReplacements');
+    const outUnknown = modal.querySelector('#comboNotationPreviewUnknown');
+    if (!input || !outNormalized || !outReplacements || !outUnknown) return;
+    const api = getNotationDictApi();
+    const raw = String(input.value || '');
+    if (!api || typeof api.normalizeCommandText !== 'function') {
+      outNormalized.textContent = raw;
+      outReplacements.textContent = '-';
+      outUnknown.textContent = '-';
+      return;
+    }
+    const result = api.normalizeCommandText(raw);
+    const normalizedText = String((result && result.normalizedText) || '');
+    outNormalized.textContent = localizeCommandForDisplay(normalizedText, getComboLang());
+    const replacements = Array.isArray(result && result.replacements) ? result.replacements : [];
+    outReplacements.innerHTML = replacements.length
+      ? replacements.map((pair) => `<span class="chip">${escapeHtml(pair.from)} -> ${escapeHtml(localizeCommandForDisplay(pair.to, getComboLang()))}</span>`).join(' ')
+      : '-';
+    const unknown = Array.isArray(result && result.unknown) ? result.unknown : [];
+    outUnknown.innerHTML = unknown.length
+      ? unknown.map((term) => `<span class="chip unknown">${escapeHtml(term)}</span>`).join(' ')
+      : '-';
+  }
+
+  function handleNotationAdd() {
+    const api = getNotationDictApi();
+    if (!api || typeof api.addOrUpdateUserAlias !== 'function') return;
+    const aliasInput = qs('comboNotationAliasInput');
+    const lmInput = qs('comboNotationLmInput');
+    const alias = aliasInput ? aliasInput.value : '';
+    const lmToken = lmInput ? lmInput.value : '';
+    const result = api.addOrUpdateUserAlias(alias, lmToken);
+    if (!result || !result.ok) {
+      window.alert(comboMsg('notation_add_failed'));
+      return;
+    }
+    if (aliasInput) aliasInput.value = '';
+    if (lmInput) lmInput.value = '';
+    renderNotationManagerRows();
+    runNotationTestPreview();
+    if (result.warnings && result.warnings.length) {
+      showExportToast(comboMsg('notation_add_warning', { warnings: result.warnings.join(', ') }), false, { dim: false });
+    } else {
+      showExportToast(comboMsg('notation_add_done'), false, { dim: false });
+    }
+  }
+
+  function handleNotationEdit(alias) {
+    const row = state.notationManagerRows.find((item) => item.source === 'user' && item.alias === alias);
+    if (!row) return;
+    const aliasInput = qs('comboNotationAliasInput');
+    const lmInput = qs('comboNotationLmInput');
+    if (aliasInput) aliasInput.value = row.alias;
+    if (lmInput) lmInput.value = row.lmToken;
+    if (aliasInput) aliasInput.focus();
+  }
+
+  function handleNotationDelete(alias) {
+    const api = getNotationDictApi();
+    if (!api || typeof api.removeUserAlias !== 'function') return;
+    const ok = window.confirm(comboMsg('notation_delete_confirm'));
+    if (!ok) return;
+    api.removeUserAlias(alias);
+    renderNotationManagerRows();
+    runNotationTestPreview();
+  }
+
+  function handleNotationToggleDefault(alias, enabled) {
+    const api = getNotationDictApi();
+    if (!api) return;
+    if (enabled && typeof api.enableDefaultAlias === 'function') {
+      api.enableDefaultAlias(alias);
+    } else if (!enabled && typeof api.disableDefaultAlias === 'function') {
+      api.disableDefaultAlias(alias);
+    }
+    renderNotationManagerRows();
+    runNotationTestPreview();
+  }
+
+  function handleNotationReset() {
+    const api = getNotationDictApi();
+    if (!api || typeof api.resetUserAliases !== 'function') return;
+    const ok = window.confirm(comboMsg('notation_reset_confirm'));
+    if (!ok) return;
+    api.resetUserAliases();
+    renderNotationManagerRows();
+    runNotationTestPreview();
+  }
+
+  function handleNotationExport() {
+    const api = getNotationDictApi();
+    if (!api || typeof api.exportUserAliasesJSON !== 'function') return;
+    const text = api.exportUserAliasesJSON();
+    downloadFile('notation_user_overrides.json', 'application/json;charset=utf-8', text);
+  }
+
+  async function handleNotationImportFile(ev) {
+    const file = ev.target && ev.target.files ? ev.target.files[0] : null;
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const api = getNotationDictApi();
+      if (!api || typeof api.importUserAliasesJSON !== 'function') return;
+      api.importUserAliasesJSON(text);
+      renderNotationManagerRows();
+      runNotationTestPreview();
+      showExportToast(comboMsg('notation_import_done'), false, { dim: false });
+    } catch {
+      window.alert(comboMsg('notation_import_failed'));
+    } finally {
+      ev.target.value = '';
+    }
+  }
+
+  async function openNotationManager() {
+    const loaded = await ensureNotationDictionaryLoaded();
+    if (!loaded) {
+      window.alert(comboMsg('notation_load_failed'));
+      return;
+    }
+    const modal = ensureNotationManagerModal();
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    applyComboUiLabels(getComboLang());
+    renderNotationManagerRows();
+    runNotationTestPreview();
+  }
+
+  function closeNotationManager() {
+    const modal = qs('comboNotationModal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+  }
+
+  async function handleRestoreCombos() {
+    try {
+      const slug = state.currentCharacter || getCharacterSlugFromUi();
+      const candidates = getRestoreCandidates(slug);
+      if (!candidates.length) {
+        window.alert(comboMsg('restore_no_backup'));
+        return;
+      }
+      const lang = getComboLang();
+      const chosen = await openRestoreModal(candidates);
+      if (!chosen) return;
+      const sourceLabel = getRestoreSourceLabel(chosen.source, lang);
+      const ok = window.confirm(comboMsg('restore_confirm', { source: sourceLabel }, lang));
+      if (!ok) return;
+      snapshotImportBackup(slug);
+      state.combos = normalizeStoredCombos(chosen.parsed.combos, {
+        fallbackMode: state.controlMode,
+      });
+      ensureGroupCount(state.combos.length);
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
+      state.isDirty = false;
+      state.recoverySource = '';
+      commitSaveNow(slug);
+      applyStateToTable();
+      updateEmptyGroups();
+      applyFilters();
+      setSelectedGroup(0);
+      window.alert(comboMsg('restore_done'));
+    } catch {
+      window.alert(comboMsg('restore_failed'));
+    }
+  }
+
   function handleInputChange(ev) {
     const el = ev.target;
     if (!el || !el.dataset || el.dataset.row == null || !el.dataset.field) return;
@@ -4199,10 +6179,52 @@
     }
     if (String(state.combos[row][el.dataset.field] || '').trim()) {
       state.combos[row]._manual = false;
+      if (el.dataset.field !== 'game_version') {
+        ensureComboAuthoredVersion(state.combos[row]);
+        syncAuthoredVersionInput(row);
+      }
+    }
+    if (el.dataset.field === 'damage_normal' || el.dataset.field === 'drive_delta') {
+      syncDerivedComboFieldsForRow(row);
     }
     persist();
+    refreshCommandWarning(row);
     updateEmptyGroups();
     applyFilters();
+    updateComboGameVersionInfo(getComboLang());
+  }
+
+  function handleCommandPaste(ev) {
+    const target = ev.target;
+    if (!target || !target.classList || !target.classList.contains('cmd-input')) return;
+    if (target.dataset.field !== 'command') return;
+    const row = Number(target.dataset.row);
+    if (!Number.isFinite(row) || row < 0) return;
+    window.setTimeout(async () => {
+      const loaded = await ensureNotationDictionaryLoaded();
+      if (!loaded) return;
+      const currentText = (target.textContent || '').replace(/\u00a0/g, ' ');
+      const unknownSet = new Set();
+      const normalized = normalizeCommandWithNotation(currentText, unknownSet);
+      const localized = localizeCommandForDisplay(normalized.canonical, getComboLang());
+      if (localized !== currentText) {
+        target.textContent = localized;
+      }
+      if (!state.combos[row]) state.combos[row] = defaultCombo();
+      state.combos[row].command = normalized.canonical;
+      syncCommandButtons(row, 'command');
+      if (normalized.canonical.trim()) {
+        state.combos[row]._manual = false;
+        ensureComboControlMode(state.combos[row], state.controlMode);
+        ensureComboAuthoredVersion(state.combos[row]);
+        syncAuthoredVersionInput(row);
+      }
+      persist();
+      refreshCommandWarning(row);
+      updateEmptyGroups();
+      applyFilters();
+      notifyNotationUnknown(unknownSet);
+    }, 0);
   }
 
   function handleContentEditableBlur(ev) {
@@ -4216,7 +6238,8 @@
     } else {
       const raw = (el.textContent || '').replace(/\u00a0/g, ' ');
       if (el.dataset.field === 'command') {
-        const canonical = canonicalizeCommandForStorage(raw);
+        const normalized = normalizeCommandWithNotation(raw);
+        const canonical = normalized.canonical;
         state.combos[row][el.dataset.field] = canonical;
         const localized = localizeCommandForDisplay(canonical, getComboLang());
         if (el.textContent !== localized) {
@@ -4233,10 +6256,19 @@
           }
         }
         syncCommandButtons(row, 'command');
-        if (canonical.trim()) state.combos[row]._manual = false;
+        if (canonical.trim()) {
+          state.combos[row]._manual = false;
+          ensureComboControlMode(state.combos[row], state.controlMode);
+          ensureComboAuthoredVersion(state.combos[row]);
+          syncAuthoredVersionInput(row);
+        }
       } else {
         state.combos[row][el.dataset.field] = raw;
-        if (raw.trim()) state.combos[row]._manual = false;
+        if (raw.trim()) {
+          state.combos[row]._manual = false;
+          ensureComboAuthoredVersion(state.combos[row]);
+          syncAuthoredVersionInput(row);
+        }
       }
     }
     persist();
@@ -4622,6 +6654,17 @@
     applyFilters();
   }
 
+  function onSearchInput() {
+    if (state.searchDebounceTimer) {
+      window.clearTimeout(state.searchDebounceTimer);
+      state.searchDebounceTimer = null;
+    }
+    state.searchDebounceTimer = window.setTimeout(() => {
+      state.searchDebounceTimer = null;
+      onSearch();
+    }, 140);
+  }
+
   function applyFilters() {
     const search = (state.filters.search || '').toLowerCase();
     const fieldQuery = (state.filters.fieldQuery || '').toLowerCase();
@@ -4639,6 +6682,7 @@
     const safeJumpFilters = state.filters.safe_jump || [];
     const rangeFilters = state.filters.ranges || {};
     const searchExclude = new Set(['buttons', 'frame_meter']);
+    const activeMode = state.controlMode === 'modern' ? 'modern' : 'classic';
 
     const toNumber = (value) => {
       const raw = String(value == null ? '' : value).replace(/,/g, '').trim();
@@ -4725,12 +6769,17 @@
           visible = hay.includes(fieldQuery) || commandFieldMatches(combo.command);
         }
       }
+      if (visible && !matchesComboMode(combo, activeMode)) {
+        visible = false;
+      }
       if (visible && modeFilters.length) {
-        const raw = String(combo.control_mode || '').trim();
-        const mode = raw === '両方' ? 'both' : raw.toLowerCase();
+        const mode = getComboModeForMatch(combo);
         const matched = modeFilters.some((filter) => {
-          if (mode === 'both') return ['both', 'classic', 'modern'].includes(filter);
-          return mode === filter;
+          const value = String(filter || '').trim().toLowerCase();
+          if (!value) return false;
+          if (mode === '両方') return ['both', 'classic', 'modern'].includes(value);
+          if (!mode) return false;
+          return mode === value;
         });
         visible = matched;
       }
@@ -4785,20 +6834,24 @@
         row.style.display = visible ? '' : 'none';
       });
     });
+    refreshVisibleGroupRowClasses();
   }
 
   function setControlMode(mode) {
-    state.controlMode = mode || 'classic';
+    state.controlMode = (mode === 'modern') ? 'modern' : 'classic';
+    savePersistedComboControlMode(state.controlMode);
     if (ui.comboView) ui.comboView.setAttribute('data-control', state.controlMode);
-    if (ui.tabClassic) ui.tabClassic.classList.toggle('active', mode === 'classic');
-    if (ui.tabModern) ui.tabModern.classList.toggle('active', mode === 'modern');
+    if (ui.tabClassic) ui.tabClassic.classList.toggle('active', state.controlMode === 'classic');
+    if (ui.tabModern) ui.tabModern.classList.toggle('active', state.controlMode === 'modern');
     applyUiButtonLayout();
     applyKeymapToButtons();
     const modal = qs('comboKeymapModal');
     if (modal && !modal.classList.contains('hidden')) {
       renderKeymapGrid();
     }
+    state.groups.forEach((group) => refreshCommandWarning(group.index));
     applyFilters();
+    saveUiPrefs();
   }
 
   function openCharSelect() {
@@ -4957,7 +7010,14 @@
       }
     }
     const isBottomCollapsed = !!state.bottomCollapsed;
-    const allowUiOverflow = isBottomCollapsed || Boolean(viewHeight && viewHeight < 720);
+    const isShortView = Boolean(viewHeight && viewHeight < 720);
+    const shouldScrollUi = !isBottomCollapsed && isShortView;
+    const allowUiOverflow = isBottomCollapsed || isShortView;
+    ui.comboView.style.overflowY = shouldScrollUi ? 'auto' : 'hidden';
+    ui.comboView.style.overflowX = 'hidden';
+    ui.comboView.style.paddingBottom = '0px';
+    ui.comboView.style.scrollPaddingBottom = '0px';
+    ui.comboView.dataset.shortView = shouldScrollUi ? '1' : '0';
     const reservedSpace = allowUiOverflow
       ? 0
       : Math.max(0, reservedUiHeight + (Number.isFinite(extraReserve) ? extraReserve : 0));
@@ -4969,8 +7029,8 @@
     const tableTop =
       tableScroll ? tableScroll.offsetTop : Number.parseFloat(ui.table.dataset.baseTop || ui.table.style.top) || ui.table.offsetTop || 0;
     const gapBelowTable = 10;
-    let tableHeight = viewHeight
-      ? viewHeight - tableTop - reservedSpaceForLayout - gapBelowTable - controlHeight - crudGap - 8
+    const tableHeight = viewHeight
+      ? viewHeight - tableTop - reservedSpaceForLayout - gapBelowTable - controlHeight - crudGap
       : 0;
     let effectiveTableHeight = 0;
     if (tableScroll && Number.isFinite(tableHeight) && viewHeight) {
@@ -4985,10 +7045,6 @@
       : Number.parseFloat(table2.dataset.baseTop || table2.style.top) || table2.offsetTop || 0;
     const tableBottom = tableScroll ? tableScroll.offsetTop + tableScroll.offsetHeight : baseTop;
     if (crudBar && tableScroll) {
-      const viewWidth = ui.comboView.clientWidth
-        || ui.comboView.getBoundingClientRect().width
-        || tableScroll.offsetWidth
-        || 0;
       crudBar.style.left = '';
       crudBar.style.right = '0px';
       crudBar.style.top = `${tableBottom + 6}px`;
@@ -5005,7 +7061,7 @@
       rowToggles.style.display = 'flex';
       rowToggles.style.visibility = 'visible';
     }
-    const uiSectionGap = 3;
+    const uiSectionGap = 2;
     const uiTop = controlHeight
       ? baseTop + controlHeight + crudGap + uiSectionGap
       : baseTop + uiSectionGap;
@@ -5048,6 +7104,11 @@
       updateCustomizeFrame(table3);
       ensureUiSectionBackdrop([rowToggles, crudBar, table2, table3, table4, table5]);
     }
+    syncComboScrollSpacer(
+      !isBottomCollapsed && isShortView,
+      [rowToggles, crudBar, table2, table3, table4, table5, qs('comboQuickInputLabel')],
+      4
+    );
   }
 
   function layoutHeaderActions() {
@@ -5128,6 +7189,10 @@
 
   function adjustUiSectionWithinView(elements) {
     if (!ui.comboView || !elements || !elements.length) return;
+    if (ui.comboView.dataset.shortView === '1') {
+      ui.comboView.style.overflowY = 'auto';
+      return;
+    }
     const viewRect = ui.comboView.getBoundingClientRect();
     const viewBottom = viewRect.top + ui.comboView.clientHeight;
     const rects = elements
@@ -5187,15 +7252,11 @@
 
   function positionBottomToggle(btn, top, collapsed) {
     if (!ui.comboView || !btn) return;
-    const viewRect = ui.comboView.getBoundingClientRect();
-    const viewWidth = viewRect.width || 0;
-    const viewHeight = viewRect.height || 0;
-    const scrollTop = ui.comboView.scrollTop || 0;
-    const btnWidth = btn.offsetWidth || 60;
-    const btnHeight = btn.offsetHeight || 22;
     const left = 8;
     if (collapsed) {
       const leftPos = 8;
+      const footerEl = document.querySelector('.site-footer');
+      const footerInset = footerEl ? (footerEl.offsetHeight || 0) : 0;
       if (btn.parentElement !== document.body) {
         document.body.appendChild(btn);
       }
@@ -5203,7 +7264,7 @@
       btn.style.position = 'fixed';
       btn.style.left = `${Math.round(leftPos)}px`;
       btn.style.top = '';
-      btn.style.bottom = '6px';
+      btn.style.bottom = `${Math.max(6, footerInset + 6)}px`;
       btn.style.right = '';
       btn.style.zIndex = '9999';
     } else {
@@ -5315,6 +7376,33 @@
     backdrop.style.top = `${top}px`;
     backdrop.style.width = `${right - left}px`;
     backdrop.style.height = `${bottom - top}px`;
+  }
+
+  function syncComboScrollSpacer(enabled, elements, extraBottom = 0) {
+    if (!ui.comboView) return;
+    let spacer = qs('comboScrollSpacer');
+    if (!spacer) {
+      spacer = document.createElement('div');
+      spacer.id = 'comboScrollSpacer';
+      spacer.setAttribute('aria-hidden', 'true');
+      spacer.style.width = '1px';
+      spacer.style.opacity = '0';
+      spacer.style.pointerEvents = 'none';
+      ui.comboView.appendChild(spacer);
+    }
+    if (!enabled || !elements || !elements.length) {
+      spacer.style.height = '0px';
+      return;
+    }
+    const viewRect = ui.comboView.getBoundingClientRect();
+    const bottoms = elements
+      .filter(Boolean)
+      .map((el) => el.getBoundingClientRect())
+      .filter((rect) => rect.width || rect.height)
+      .map((rect) => rect.bottom - viewRect.top + (ui.comboView.scrollTop || 0));
+    const contentBottom = Math.max(0, ...bottoms);
+    const targetHeight = Math.ceil(contentBottom + Math.max(0, extraBottom));
+    spacer.style.height = `${targetHeight}px`;
   }
 
   function ensureFilterPanel() {
@@ -5964,10 +8052,10 @@
   }
 
   function matchesComboMode(combo, mode) {
-    const raw = String(combo && combo.control_mode ? combo.control_mode : '').trim();
-    if (!raw) return true;
-    if (raw === '両方') return true;
-    return raw.toLowerCase() === mode;
+    const targetMode = mode === 'modern' ? 'modern' : 'classic';
+    const comboMode = getComboModeForMatch(combo);
+    if (!comboMode || comboMode === '両方') return true;
+    return comboMode === targetMode;
   }
 
   function filterCombosByMode(combos, modeScope) {
@@ -6063,7 +8151,7 @@
   <style>
     html, body { height: auto; overflow: auto; }
     body { font-family: "Yu Gothic", "Noto Sans JP", sans-serif; background: #fff; color: #000; }
-    table { border-collapse: collapse; font-size: 7px; height: auto !important; }
+    table { border-collapse: separate; border-spacing: 0; font-size: 7px; height: auto !important; }
     table, table * {
       font-size: 11px !important;
       font-family: "Yu Gothic", "Noto Sans JP", sans-serif !important;
@@ -6071,10 +8159,20 @@
     }
     th, td { border: 1px solid #444; padding: 4px 6px; vertical-align: middle; height: auto !important; max-height: none !important; }
     tr { height: auto !important; max-height: none !important; }
+    tr.combo-row-frame td:nth-child(n+4),
+    tr.combo-row-notes td:nth-child(n+4),
+    tr.combo-row-buttons td:nth-child(n+4) { border-style: none !important; border-color: transparent !important; }
+    tr.combo-row-frame td:nth-child(3),
+    tr.combo-row-notes td:nth-child(3),
+    tr.combo-row-buttons td:nth-child(3) { border-style: none !important; border-color: transparent !important; }
+    tr.combo-row-command td:nth-child(n+4) { border-top: 1px solid #444 !important; }
+    .combo-sep-right { border-right-width: 2px !important; border-right-style: solid !important; border-right-color: #555 !important; }
     .combo-hidden-col { display: none; }
     .btn-token { display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; }
     .btn-token-text { display: none; }
     .btn-token img { width: 16px; height: 16px; object-fit: contain; }
+    .export-btn-token-wrap { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; white-space: normal !important; }
+    .export-btn-token-wrap .btn-token { flex: 0 0 auto; margin-right: 0; }
     img { vertical-align: middle; }
   </style>
 </head>
@@ -6088,6 +8186,9 @@ ${table.outerHTML}
   }
 
   async function exportAllCharactersHtml(options = {}) {
+    try {
+      await ensureVendorLoaded({ zip: true });
+    } catch { }
     if (!window.JSZip) {
       window.alert(comboMsg('export_jszip_missing'));
       return false;
@@ -6132,7 +8233,7 @@ ${table.outerHTML}
     html, body { height: auto; overflow: auto; }
     body { font-family: "Yu Gothic", "Noto Sans JP", sans-serif; background: #fff; color: #000; }
     h1 { margin: 12px 0 12px; font-size: 16px; }
-    table { border-collapse: collapse; font-size: 7px; height: auto !important; }
+    table { border-collapse: separate; border-spacing: 0; font-size: 7px; height: auto !important; }
     table, table * {
       font-size: 7px !important;
       font-family: "Yu Gothic", "Noto Sans JP", sans-serif !important;
@@ -6140,10 +8241,20 @@ ${table.outerHTML}
     }
     th, td { border: 1px solid #444; padding: 4px 6px; vertical-align: middle; height: auto !important; max-height: none !important; }
     tr { height: auto !important; max-height: none !important; }
+    tr.combo-row-frame td:nth-child(n+4),
+    tr.combo-row-notes td:nth-child(n+4),
+    tr.combo-row-buttons td:nth-child(n+4) { border-style: none !important; border-color: transparent !important; }
+    tr.combo-row-frame td:nth-child(3),
+    tr.combo-row-notes td:nth-child(3),
+    tr.combo-row-buttons td:nth-child(3) { border-style: none !important; border-color: transparent !important; }
+    tr.combo-row-command td:nth-child(n+4) { border-top: 1px solid #444 !important; }
+    .combo-sep-right { border-right-width: 2px !important; border-right-style: solid !important; border-right-color: #555 !important; }
     .combo-hidden-col { display: none; }
     .btn-token { display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; }
     .btn-token-text { display: none; }
     .btn-token img { width: 16px; height: 16px; object-fit: contain; }
+    .export-btn-token-wrap { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; white-space: normal !important; }
+    .export-btn-token-wrap .btn-token { flex: 0 0 auto; margin-right: 0; }
     img { vertical-align: middle; }
   </style>
 </head>
@@ -6185,6 +8296,9 @@ ${table.outerHTML}
   }
 
   async function exportCombosXlsx(options = {}) {
+    try {
+      await ensureVendorLoaded({ excel: true });
+    } catch { }
     if (!window.ExcelJS) {
       window.alert(comboMsg('export_exceljs_missing'));
       return false;
@@ -6348,18 +8462,40 @@ ${table.outerHTML}
     table.style.height = '';
     table.style.maxHeight = '';
     table.style.zIndex = '';
-    table.style.borderCollapse = 'collapse';
+    table.style.borderCollapse = 'separate';
+    table.style.borderSpacing = '0';
     table.removeAttribute('height');
+    const forcedHiddenCols = getForcedHiddenColumns();
+    const forcedHiddenCells = new Set();
+    if (forcedHiddenCols.size) {
+      const rows = Array.from(table.rows || []);
+      const { cellPositions } = buildCellMatrixFromRows(rows, { table });
+      rows.forEach((row) => {
+        Array.from(row.children).forEach((cell) => {
+          const pos = cellPositions.get(cell);
+          if (!pos || pos.colspan !== 1) return;
+          if (forcedHiddenCols.has(pos.col)) {
+            forcedHiddenCells.add(cell);
+          }
+        });
+      });
+    }
 
     table.querySelectorAll('.combo-group-empty').forEach((row) => row.remove());
     if (includeHidden) {
       table.querySelectorAll('.combo-hidden-col').forEach((cell) => {
+        if (forcedHiddenCells.has(cell)) return;
         cell.classList.remove('combo-hidden-col');
         cell.style.display = '';
       });
       const colgroup = table.querySelector('colgroup.combo-cols');
       if (colgroup) {
-        Array.from(colgroup.children).forEach((col) => {
+        Array.from(colgroup.children).forEach((col, idx) => {
+          const colIndex = idx + 1;
+          if (forcedHiddenCols.has(colIndex)) {
+            col.style.display = 'none';
+            return;
+          }
           col.style.display = '';
         });
       }
@@ -6462,7 +8598,8 @@ ${table.outerHTML}
     table.style.height = 'auto';
     table.style.maxHeight = 'none';
     table.style.overflow = 'visible';
-    table.style.borderCollapse = 'collapse';
+    table.style.borderCollapse = 'separate';
+    table.style.borderSpacing = '0';
     table.style.tableLayout = 'fixed';
     table.style.width = 'auto';
     table.querySelectorAll('thead, tbody, tr').forEach((el) => {
@@ -6490,7 +8627,8 @@ ${table.outerHTML}
     });
     const rowCount = exportRows.length;
     exportTable.style.width = `${sourceTable.offsetWidth}px`;
-    exportTable.style.borderCollapse = 'collapse';
+    exportTable.style.borderCollapse = 'separate';
+    exportTable.style.borderSpacing = '0';
     exportTable.style.tableLayout = 'fixed';
 
     for (let i = 0; i < rowCount; i += 1) {
@@ -6514,6 +8652,7 @@ ${table.outerHTML}
           if (!srcCell || !dstCell) continue;
           const style = window.getComputedStyle(srcCell);
           const isCommandCell = Boolean(srcCell.querySelector('.cmd-input[data-field="command"]'));
+          const isButtonsCell = Boolean(srcCell.querySelector('.cmd-input[data-field="buttons"]'));
           dstCell.style.background = style.backgroundColor;
           dstCell.style.color = style.color;
           dstCell.style.fontFamily = '"Yu Gothic", "Noto Sans JP", sans-serif';
@@ -6525,12 +8664,16 @@ ${table.outerHTML}
           dstCell.style.borderRight = style.borderRight;
           dstCell.style.borderBottom = style.borderBottom;
           dstCell.style.borderLeft = style.borderLeft;
+          if (srcCell.classList.contains('combo-sep-right')) {
+            dstCell.style.borderRightStyle = 'solid';
+            dstCell.style.borderRightWidth = '2px';
+          }
           dstCell.style.padding = style.padding;
           dstCell.style.width = style.width;
           dstCell.style.minWidth = style.minWidth;
           dstCell.style.maxWidth = style.maxWidth;
           dstCell.style.height = 'auto';
-          dstCell.style.whiteSpace = style.whiteSpace;
+          dstCell.style.whiteSpace = isButtonsCell ? 'normal' : style.whiteSpace;
           dstCell.style.boxSizing = style.boxSizing;
         }
       } finally {
@@ -6719,6 +8862,7 @@ ${table.outerHTML}
       wrapText: true,
     };
     const border = cssBorderToExcelBorder(style);
+    const hasSeparatorRight = sourceCell.classList.contains('combo-sep-right');
 
     for (let r = row; r < row + rowspan; r += 1) {
       for (let c = col; c < col + colspan; c += 1) {
@@ -6733,7 +8877,14 @@ ${table.outerHTML}
           };
         }
         cell.alignment = alignment;
-        if (border) cell.border = border;
+        if (border) {
+          const nextBorder = { ...border };
+          if (hasSeparatorRight) {
+            const rightColor = cssColorToArgb(style.borderRightColor) || 'FF555555';
+            nextBorder.right = { style: 'medium', color: { argb: rightColor } };
+          }
+          cell.border = nextBorder;
+        }
       }
     }
   }
@@ -6757,11 +8908,13 @@ ${table.outerHTML}
     const rightColor = cssColorToArgb(style.borderRightColor);
     const bottomColor = cssColorToArgb(style.borderBottomColor);
     const leftColor = cssColorToArgb(style.borderLeftColor);
-    const hasBorder = (side) => String(side || '').toLowerCase() !== 'none';
-    if (!hasBorder(style.borderTopStyle)
-      && !hasBorder(style.borderRightStyle)
-      && !hasBorder(style.borderBottomStyle)
-      && !hasBorder(style.borderLeftStyle)) {
+    const hasBorder = (sideStyle, sideColor) =>
+      String(sideStyle || '').toLowerCase() !== 'none' && !!sideColor;
+    const hasTop = hasBorder(style.borderTopStyle, topColor);
+    const hasRight = hasBorder(style.borderRightStyle, rightColor);
+    const hasBottom = hasBorder(style.borderBottomStyle, bottomColor);
+    const hasLeft = hasBorder(style.borderLeftStyle, leftColor);
+    if (!hasTop && !hasRight && !hasBottom && !hasLeft) {
       return null;
     }
     const makeSide = (color) => ({
@@ -6769,10 +8922,10 @@ ${table.outerHTML}
       color: color ? { argb: color } : undefined,
     });
     return {
-      top: hasBorder(style.borderTopStyle) ? makeSide(topColor) : undefined,
-      right: hasBorder(style.borderRightStyle) ? makeSide(rightColor) : undefined,
-      bottom: hasBorder(style.borderBottomStyle) ? makeSide(bottomColor) : undefined,
-      left: hasBorder(style.borderLeftStyle) ? makeSide(leftColor) : undefined,
+      top: hasTop ? makeSide(topColor) : undefined,
+      right: hasRight ? makeSide(rightColor) : undefined,
+      bottom: hasBottom ? makeSide(bottomColor) : undefined,
+      left: hasLeft ? makeSide(leftColor) : undefined,
     };
   }
 
@@ -6803,8 +8956,11 @@ ${table.outerHTML}
   async function addImagesToWorksheet(workbook, worksheet, cellPositions, rowHeightsPx, colWidthsPx) {
     if (!workbook || !worksheet) return;
     const cache = new Map();
-    const imageOffsetX = -90;
-    const imageOffsetY = 10;
+    const imageOffsetX = 0;
+    const imageOffsetY = 0;
+    const tokenPaddingX = 6;
+    const tokenPaddingY = 2;
+    const tokenRowHeightScale = 1.6;
     for (const [cell, pos] of cellPositions.entries()) {
       const imgs = Array.from(cell.querySelectorAll('img'));
       if (!imgs.length) continue;
@@ -6820,18 +8976,21 @@ ${table.outerHTML}
           src: img.getAttribute('src') || '',
         }));
         const maxHeight = Math.max(...sizes.map((item) => item.h));
-        const totalWidth = sizes.reduce((sum, item) => sum + item.w, 0) + gap * (sizes.length - 1);
-        const sprite = await buildTokenSprite(sizes, gap, maxHeight, cache);
+        const maxWidth = Math.max(10, colWidth - (tokenPaddingX * 2));
+        const sprite = await buildTokenSprite(sizes, gap, maxHeight, cache, maxWidth);
         if (sprite) {
-          const padding = 0;
-          const maxWidth = Math.max(10, colWidth - padding * 2);
-          const scale = totalWidth > maxWidth ? maxWidth / totalWidth : 1;
+          const scale = sprite.width > maxWidth ? maxWidth / sprite.width : 1;
           const renderWidth = sprite.width * scale;
           const renderHeight = sprite.height * scale;
-          const startX = (colWidth - renderWidth) / 2 + imageOffsetX;
-          const startY = (rowHeight - renderHeight) / 14 + imageOffsetY;
+          const startX = Math.max(0, tokenPaddingX);
+          const startY = Math.max(0, tokenPaddingY);
           const tlCol = Math.max(0, (pos.col - 1) + (startX / colWidth));
           const tlRow = Math.max(0, (pos.row - 1) + (startY / rowHeight));
+          const contentHeight = (renderHeight + (tokenPaddingY * 2)) * 0.75 * tokenRowHeightScale;
+          const scaledBaseHeight = rowHeight * 0.75 * tokenRowHeightScale;
+          const excelHeight = Math.max(contentHeight, scaledBaseHeight);
+          const worksheetRow = worksheet.getRow(pos.row);
+          worksheetRow.height = Math.max(Number(worksheetRow.height) || 0, excelHeight);
           const imageId = workbook.addImage({ base64: sprite.base64, extension: 'png' });
           worksheet.addImage(imageId, {
             tl: {
@@ -6876,7 +9035,7 @@ ${table.outerHTML}
     }
   }
 
-  async function buildTokenSprite(items, gap, height, cache) {
+  async function buildTokenSprite(items, gap, height, cache, maxWidth = 0) {
     const sources = await Promise.all(items.map(async (item) => {
       if (!item.src) return null;
       if (!cache.has(item.src)) {
@@ -6890,29 +9049,57 @@ ${table.outerHTML}
       .filter((item) => item.dataUrl);
     if (!valid.length) return null;
 
+    const rowLimit = Math.max(0, Number(maxWidth) || 0);
+    const rows = [];
+    if (rowLimit > 0) {
+      let current = [];
+      let currentWidth = 0;
+      valid.forEach((item) => {
+        const itemWidth = item.w;
+        const nextWidth = current.length ? (currentWidth + gap + itemWidth) : itemWidth;
+        if (current.length && nextWidth > rowLimit) {
+          rows.push(current);
+          current = [item];
+          currentWidth = itemWidth;
+        } else {
+          current.push(item);
+          currentWidth = nextWidth;
+        }
+      });
+      if (current.length) rows.push(current);
+    } else {
+      rows.push(valid);
+    }
+
+    const rowWidths = rows.map((row) => row.reduce((sum, item, idx) => sum + item.w + (idx ? gap : 0), 0));
+    const spriteWidth = Math.max(1, Math.round(Math.max(...rowWidths)));
+    const spriteHeight = Math.max(1, Math.round(rows.length * height + Math.max(0, rows.length - 1) * gap));
     const canvas = document.createElement('canvas');
-    const width = valid.reduce((sum, item) => sum + item.w, 0) + gap * (valid.length - 1);
-    canvas.width = Math.max(1, Math.round(width));
-    canvas.height = Math.max(1, Math.round(height));
+    canvas.width = spriteWidth;
+    canvas.height = spriteHeight;
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
-    let offsetX = 0;
-    for (const item of valid) {
-      // eslint-disable-next-line no-await-in-loop
-      await new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          const y = Math.max(0, (height - item.h) / 2);
-          ctx.drawImage(img, offsetX, y, item.w, item.h);
-          offsetX += item.w + gap;
-          resolve();
-        };
-        img.onerror = () => {
-          offsetX += item.w + gap;
-          resolve();
-        };
-        img.src = item.dataUrl;
-      });
+    for (let rowIndex = 0; rowIndex < rows.length; rowIndex += 1) {
+      const row = rows[rowIndex];
+      let offsetX = 0;
+      const rowY = rowIndex * (height + gap);
+      for (const item of row) {
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const y = rowY + Math.max(0, (height - item.h) / 2);
+            ctx.drawImage(img, offsetX, y, item.w, item.h);
+            offsetX += item.w + gap;
+            resolve();
+          };
+          img.onerror = () => {
+            offsetX += item.w + gap;
+            resolve();
+          };
+          img.src = item.dataUrl;
+        });
+      }
     }
     const dataUrl = canvas.toDataURL('image/png');
     const base64 = dataUrl.split(',')[1] || '';
@@ -6924,9 +9111,333 @@ ${table.outerHTML}
     return !!String(slug).trim();
   }
 
+  function ensureXlsxMapModal() {
+    let modal = qs('comboXlsxMapModal');
+    if (modal) return modal;
+    const lang = getComboLang();
+    modal = document.createElement('div');
+    modal.id = 'comboXlsxMapModal';
+    modal.className = 'combo-keymap-modal combo-xlsx-map-modal hidden';
+    modal.innerHTML = `
+      <div class="combo-keymap-content combo-xlsx-map-content">
+        <header>
+          <h3 data-xlsx-label="xlsx_map_title">${comboT('ui.xlsx_map_title', lang) || 'XLSX Column Mapping'}</h3>
+        </header>
+        <p class="combo-xlsx-map-desc" data-xlsx-label="xlsx_map_desc">${comboT('ui.xlsx_map_desc', lang) || ''}</p>
+        <div class="combo-xlsx-map-top">
+          <label>
+            <span data-xlsx-label="xlsx_map_header_row">${comboT('ui.xlsx_map_header_row', lang) || 'Header row'}</span>
+            <select id="comboXlsxMapHeaderRow"></select>
+          </label>
+          <label class="combo-xlsx-map-save">
+            <input type="checkbox" id="comboXlsxMapSavePreset">
+            <span data-xlsx-label="xlsx_map_save_preset">${comboT('ui.xlsx_map_save_preset', lang) || 'Save this mapping'}</span>
+          </label>
+        </div>
+        <div class="combo-xlsx-map-groups">
+          <h4 data-xlsx-label="xlsx_map_basic">${comboT('ui.xlsx_map_basic', lang) || 'Basic fields'}</h4>
+          <table class="combo-xlsx-map-table">
+            <thead>
+              <tr>
+                <th data-xlsx-label="xlsx_map_field">${comboT('ui.xlsx_map_field', lang) || 'Field'}</th>
+                <th data-xlsx-label="xlsx_map_column">${comboT('ui.xlsx_map_column', lang) || 'Column'}</th>
+              </tr>
+            </thead>
+            <tbody id="comboXlsxMapBasicBody"></tbody>
+          </table>
+          <details class="combo-xlsx-map-advanced">
+            <summary data-xlsx-label="xlsx_map_advanced">${comboT('ui.xlsx_map_advanced', lang) || 'Advanced fields'}</summary>
+            <table class="combo-xlsx-map-table">
+              <thead>
+                <tr>
+                  <th data-xlsx-label="xlsx_map_field">${comboT('ui.xlsx_map_field', lang) || 'Field'}</th>
+                  <th data-xlsx-label="xlsx_map_column">${comboT('ui.xlsx_map_column', lang) || 'Column'}</th>
+                </tr>
+              </thead>
+              <tbody id="comboXlsxMapAdvancedBody"></tbody>
+            </table>
+          </details>
+        </div>
+        <div class="combo-xlsx-map-preview-wrap">
+          <h4 data-xlsx-label="xlsx_map_preview">${comboT('ui.xlsx_map_preview', lang) || 'Preview (first 5 rows)'}</h4>
+          <table class="combo-xlsx-map-preview-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th data-xlsx-label="xlsx_map_raw_command">${comboT('ui.xlsx_map_raw_command', lang) || 'Raw command'}</th>
+                <th data-xlsx-label="xlsx_map_norm_command">${comboT('ui.xlsx_map_norm_command', lang) || 'Normalized command'}</th>
+                <th data-xlsx-label="xlsx_map_summary">${comboT('ui.xlsx_map_summary', lang) || 'Imported fields'}</th>
+              </tr>
+            </thead>
+            <tbody id="comboXlsxMapPreviewBody"></tbody>
+          </table>
+        </div>
+        <div class="combo-keymap-actions combo-xlsx-map-actions">
+          <button type="button" data-action="apply">${comboT('ui.xlsx_map_apply', lang) || 'Import'}</button>
+          <button type="button" data-action="cancel">${comboT('ui.xlsx_map_cancel', lang) || 'Cancel'}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (ev) => {
+      if (ev.target === modal) {
+        closeXlsxMapModal(null);
+        return;
+      }
+      const action = ev.target && ev.target.dataset && ev.target.dataset.action;
+      if (!action) return;
+      if (action === 'cancel') {
+        closeXlsxMapModal(null);
+        return;
+      }
+      if (action === 'apply') {
+        const ctx = modal._ctx || null;
+        if (!ctx) {
+          closeXlsxMapModal(null);
+          return;
+        }
+        if (!ctx.mapping || !ctx.mapping.command) {
+          window.alert(comboMsg('xlsx_map_required_command'));
+          return;
+        }
+        const savePresetInput = modal.querySelector('#comboXlsxMapSavePreset');
+        closeXlsxMapModal({
+          headerRow: ctx.headerRow,
+          mapping: { ...ctx.mapping },
+          savePreset: !!(savePresetInput && savePresetInput.checked),
+        });
+      }
+    });
+
+    modal.addEventListener('change', (ev) => {
+      const target = ev.target;
+      if (!target) return;
+      const ctx = modal._ctx || null;
+      if (!ctx) return;
+      if (target.id === 'comboXlsxMapHeaderRow') {
+        const nextHeaderRow = Number(target.value) === 2 ? 2 : 1;
+        ctx.headerRow = nextHeaderRow;
+        applyBestMappingForHeaderRow(ctx, false);
+        renderXlsxMapFieldTables(modal);
+        renderXlsxMapPreview(modal);
+        return;
+      }
+      if (target.classList.contains('combo-xlsx-map-select')) {
+        const field = target.dataset.field || '';
+        if (!field) return;
+        const value = String(target.value || '');
+        if (value) ctx.mapping[field] = value;
+        else delete ctx.mapping[field];
+        renderXlsxMapPreview(modal);
+      }
+    });
+
+    return modal;
+  }
+
+  function closeXlsxMapModal(result) {
+    const modal = qs('comboXlsxMapModal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+    const resolve = modal._resolve;
+    modal._resolve = null;
+    modal._ctx = null;
+    if (typeof resolve === 'function') resolve(result || null);
+  }
+
+  function getXlsxColumnOptionHtml(entries, selectedValue, lang) {
+    const noneLabel = comboT('ui.xlsx_map_none', lang) || '(none)';
+    const selected = String(selectedValue || '');
+    const options = [`<option value="${XLSX_MAP_NONE_VALUE}"${selected ? '' : ' selected'}>${escapeHtml(noneLabel)}</option>`];
+    (entries || []).forEach((entry) => {
+      const isSelected = selected === String(entry.value) ? ' selected' : '';
+      options.push(`<option value="${escapeHtml(entry.value)}"${isSelected}>${escapeHtml(entry.label)}</option>`);
+    });
+    return options.join('');
+  }
+
+  function renderXlsxMapFieldTables(modal) {
+    const ctx = modal && modal._ctx;
+    if (!ctx) return;
+    const lang = getComboLang();
+    const entries = ctx.entriesByRow[ctx.headerRow] || [];
+    const basicBody = modal.querySelector('#comboXlsxMapBasicBody');
+    const advancedBody = modal.querySelector('#comboXlsxMapAdvancedBody');
+    if (!basicBody || !advancedBody) return;
+    const buildRow = (field) => {
+      const selected = ctx.mapping[field] || XLSX_MAP_NONE_VALUE;
+      const required = field === 'command' ? ' <span class="req">*</span>' : '';
+      const selectHtml = getXlsxColumnOptionHtml(entries, selected, lang);
+      return `<tr>
+        <td>${escapeHtml(getXlsxFieldLabel(field, lang))}${required}</td>
+        <td><select class="combo-xlsx-map-select" data-field="${escapeHtml(field)}">${selectHtml}</select></td>
+      </tr>`;
+    };
+    basicBody.innerHTML = XLSX_MAP_BASIC_FIELDS.map(buildRow).join('');
+    const advancedFields = XLSX_MAP_ALL_FIELDS.filter((field) => !XLSX_MAP_BASIC_FIELDS.includes(field));
+    advancedBody.innerHTML = advancedFields.map(buildRow).join('');
+  }
+
+  function renderXlsxMapPreview(modal) {
+    const ctx = modal && modal._ctx;
+    if (!ctx) return;
+    const body = modal.querySelector('#comboXlsxMapPreviewBody');
+    if (!body) return;
+    const { sheet, headerRow, mapping } = ctx;
+    const previewRows = [];
+    const maxRow = Number(sheet && sheet.rowCount) || 0;
+    let added = 0;
+    for (let rowNumber = headerRow + 1; rowNumber <= maxRow && added < 5; rowNumber += 1) {
+      const row = sheet.getRow(rowNumber);
+      if (!row) continue;
+      const rawCommand = getMappedCellValue(row, mapping.command);
+      const normalized = rawCommand ? normalizeCommandWithNotation(rawCommand).canonical : '';
+      const summaryParts = [];
+      XLSX_MAP_ALL_FIELDS.forEach((field) => {
+        if (field === 'command' || field === 'buttons') return;
+        const mapValue = mapping[field];
+        if (!mapValue) return;
+        const raw = getMappedCellValue(row, mapValue);
+        if (!raw) return;
+        summaryParts.push(`${getXlsxFieldLabel(field)}: ${raw}`);
+      });
+      const hasData = rawCommand || summaryParts.length;
+      if (!hasData) continue;
+      previewRows.push({
+        rowNumber,
+        rawCommand,
+        normalized,
+        summary: summaryParts.join(' / '),
+      });
+      added += 1;
+    }
+    if (!previewRows.length) {
+      body.innerHTML = '<tr><td colspan="4">-</td></tr>';
+      return;
+    }
+    body.innerHTML = previewRows.map((item) => `<tr>
+      <td>${item.rowNumber}</td>
+      <td>${escapeHtml(item.rawCommand || '-')}</td>
+      <td>${escapeHtml(localizeCommandForDisplay(item.normalized || '-', getComboLang()))}</td>
+      <td>${escapeHtml(item.summary || '-')}</td>
+    </tr>`).join('');
+  }
+
+  function applyBestMappingForHeaderRow(ctx, preserve = true) {
+    if (!ctx) return;
+    const entries = ctx.entriesByRow[ctx.headerRow] || [];
+    const signature = ctx.signatureByRow[ctx.headerRow] || '';
+    const preset = findXlsxPresetBySignature(signature);
+    const suggested = preset
+      ? sanitizeXlsxMapping(preset.map || {}, entries)
+      : sanitizeXlsxMapping(suggestXlsxMapping(entries), entries);
+    const current = preserve ? sanitizeXlsxMapping(ctx.mapping || {}, entries) : {};
+    ctx.mapping = { ...suggested, ...current };
+    ctx.activeSignature = signature;
+    ctx.activePreset = preset || null;
+  }
+
+  async function openXlsxMapModal(context) {
+    const modal = ensureXlsxMapModal();
+    return await new Promise((resolve) => {
+      const ctx = {
+        sheet: context.sheet,
+        sheetName: context.sheetName || '',
+        entriesByRow: context.entriesByRow || {},
+        signatureByRow: context.signatureByRow || {},
+        headerRow: Number(context.headerRow) === 2 ? 2 : 1,
+        mapping: sanitizeXlsxMapping(context.initialMap || {}, context.entriesByRow[Number(context.headerRow) === 2 ? 2 : 1] || []),
+        activeSignature: '',
+        activePreset: null,
+      };
+      modal._resolve = resolve;
+      modal._ctx = ctx;
+      const headerSelect = modal.querySelector('#comboXlsxMapHeaderRow');
+      if (headerSelect) {
+        const rowOptions = [1, 2]
+          .filter((rowNum) => (ctx.entriesByRow[rowNum] || []).some((entry) => String(entry.header || '').trim()));
+        const options = (rowOptions.length ? rowOptions : [1]).map((rowNum) =>
+          `<option value="${rowNum}">${rowNum}</option>`);
+        headerSelect.innerHTML = options.join('');
+        headerSelect.value = rowOptions.includes(ctx.headerRow) ? String(ctx.headerRow) : String(rowOptions[0] || 1);
+        ctx.headerRow = Number(headerSelect.value) === 2 ? 2 : 1;
+      }
+      applyBestMappingForHeaderRow(ctx, true);
+      const savePresetInput = modal.querySelector('#comboXlsxMapSavePreset');
+      if (savePresetInput) savePresetInput.checked = !ctx.activePreset;
+      renderXlsxMapFieldTables(modal);
+      renderXlsxMapPreview(modal);
+      applyComboUiLabels(getComboLang());
+      modal.classList.remove('hidden');
+    });
+  }
+
+  async function resolveSheetMapping(sheet) {
+    const maxCol = getSheetMaxColumn(sheet, [1, 2]);
+    const entriesByRow = {
+      1: buildSheetHeaderEntries(sheet, 1, maxCol),
+      2: buildSheetHeaderEntries(sheet, 2, maxCol),
+    };
+    const signatureByRow = {
+      1: buildHeaderSignatureFromEntries(entriesByRow[1]),
+      2: buildHeaderSignatureFromEntries(entriesByRow[2]),
+    };
+    const preferredHeaderRow = chooseLikelyHeaderRow(entriesByRow);
+    const rowOrder = preferredHeaderRow === 2 ? [2, 1] : [1, 2];
+    for (let i = 0; i < rowOrder.length; i += 1) {
+      const rowNum = rowOrder[i];
+      const signature = signatureByRow[rowNum];
+      const preset = findXlsxPresetBySignature(signature);
+      if (!preset) continue;
+      const mapping = sanitizeXlsxMapping(preset.map || {}, entriesByRow[rowNum]);
+      if (!mapping.command) continue;
+      return {
+        headerRow: rowNum,
+        mapping,
+        signature,
+        savePreset: false,
+      };
+    }
+
+    const defaultEntries = entriesByRow[preferredHeaderRow] || [];
+    const initialMap = sanitizeXlsxMapping(suggestXlsxMapping(defaultEntries), defaultEntries);
+    const selected = await openXlsxMapModal({
+      sheet,
+      entriesByRow,
+      signatureByRow,
+      headerRow: preferredHeaderRow,
+      initialMap,
+    });
+    if (!selected) return null;
+    const headerRow = Number(selected.headerRow) === 2 ? 2 : 1;
+    const entries = entriesByRow[headerRow] || [];
+    const signature = signatureByRow[headerRow] || '';
+    const mapping = sanitizeXlsxMapping(selected.mapping || {}, entries);
+    if (!mapping.command) {
+      window.alert(comboMsg('xlsx_map_required_command'));
+      return null;
+    }
+    if (selected.savePreset) {
+      upsertXlsxPreset({
+        name: `Sheet ${sheet && sheet.name ? sheet.name : ''}`.trim() || 'Preset',
+        headerSignature: signature,
+        headerRow,
+        map: mapping,
+      });
+    }
+    return {
+      headerRow,
+      mapping,
+      signature,
+      savePreset: !!selected.savePreset,
+    };
+  }
+
   function handleImport(ev) {
     const file = ev.target.files && ev.target.files[0];
     if (!file) return;
+    flushAutosaveNow();
     if (!hasSelectedCharacter()) {
       window.alert(comboMsg('import_select_character'));
       if (ui.importInput) ui.importInput.value = '';
@@ -6936,6 +9447,11 @@ ${table.outerHTML}
     const reader = new FileReader();
     reader.onload = async () => {
       try {
+        state.notationUnknownTerms = new Set();
+        const notationReady = await ensureNotationDictionaryLoaded();
+        if (!notationReady) {
+          showExportToast(comboMsg('notation_load_failed'), true, { dim: false });
+        }
         if (name.endsWith('.json')) {
           const text = String(reader.result || '');
           importJson(text);
@@ -6945,6 +9461,7 @@ ${table.outerHTML}
         } else {
           window.alert(comboMsg('import_filetype_only'));
         }
+        notifyNotationUnknown(state.notationUnknownTerms);
       } finally {
         ui.importInput.value = '';
       }
@@ -6960,16 +9477,25 @@ ${table.outerHTML}
     try {
       const data = JSON.parse(text);
       const normalize = (c) => ({ ...defaultCombo(), ...c });
+      const currentSlug = state.currentCharacter || getCharacterSlugFromUi();
+      const unknownCollector = state.notationUnknownTerms || null;
       if (Array.isArray(data)) {
-        applyImportedCombos(data.map((c) => normalize(c)));
+        snapshotImportBackup(currentSlug);
+        applyImportedCombos(normalizeImportedCombos(data.map((c) => normalize(c)), unknownCollector));
       } else if (data && Array.isArray(data.combos)) {
-        applyImportedCombos(data.combos.map((c) => normalize(c)));
+        snapshotImportBackup(currentSlug);
+        applyImportedCombos(normalizeImportedCombos(data.combos.map((c) => normalize(c)), unknownCollector));
       } else if (data && Array.isArray(data.characters)) {
-        const currentSlug = state.currentCharacter || getCharacterSlugFromUi();
+        const touched = new Set();
         data.characters.forEach((entry) => {
           if (!entry || !entry.character || !Array.isArray(entry.combos)) return;
           const slug = resolveCharacterSlug(entry.character) || entry.character;
-          const normalized = entry.combos.map((c) => normalize(c));
+          if (!slug) return;
+          if (!touched.has(slug)) {
+            snapshotImportBackup(slug);
+            touched.add(slug);
+          }
+          const normalized = normalizeImportedCombos(entry.combos.map((c) => normalize(c)), unknownCollector);
           if (slug === currentSlug) {
             appendImportedCombos(normalized);
           } else {
@@ -6981,6 +9507,9 @@ ${table.outerHTML}
   }
 
   async function importXlsx(buffer) {
+    try {
+      await ensureVendorLoaded({ excel: true });
+    } catch { }
     if (!window.ExcelJS) {
       window.alert(comboMsg('import_exceljs_missing'));
       return;
@@ -6994,17 +9523,23 @@ ${table.outerHTML}
       }
       const sheetCombos = new Map();
       const unknownSheets = [];
-      workbook.worksheets.forEach((sheet) => {
+      let canceled = false;
+      for (const sheet of workbook.worksheets) {
         const slug = resolveCharacterSlug(sheet.name);
         if (!slug) {
           unknownSheets.push(sheet.name || '(no name)');
-          return;
+          continue;
         }
-        const combos = parseSheetToCombos(sheet);
-        if (!combos.length) return;
+        const combos = await parseSheetToCombos(sheet);
+        if (combos == null) {
+          canceled = true;
+          break;
+        }
+        if (!combos.length) continue;
         if (!sheetCombos.has(slug)) sheetCombos.set(slug, []);
         sheetCombos.get(slug).push(...combos);
-      });
+      }
+      if (canceled) return;
       if (unknownSheets.length) {
         window.alert(comboMsg('import_unknown_sheets', { sheets: unknownSheets.join(', ') }));
         return;
@@ -7014,6 +9549,9 @@ ${table.outerHTML}
         return;
       }
       const currentSlug = state.currentCharacter || getCharacterSlugFromUi();
+      sheetCombos.forEach((combos, slug) => {
+        snapshotImportBackup(slug);
+      });
       sheetCombos.forEach((combos, slug) => {
         if (slug === currentSlug) {
           appendImportedCombos(combos);
@@ -7072,46 +9610,64 @@ ${table.outerHTML}
     } catch { }
   }
 
-  function parseSheetToCombos(sheet) {
+  async function parseSheetToCombos(sheet) {
     if (!sheet) return [];
     const headerRow = sheet.getRow(1);
     const subHeaderRow = sheet.getRow(2);
-    const exportLike = rowHasText(headerRow, ['コンボ', 'Combo'])
-      || rowHasText(subHeaderRow, ['操作方法', 'M/C', 'Control']);
+    const exportLike = rowHasText(subHeaderRow, ['操作方法', 'M/C', 'Control'])
+      || (rowHasText(headerRow, ['コンボ', 'Combo']) && rowHasText(headerRow, ['条件', 'Conditions']));
     if (exportLike) {
       return parseExportSheetToCombos(sheet, headerRow, subHeaderRow);
     }
-    return parseSimpleSheetToCombos(sheet);
+    const selected = await resolveSheetMapping(sheet);
+    if (!selected) return null;
+    return parseMappedSheetToCombos(sheet, selected.headerRow, selected.mapping);
   }
 
-  function parseSimpleSheetToCombos(sheet) {
+  function parseMappedSheetToCombos(sheet, headerRow, mapping) {
     const combos = [];
-    sheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
-      const commandCell = getCellText(row.getCell(1));
-      if (!commandCell) return;
-      if (rowNumber === 1 && /^command$|^コマンド$/i.test(commandCell)) return;
-      const damageRaw = getCellText(row.getCell(2));
-      const driveRaw = getCellText(row.getCell(3));
+    if (!sheet || !mapping || !mapping.command) return combos;
+    const unknownCollector = state.notationUnknownTerms || null;
+    const maxRow = Number(sheet.rowCount) || 0;
+    for (let rowNumber = Number(headerRow || 1) + 1; rowNumber <= maxRow; rowNumber += 1) {
+      const row = sheet.getRow(rowNumber);
+      if (!row) continue;
       const combo = defaultCombo();
-      combo.command = commandCell;
-      combo.buttons = commandCell;
-      combo.damage_normal = formatNumberText(String(damageRaw || ''));
-      const driveValue = String(driveRaw || '').replace(/,/g, '').trim();
-      if (driveValue) {
-        const numeric = Number(driveValue);
-        const negated = Number.isFinite(numeric)
-          ? -Math.abs(numeric)
-          : driveValue.startsWith('-') ? driveValue : `-${driveValue}`;
-        combo.drive_delta = formatNumberText(String(negated));
-      }
+      let hasValue = false;
+      XLSX_MAP_ALL_FIELDS.forEach((field) => {
+        const mapValue = mapping[field];
+        if (!mapValue) return;
+        const rawValue = getMappedCellValue(row, mapValue);
+        if (!rawValue) return;
+        hasValue = true;
+        if (field === 'command' || field === 'buttons') {
+          const normalized = normalizeCommandWithNotation(rawValue, unknownCollector);
+          combo[field] = normalized.canonical;
+          return;
+        }
+        if (field === 'control_mode') {
+          combo[field] = normalizeControlModeValue(rawValue);
+          return;
+        }
+        if (NUMERIC_FIELDS.has(field)) {
+          combo[field] = formatNumberText(rawValue);
+          return;
+        }
+        combo[field] = String(rawValue).trim();
+      });
+      if (!hasValue) continue;
+      if (!String(combo.command || '').trim()) continue;
+      if (!String(combo.buttons || '').trim()) combo.buttons = combo.command;
+      ensureComboControlMode(combo);
       combo._manual = true;
       combos.push(combo);
-    });
+    }
     return combos;
   }
 
   function parseExportSheetToCombos(sheet, headerRow, subHeaderRow) {
     const combos = [];
+    const unknownCollector = state.notationUnknownTerms || null;
     const fieldStartCol = findColumnIndex(subHeaderRow, ['操作方法', 'M/C', 'Control']) || 3;
     const versionCol = findColumnIndex(headerRow, ['Ver', 'Ver.']);
     const dataStart = findFirstDataRow(sheet);
@@ -7125,8 +9681,9 @@ ${table.outerHTML}
         const command = getCellText(row.getCell(2));
         if (!command) return;
         current = defaultCombo();
-        current.command = command;
-        current.buttons = command;
+        const normalized = normalizeCommandWithNotation(command, unknownCollector);
+        current.command = normalized.canonical;
+        current.buttons = normalized.canonical;
         FIELD_ORDER.forEach((field, idx) => {
           const col = fieldStartCol + idx;
           const value = getCellText(row.getCell(col));
@@ -7141,6 +9698,7 @@ ${table.outerHTML}
           const versionValue = getCellText(row.getCell(versionCol));
           if (versionValue) current.game_version = versionValue;
         }
+        ensureComboControlMode(current);
         current._manual = true;
         combos.push(current);
         return;
@@ -7229,6 +9787,10 @@ ${table.outerHTML}
       return normalize(label) === target || normalize(alt) === target;
     });
     if (byLabel) return byLabel.getAttribute('data-char');
+    const fallback = raw.toLowerCase();
+    if (/^[a-z0-9_-]+$/.test(fallback) && !/select_character|selectchar/.test(fallback)) {
+      return fallback;
+    }
     return '';
   }
 
@@ -8046,9 +10608,14 @@ ${table.outerHTML}
 
   function getGameVersionOptions(lang) {
     const active = lang || getComboLang();
+    const currentVersion = getCurrentFrameVersionForCombo();
+    const versionValues = ['2025.12.16', currentVersion]
+      .map((v) => String(v || '').trim())
+      .filter(Boolean);
+    const uniqueVersions = [...new Set(versionValues)];
     const options = [
       { value: '', label: '-' },
-      { value: '2025.12.16', label: '2025.12.16' },
+      ...uniqueVersions.map((value) => ({ value, label: value })),
       { value: 'Other', label: comboValueLabel('other', 'Other', active) },
     ];
     return options;
@@ -8176,7 +10743,21 @@ ${table.outerHTML}
       .filter(Boolean);
   }
 
+  function getSelectedComboReportContext() {
+    const index = Number.isFinite(state.selectedGroup) ? state.selectedGroup : -1;
+    const combo = index >= 0 ? (state.combos[index] || null) : null;
+    if (!combo) return null;
+    const snippet = {
+      command: String(combo.command || ''),
+      notes: String(combo.combo_notes || ''),
+      mode: String(state.controlMode || 'classic'),
+      authoredVersion: String(combo.game_version || ''),
+    };
+    return { row: index + 1, snippet };
+  }
+
   window.applyComboLanguage = applyComboLanguage;
+  window.getComboReportContext = getSelectedComboReportContext;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -8197,8 +10778,9 @@ ${table.outerHTML}
     if (!slug) return;
     const current = state.currentCharacter || getCharacterSlugFromUi();
     if (slug === current) return;
-    persist();
+    persist({ immediate: true, dirty: false });
     state.currentCharacter = slug;
+    persistComboCharacter(slug);
     if (ui.comboView) ui.comboView.dataset.character = slug;
     loadState({ resetIfMissing: true });
     ensureGroupCount(state.combos.length);
@@ -8210,15 +10792,9 @@ ${table.outerHTML}
   }
 
   window.switchComboCharacter = (slug) => {
-    if (!slug) return;
-    if (ui.charImg) {
-      const cardImg = document.querySelector(`.char-card[data-char="${slug}"] img`);
-      if (cardImg && cardImg.getAttribute('src')) {
-        ui.charImg.src = cardImg.getAttribute('src');
-      } else {
-        ui.charImg.src = `assets/images/characters/${slug}.png`;
-      }
-    }
-    switchCharacterCombos(slug);
+    const resolved = resolveCharacterSlug(slug) || '';
+    if (!resolved) return;
+    applyComboPortrait(resolved);
+    switchCharacterCombos(resolved);
   };
 })();
