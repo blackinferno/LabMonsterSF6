@@ -3,13 +3,17 @@
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+<<<<<<< HEAD
   renderAppVersionBadge();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
   initMainTabs();
   initCharacterControls();
   initCharacterSelect();
   initTooltips();
   initDragScroll('#frameScroll');
   initLanguageToggle();
+<<<<<<< HEAD
   initTutorialOverlay();
   initInfoModals();
   initFirstRunGuide();
@@ -25,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((err) => {
       console.warn('Update check failed:', err);
     });
+=======
+  initInfoModals();
+>>>>>>> d8c4ef5 (Initial public runtime release)
   syncHeaderHeightVar();
   window.addEventListener('resize', handleViewportResize);
 });
@@ -35,6 +42,7 @@ window.addEventListener('load', () => {
 
 let loadDataRequestId = 0;
 const headerTemplateHTMLByLang = new Map();
+<<<<<<< HEAD
 const frameMovesCache = new Map();
 const APP_VERSION_FALLBACK = '1.0.2';
 const APP_VERSION = getCurrentAppVersion();
@@ -64,6 +72,11 @@ let appUpdateInfo = {
   releaseUrl: '',
 };
 let updateStartupPopupShown = false;
+=======
+const DEFAULT_FRAME_DATA_VERSION = '2025.12.16';
+let currentFrameDataVersion = DEFAULT_FRAME_DATA_VERSION;
+const FRAME_VERSION_MANIFEST_PATH = 'assets/data/versions.json';
+>>>>>>> d8c4ef5 (Initial public runtime release)
 const DEFAULT_FRAME_DATA_VERSION_ENTRY = {
   id: DEFAULT_FRAME_DATA_VERSION,
   label: DEFAULT_FRAME_DATA_VERSION,
@@ -77,6 +90,7 @@ const frameDataViewState = {
   compareEnabled: false,
   compareVersion: '',
 };
+<<<<<<< HEAD
 const ONBOARDING_TUTORIAL_SLIDES = [
   {
     image: 'assets/images/help/help-1_jp.png',
@@ -550,6 +564,8 @@ async function loadJsonResource(path) {
   throw new Error(`Missing ${path}`);
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 const CHARACTER_ART_PRESETS = {
   "ryu": {
     "top": "min(1.04167vw, 20px)",
@@ -813,13 +829,24 @@ async function getHeaderTemplateHTML(lang = null) {
   }
 
   const templateCandidates = activeLang === 'en'
+<<<<<<< HEAD
     ? ['assets/templates/header_capcom_en.html']
+=======
+    ? ['assets/templates/header_capcom_en.html', 'assets/templates/header_capcom.html']
+>>>>>>> d8c4ef5 (Initial public runtime release)
     : ['assets/templates/header_capcom.html'];
 
   for (const templatePath of templateCandidates) {
     try {
+<<<<<<< HEAD
       const raw = await loadTextResource(templatePath);
       const parsed = extractHeaderRows(raw, activeLang);
+=======
+      const res = await fetch(templatePath, { cache: 'no-cache' });
+      if (!res.ok) continue;
+      const raw = await res.text();
+      const parsed = extractHeaderRows(raw);
+>>>>>>> d8c4ef5 (Initial public runtime release)
       headerTemplateHTMLByLang.set(activeLang, parsed);
       return parsed;
     } catch (err) {
@@ -827,13 +854,22 @@ async function getHeaderTemplateHTML(lang = null) {
     }
   }
 
+<<<<<<< HEAD
   const fallback = activeLang === 'en' ? headerHTMLFallbackEn() : headerHTMLFallbackJp();
+=======
+  const fallback = headerHTMLFallback();
+>>>>>>> d8c4ef5 (Initial public runtime release)
   headerTemplateHTMLByLang.set(activeLang, fallback);
   return fallback;
 }
 
+<<<<<<< HEAD
 function extractHeaderRows(raw, lang = 'jp') {
   if (!raw) return lang === 'en' ? headerHTMLFallbackEn() : headerHTMLFallbackJp();
+=======
+function extractHeaderRows(raw) {
+  if (!raw) return headerHTMLFallback();
+>>>>>>> d8c4ef5 (Initial public runtime release)
   try {
     const tpl = document.createElement('template');
     tpl.innerHTML = raw.trim();
@@ -842,6 +878,7 @@ function extractHeaderRows(raw, lang = 'jp') {
   } catch (err) {
     console.warn('extractHeaderRows failed', err);
   }
+<<<<<<< HEAD
   return raw || (lang === 'en' ? headerHTMLFallbackEn() : headerHTMLFallbackJp());
 }
 
@@ -880,6 +917,12 @@ function headerHTMLFallbackEn() {
 }
 
 function headerHTMLFallbackJp() {
+=======
+  return raw;
+}
+
+function headerHTMLFallback() {
+>>>>>>> d8c4ef5 (Initial public runtime release)
   return `
 <tr>
   <th class="frame_fixed_m__icTnd frame_skill__tLJuM" rowspan="2">技名</th>
@@ -912,6 +955,10 @@ async function loadCharacterData(char = '', control = 'classic') {
   const requestId = ++loadDataRequestId;
   const selectedVersion = frameDataViewState.selectedVersion || DEFAULT_FRAME_DATA_VERSION;
   const activeLang = getCurrentLang();
+<<<<<<< HEAD
+=======
+  const pathCandidates = getFrameDataPathCandidatesForVersion(char, control, selectedVersion, activeLang);
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const tbody = document.getElementById('frameBody');
   const thead = document.getElementById('frameHeader');
   const table = document.querySelector('.frame-table');
@@ -936,8 +983,14 @@ async function loadCharacterData(char = '', control = 'classic') {
     return;
   }
   try {
+<<<<<<< HEAD
     const currentData = await getFrameMovesCached(char, control, selectedVersion, activeLang);
     const { version, moves } = currentData;
+=======
+    const { data: raw } = await fetchFrameJsonByCandidates(pathCandidates);
+    const version = extractFrameDataVersion(raw);
+    const moves = normalizeMoves(raw);
+>>>>>>> d8c4ef5 (Initial public runtime release)
     if (requestId !== loadDataRequestId) return;
     renderFrameDataVersion(selectedVersion || version);
     let diffMap = new Map();
@@ -945,6 +998,7 @@ async function loadCharacterData(char = '', control = 'classic') {
       && frameDataViewState.compareVersion
       && frameDataViewState.compareVersion !== selectedVersion) {
       try {
+<<<<<<< HEAD
         // Compare both datasets in the same resolved language bucket.
         // This avoids false NEW rows when one version has no EN files and falls back to JP.
         const compareLang = (currentData && currentData.resolvedLang) || activeLang;
@@ -997,6 +1051,17 @@ async function loadCharacterData(char = '', control = 'classic') {
             console.warn('Frame compare row mismatch. Skipping compare highlight.');
           }
         }
+=======
+        const compareCandidates = getFrameDataPathCandidatesForVersion(
+          char,
+          control,
+          frameDataViewState.compareVersion,
+          activeLang
+        );
+        const { data: compareRaw } = await fetchFrameJsonByCandidates(compareCandidates);
+        const compareMoves = normalizeMoves(compareRaw);
+        diffMap = buildFrameDiffMap(moves, compareMoves);
+>>>>>>> d8c4ef5 (Initial public runtime release)
       } catch (compareErr) {
         console.warn('Frame compare data load failed:', compareErr);
       }
@@ -1085,6 +1150,7 @@ function normalizeMoves(raw) {
   return [];
 }
 
+<<<<<<< HEAD
 const FRAME_LEGACY_TEXT_FIXUPS = [
   ['着地後', '着地後'],
   ['着地まで', '着地まで'],
@@ -1181,16 +1247,22 @@ function localizeFrameInlineHtml(rawHtml, lang = null) {
   return wrap.innerHTML;
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 function rowHtml(m, control, diffInfo = null) {
   const cell = (html, txt, modeSensitive = false, tooltipContent = null) => {
     let markup = html && html.trim ? html.trim() : html;
     if (modeSensitive && markup) {
       markup = filterModeHtml(markup, control);
     }
+<<<<<<< HEAD
     const normalizedText = localizeFrameInlineText(txt ?? '', getCurrentLang());
     const content = markup && markup.length
       ? localizeFrameInlineHtml(markup, getCurrentLang())
       : escapeHtmlCompat(normalizedText);
+=======
+    const content = markup && markup.length ? markup : escapeHtmlCompat(txt ?? '');
+>>>>>>> d8c4ef5 (Initial public runtime release)
 
     if (tooltipContent) {
       const safeTooltip = escapeHtmlCompat(tooltipContent);
@@ -1248,7 +1320,11 @@ function rowHtml(m, control, diffInfo = null) {
 
 function sectionRowHtml(label) {
   if (!label) return '';
+<<<<<<< HEAD
   const safe = escapeHtmlCompat(localizeFrameSectionLabel(label));
+=======
+  const safe = escapeHtmlCompat(label);
+>>>>>>> d8c4ef5 (Initial public runtime release)
   return `<tr class="frame-section-row"><td class="frame-section-label">${safe}</td><td class="frame-section-fill" colspan="14"></td></tr>`;
 }
 
@@ -1358,6 +1434,7 @@ const I18N_CORE = {
     'combo.rows.frame': 'フレームメーター',
     'combo.rows.buttons': 'ボタン',
     'combo.rows.notes': '備考',
+<<<<<<< HEAD
     'combo.rows.all': '全表示',
     'combo.filter.apply': '適用',
     'combo.filter.clear': 'クリア',
@@ -1378,6 +1455,12 @@ const I18N_CORE = {
     'tutorial.slide.4.text': '\u691c\u7d22\u306f\u5168\u4f53\u304b\u3089\u63a2\u3059\u3068\u304d\u306b\u4f7f\u7528\u3057\u3001\u8a73\u7d30\u691c\u7d22\u3067\u306f\u8907\u6570\u6761\u4ef6\u3084\u7bc4\u56f2\u3092\u6307\u5b9a\u3057\u3066\u7d5e\u308a\u8fbc\u3081\u307e\u3059\u3002',
     'tutorial.slide.5.title': '\u30a4\u30f3\u30dd\u30fc\u30c8\u3068\u30a8\u30af\u30b9\u30dd\u30fc\u30c8',
     'tutorial.slide.5.text': 'IMPORT/EXPORT \u304b\u3089\u30c7\u30fc\u30bf\u3092\u53d6\u308a\u8fbc\u307f\u30fb\u66f8\u304d\u51fa\u3057\u3067\u304d\u307e\u3059\u3002JSON/XLSX\u3067\u5b9a\u671f\u7684\u306b\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
+=======
+    'combo.rows.all': 'ALL',
+    'combo.filter.apply': '適用',
+    'combo.filter.clear': 'クリア',
+    'help.button': 'ヘルプ',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'help.title': 'HELP',
     'help.description': 'Lab Monster SF6 の使い方',
     'help.main_title': 'Lab Monster SF6 - 利用ガイド',
@@ -1394,8 +1477,12 @@ const I18N_CORE = {
     'help.howto.combo_entry': 'コンボ入力',
     'help.howto.table_control': 'テーブル操作',
     'help.howto.search': '検索 / フィルター',
+<<<<<<< HEAD
     'help.howto.import': 'インポート',
     'help.howto.export': 'エクスポート',
+=======
+    'help.howto.import_export': 'インポート / エクスポート',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'help.howto.data_management': 'データ管理',
     'help.howto.table_control_full': 'テーブル操作（行 / 列 / ソート）',
     'help.howto.search_full': '検索 / 詳細フィルター',
@@ -1418,6 +1505,7 @@ const I18N_CORE = {
     'help.quickstart.1': 'キャラ画像をクリックしてキャラを切り替えます。',
     'help.quickstart.2': 'Classic/Modern を選んでコンボ表を編集します。',
     'help.quickstart.3': 'Import / Export でデータを入出力できます。',
+<<<<<<< HEAD
     'update.button': '\u66f4\u65b0\u5c65\u6b74',
     'update.title': '\u66f4\u65b0\u5c65\u6b74',
     'update.description': 'Lab Monster SF6 \u306e\u66f4\u65b0\u5c65\u6b74\u3067\u3059\u3002',
@@ -1461,11 +1549,41 @@ const I18N_CORE = {
     'info.thanks.title': '\u8b1d\u8f9e',
     'info.thanks.body': '検証・データ共有・フィードバックを提供してくれるSF6コミュニティに感謝。',
     'info.donate.title': '\u30b5\u30dd\u30fc\u30c8',
+=======
+    'update.button': '更新履歴',
+    'update.title': '更新履歴',
+    'update.description': 'Lab Monster SF6 の更新履歴です。',
+    'update.version_label': 'バージョン',
+    'update.date_label': '日付',
+    'update.notes.title': 'ツール更新履歴',
+    'update.notes.1': 'v1.0.0 (2026-02-16): 基礎的なコンボ表とフレーム表の機能をリリース。',
+
+    'info.button': '情報',
+    'info.title': 'INFORMATION',
+    'info.description': '連絡先、関連リンク、クレジット。',
+    'info.team.title': 'チーム',
+    'info.team.body': 'Marshial Law: Lab Monster SF6 の企画・開発担当。コンボ研究と実戦準備に使える実用ツールを継続的に改善してきます。傍らでSF6のMOD制作も行っています。',
+    'info.contact.title': '連絡先',
+    'info.contact.body': '要望やフィードバックはこちらから。',
+    'info.contact.discord_label': 'Discord',
+    'info.contact.email_label': 'メール',
+    'info.links.title': 'リンク',
+    'info.links.patch': '公式 SF6 パッチノート',
+    'info.links.site': '公式 SF6 サイト',
+    'info.links.offline': 'オフライン版ダウンロード',
+    'info.thanks.title': '謝辞',
+    'info.thanks.body': '検証・データ共有・フィードバックを提供してくれるSF6コミュニティに感謝。',
+    'info.donate.title': 'サポート',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'info.donate.bmc': 'Buy Me a Coffee',
     'info.donate.patreon': 'Patreon',
     'info.donate.kofi': 'Ko-fi',
 
+<<<<<<< HEAD
     'info.roadmap.title': '\u4eca\u5f8c\u306e\u4e88\u5b9a',
+=======
+    'info.roadmap.title': '今後の予定',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'info.roadmap.1': 'データ入力の負担を減らすために、自動計算と自動入力機能。',
     'info.roadmap.2': 'クラシックとモダンの間で、コマンド・ボタン・ダメージを自動変換する機能。',
     'info.roadmap.3': 'コンボが成立可能かや、操作タイプ別に自動判定する機能。',
@@ -1473,6 +1591,7 @@ const I18N_CORE = {
     'info.roadmap.5': 'コンボ自動生成機能の検討（おそらく実装しない）',
     'info.roadmap.6': 'コンボ品質の分析・レポート機能の検討（おそらく実装しない）',
     'info.roadmap.note': 'ロードマップは段階的に更新され、内容は変更される場合があります。',
+<<<<<<< HEAD
     'onboarding.title': 'クイックスタート',
     'onboarding.desc': '最初にこの4点だけ確認してください。',
     'onboarding.item.1': 'Classic / Modern はキャラ画像の下にあるタブで切り替えます。',
@@ -1480,6 +1599,8 @@ const I18N_CORE = {
     'onboarding.item.3': '検索と詳細検索で必要なルートだけを絞り込めます。',
     'onboarding.item.4': 'データはブラウザに保存されます。共有・退避はEXPORTを使ってください。',
     'onboarding.close': '開始する',
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 
   },
   en: {
@@ -1521,6 +1642,7 @@ const I18N_CORE = {
     'combo.filter.apply': 'Apply',
     'combo.filter.clear': 'Clear',
     'help.button': 'HELP',
+<<<<<<< HEAD
     'tutorial.button': 'TUTORIAL',
     'tutorial.title': 'Quick Tutorial',
     'tutorial.prev': 'Prev',
@@ -1537,6 +1659,8 @@ const I18N_CORE = {
     'tutorial.slide.4.text': 'Use Search for broad lookup or Advanced Search to specify multiple conditions and/or ranges.',
     'tutorial.slide.5.title': 'Importing and Exporting',
     'tutorial.slide.5.text': 'Import/export data from IMPORT/EXPORT. Keep regular backups in JSON/XLSX.',
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'help.title': 'HELP',
     'help.description': 'How to use Lab Monster SF6.',
     'help.main_title': 'Lab Monster SF6 - Usage Guide',
@@ -1553,8 +1677,12 @@ const I18N_CORE = {
     'help.howto.combo_entry': 'Combo Entry',
     'help.howto.table_control': 'Table Control',
     'help.howto.search': 'Search / Filter',
+<<<<<<< HEAD
     'help.howto.import': 'Importing',
     'help.howto.export': 'Exporting',
+=======
+    'help.howto.import_export': 'Import / Export',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'help.howto.data_management': 'Data Management',
     'help.howto.table_control_full': 'Table Control (Rows / Columns / Sorting)',
     'help.howto.search_full': 'Search / Advanced Filter',
@@ -1586,6 +1714,7 @@ const I18N_CORE = {
     'update.notes.1': 'v1.0.0 (2026-02-16): Initial version release with basic combo table and frame data functions.',
 
     'info.button': 'INFO',
+<<<<<<< HEAD
     'updater.button': 'UPDATE',
     'updater.available': 'UPDATE!',
     'updater.checking': 'Checking...',
@@ -1604,6 +1733,8 @@ const I18N_CORE = {
     'updater.popup.current': 'Current: v{version}',
     'updater.popup.later': 'Later',
     'updater.local_fallback': 'Could not launch local updater automatically. Please run Start_LabMonster.exe manually.',
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'info.title': 'INFORMATION',
     'info.description': 'Contact, useful links, and project credits.',
     'info.team.title': 'TEAM',
@@ -1612,11 +1743,18 @@ const I18N_CORE = {
     'info.contact.body': 'For requests and feedback, please use your preferred contact channel.',
     'info.contact.discord_label': 'Discord',
     'info.contact.email_label': 'Email',
+<<<<<<< HEAD
     'info.contact.report_label': 'Report Issue',
     'info.links.title': 'LINKS',
     'info.links.patch': 'Official SF6 Patch Notes',
     'info.links.site': 'Official SF6 Website',
     'info.links.update': 'Download Update',
+=======
+    'info.links.title': 'LINKS',
+    'info.links.patch': 'Official SF6 Patch Notes',
+    'info.links.site': 'Official SF6 Website',
+    'info.links.offline': 'Download Offline Version',
+>>>>>>> d8c4ef5 (Initial public runtime release)
     'info.thanks.title': 'THANKS',
     'info.thanks.body': 'Thanks to the SF6 community and everyone testing, sharing data, and sending feedback.',
     'info.donate.title': 'SUPPORT ME',
@@ -1632,6 +1770,7 @@ const I18N_CORE = {
     'info.roadmap.5': 'Function to automatically generate combo (probably not).',
     'info.roadmap.6': 'Function to analyze and report quality combos (probably not).',
     'info.roadmap.note': 'Roadmap is iterative and subject to change.',
+<<<<<<< HEAD
     'onboarding.title': 'Quick Start',
     'onboarding.desc': 'Check these four points first.',
     'onboarding.item.1': 'Switch Classic / Modern with the tabs under the character portrait.',
@@ -1639,6 +1778,8 @@ const I18N_CORE = {
     'onboarding.item.3': 'Use Search and Advanced Search to filter only the routes you need.',
     'onboarding.item.4': 'Data is stored in your browser. Use EXPORT for backup and sharing.',
     'onboarding.close': 'Get Started',
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 
   }
 
@@ -1652,6 +1793,7 @@ const OFFICIAL_SITE_LINKS = {
   jp: 'https://www.streetfighter.com/6/ja-jp/',
   en: 'https://www.streetfighter.com/6/en-us/',
 };
+<<<<<<< HEAD
 const LOCAL_UPDATER_LAUNCHER = 'launcher/Update_LabMonster.bat';
 const DEFAULT_RELEASE_URL = 'https://github.com/blackinferno/LabMonsterSF6/releases/latest';
 
@@ -1669,6 +1811,10 @@ function resolveReleaseUrl() {
   const configured = resolveConfiguredReleaseUrl();
   if (configured) return configured;
 
+=======
+
+function resolveOfflineReleaseUrl() {
+>>>>>>> d8c4ef5 (Initial public runtime release)
   if (typeof window === 'undefined' || !window.location) return null;
   const hostname = String(window.location.hostname || '').toLowerCase();
   const parts = String(window.location.pathname || '').split('/').filter(Boolean);
@@ -1680,6 +1826,7 @@ function resolveReleaseUrl() {
   if (hostname === 'github.com' && parts.length >= 2) {
     return `https://github.com/${parts[0]}/${parts[1]}/releases/latest`;
   }
+<<<<<<< HEAD
   return DEFAULT_RELEASE_URL;
 }
 
@@ -1714,12 +1861,16 @@ function openLocalUpdaterLauncher(url) {
   } catch {
     return false;
   }
+=======
+  return null;
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
 
 let helpTranslations = (window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object')
   ? window.HELP_TRANSLATIONS_DATA
   : { jp: {} };
 let helpTranslationsPromise = null;
+<<<<<<< HEAD
 let helpTranslationsScriptPromise = null;
 let helpReverseTranslationCache = null;
 let helpWhitespaceLookupCache = null;
@@ -1866,6 +2017,30 @@ const FRAME_HEADER_LABELS = {
   '属性': 'Properties',
   '属性': 'Properties',
   '備考': 'Miscellaneous',
+=======
+const helpTextOriginalCache = new WeakMap();
+const helpElementOriginalHtmlCache = new WeakMap();
+
+const FRAME_HEADER_LABELS = {
+  '技名': 'Move Name',
+  'フレーム': 'Frames',
+  '動作フレーム': 'Frames',
+  '発生': 'Start-up',
+  '持続': 'Active',
+  '硬直': 'Recovery',
+  '硬直差': 'Frame Advantage',
+  'ヒット': 'Hit',
+  'ガード': 'Block',
+  'キャンセル': 'Cancel',
+  'ダメージ': 'Damage',
+  'コンボ補正値': 'Combo Scaling',
+  'Dゲージ増加（ヒット）': 'Drive Gauge Increase (Hit)',
+  'Dゲージ増加': 'Drive Gauge Increase',
+  'Dゲージ減少': 'Drive Gauge Decrease',
+  'パニッシュカウンター': 'Punish Counter',
+  'SAゲージ増加': 'SA Gauge Increase',
+  '属性': 'Properties',
+>>>>>>> d8c4ef5 (Initial public runtime release)
   '備考': 'Miscellaneous',
 };
 
@@ -1892,11 +2067,16 @@ const FRAME_HEADER_TOOLTIP_TEXTS = {
     'Displays the attack hitbox properties.<br><br>H<br>High level attacks that can be blocked standing or crouching<br><br>M<br>Mid level overhead attacks that must be blocked standing<br><br>L<br>Low level attacks that must be blocked crouching<br><br>T<br>Throws that cannot be blocked<br><br>P<br>Projectile attacks<br><br>MP<br>Mid-air projectile attacks that are considered to be aerial attacks',
 };
 const normalizeFrameLabel = (text) =>
+<<<<<<< HEAD
   normalizeLegacyFrameText(text)
+=======
+  String(text || '')
+>>>>>>> d8c4ef5 (Initial public runtime release)
     .replace(/\s+/g, '')
     .replace(/[()\uFF08\uFF09]/g, '')
     .trim();
 
+<<<<<<< HEAD
 const FRAME_SECTION_LABELS = {
   '通常技': 'Normal Moves',
   '通常技': 'Normal Moves',
@@ -1929,6 +2109,8 @@ function localizeFrameSectionLabel(label, lang = null) {
   return mapped || raw;
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 function normalizeGameVersion(value) {
 
   const raw = String(value || '').trim();
@@ -1936,6 +2118,7 @@ function normalizeGameVersion(value) {
   return raw.replace(/^v(?:er(?:sion)?)?\.?\s*/i, '');
 }
 
+<<<<<<< HEAD
 function getCurrentAppVersion() {
   const bodyVersion = document.body?.getAttribute('data-version');
   if (bodyVersion && String(bodyVersion).trim()) {
@@ -2694,6 +2877,8 @@ async function maybeShowWelcomePopup() {
   openWelcomeOverlay();
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 function extractFrameDataVersion(raw) {
   if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
     const meta = raw.meta || raw._meta || raw.info || {};
@@ -2708,6 +2893,7 @@ function extractFrameDataVersion(raw) {
   return DEFAULT_FRAME_DATA_VERSION;
 }
 
+<<<<<<< HEAD
 function renderHeaderGameVersion(version = null, lang = null) {
   const badge = document.getElementById('footerGameVersionText');
   if (!badge) return;
@@ -2715,10 +2901,13 @@ function renderHeaderGameVersion(version = null, lang = null) {
   badge.textContent = `Game Ver: ${value}`;
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 function renderFrameDataVersion(version = null) {
   if (version != null) {
     currentFrameDataVersion = normalizeGameVersion(version) || DEFAULT_FRAME_DATA_VERSION;
   }
+<<<<<<< HEAD
   if (document && document.body) {
     document.body.dataset.frameDataVersion = currentFrameDataVersion;
   }
@@ -2726,6 +2915,8 @@ function renderFrameDataVersion(version = null) {
   document.dispatchEvent(new CustomEvent('lm:frame-version-changed', {
     detail: { version: currentFrameDataVersion },
   }));
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
 
 function versionSortValue(versionId) {
@@ -2761,6 +2952,7 @@ function getFrameDataPathCandidatesForVersion(char, control, versionId, lang = n
     const explicitEn = String(entry.pathEn || entry.path_en || '').trim().replace(/\/+$/, '');
     if (explicitEn) candidates.push(explicitEn);
     if (base && !base.endsWith('_en')) candidates.push(`${base}_en`);
+<<<<<<< HEAD
     // If EN path(s) are configured, keep EN-only candidates to avoid silently
     // falling back to JP and rendering mixed-language frame tables.
     if (!candidates.length && base) candidates.push(base);
@@ -2770,6 +2962,14 @@ function getFrameDataPathCandidatesForVersion(char, control, versionId, lang = n
     if (base) candidates.push(base);
   }
 
+=======
+  } else {
+    const explicitJp = String(entry.pathJp || entry.path_jp || '').trim().replace(/\/+$/, '');
+    if (explicitJp) candidates.push(explicitJp);
+  }
+
+  if (base) candidates.push(base);
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const uniqueBases = [...new Set(candidates.filter(Boolean))];
   return uniqueBases.map((dir) => `${dir}/${char}_${control}.json`);
 }
@@ -2783,7 +2983,16 @@ async function fetchFrameJsonByCandidates(paths) {
   let lastError = null;
   for (const path of paths) {
     try {
+<<<<<<< HEAD
       const data = await loadJsonResource(path);
+=======
+      const res = await fetch(path, { cache: 'no-cache' });
+      if (!res.ok) {
+        lastError = new Error(`Missing ${path}`);
+        continue;
+      }
+      const data = await res.json();
+>>>>>>> d8c4ef5 (Initial public runtime release)
       return { data, path };
     } catch (err) {
       lastError = err;
@@ -2793,6 +3002,7 @@ async function fetchFrameJsonByCandidates(paths) {
   throw new Error('No frame data path candidates available.');
 }
 
+<<<<<<< HEAD
 async function getFrameMovesCached(char, control, versionId, lang) {
   const safeChar = String(char || '').trim();
   const safeControl = String(control || 'classic').trim();
@@ -2820,12 +3030,20 @@ async function getFrameMovesCached(char, control, versionId, lang) {
   return cached;
 }
 
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 async function ensureFrameDataVersionsLoaded() {
   if (frameDataVersionsLoaded) return frameDataVersions;
   if (frameDataVersionsPromise) return frameDataVersionsPromise;
   frameDataVersionsPromise = (async () => {
     try {
+<<<<<<< HEAD
       const data = await loadJsonResource(FRAME_VERSION_MANIFEST_PATH);
+=======
+      const res = await fetch(FRAME_VERSION_MANIFEST_PATH, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Missing ${FRAME_VERSION_MANIFEST_PATH}`);
+      const data = await res.json();
+>>>>>>> d8c4ef5 (Initial public runtime release)
       const versions = Array.isArray(data && data.versions) ? data.versions : [];
       const parsed = versions
         .map((entry) => ({
@@ -2901,7 +3119,11 @@ function setFrameComparePanelVisible(visible) {
   if (btn) btn.classList.toggle('active', !!visible);
 }
 
+<<<<<<< HEAD
 function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
+=======
+function buildFrameDiffMap(currentMoves, compareMoves) {
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const result = new Map();
   if (!Array.isArray(currentMoves) || !Array.isArray(compareMoves) || !compareMoves.length) {
     return result;
@@ -2911,6 +3133,7 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
     'comboMod', 'driveGain', 'driveLossGuard', 'driveLossPunish', 'saGain',
     'attribute', 'notes',
   ];
+<<<<<<< HEAD
   const numericCoreFields = [
     'startup', 'active', 'recovery', 'hitAdv', 'guardAdv',
     'damage', 'driveGain', 'driveLossGuard', 'driveLossPunish', 'saGain',
@@ -3139,6 +3362,41 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
         diffFields[field] = {
           old: String(oldRaw || '').trim(),
           next: String(nowRaw || '').trim(),
+=======
+  const normalizeKey = (text) => String(text || '').replace(/\s+/g, '').toLowerCase();
+  const normalizeValue = (text) => String(text || '').replace(/\s+/g, '').replace(/,/g, '').trim();
+  const buildLookup = (moves) => {
+    const map = new Map();
+    const counters = new Map();
+    moves.forEach((move) => {
+      const base = `${normalizeKey(move.section)}|${normalizeKey(move.name)}`;
+      const count = (counters.get(base) || 0) + 1;
+      counters.set(base, count);
+      map.set(`${base}#${count}`, move);
+    });
+    return map;
+  };
+
+  const compareLookup = buildLookup(compareMoves);
+  const currentCounters = new Map();
+  currentMoves.forEach((move, idx) => {
+    const base = `${normalizeKey(move.section)}|${normalizeKey(move.name)}`;
+    const count = (currentCounters.get(base) || 0) + 1;
+    currentCounters.set(base, count);
+    const other = compareLookup.get(`${base}#${count}`);
+    if (!other) {
+      result.set(idx, { isNew: true, fields: {} });
+      return;
+    }
+    const diffFields = {};
+    fields.forEach((field) => {
+      const nowVal = normalizeValue(move[field]);
+      const oldVal = normalizeValue(other[field]);
+      if (nowVal !== oldVal) {
+        diffFields[field] = {
+          old: String(other[field] || '').trim(),
+          next: String(move[field] || '').trim(),
+>>>>>>> d8c4ef5 (Initial public runtime release)
         };
       }
     });
@@ -3154,8 +3412,11 @@ function getCurrentLang() {
 }
 
 function translateKey(key, lang) {
+<<<<<<< HEAD
   const override = resolveHelpCoreTranslationOverride(key, lang);
   if (override) return override;
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const dict = I18N_CORE[lang] || I18N_CORE.jp;
   return dict[key] ?? (I18N_CORE.jp[key] ?? '');
 }
@@ -3191,7 +3452,25 @@ function applyOfficialLinks(lang) {
   if (officialSiteLink) {
     officialSiteLink.href = OFFICIAL_SITE_LINKS[active] || OFFICIAL_SITE_LINKS.jp;
   }
+<<<<<<< HEAD
   applyUpdateActionState(active);
+=======
+  const offlineLink = document.getElementById('infoOfflineDownloadLink');
+  if (offlineLink) {
+    const releaseUrl = resolveOfflineReleaseUrl();
+    if (releaseUrl) {
+      offlineLink.href = releaseUrl;
+      offlineLink.classList.remove('is-disabled');
+      offlineLink.removeAttribute('aria-disabled');
+      offlineLink.removeAttribute('tabindex');
+    } else {
+      offlineLink.href = '#';
+      offlineLink.classList.add('is-disabled');
+      offlineLink.setAttribute('aria-disabled', 'true');
+      offlineLink.setAttribute('tabindex', '-1');
+    }
+  }
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
 
 function normalizeHelpTextKey(text) {
@@ -3209,6 +3488,7 @@ function preserveHelpTextWhitespace(original, translated) {
   return `${leading}${translated}${trailing}`;
 }
 
+<<<<<<< HEAD
 function escapeHelpHtml(text) {
   return String(text || '')
     .replace(/&/g, '&amp;')
@@ -3323,6 +3603,12 @@ function ensureHelpTranslationsLoaded() {
       return helpTranslations;
     });
 
+=======
+function ensureHelpTranslationsLoaded() {
+  if (!helpTranslationsPromise) {
+    helpTranslationsPromise = Promise.resolve(helpTranslations);
+  }
+>>>>>>> d8c4ef5 (Initial public runtime release)
   return helpTranslationsPromise;
 }
 
@@ -3361,11 +3647,15 @@ function applyHelpTextLanguage(lang, skipFetch = false) {
   if (!helpView) return;
 
   if (!skipFetch) {
+<<<<<<< HEAD
     const isHelpActive = document.body.getAttribute('data-view') === 'help';
     const hasInline = window.HELP_TRANSLATIONS_DATA && typeof window.HELP_TRANSLATIONS_DATA === 'object';
     if (!isHelpActive && !hasInline && !helpTranslationsPromise) return;
     ensureHelpTranslationsLoaded().then(() => applyHelpTextLanguage(active, true));
     return;
+=======
+    ensureHelpTranslationsLoaded().then(() => applyHelpTextLanguage(active, true));
+>>>>>>> d8c4ef5 (Initial public runtime release)
   }
 
   const dict = (helpTranslations && helpTranslations[active]) || {};
@@ -3393,19 +3683,28 @@ function applyHelpTextLanguage(lang, skipFetch = false) {
       return;
     }
 
+<<<<<<< HEAD
     const sourceText = el.textContent || '';
     const translated = resolveHelpTextTranslation(dict, sourceText);
+=======
+    const key = normalizeHelpTextKey(el.textContent || '');
+    const translated = dict[key];
+>>>>>>> d8c4ef5 (Initial public runtime release)
     if (!translated) return;
 
     if (/<[a-z][\s\S]*>/i.test(translated)) {
       el.innerHTML = translated;
     } else {
+<<<<<<< HEAD
       const emphasized = preserveHelpInlineEmphasis(el, translated, dict);
       if (emphasized) {
         el.innerHTML = emphasized;
       } else {
         el.textContent = translated;
       }
+=======
+      el.textContent = translated;
+>>>>>>> d8c4ef5 (Initial public runtime release)
     }
     el.dataset.helpBlockTranslated = '1';
   });
@@ -3432,7 +3731,11 @@ function applyHelpTextLanguage(lang, skipFetch = false) {
     if (active !== 'jp') {
       node.textContent = original;
     } else {
+<<<<<<< HEAD
       const translated = resolveHelpTextTranslation(dict, original);
+=======
+      const translated = dict[normalizeHelpTextKey(original)];
+>>>>>>> d8c4ef5 (Initial public runtime release)
       node.textContent = translated ? preserveHelpTextWhitespace(original, translated) : original;
     }
     node = walker.nextNode();
@@ -3527,6 +3830,7 @@ function initLanguageToggle() {
     applyCoreI18n(nextLang);
     applyOfficialLinks(nextLang);
     applyHelpTextLanguage(nextLang);
+<<<<<<< HEAD
     if (updatesDataCache) {
       renderInfoUpdatesAndRoadmap(nextLang).catch((err) => {
         console.warn('Failed to rerender updates/roadmap for language switch:', err);
@@ -3536,6 +3840,10 @@ function initLanguageToggle() {
     applyFrameHeaderLanguage(nextLang);
     renderFrameDataVersion();
     frameMovesCache.clear();
+=======
+    applyFrameHeaderLanguage(nextLang);
+    renderFrameDataVersion();
+>>>>>>> d8c4ef5 (Initial public runtime release)
     // Reload current frame table immediately so locale-specific data swaps without requiring mode/character changes.
     const currentChar = (document.body.dataset.currentCharSlug || '').trim();
     const activeControl = document.getElementById('tabModern')?.classList.contains('active') ? 'modern' : 'classic';
@@ -3549,9 +3857,12 @@ function initLanguageToggle() {
     if (typeof window.applyComboLanguage === 'function') {
       window.applyComboLanguage(nextLang);
     }
+<<<<<<< HEAD
     if (typeof window.refreshTutorialOverlayLanguage === 'function') {
       window.refreshTutorialOverlayLanguage();
     }
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
   };
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -3564,6 +3875,7 @@ function initLanguageToggle() {
 }
 
 function initInfoModals() {
+<<<<<<< HEAD
   const welcomeOverlay = document.getElementById('welcomeOverlay');
   const updateOverlay = document.getElementById('updateOverlay');
   const infoBtn = document.getElementById('appInfoBtn');
@@ -3603,6 +3915,24 @@ function initInfoModals() {
       });
   };
   window.openInfoSection = openInfoSection;
+=======
+  const updateOverlay = document.getElementById('updateOverlay');
+  const openOverlay = (overlay) => {
+    if (!overlay) return;
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+  };
+  const closeOverlay = (overlay) => {
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    overlay.setAttribute('aria-hidden', 'true');
+  };
+  const infoBtn = document.getElementById('appInfoBtn');
+  const helpBtn = document.getElementById('appHelpBtn');
+  const updateBtn = document.getElementById('appUpdateBtn');
+  const updateClose = document.getElementById('updateClose');
+  const frameOfficialPatchBtn = document.getElementById('frameOfficialPatchBtn');
+>>>>>>> d8c4ef5 (Initial public runtime release)
 
   helpBtn?.addEventListener('click', () => {
     if (typeof window.setMainView === 'function') window.setMainView('help');
@@ -3665,6 +3995,7 @@ function initInfoModals() {
       if (!trigger) return;
       ev.preventDefault();
       const targetId = trigger.getAttribute('data-info-target') || '';
+<<<<<<< HEAD
       if (!targetId) return;
       if (targetId === 'info-updates' || targetId === 'info-roadmap') {
         ensureUpdatesDataLoaded()
@@ -3674,12 +4005,21 @@ function initInfoModals() {
         return;
       }
       scrollInfoSection(targetId);
+=======
+      const target = targetId ? document.getElementById(targetId) : null;
+      if (!target) return;
+      const targetRect = target.getBoundingClientRect();
+      const viewRect = infoView.getBoundingClientRect();
+      const nextTop = infoView.scrollTop + (targetRect.top - viewRect.top) - 10;
+      infoView.scrollTo({ top: Math.max(0, nextTop), behavior: 'smooth' });
+>>>>>>> d8c4ef5 (Initial public runtime release)
     });
   }
   if (window.location.hash && /^#help-/.test(window.location.hash)) {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
   infoBtn?.addEventListener('click', () => {
+<<<<<<< HEAD
     openInfoSection('info-team', { behavior: 'auto' });
   });
   const handleWelcomeDismiss = (markSeenDefault = false) => {
@@ -3709,6 +4049,20 @@ function initInfoModals() {
     }
     if (updateOverlay && !updateOverlay.classList.contains('hidden')) {
       closeUpdateOverlay();
+=======
+    if (typeof window.setMainView === 'function') window.setMainView('info');
+  });
+  updateBtn?.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    openOverlay(updateOverlay);
+  });
+  updateClose?.addEventListener('click', () => closeOverlay(updateOverlay));
+  updateOverlay?.querySelector('.modal-backdrop')?.addEventListener('click', () => closeOverlay(updateOverlay));
+  window.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'Escape') return;
+    if (updateOverlay && !updateOverlay.classList.contains('hidden')) {
+      closeOverlay(updateOverlay);
+>>>>>>> d8c4ef5 (Initial public runtime release)
     }
   });
 
@@ -3721,6 +4075,7 @@ function initInfoModals() {
       window.location.href = url;
     }
   });
+<<<<<<< HEAD
 
   const bindUpdateAction = (el) => {
     if (!el || el.dataset.updateBound) return;
@@ -4109,6 +4464,8 @@ function initTutorialOverlay() {
       renderTutorialSlide(getCurrentLang());
     }
   };
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
 function fmt(v) { if (v == null || v === '') return ''; const n = Number(v); return isNaN(n) ? v : n.toLocaleString(); }
 function fmtSigned(v) {
@@ -4139,6 +4496,7 @@ function initCharacterControls() {
   const nameJP = document.getElementById('charNameJP');
   const nameEN = document.getElementById('charNameEN');
 
+<<<<<<< HEAD
   const persistedView = loadPersistedFrameViewState();
   if (persistedView && persistedView.version) {
     frameDataViewState.selectedVersion = persistedView.version;
@@ -4161,6 +4519,9 @@ function initCharacterControls() {
       compareEnabled: frameDataViewState.compareEnabled,
     });
   };
+=======
+  const current = { char: '', control: 'classic' };
+>>>>>>> d8c4ef5 (Initial public runtime release)
   document.body.dataset.frameCharSelected = current.char ? '1' : '0';
   const refreshFrameData = () => loadCharacterData(current.char, current.control);
 
@@ -4177,8 +4538,11 @@ function initCharacterControls() {
     versionSelect.addEventListener('change', () => {
       frameDataViewState.selectedVersion = normalizeGameVersion(versionSelect.value) || DEFAULT_FRAME_DATA_VERSION;
       populateFrameVersionSelects();
+<<<<<<< HEAD
       persistFrameViewState();
       frameMovesCache.clear();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
       refreshFrameData();
     });
   }
@@ -4218,7 +4582,10 @@ function initCharacterControls() {
     compareVersionSelect.dataset.bound = '1';
     compareVersionSelect.addEventListener('change', () => {
       frameDataViewState.compareVersion = normalizeGameVersion(compareVersionSelect.value);
+<<<<<<< HEAD
       persistFrameViewState();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
     });
   }
 
@@ -4230,8 +4597,11 @@ function initCharacterControls() {
       frameDataViewState.compareEnabled = !!frameDataViewState.compareVersion
         && frameDataViewState.compareVersion !== frameDataViewState.selectedVersion;
       setFrameComparePanelVisible(false);
+<<<<<<< HEAD
       persistFrameViewState();
       frameMovesCache.clear();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
       refreshFrameData();
     });
   }
@@ -4241,8 +4611,11 @@ function initCharacterControls() {
     compareClearBtn.addEventListener('click', () => {
       frameDataViewState.compareEnabled = false;
       setFrameComparePanelVisible(false);
+<<<<<<< HEAD
       persistFrameViewState();
       frameMovesCache.clear();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
       refreshFrameData();
     });
   }
@@ -4253,7 +4626,10 @@ function initCharacterControls() {
     if (modern) modern.classList.toggle('active', type === 'modern');
     if (classic) classic.setAttribute('aria-selected', String(type === 'classic'));
     if (modern) modern.setAttribute('aria-selected', String(type === 'modern'));
+<<<<<<< HEAD
     persistFrameViewState();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
     refreshFrameData();
   };
   const setCharacter = (slug, jp, en) => {
@@ -4271,7 +4647,10 @@ function initCharacterControls() {
     if (nameJP) nameJP.textContent = displayJP;
     if (nameEN) nameEN.textContent = displayEN;
     applyCharacterArtPreset(slug);
+<<<<<<< HEAD
     persistFrameViewState();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
     refreshFrameData();
   };
 
@@ -4300,6 +4679,7 @@ function initCharacterControls() {
   window.switchCharacter = setCharacter;
   document.body.dataset.currentCharSlug = current.char || '';
   if (current.char) {
+<<<<<<< HEAD
     const { jp, en } = resolveCharacterNamesBySlug(current.char);
     if (portrait) {
       portrait.src = `assets/images/characters/${current.char}.png`;
@@ -4311,6 +4691,11 @@ function initCharacterControls() {
     if (nameEN) nameEN.textContent = formatDisplayName(current.char, en, 'english', getCurrentLang());
     applyCharacterArtPreset(current.char);
     // Keep Combo List unselected on load; sync only when user explicitly picks a character.
+=======
+    if (nameJP) nameJP.textContent = formatDisplayName(current.char, nameJP.textContent, 'primary', getCurrentLang());
+    if (nameEN) nameEN.textContent = formatDisplayName(current.char, nameEN.textContent, 'english', getCurrentLang());
+    applyCharacterArtPreset(current.char);
+>>>>>>> d8c4ef5 (Initial public runtime release)
   } else {
     document.body.dataset.frameCharSelected = '0';
     if (nameJP) nameJP.textContent = '';
@@ -4322,12 +4707,19 @@ function initCharacterControls() {
       portrait.style.display = 'none';
     }
   }
+<<<<<<< HEAD
   setControl(current.control);
   persistFrameViewState();
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
   renderFrameDataVersion(frameDataViewState.selectedVersion);
   if (comparePanel && !comparePanel.classList.contains('hidden')) {
     setFrameComparePanelVisible(true);
   }
+<<<<<<< HEAD
+=======
+  refreshFrameData();
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
 
 // ---------------------------------------------------------------------------
@@ -4354,6 +4746,7 @@ function initCharacterSelect() {
       const imgEl = card.querySelector('img');
       const jp = card.dataset.nameJp || ((spanEl && spanEl.textContent) || slug);
       const en = card.dataset.nameEn || ((imgEl && imgEl.getAttribute('alt')) || slug.toUpperCase());
+<<<<<<< HEAD
       const activeView = String(document.body.getAttribute('data-view') || '').toLowerCase();
       if (activeView === 'frame') {
         if (window.switchCharacter) window.switchCharacter(slug, jp, en);
@@ -4364,6 +4757,10 @@ function initCharacterSelect() {
         if (window.switchCharacter) window.switchCharacter(slug, jp, en);
         if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
       }
+=======
+      if (window.switchCharacter) window.switchCharacter(slug, jp, en);
+      if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
+>>>>>>> d8c4ef5 (Initial public runtime release)
       close();
     });
     const spanEl = card.querySelector('span');
@@ -4444,6 +4841,7 @@ function escapeHtmlCompat(s) {
 }
 
 function filterModeHtml(html, control) {
+<<<<<<< HEAD
   if (!html) return html;
   const hasSpanMarkup = html.indexOf('<span') !== -1;
   const hasModeMarkup = html.indexOf('frame_classic') !== -1 || html.indexOf('frame_modern') !== -1;
@@ -4467,6 +4865,11 @@ function filterModeHtml(html, control) {
     }
   }
 
+=======
+  if (!html || html.indexOf('<span') === -1) return html;
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = html;
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const spans = Array.from(wrapper.querySelectorAll('span'));
   if (!spans.length) return html;
   const parenSpans = spans.filter((sp) => {
@@ -4551,11 +4954,15 @@ function initDragScroll(sel = '#frameScroll') {
   const onDown = (pageX) => { isDown = true; el.classList.add('grabbing'); startX = pageX - el.offsetLeft; scrollLeft = el.scrollLeft; };
   const onMove = (pageX) => { if (!isDown) return; const x = pageX - el.offsetLeft; const walk = x - startX; el.scrollLeft = scrollLeft - walk; updateRightShadow(el); };
   const onUp = () => { isDown = false; el.classList.remove('grabbing'); };
+<<<<<<< HEAD
   el.addEventListener('mousedown', (e) => {
     // Keep side buttons available for app/browser back-forward navigation.
     if (e.button !== 0) return;
     onDown(e.pageX);
   });
+=======
+  el.addEventListener('mousedown', (e) => onDown(e.pageX));
+>>>>>>> d8c4ef5 (Initial public runtime release)
   el.addEventListener('mousemove', (e) => onMove(e.pageX));
   el.addEventListener('mouseleave', onUp);
   el.addEventListener('mouseup', onUp);
@@ -4787,7 +5194,10 @@ function getSelectThumbForSlug(slug, lang = null) {
   const number = idx + 1;
   return `assets/images/characters/select_character${number}_over.png`;
 }
+<<<<<<< HEAD
 window.getSelectThumbForSlug = getSelectThumbForSlug;
+=======
+>>>>>>> d8c4ef5 (Initial public runtime release)
 
 // ---------------------------------------------------------------------------
 // App-level tabs (Frame Data / Combo List)
@@ -4808,6 +5218,7 @@ function initMainTabs() {
   const body = document.body;
   const infoBtn = document.getElementById('appInfoBtn');
   const helpBtn = document.getElementById('appHelpBtn');
+<<<<<<< HEAD
   const MAIN_VIEWS = new Set(['combos', 'frame', 'help', 'info']);
   const normalizeAppView = (value) => {
     const key = String(value || '').trim().toLowerCase();
@@ -4844,10 +5255,19 @@ function initMainTabs() {
 
     views.forEach((view) => {
       const isActive = view.dataset.view === nextView;
+=======
+
+  if (!tabs.length || !views.length) return;
+
+  const setView = (viewKey) => {
+    views.forEach((view) => {
+      const isActive = view.dataset.view === viewKey;
+>>>>>>> d8c4ef5 (Initial public runtime release)
       view.classList.toggle('active', isActive);
       view.setAttribute('aria-hidden', String(!isActive));
     });
     tabs.forEach((tab) => {
+<<<<<<< HEAD
       const isActive = tab.dataset.viewTab === nextView;
       tab.classList.toggle('active', isActive);
       tab.setAttribute('aria-selected', String(isActive));
@@ -4913,6 +5333,27 @@ function initMainTabs() {
     ev.stopPropagation();
   }, true);
 
+=======
+      const isActive = tab.dataset.viewTab === viewKey;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+    if (helpBtn) helpBtn.classList.toggle('active', viewKey === 'help');
+    if (infoBtn) infoBtn.classList.toggle('active', viewKey === 'info');
+    body.setAttribute('data-view', viewKey);
+    if (headerTitle) {
+      const titleKey = viewKey === 'combos'
+        ? 'nav.combo'
+        : (viewKey === 'help'
+          ? 'help.button'
+          : (viewKey === 'info' ? 'info.button' : 'nav.frame'));
+      headerTitle.dataset.i18n = titleKey;
+      headerTitle.textContent = translateKey(headerTitle.dataset.i18n, getCurrentLang());
+    }
+    updateFrameScrollHeight();
+  };
+
+>>>>>>> d8c4ef5 (Initial public runtime release)
   const onKey = (ev, viewKey) => {
     if (ev.key === 'Enter' || ev.key === ' ') {
       ev.preventDefault();
@@ -4927,6 +5368,7 @@ function initMainTabs() {
   });
 
   window.setMainView = setView;
+<<<<<<< HEAD
   window.navigateMainViewHistory = navigateViewHistory;
 
   // Restore last primary view (Frame Data / Combo List)
@@ -4939,4 +5381,9 @@ function renderAppVersionBadge() {
   const badge = document.getElementById('footerAppVersionText');
   if (!badge) return;
   badge.textContent = `Tool Ver: ${APP_VERSION}`;
+=======
+
+  // Default to combo view
+  setView('combos');
+>>>>>>> d8c4ef5 (Initial public runtime release)
 }
