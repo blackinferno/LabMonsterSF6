@@ -1444,7 +1444,7 @@ const I18N_CORE = {
     'updater.popup.latest': '\u6700\u65b0: v{version}',
     'updater.popup.current': '\u73fe\u5728: v{version}',
     'updater.popup.later': '\u5f8c\u3067',
-    'updater.local_fallback': '\u81ea\u52d5\u66f4\u65b0\u30e9\u30f3\u30c1\u30e3\u30fc\u306e\u8d77\u52d5\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002Start_LabMonster.bat \u3092\u624b\u52d5\u3067\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
+    'updater.local_fallback': '\u81ea\u52d5\u66f4\u65b0\u30e9\u30f3\u30c1\u30e3\u30fc\u306e\u8d77\u52d5\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002Start_LabMonster.exe \u3092\u624b\u52d5\u3067\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
     'info.title': 'INFORMATION',
     'info.description': '\u9023\u7d61\u5148\u3001\u95a2\u9023\u30ea\u30f3\u30af\u3001\u30af\u30ec\u30b8\u30c3\u30c8\u3002',
     'info.team.title': '\u30c1\u30fc\u30e0',
@@ -1603,7 +1603,7 @@ const I18N_CORE = {
     'updater.popup.latest': 'Latest: v{version}',
     'updater.popup.current': 'Current: v{version}',
     'updater.popup.later': 'Later',
-    'updater.local_fallback': 'Could not launch local updater automatically. Please run Start_LabMonster.bat manually.',
+    'updater.local_fallback': 'Could not launch local updater automatically. Please run Start_LabMonster.exe manually.',
     'info.title': 'INFORMATION',
     'info.description': 'Contact, useful links, and project credits.',
     'info.team.title': 'TEAM',
@@ -2162,7 +2162,7 @@ function triggerUpdateAction(showNoUpdateAlert = true) {
                 || 'Update Available';
               const message = translateKey('updater.local_fallback', activeLang)
                 || translateKey('updater.local_fallback', 'jp')
-                || 'Could not launch local updater. Please run Start_LabMonster.bat manually.';
+                || 'Could not launch local updater. Please run Start_LabMonster.exe manually.';
               openUpdateOverlayNotice(message, title);
             }
           }

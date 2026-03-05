@@ -3,12 +3,13 @@
   "updates": [
     {
       "version": "1.0.2",
-      "date": "2026-02-28",
+      "date": "2026-03-05",
       "important": true,
       "tags": [
         "Tutorial",
         "Help",
-        "UX"
+        "UX",
+        "Launcher"
       ],
       "items": {
         "jp": [
@@ -21,7 +22,8 @@
           "Added delegated data-tutorial-flow trigger handling so new guides can be wired without extra JS listeners.",
           "Added contextual guide entry points inside major modals (Import Target, XLSX Mapping, Notation Manager, Hotkey Customize).",
           "Added shared '?' trigger styling for dark/light themes and inline/modal placements.",
-          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes."
+          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes.",
+          "Switched startup flow to EXE launcher only and removed legacy BAT startup."
         ],
         "en": [
           "Added contextual '?' guide triggers to major screens and key popups.",
@@ -33,7 +35,8 @@
           "Added delegated data-tutorial-flow trigger handling so new guides can be wired without extra JS listeners.",
           "Added contextual guide entry points inside major modals (Import Target, XLSX Mapping, Notation Manager, Hotkey Customize).",
           "Added shared '?' trigger styling for dark/light themes and inline/modal placements.",
-          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes."
+          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes.",
+          "Switched startup flow to EXE launcher only and removed legacy BAT startup."
         ]
       }
     },

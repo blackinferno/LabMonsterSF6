@@ -179,10 +179,10 @@ function Apply-Update([string]$RepoName, [string]$Tag, [string]$AppRoot) {
                 Copy-Item -Path $srcUpdateBatLegacy -Destination $dstUpdateBat -Force
             }
         }
-        $srcBat = Join-Path $srcRoot "Start_LabMonster.bat"
-        if (Test-Path $srcBat) {
-            $dstBat = Join-Path $AppRoot "Start_LabMonster.bat"
-            Copy-Item -Path $srcBat -Destination $dstBat -Force
+        $srcExe = Join-Path $srcRoot "Start_LabMonster.exe"
+        if (Test-Path $srcExe) {
+            $dstExe = Join-Path $AppRoot "Start_LabMonster.exe"
+            Copy-Item -Path $srcExe -Destination $dstExe -Force
         }
 
         Write-Host "[update] Update applied: $Tag"
