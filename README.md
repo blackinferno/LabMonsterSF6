@@ -16,7 +16,7 @@ Public runtime repository for the Lab Monster SF6 tool.
 
 ## Run locally
 
-Run `sf6_viewer_unified/Start_LabMonster.bat`.
+Run `sf6_viewer_unified/LabMonster.exe`.
 (You can also run just with `index.html`)
 
 No Python/server setup is required for normal offline usage.
