@@ -2,6 +2,12 @@
 
 Public runtime repository for the Lab Monster SF6 tool.
 
+## Current Status
+
+- Latest public version: `v1.0.2`
+- Last release refresh: `2026-03-05` (existing `v1.0.2` package replaced with latest fixes)
+- GitHub Pages and release ZIP are synchronized.
+
 ## Access
 
 - Online (GitHub Pages): `https://blackinferno.github.io/LabMonsterSF6/`
@@ -16,18 +22,18 @@ Public runtime repository for the Lab Monster SF6 tool.
 
 ## Run locally
 
-Run `sf6_viewer_unified/Start_LabMonster.exe`.
-(You can also run just with `index.html`)
+- Open `sf6_viewer_unified/index.html` directly in your browser.
+- For packaged builds, launch `Start_LabMonster.exe` when available.
 
 No Python/server setup is required for normal offline usage.
 
 ## Data and save behavior
 
 - User combo data is saved in browser `localStorage`.
-- Saves are scoped by browser origin, so online and offline saves are separate.
-- Export your data regularly if you want backups.
+- Saves are scoped by browser origin; online and offline saves are separate.
+- Export your data regularly if you need migration/backups.
 
 ## Repository scope
 
-- This repo is runtime-only.
-- Development scripts and internal data-pipeline assets are intentionally excluded.
+- This repo is runtime-focused.
+- Development/automation assets are local-only unless intentionally tracked.
