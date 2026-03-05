@@ -1,0 +1,5649 @@
+/* ======================================================================== */
+/* Combo List UI (manual-first authoring) */
+/* ======================================================================== */
+#comboView.active {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px var(--page-pad) 24px;
+    overflow: hidden;
+}
+
+.combo-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.combo-header {
+    display: grid;
+    grid-template-columns: 220px 1fr minmax(420px, 2fr);
+    gap: 12px;
+    align-items: center;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #0f0f0f;
+}
+
+.combo-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.combo-char-btn {
+    border: 1px solid var(--border-light);
+    background: #111;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.combo-char-btn img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.combo-mode-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.combo-mode-btn {
+    border: 1px solid var(--border-light);
+    background: #141414;
+    border-radius: 6px;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+.combo-mode-btn.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.35);
+}
+
+.combo-mode-btn img {
+    width: 90px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.combo-header-title h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 0.06em;
+}
+
+.combo-header-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.combo-search {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.combo-search input {
+    width: 220px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: #0c0c0c;
+    color: var(--text-main);
+    padding: 6px 10px;
+}
+
+.combo-search button {
+    border: 1px solid var(--border-light);
+    background: #151515;
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.combo-header-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn-ghost,
+.btn-primary {
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-ghost:hover,
+.btn-primary:hover {
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #f97306, #ffb347);
+    color: #0d0d0d;
+    border-color: transparent;
+    box-shadow: 0 6px 18px rgba(249, 115, 6, 0.35);
+}
+
+.combo-list-card,
+.combo-editor-card {
+    background: #0f0f0f;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.combo-table-card {
+    background: #0f0f0f;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.combo-table-wrap {
+    overflow: auto;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+}
+
+.combo-draft-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 1200px;
+    color: var(--text-main);
+    font-size: 12px;
+}
+
+.combo-draft-table thead th {
+    background: linear-gradient(135deg, #1f1f1f, #111);
+    border: 1px solid var(--border-light);
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.2;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.combo-draft-table tbody td {
+    border: 1px solid var(--border-light);
+    padding: 8px 6px;
+    vertical-align: middle;
+    background: #0d0d0d;
+}
+
+.combo-draft-table tbody tr:nth-child(odd) td {
+    background: #111;
+}
+
+.combo-draft-table tbody tr.selected td {
+    background: linear-gradient(135deg, rgba(249, 115, 6, 0.16), rgba(249, 115, 6, 0.04));
+    border-color: var(--accent);
+}
+
+.combo-draft-table .sticky-col {
+    position: sticky;
+    left: 0;
+    background: #151515;
+    z-index: 3;
+    min-width: 220px;
+}
+
+.cell-input,
+.combo-draft-table select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: #0f0f0f;
+    color: var(--text-main);
+    padding: 4px 6px;
+}
+
+.cell-input:focus,
+.combo-draft-table select:focus {
+    outline: 1px solid var(--accent);
+    border-color: var(--accent);
+}
+
+.cmd-cell {
+    min-width: 180px;
+    background: #0f0f0f;
+    border: 1px dashed var(--border-light);
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.cmd-cell:focus-visible {
+    outline: 1px solid var(--accent);
+}
+
+.cmd-cell.cmd-active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.4);
+}
+
+.combo-cell-title {
+    font-weight: 700;
+    margin: 0 0 2px;
+}
+
+.combo-cell-sub {
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.combo-note {
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.combo-head-row-1 th {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+}
+
+.combo-head-row-2 th,
+.combo-head-row-3 th {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+}
+
+.combo-table-wrap::-webkit-scrollbar {
+    height: 10px;
+}
+
+.combo-table-wrap::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 20px;
+}
+
+.command-input-bar {
+    margin-top: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 10px;
+    background: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.command-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.command-input-group input {
+    flex: 1 1 auto;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: #0c0c0c;
+    color: var(--text-main);
+    padding: 8px 10px;
+}
+
+.command-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.command-buttons button,
+.command-shortcuts button {
+    border: 1px solid var(--border-light);
+    background: #151515;
+    color: var(--text-main);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.command-shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.command-hint {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.combo-bottom {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.combo-customize {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 10px;
+    background: #0f0f0f;
+    text-align: center;
+}
+
+.combo-customize p {
+    margin: 0 0 8px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+}
+
+.combo-customize button {
+    width: 100%;
+    margin-top: 6px;
+}
+
+.combo-topbar .input-legend {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: #0f0f0f;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.legend-row {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-main);
+}
+
+.legend-header,
+.legend-footer {
+    font-weight: 700;
+}
+
+.legend-row span {
+    display: inline-flex;
+    justify-content: center;
+    padding: 6px 4px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: #151515;
+}
+
+.combo-actions {
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 10px;
+    background: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.search-box {
+    display: flex;
+    gap: 6px;
+}
+
+.search-box input {
+    flex: 1 1 auto;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: #0c0c0c;
+    color: var(--text-main);
+    padding: 8px 10px;
+}
+
+.search-box button {
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: #151515;
+    color: var(--text-main);
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.action-buttons,
+.mode-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.input-mode {
+    border-top: 1px solid var(--border-light);
+    padding-top: 6px;
+}
+
+.input-mode-title {
+    margin: 4px 0;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+}
+
+.input-mode-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 11px;
+}
+
+.combo-editor-card {
+    padding: 14px;
+    gap: 10px;
+}
+
+.combo-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px;
+}
+
+.field-grid label,
+.result-grid label,
+.notes-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.field-grid input,
+.field-grid select,
+.result-grid input,
+.notes-block textarea {
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: #0c0c0c;
+    color: var(--text-main);
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+.notes-block textarea {
+    min-height: 70px;
+}
+
+@media (max-width: 1100px) {
+    #comboView.active {
+        padding: 10px 12px 20px;
+    }
+
+    .combo-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .combo-header-actions {
+        align-items: center;
+    }
+
+    .combo-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .combo-table-wrap {
+        overflow-x: auto;
+    }
+}
+
+/* ======================================================================== */
+/* Combo List UI (context index.html layout) */
+/* ======================================================================== */
+#comboView {
+    position: relative;
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    background: #0f0f0f;
+    font-family: 'Noto Sans JP', sans-serif;
+    --ui-cell-size: 38px;
+    --ui-auto-scale: 0;
+    --ui-dir-cell-size: 39px;
+    --ui-dir-icon-row-height: 39px;
+    --ui-dir-cell-height: 39px;
+    --ui-icon-row-height: 31px;
+    --ui-desc-row-height: 20px;
+    --shortcut-cell-size: 150px;
+    --combo-col-size: 60px;
+    --combo-ui-reserve: 30px;
+    --command-font-size: 13px;
+}
+
+#comboView,
+#comboView * {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+#comboView #Table1 p,
+#comboView #Table1 span,
+#comboView .combo-search-shell p,
+#comboView .combo-search-shell span,
+#comboView .combo-search-shell label,
+#comboView .combo-search-shell button,
+#comboView .combo-search-shell input,
+#comboView .combo-search-shell select {
+    font-family: inherit !important;
+}
+
+#comboView.active {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0;
+    gap: 0;
+}
+
+/* Prevent flash of legacy static combo rows before JS rebuild completes */
+#comboView:not(.combo-ready) #comboTableScroll,
+#comboView:not(.combo-ready) #comboRowToggles,
+#comboView:not(.combo-ready) .combo-col-controls,
+#comboView:not(.combo-ready) #comboColumnTogglePanel,
+#comboView:not(.combo-ready) #comboCrudBar,
+#comboView:not(.combo-ready) #Table2,
+#comboView:not(.combo-ready) #Table3,
+#comboView:not(.combo-ready) #Table4,
+#comboView:not(.combo-ready) #Table5 {
+    visibility: hidden;
+}
+
+#comboView #FlexGrid1 {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+#comboView table {
+    border-collapse: collapse;
+}
+
+#comboView #Table1 th,
+#comboView #Table1 td {
+    border: 1px solid #343434;
+    background: #121212;
+    color: #f1f1f1;
+    padding: 4px 6px;
+    font-size: 10px;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+#comboView #Table1 {
+    --combo-header-row-height: 22px;
+    --combo-subheader-row-height: 22px;
+    --combo-sticky-col1-width: 0px;
+    --combo-sticky-col2-width: 0px;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+#comboView #Table1 thead {
+    position: relative;
+}
+
+#comboView #Table1 thead tr:nth-child(1)>th,
+#comboView #Table1 thead tr:nth-child(1)>td {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    height: var(--combo-header-row-height, 25px);
+    min-height: var(--combo-header-row-height, 25px);
+    background-clip: padding-box;
+    padding: 2px 5px;
+}
+
+#comboView #Table1 thead tr:nth-child(2)>th,
+#comboView #Table1 thead tr:nth-child(2)>td {
+    position: sticky;
+    top: var(--combo-header-row-height, 25px);
+    z-index: 2;
+    height: var(--combo-subheader-row-height, 25px);
+    min-height: var(--combo-subheader-row-height, 25px);
+    background-clip: padding-box;
+    padding: 2px 5px;
+}
+
+#comboView #Table1 .combo-sticky-col {
+    position: sticky;
+    z-index: 6;
+}
+
+#comboView #Table1 thead .combo-sticky-col {
+    z-index: 9;
+}
+
+#comboView #comboTableScroll #Table1 thead {
+    visibility: hidden;
+}
+
+#comboView #comboTableScroll #Table1 thead th,
+#comboView #comboTableScroll #Table1 thead td {
+    position: static !important;
+    top: auto !important;
+}
+
+#comboView #comboTableHeaderWrap {
+    position: absolute;
+    overflow: hidden;
+    z-index: 18;
+}
+
+#comboView #comboTableHeader {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+#comboView .combo-col-eye {
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #3a3a3a;
+    background: #1b1b1b;
+    color: #f0f0f0;
+    font-size: 11px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 40;
+}
+
+#comboView .combo-col-eye:hover {
+    border-color: #555;
+    background: #222;
+}
+
+#comboView #comboColumnTogglePanel {
+    position: absolute;
+    min-width: 240px;
+    max-width: 360px;
+    padding: 10px 12px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: rgba(14, 14, 14, 0.98);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    z-index: 40;
+}
+
+#comboView #comboColumnTogglePanel.hidden {
+    display: none;
+}
+
+#comboView #comboColumnTogglePanel .combo-col-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
+    max-height: 220px;
+    overflow: auto;
+}
+
+#comboView #comboColumnTogglePanel .combo-col-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #f0f0f0;
+    white-space: nowrap;
+}
+
+#comboView #comboTableHeader th,
+#comboView #comboTableHeader td {
+    border: 1px solid #454545;
+    background: #1b1b1b;
+    color: #f1f1f1;
+    padding: 2px 5px;
+    font-size: 9px;
+    line-height: 1.05;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#comboView #Table1 th {
+    background: #1b1b1b;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    border-color: #4a4a4a;
+}
+
+#comboView #comboTableHeader tr:nth-child(1) th,
+#comboView #comboTableHeader tr:nth-child(1) td {
+    background: #222;
+}
+
+#comboView #comboTableHeader tr:nth-child(2) th,
+#comboView #comboTableHeader tr:nth-child(2) td {
+    background: #1a1a1a;
+    border-bottom: 2px solid #5a5a5a;
+}
+
+#comboView #Table1 .combo-sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+#comboView #Table1 .combo-sortable::after {
+    content: "\25B2/\25BC";
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    font-size: 8px;
+    color: #9a9a9a;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+#comboView #Table1 .combo-sortable[data-sort="asc"]::after,
+#comboView #Table1 .combo-sortable[data-sort="desc"]::after {
+    color: #f0f0f0;
+}
+
+#comboView #comboTableHeader .combo-sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+#comboView #comboTableHeader .combo-sortable::after {
+    content: "\25B2/\25BC";
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    font-size: 8px;
+    color: #9a9a9a;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+#comboView #comboTableHeader .combo-sortable[data-sort="asc"]::after,
+#comboView #comboTableHeader .combo-sortable[data-sort="desc"]::after {
+    color: #f0f0f0;
+}
+
+#comboView #Table1 .combo-sortable[data-sort="asc"]::after {
+    content: "\25B2";
+}
+
+#comboView #Table1 .combo-sortable[data-sort="desc"]::after {
+    content: "\25BC";
+}
+
+#comboView #comboTableHeader .combo-sortable[data-sort="asc"]::after {
+    content: "\25B2";
+}
+
+#comboView #comboTableHeader .combo-sortable[data-sort="desc"]::after {
+    content: "\25BC";
+}
+
+/* Hide sort glyphs in header cells; context menu handles sort actions now. */
+#comboView #Table1 .combo-sortable::after,
+#comboView #Table1 .combo-sortable[data-sort="asc"]::after,
+#comboView #Table1 .combo-sortable[data-sort="desc"]::after,
+#comboView #comboTableHeader .combo-sortable::after,
+#comboView #comboTableHeader .combo-sortable[data-sort="asc"]::after,
+#comboView #comboTableHeader .combo-sortable[data-sort="desc"]::after {
+    content: "" !important;
+    display: none !important;
+}
+
+#comboView #Table1 .combo-sortable.combo-header-selected,
+#comboView #comboTableHeader .combo-sortable.combo-header-selected {
+    background: rgba(249, 115, 22, 0.2) !important;
+    box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.6);
+}
+
+#comboView #Table1 tr:not(.selected) td.combo-column-selected,
+#comboView #Table1 tr:not(.selected) th.combo-column-selected,
+#comboView #comboTableHeader td.combo-column-selected,
+#comboView #comboTableHeader th.combo-column-selected {
+    background: rgba(59, 130, 246, 0.14) !important;
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.45);
+}
+
+#comboView #Table1 tr:nth-child(2) td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#comboView #Table1 tr:nth-child(2) td p {
+    text-align: center;
+}
+
+#comboView #Table1 tr:nth-child(1) th p,
+#comboView #Table1 tr:nth-child(1) th span,
+#comboView #Table1 tr:nth-child(1) td p,
+#comboView #Table1 tr:nth-child(1) td span,
+#comboView #comboTableHeader tr:nth-child(1) th p,
+#comboView #comboTableHeader tr:nth-child(1) th span,
+#comboView #comboTableHeader tr:nth-child(1) td p,
+#comboView #comboTableHeader tr:nth-child(1) td span {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    font-family: inherit !important;
+}
+
+#comboView #Table1 tr:nth-child(2) th p,
+#comboView #Table1 tr:nth-child(2) th span,
+#comboView #Table1 tr:nth-child(2) td p,
+#comboView #Table1 tr:nth-child(2) td span,
+#comboView #comboTableHeader tr:nth-child(2) th p,
+#comboView #comboTableHeader tr:nth-child(2) th span,
+#comboView #comboTableHeader tr:nth-child(2) td p,
+#comboView #comboTableHeader tr:nth-child(2) td span {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    font-family: inherit !important;
+}
+
+#comboView #Table1 tr:nth-child(1) th,
+#comboView #Table1 tr:nth-child(1) td,
+#comboView #Table1 tr:nth-child(2) th,
+#comboView #Table1 tr:nth-child(2) td,
+#comboView #comboTableHeader tr:nth-child(1) th,
+#comboView #comboTableHeader tr:nth-child(1) td,
+#comboView #comboTableHeader tr:nth-child(2) th,
+#comboView #comboTableHeader tr:nth-child(2) td {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    font-family: inherit !important;
+}
+
+#comboView #Table1 tr:nth-child(1) th:nth-child(1),
+#comboView #Table1 tr:nth-child(1) th:nth-child(2) {
+    border-bottom-color: transparent;
+}
+
+#comboView #Table1 .combo-hidden-col {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+#comboView #Table1 .combo-hidden-col>* {
+    display: none !important;
+}
+
+#comboView #comboTableHeader .combo-hidden-col {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+#comboView #comboTableHeader .combo-hidden-col>* {
+    display: none !important;
+}
+
+#comboView #Table1 {
+    table-layout: fixed;
+}
+
+#comboView #comboTableScroll {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #6a6a6a rgba(255, 255, 255, 0.06);
+    border-bottom: 2px solid #3a3a3a;
+    height: 754px;
+    max-height: 754px;
+    cursor: grab;
+}
+
+#comboView #comboTableScroll.grabbing {
+    cursor: grabbing;
+}
+
+#comboView #comboTableScroll #Table1 {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    height: auto !important;
+}
+
+#comboView.combo-compact-cols #comboTableScroll #Table1 {
+    min-width: 0 !important;
+}
+
+#comboView #comboTableScroll::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+#comboView #comboTableScroll::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.72);
+    border-radius: 10px;
+}
+
+#comboView #comboTableScroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Keep group zebra backgrounds explicit (non-selected rows). */
+#comboView #Table1 tbody tr.combo-group-even:not(.selected) td {
+    background: #151515;
+}
+
+#comboView #Table1 tbody tr.combo-group-odd:not(.selected) td {
+    background: #0b0b0b;
+}
+
+#comboView #Table1 tr.combo-group-even:not(.selected) td {
+    background: #151515;
+}
+
+#comboView #Table1 tr.combo-group-odd:not(.selected) td {
+    background: #0b0b0b;
+}
+
+/* Re-striped by currently visible groups (after filters/mode). */
+#comboView #Table1 tr.combo-group-visible-even:not(.selected) td {
+    background: #151515 !important;
+}
+
+#comboView #Table1 tr.combo-group-visible-odd:not(.selected) td {
+    background: #0b0b0b !important;
+}
+
+#comboView #Table1 tr.selected td {
+    background: rgba(249, 115, 6, 0.2);
+    border-color: #f97306;
+}
+
+/* Keep selected-row borders consistent on the first two frozen columns. */
+#comboView #Table1 tr.selected td:nth-child(1),
+#comboView #Table1 tr.selected td:nth-child(2) {
+    border-left-style: solid !important;
+    border-right-style: solid !important;
+    border-left-width: 1px !important;
+    border-right-width: 1px !important;
+    border-left-color: #f97306 !important;
+    border-right-color: #f97306 !important;
+}
+
+/* Keep frozen columns visually clean while horizontally scrolled. */
+#comboView #Table1 tr.selected td.combo-sticky-col {
+    background: #402516;
+}
+
+/* Avoid double/thick separator rendering on selected sticky separator cells. */
+#comboView #Table1 tr.selected td.combo-sticky-col.combo-sep-right,
+#comboView #Table1 tr.selected td.combo-sticky-col.combo-sep-right-tail {
+    box-shadow: none !important;
+}
+
+/* Do not highlight section separator lines on non-sticky cells in selected rows. */
+#comboView #Table1 tr.selected td.combo-sep-right:not(.combo-sticky-col),
+#comboView #Table1 tr.selected td.combo-sep-right-tail:not(.combo-sticky-col) {
+    border-right-color: #515151 !important;
+}
+
+/* Keep first two columns highlighted even if separator classes are present. */
+#comboView #Table1 tr.selected td:nth-child(1).combo-sep-right,
+#comboView #Table1 tr.selected td:nth-child(1).combo-sep-right-tail,
+#comboView #Table1 tr.selected td:nth-child(2).combo-sep-right,
+#comboView #Table1 tr.selected td:nth-child(2).combo-sep-right-tail {
+    border-right-color: #f97306 !important;
+}
+
+.combo-cell-locked {
+    position: relative;
+}
+
+.combo-lock-badge {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 11px;
+    line-height: 1;
+    opacity: 0.95;
+    pointer-events: none;
+}
+
+#comboView #Table1 .combo-input-locked {
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.55);
+}
+
+.combo-row-context-menu {
+    position: fixed;
+    z-index: 1200;
+    min-width: 180px;
+    max-width: min(240px, 88vw);
+    padding: 4px 0;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    background: #121212;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.combo-row-context-menu.hidden {
+    display: none;
+}
+
+.combo-header-context-menu {
+    position: fixed;
+    z-index: 1200;
+    min-width: 190px;
+    max-width: min(250px, 90vw);
+    padding: 4px 0 8px;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    background: #121212;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    overflow-x: hidden;
+}
+
+.combo-header-context-menu.hidden {
+    display: none;
+}
+
+.combo-row-context-item {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: #f3f4f6;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+.combo-header-context-item {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: #f3f4f6;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+.combo-header-context-item.has-submenu {
+    position: relative;
+    padding-right: 22px;
+}
+
+.combo-header-context-item.has-submenu::after {
+    content: ">";
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.85;
+}
+
+.combo-row-context-item:hover,
+.combo-row-context-item:focus {
+    outline: none;
+    background: rgba(249, 115, 22, 0.25);
+}
+
+.combo-header-context-item:hover,
+.combo-header-context-item:focus {
+    outline: none;
+    background: rgba(249, 115, 22, 0.25);
+}
+
+.combo-row-context-item[disabled] {
+    color: #7b7f87;
+    background: transparent;
+    cursor: default;
+}
+
+.combo-header-context-item[disabled] {
+    color: #7b7f87;
+    background: transparent;
+    cursor: default;
+}
+
+.combo-header-context-item.is-active {
+    color: #fbbf24;
+}
+
+.combo-row-context-sep {
+    height: 1px;
+    margin: 3px 0;
+    background: #2b2b2b;
+}
+
+.combo-header-context-actions {
+    padding: 0;
+}
+
+.combo-header-context-divider {
+    height: 1px;
+    margin: 5px 0 7px;
+    background: #2b2b2b;
+}
+
+.combo-header-filter-wrap {
+    padding: 0 8px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.combo-header-filter-search-label {
+    display: block;
+    font-size: 11px;
+    color: #d1d5db;
+    margin: 0 0 4px;
+}
+
+.combo-header-filter-search {
+    width: 100%;
+    box-sizing: border-box;
+    height: 26px;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    background: #0b0b0b;
+    color: #f3f4f6;
+    font-size: 12px;
+    padding: 4px 7px;
+    margin: 0 0 6px;
+}
+
+.combo-header-filter-options {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #3b3b3b;
+    border-radius: 4px;
+    background: #0f0f10;
+    max-height: min(280px, 42vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(150, 150, 150, 0.75) rgba(255, 255, 255, 0.06);
+    padding: 2px 0;
+}
+
+.combo-header-filter-options::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.combo-header-filter-options::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.75);
+    border-radius: 10px;
+}
+
+.combo-header-filter-options::-webkit-scrollbar-thumb:hover {
+    background: rgba(170, 170, 170, 0.82);
+}
+
+.combo-header-filter-options::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.combo-header-filter-option {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    font-size: 12px;
+    color: #f3f4f6;
+    padding: 3px 8px;
+}
+
+.combo-header-filter-option:hover {
+    background: rgba(249, 115, 22, 0.16);
+}
+
+.combo-header-filter-option input[type="checkbox"] {
+    margin: 0;
+}
+
+.combo-header-filter-option span {
+    display: block;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.combo-header-filter-option-all {
+    border-bottom: 1px solid #2f2f2f;
+    margin-bottom: 2px;
+    padding-bottom: 5px;
+}
+
+.combo-header-filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.combo-header-filter-numeric {
+    margin: 0 0 8px;
+    padding: 6px;
+    border: 1px solid #3b3b3b;
+    border-radius: 4px;
+    background: #0f0f10;
+}
+
+.combo-header-filter-numeric-title {
+    margin: 0 0 5px;
+    font-size: 11px;
+    color: #d1d5db;
+}
+
+.combo-header-filter-numeric-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+    align-items: center;
+}
+
+.combo-header-filter-numeric-op,
+.combo-header-filter-numeric-input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 26px;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    background: #0b0b0b;
+    color: #f3f4f6;
+    font-size: 12px;
+    padding: 4px 7px;
+}
+
+.combo-header-filter-btn {
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    background: #151515;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.combo-header-filter-btn:hover,
+.combo-header-filter-btn:focus {
+    outline: none;
+    border-color: #f97306;
+    background: #151515;
+}
+
+.combo-header-filter-btn[disabled] {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.combo-header-filter-flyout {
+    position: fixed;
+    z-index: 1215;
+    min-width: 250px;
+    max-width: min(300px, 88vw);
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    background: #121212;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    padding: 8px;
+}
+
+.combo-header-filter-flyout.hidden {
+    display: none;
+}
+
+.combo-header-filter-flyout .combo-header-filter-numeric {
+    margin: 0;
+}
+
+#comboView #Table1 tr.combo-group-empty {
+    display: none;
+}
+
+#comboView #Table1 tr.combo-group-row td {
+    padding: 0 1px;
+    line-height: 1;
+    vertical-align: middle;
+    border-top-width: 0 !important;
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #2a2a2a !important;
+}
+
+#comboView #Table1 tr.combo-group-row:not(.selected) td {
+    border-top-color: transparent !important;
+    border-bottom-color: #2a2a2a !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible td {
+    border-top-color: transparent !important;
+    border-bottom-color: #2a2a2a !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible-start td {
+    border-top-color: #2f2f2f !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-color: #333333 !important;
+    box-shadow: none !important;
+}
+
+#comboView #Table1 tbody td,
+#comboView #Table1 tbody td p,
+#comboView #Table1 tbody td span {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+    font-family: inherit !important;
+}
+
+#comboView #Table1 tr.combo-group-row td:first-child,
+#comboView #Table1 tr.combo-group-row td:first-child p,
+#comboView #Table1 tr.combo-group-row td:first-child span {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+    text-align: left !important;
+}
+
+#comboView #Table1 tr.combo-group-row {
+    height: auto;
+}
+
+#comboView #Table1 tr.combo-group-row td:nth-child(2),
+#comboView #Table1 tr.combo-group-row td:nth-child(2) p,
+#comboView #Table1 tr.combo-group-row td:nth-child(2) span {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+}
+
+/* Dynamic vertical separators (driven by field columns in JS) */
+#comboView #Table1 .combo-sep-right,
+#comboView #comboTableHeader .combo-sep-right {
+    border-right-color: #515151 !important;
+    border-right-width: 1px !important;
+}
+
+#comboView #Table1 .combo-sticky-col.combo-sep-right,
+#comboView #comboTableHeader .combo-sticky-col.combo-sep-right {
+    box-shadow: inset -1px 0 0 #515151;
+}
+
+/* Remove vertical grid lines on frame-meter/notes rows (col 3+) */
+#comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+/* Non-command rows: remove grid on column 3 like the row body region */
+#comboView #Table1 tr.combo-row-frame td:nth-child(3),
+#comboView #Table1 tr.combo-row-buttons td:nth-child(3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(3) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Keep first-column borders stable even when rows are hidden/shown */
+#comboView #Table1 tr.combo-row-frame td:first-child,
+#comboView #Table1 tr.combo-row-notes td:first-child {
+    border-left-color: #343434;
+    border-right-color: #343434;
+    border-top-color: #2a2a2a;
+    border-bottom-color: #2a2a2a;
+}
+
+#comboView #Table1 tr.combo-row-frame td:first-child,
+#comboView #Table1 tr.combo-row-buttons td:first-child,
+#comboView #Table1 tr.combo-row-notes td:first-child {
+    border-top-color: #2a2a2a !important;
+    border-bottom-color: #2a2a2a !important;
+}
+
+/* Keep separator on button row only */
+#comboView #Table1 tr.combo-row-buttons td:nth-child(1),
+#comboView #Table1 tr.combo-row-buttons td:nth-child(2) {
+    border-right-color: #2a2a2a;
+}
+
+/* Match frame/notes styling on button row after column 3 */
+#comboView #Table1 tr.combo-row-buttons td:nth-child(n+4) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Main table body rule: keep grid lines only on command rows. */
+#comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-buttons td:nth-child(n+3),
+#comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Keep the top separator for command rows on col 3+. */
+#comboView #Table1 tr.combo-row-command td:nth-child(n+3) {
+    border-top-style: solid !important;
+    border-top-width: 1px !important;
+    border-top-color: #2f2f2f !important;
+}
+
+/* Keep group separator visible across col 3+ even when row grids are suppressed. */
+#comboView #Table1 tr.combo-row-visible-end td:nth-child(n+3) {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #333333 !important;
+}
+
+/* Keep only the group separator line across visible group end rows. */
+#comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #333333 !important;
+}
+
+#comboView #Table2,
+#comboView #Table4,
+#comboView #Table5 {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#comboView #Table2 td,
+#comboView #Table4 td,
+#comboView #Table5 td {
+    border: 1px solid #2a2a2a;
+    background: #121212;
+    color: #f1f1f1;
+    text-align: center;
+    vertical-align: middle;
+    padding: 1px 2px;
+    font-size: 9px;
+    line-height: 1.05;
+    width: var(--ui-cell-size);
+    height: var(--ui-cell-size);
+    position: relative;
+}
+
+#comboView #Table2 td {
+    width: var(--ui-dir-cell-size);
+    height: var(--ui-dir-cell-height);
+}
+
+#comboView #Table2 td p,
+#comboView #Table4 td p {
+    margin: 0;
+}
+
+#comboView #Table2 tr.ui-icon-row td,
+#comboView #Table4 tr.ui-icon-row td {
+    height: var(--ui-icon-row-height);
+}
+
+#comboView #Table2 tr.ui-icon-row td {
+    height: var(--ui-dir-cell-height) !important;
+    min-height: var(--ui-dir-cell-height) !important;
+}
+
+#comboView #Table2 tr.ui-icon-row {
+    height: var(--ui-dir-cell-height) !important;
+}
+
+#comboView #Table2 tr.ui-icon-row td {
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+#comboView #Table2 tr.ui-desc-row td,
+#comboView #Table4 tr.ui-desc-row td {
+    height: var(--ui-desc-row-height) !important;
+    min-height: 0 !important;
+}
+
+#comboView #Table2 tr.ui-icon-row,
+#comboView #Table4 tr.ui-icon-row {
+    height: var(--ui-icon-row-height) !important;
+}
+
+#comboView #Table2 tr.ui-desc-row,
+#comboView #Table4 tr.ui-desc-row {
+    height: var(--ui-desc-row-height) !important;
+}
+
+#comboView #Table2 tr.ui-desc-row td,
+#comboView #Table4 tr.ui-desc-row td {
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+#comboView #Table2 {
+    width: calc(var(--ui-dir-cell-size) * 3) !important;
+    min-width: calc(var(--ui-dir-cell-size) * 3) !important;
+    height: auto !important;
+}
+
+#comboView #Table2 tr {
+    height: auto !important;
+}
+
+#comboView #Table4 {
+    width: calc(var(--ui-cell-size) * 7) !important;
+    min-width: calc(var(--ui-cell-size) * 7) !important;
+    height: auto !important;
+}
+
+#comboView #Table4 tr:nth-child(2) td,
+#comboView #Table4 tr:nth-child(4) td,
+#comboView #Table4 tr:nth-child(6) td {
+    height: var(--ui-desc-row-height) !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+#comboView #Table4 tr:nth-child(2) .ui-btn-desc,
+#comboView #Table4 tr:nth-child(4) .ui-btn-desc,
+#comboView #Table4 tr:nth-child(6) .ui-btn-desc {
+    height: 100%;
+    padding: 0;
+    line-height: 1;
+}
+
+#comboView #Table2 tr.ui-desc-row .ui-btn-desc,
+#comboView #Table4 tr.ui-desc-row .ui-btn-desc {
+    height: 100%;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 0;
+}
+
+#comboView #Table5 {
+    width: calc(var(--shortcut-cell-size) * 3) !important;
+    min-width: calc(var(--shortcut-cell-size) * 3) !important;
+}
+
+#comboView #Table5 td {
+    width: var(--shortcut-cell-size);
+    min-width: var(--shortcut-cell-size);
+}
+
+#comboView #Table2 td:nth-child(4) {
+    display: none;
+}
+
+#comboView #Table2 tr:nth-child(2),
+#comboView #Table2 tr:nth-child(6) {
+    display: none;
+}
+
+#comboView .ui-btn-keycell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22px;
+}
+
+#comboView #Table2 .ui-btn-keycell,
+#comboView #Table4 .ui-btn-keycell,
+#comboView #Table5 .ui-btn-keycell {
+    position: static;
+    height: 100%;
+    min-height: 0;
+    cursor: pointer;
+}
+
+#comboView .ui-btn-keycell img {
+    max-height: 20px;
+}
+
+#comboView .ui-btn-key {
+    position: absolute;
+    right: 2px;
+    bottom: 1px;
+    font-size: 9px;
+    color: #fff;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+}
+
+#comboView #Table2 .ui-btn-key,
+#comboView #Table4 .ui-btn-key,
+#comboView #Table5 .ui-btn-key {
+    right: 0px !important;
+    bottom: 1px !important;
+    text-align: right;
+}
+
+#comboView .ui-btn-hotkey-icon {
+    width: 17px;
+    height: 17px;
+    object-fit: contain;
+}
+
+#comboView .ui-btn-hotkey-plus {
+    font-size: 9px;
+    line-height: 1;
+    margin: 0 1px;
+}
+
+#comboView .ui-btn-desc {
+    font-size: 6.5px;
+    line-height: 1.00;
+    color: #d0d0d0;
+    padding: 0 0px;
+    height: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#comboView #Table2 img,
+#comboView #Table4 img,
+#comboView #Table5 img {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#comboView #Table2 .ui-btn-keycell>img {
+    width: 27px !important;
+    height: 27px !important;
+}
+
+#comboView #Table2 .ui-btn-keycell>img {
+    transform: translateY(-4px);
+}
+
+#comboView #Table2 .ui-btn-key .ui-btn-hotkey-icon {
+    width: 16px;
+    height: 16px;
+}
+
+
+#comboView #Table4 .ui-btn-keycell>img {
+    transform: translateY(-3px) scale(0.8);
+}
+
+#comboView #wb_Line1 {
+    z-index: 13;
+}
+
+#comboView .cell-input,
+#comboView #Table1 select,
+#comboView .cmd-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0f0f0f;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 1px 3px;
+    font-size: 11px;
+}
+
+#comboView .cell-input,
+#comboView #Table1 select {
+    text-align: center;
+}
+
+#comboView .cmd-input {
+    text-align: left;
+}
+
+#comboView .cell-input[data-field="combo_notes"] {
+    font-size: 13px;
+    line-height: 1.2;
+    padding-bottom: 2px;
+    resize: none;
+    overflow: hidden;
+    height: auto;
+    min-height: 18px;
+    white-space: pre-wrap;
+}
+
+#comboView #Table1 tbody td .cmd-input[data-field="command"] {
+    font-size: var(--command-font-size, 12px) !important;
+    line-height: 1.1 !important;
+}
+
+#comboView #Table1 tbody td .cmd-input[data-field="command"] * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+#comboView .cell-input.align-left {
+    text-align: left;
+}
+
+#comboView .cell-input,
+#comboView .cmd-input {
+    display: block;
+    min-height: 18px;
+    cursor: text;
+}
+
+#comboView .cmd-input {
+    min-height: 18px;
+}
+
+#comboView .cmd-output {
+    background: #0b0b0b;
+    border-color: #2a2a2a;
+    cursor: default;
+}
+
+#comboView .cmd-input[data-field="buttons"] {
+    border: none;
+    background: transparent;
+    padding: 0 0 0 6px;
+}
+
+#comboView .cmd-input.cmd-active {
+    border-color: #f97306;
+    box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.4);
+}
+
+#comboView .cmd-input.cmd-warning {
+    position: relative;
+    padding-right: 14px;
+    border-color: #f5c451;
+    box-shadow: 0 0 0 1px rgba(245, 196, 81, 0.35);
+}
+
+#comboView .cmd-input.cmd-warning::after {
+    content: "!";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f5c451;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+body[data-theme="light"] #comboView .cmd-input.cmd-warning {
+    border-color: #b45309;
+    background: rgba(245, 158, 11, 0.14);
+    box-shadow: 0 0 0 1px rgba(180, 83, 9, 0.42);
+}
+
+body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
+    color: #92400e;
+}
+
+#comboView .btn-token {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+    vertical-align: middle;
+}
+
+#comboView .cmd-input[data-field="buttons"] .btn-token {
+    margin-right: 4px;
+}
+
+#comboView .cmd-input[data-field="buttons"] .btn-token:last-child {
+    margin-right: 0;
+}
+
+#comboView .btn-token img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+#comboView .btn-token-text {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#comboView #Table5 p.shortcut-seq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+}
+
+#comboView .cmd-input:focus,
+#comboView .cell-input:focus,
+#comboView #Table1 select:focus {
+    outline: 1px solid #f97306;
+    border-color: #f97306;
+}
+
+#comboView #SiteSearch1 {
+    background: #0c0c0c;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 3px 6px;
+}
+
+#comboView #Button1,
+#comboView #Button2,
+#comboView #Button3,
+#comboView #Button4 {
+    background: #151515;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+#comboView #Button1:hover,
+#comboView #Button2:hover,
+#comboView #Button3:hover,
+#comboView #Button4:hover {
+    border-color: #f97306;
+}
+
+#comboView .combo-search-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #fff;
+    position: absolute;
+    padding-top: 14px;
+}
+
+#comboView .combo-search-shell .search-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+#comboView .combo-search-shell .search-page-heading {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #bfbfbf;
+}
+
+#comboView .combo-search-shell .search-page-heading__page-title {
+    font-size: 12px;
+}
+
+#comboView .combo-search-shell .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+#comboView .combo-search-shell #SiteSearch1 {
+    flex: 0 0 240px;
+    width: 240px;
+    min-width: 240px;
+    height: 28px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #3a3a3a;
+    background: #0c0c0c;
+    color: #fff;
+}
+
+#comboView .combo-search-shell .combo-search-scope {
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid #3a3a3a;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 0 6px;
+    min-width: 110px;
+}
+
+#comboView .combo-search-shell .combo-search-btn,
+#comboView .combo-search-shell .combo-search-adv-btn,
+#comboView .combo-search-shell .combo-search-secondary,
+#comboView .combo-search-shell .filter-actions button {
+    border: 1px solid #3a3a3a;
+    background: #151515;
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    height: 28px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+#comboView .combo-search-shell .combo-search-btn:hover,
+#comboView .combo-search-shell .combo-search-adv-btn:hover,
+#comboView .combo-search-shell .combo-search-secondary:hover,
+#comboView .combo-search-shell .filter-actions button:hover {
+    border-color: #f97306;
+}
+
+#comboView .combo-search-shell .combo-search-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+#comboView .combo-save-status {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 30;
+    font-size: 11px;
+    opacity: 0.8;
+    white-space: nowrap;
+    color: #d1d5db;
+}
+
+#comboView .combo-save-status.dirty {
+    opacity: 1;
+    color: #f97306;
+}
+
+#comboView .combo-save-status.recovered {
+    opacity: 1;
+    color: #f59e0b;
+}
+
+#comboView .combo-loading-status {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 31;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: #fbbf24;
+    background: rgba(0, 0, 0, 0.62);
+    border: 1px solid rgba(251, 191, 36, 0.45);
+    border-radius: 999px;
+    padding: 4px 12px;
+    pointer-events: none;
+}
+
+#comboView .combo-loading-status.hidden {
+    display: none;
+}
+
+#comboView .combo-search-shell .combo-export-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+#comboView .combo-search-shell .combo-export-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 340;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 28px 6px 6px;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    background: #0f0f0f;
+    min-width: 180px;
+}
+
+#comboView .combo-search-shell .combo-export-menu .tutorial-flow-trigger-export {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 1;
+    margin: 0;
+}
+
+#comboView .combo-search-shell .combo-export-options {
+    display: grid;
+    gap: 6px;
+    padding: 2px 2px 6px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 4px;
+}
+
+#comboView .combo-search-shell .combo-export-options label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    color: #bfbfbf;
+}
+
+#comboView .combo-search-shell .combo-export-options select {
+    background: #101010;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+.combo-export-toast {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #101010;
+    color: #fff;
+    border: 2px solid #6b6b6b;
+    font-size: 11px;
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 6px));
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.combo-export-toast.show {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.combo-export-toast.error {
+    background: #3a1212;
+    border-color: #d14b4b;
+}
+
+.combo-export-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 9998;
+}
+
+#comboView .combo-search-shell .combo-export-menu.hidden {
+    display: none;
+}
+
+#comboView .combo-search-shell .combo-export-menu button:not(.tutorial-flow-trigger) {
+    border: 1px solid #3a3a3a;
+    background: #151515;
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    height: 28px;
+    font-size: 11px;
+    cursor: pointer;
+    text-align: left;
+}
+
+#comboView .combo-search-shell .combo-export-menu button:not(.tutorial-flow-trigger):hover {
+    border-color: #f97306;
+}
+
+#comboView .combo-search-shell .search-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    align-items: flex-end;
+}
+
+#comboView .combo-search-shell .advanced-filters {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 320;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    background: #0f0f0f;
+    padding: 28px 6px 6px;
+    width: min(900px, calc(100vw - 24px));
+    min-width: min(700px, calc(100vw - 24px));
+    max-width: min(900px, calc(100vw - 24px));
+}
+
+#comboView .combo-search-shell .advanced-filters[open] {
+    display: block;
+}
+
+#comboView .combo-search-shell .advanced-filters summary {
+    display: none;
+}
+
+#comboView .combo-search-shell .search-advanced-filters {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    padding-top: 0;
+}
+
+#comboView .combo-search-shell .search-advanced-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 5px 8px;
+    padding-right: 0;
+}
+
+#comboView .combo-search-shell .search-advanced-options .control-group.field-search {
+    grid-column: 1 / -1;
+}
+
+#comboView .combo-search-shell .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 4px 5px;
+    background: #101010;
+}
+
+#comboView .combo-search-shell .control-label {
+    font-size: 10px;
+    color: #bfbfbf;
+}
+
+#comboView .combo-search-shell .field-search-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#comboView .combo-search-shell .field-search-controls input[type="text"],
+#comboView .combo-search-shell .field-search-controls input[type="search"] {
+    width: 100%;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    background: #0c0c0c;
+    color: #fff;
+    padding: 0 4px;
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+#comboView .combo-search-shell .field-search-group {
+    gap: 4px 7px;
+}
+
+#comboView .combo-search-shell .field-command-scope {
+    margin-top: 2px;
+    margin-left: 12px;
+    gap: 2px 6px;
+}
+
+#comboView .combo-search-shell .field-command-scope.hidden {
+    display: none;
+}
+
+#comboView .combo-search-shell .field-command-scope .checkbox-item {
+    font-size: 9px;
+}
+
+#comboView .combo-search-shell .field-search-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+#comboView .combo-search-shell .field-search-inline-label {
+    font-size: 10px;
+    color: #bfbfbf;
+    white-space: nowrap;
+}
+
+#comboView .combo-search-shell .field-search-row .field-search-group {
+    flex: 1;
+}
+
+#comboView .combo-search-shell .controls select {
+    width: 100%;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    background: #0c0c0c;
+    color: #fff;
+    padding: 0 4px;
+}
+
+#comboView .combo-search-shell .controls input[type="text"],
+#comboView .combo-search-shell .controls input[type="number"] {
+    width: 100%;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    background: #0c0c0c;
+    color: #fff;
+    padding: 0 4px;
+    font-size: 9px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+#comboView .combo-search-shell .grouped-control {
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+}
+
+#comboView .combo-search-shell .grouped-control-label {
+    font-size: 11px;
+    color: #bfbfbf;
+}
+
+#comboView .combo-search-shell .grouped-control-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #e0e0e0;
+}
+
+#comboView .combo-search-shell .grouped-control-field input {
+    margin: 0;
+}
+
+#comboView .combo-search-shell .inline-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#comboView .combo-search-shell .search-advanced-additional-options {
+    margin-top: 5px;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 5px 7px;
+    background: #101010;
+}
+
+#comboView .combo-search-shell .search-advanced-additional-options summary {
+    cursor: pointer;
+    font-size: 10px;
+    color: #bfbfbf;
+    margin-bottom: 5px;
+}
+
+#comboView .combo-search-shell .count-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+#comboView .combo-search-shell .count-group .controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#comboView .combo-search-shell .count-group .controls input {
+    width: 90px;
+}
+
+#comboView .combo-search-shell .range-sep {
+    color: #9a9a9a;
+    font-size: 11px;
+}
+
+#comboView .combo-search-shell .second-search-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+#comboView .combo-search-shell .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+}
+
+#comboView .combo-search-shell .checkbox-group.checkbox-scroll {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+}
+
+#comboView .combo-search-shell .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    color: #e6e6e6;
+}
+
+#comboView .combo-search-shell .checkbox-item input {
+    margin: 0;
+}
+
+#comboView .combo-search-shell .search-advanced-filters {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+}
+
+#comboView .combo-search-shell .range-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
+    gap: 3px 8px;
+    margin-top: 5px;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized {
+    display: block;
+    margin-top: 5px;
+}
+
+#comboView .combo-search-shell .range-row {
+    display: grid;
+    grid-template-columns: minmax(52px, 66px) minmax(0, 1fr);
+    align-items: start;
+    gap: 2px 4px;
+    font-size: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 2px 0;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-row {
+    display: grid;
+    grid-template-columns: minmax(50px, 64px) minmax(0, 1fr);
+    align-items: center;
+    gap: 2px 4px;
+    width: 100%;
+    padding: 2px 0;
+    border-bottom: none;
+    min-width: 0;
+}
+
+#comboView .combo-search-shell .range-row .range-label {
+    padding-right: 0;
+    border-right: none;
+    font-size: 9px;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-row .range-label {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    width: 100%;
+    text-align: left;
+    line-height: 1.15;
+    font-size: 8px;
+    font-weight: 600;
+    white-space: normal;
+}
+
+#comboView .combo-search-shell .range-inputs {
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    padding-right: 8px;
+    margin-right: 6px;
+}
+
+#comboView .combo-search-shell .range-row:last-child {
+    border-bottom: none;
+}
+
+#comboView .combo-search-shell .range-row input {
+    height: 18px;
+    font-size: 9px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    background: #0c0c0c;
+    color: #fff;
+    padding: 0 3px;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    background-clip: padding-box;
+}
+
+#comboView .combo-search-shell .range-row input:focus {
+    box-shadow: none;
+}
+
+#comboView .combo-search-shell .range-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-inputs {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#comboView .combo-search-shell .range-minmax {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#comboView .combo-search-shell .range-minmax .range-min,
+#comboView .combo-search-shell .range-minmax .range-max {
+    width: 100%;
+    min-width: 0;
+}
+
+#comboView .combo-search-shell .range-exact {
+    width: 100%;
+    min-width: 0;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-minmax {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-exact,
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-minmax .range-min,
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-minmax .range-max {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .range-exact {
+    max-width: 100%;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 9px;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table td,
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table th {
+    padding: 4px 4px;
+    vertical-align: top;
+    font-size: 9px;
+    line-height: 1.2;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 0;
+    overflow: hidden;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-cell .range-row,
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-cell .range-inputs,
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-cell .range-minmax {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-empty {
+    background: #111;
+    border: 0;
+}
+
+#comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-section th {
+    text-align: center;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+#comboView .combo-search-shell .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+#comboView .combo-search-shell .combo-filter-panel {
+    position: relative;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+#comboView .combo-search-shell .combo-filter-panel.hidden {
+    display: none;
+}
+
+#comboView #wb_Image1 {
+    cursor: pointer;
+    height: 100px;
+}
+
+#comboView #wb_Image1 img {
+    display: block;
+}
+
+#comboView #wb_Image1 .combo-portrait-caret {
+    position: absolute;
+    right: 21px;
+    bottom: 4px;
+    font-size: 12px;
+    line-height: 1;
+    color: #f5f5f5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+}
+
+#comboView .combo-control-tabs img {
+    opacity: 1;
+    filter: none;
+}
+
+#comboView .combo-control-tabs {
+    width: auto;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+}
+
+#comboView .combo-control-tabs .char-control-tabs-list {
+    justify-content: flex-start;
+    padding: 4px;
+    gap: 4px;
+    border-radius: 18px;
+}
+
+#comboView .combo-control-tabs .char-control-tabs-list li {
+    padding: 4px 8px;
+    border-radius: 14px;
+}
+
+#comboView .combo-control-tabs .char-control-tabs-list img {
+    height: 16px;
+    width: auto;
+}
+
+body[data-theme="light"] #comboView {
+    background: #efefef;
+    color: #111;
+}
+
+body[data-theme="light"] #comboView #Table1 th {
+    background: #e1e1e1;
+    color: #111;
+    border-color: #dcdcdc;
+}
+
+body[data-theme="light"] #comboView #Table1 td {
+    background: #ffffff;
+    color: #111;
+    border-color: #d6d6d6;
+}
+
+body[data-theme="light"] #comboView #comboTableHeader th,
+body[data-theme="light"] #comboView #comboTableHeader td {
+    background: #e1e1e1;
+    color: #111;
+    border-color: #dcdcdc;
+}
+
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) th,
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) td {
+    background: #d8d8d8;
+}
+
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) th,
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) td {
+    background: #ececec;
+    border-bottom-color: #b9b9b9;
+}
+
+body[data-theme="light"] #comboView .combo-col-eye {
+    background: #ececec;
+    color: #111;
+    border-color: #bdbdbd;
+}
+
+body[data-theme="light"] #comboView #comboColumnTogglePanel {
+    background: #f7f7f7;
+    border-color: #c9c9c9;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+body[data-theme="light"] #comboView #comboColumnTogglePanel .combo-col-checkbox {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView #Table1 tbody tr.combo-group-even:not(.selected) td {
+    background: #f1f1f1;
+}
+
+body[data-theme="light"] #comboView #Table1 tbody tr.combo-group-odd:not(.selected) td {
+    background: #dddddd;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-even:not(.selected) td {
+    background: #f1f1f1;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-odd:not(.selected) td {
+    background: #dddddd;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-visible-even:not(.selected) td {
+    background: #f1f1f1 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-visible-odd:not(.selected) td {
+    background: #dddddd !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-row:not(.selected) td {
+    border-top-color: transparent !important;
+    border-bottom-color: #d6d6d6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-group-row td {
+    border-bottom-color: #d6d6d6 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible td {
+    border-top-color: transparent !important;
+    border-bottom-color: #d6d6d6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-start td {
+    border-top-color: #cbcbcb !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-color: #c6c6c6 !important;
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(3) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(1),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(2) {
+    border-right-color: #d6d6d6;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(n+4) {
+    border-left-style: none !important;
+    border-right-style: none !important;
+    border-top-style: none !important;
+    border-bottom-style: none !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sep-right,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sep-right {
+    border-right-color: #b4b4b4 !important;
+    border-right-width: 1px !important;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sticky-col.combo-sep-right,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sticky-col.combo-sep-right {
+    box-shadow: inset -1px 0 0 #b4b4b4;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:first-child,
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:first-child {
+    border-left-color: #d6d6d6;
+    border-right-color: #d6d6d6;
+    border-top-color: #dcdcdc;
+    border-bottom-color: #dcdcdc;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:first-child,
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:first-child,
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:first-child {
+    border-top-color: #dcdcdc !important;
+    border-bottom-color: #dcdcdc !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td {
+    background: rgba(249, 115, 6, 0.16);
+    border-color: #f97306;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(1),
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(2) {
+    border-left-style: solid !important;
+    border-right-style: solid !important;
+    border-left-width: 1px !important;
+    border-right-width: 1px !important;
+    border-left-color: #f97306 !important;
+    border-right-color: #f97306 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td.combo-sticky-col {
+    background: #f2dccc;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td.combo-sticky-col.combo-sep-right,
+body[data-theme="light"] #comboView #Table1 tr.selected td.combo-sticky-col.combo-sep-right-tail {
+    box-shadow: none !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td.combo-sep-right:not(.combo-sticky-col),
+body[data-theme="light"] #comboView #Table1 tr.selected td.combo-sep-right-tail:not(.combo-sticky-col) {
+    border-right-color: #b4b4b4 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(1).combo-sep-right,
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(1).combo-sep-right-tail,
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(2).combo-sep-right,
+body[data-theme="light"] #comboView #Table1 tr.selected td:nth-child(2).combo-sep-right-tail {
+    border-right-color: #f97306 !important;
+}
+
+body[data-theme="light"] .combo-lock-badge {
+    opacity: 0.9;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-input-locked {
+    box-shadow: inset 0 0 0 1px rgba(217, 119, 6, 0.45);
+}
+
+body[data-theme="light"] .combo-row-context-menu {
+    border-color: #c6ccd6;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+body[data-theme="light"] .combo-header-context-menu {
+    border-color: #c6ccd6;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+body[data-theme="light"] .combo-row-context-item {
+    color: #1f2937;
+}
+
+body[data-theme="light"] .combo-header-context-item {
+    color: #1f2937;
+}
+
+body[data-theme="light"] .combo-row-context-item:hover,
+body[data-theme="light"] .combo-row-context-item:focus {
+    background: rgba(249, 115, 22, 0.18);
+}
+
+body[data-theme="light"] .combo-header-context-item:hover,
+body[data-theme="light"] .combo-header-context-item:focus {
+    background: rgba(249, 115, 22, 0.18);
+}
+
+body[data-theme="light"] .combo-row-context-item[disabled] {
+    color: #9ca3af;
+}
+
+body[data-theme="light"] .combo-header-context-item[disabled] {
+    color: #9ca3af;
+}
+
+body[data-theme="light"] .combo-header-context-item.is-active {
+    color: #b45309;
+}
+
+body[data-theme="light"] .combo-row-context-sep {
+    background: #e5e7eb;
+}
+
+body[data-theme="light"] .combo-header-context-divider {
+    background: #e5e7eb;
+}
+
+body[data-theme="light"] .combo-header-filter-search-label {
+    color: #374151;
+}
+
+body[data-theme="light"] .combo-header-filter-search {
+    border-color: #c7ced8;
+    background: #ffffff;
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-header-filter-options {
+    border-color: #d1d5db;
+    background: #ffffff;
+    scrollbar-color: rgba(120, 120, 120, 0.72) rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] .combo-header-filter-options::-webkit-scrollbar-thumb {
+    background: rgba(120, 120, 120, 0.72);
+}
+
+body[data-theme="light"] .combo-header-filter-options::-webkit-scrollbar-thumb:hover {
+    background: rgba(105, 105, 105, 0.8);
+}
+
+body[data-theme="light"] .combo-header-filter-options::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] .combo-header-filter-option {
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-header-filter-option:hover {
+    background: rgba(249, 115, 22, 0.12);
+}
+
+body[data-theme="light"] .combo-header-filter-option-all {
+    border-bottom-color: #e5e7eb;
+}
+
+body[data-theme="light"] .combo-header-filter-numeric {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+body[data-theme="light"] .combo-header-filter-numeric-title {
+    color: #374151;
+}
+
+body[data-theme="light"] .combo-header-filter-numeric-op,
+body[data-theme="light"] .combo-header-filter-numeric-input {
+    border-color: #c7ced8;
+    background: #ffffff;
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-header-filter-btn {
+    border-color: #bcbcbc;
+    background: #e7e7e7;
+    color: #111;
+}
+
+body[data-theme="light"] .combo-header-filter-btn:hover,
+body[data-theme="light"] .combo-header-filter-btn:focus {
+    border-color: #f97306;
+    background: #e7e7e7;
+}
+
+body[data-theme="light"] .combo-header-filter-flyout {
+    border-color: #c6ccd6;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+/* Light mode: same body-line rule (command row only + group separator). */
+body[data-theme="light"] #comboView #Table1 tr.combo-row-frame td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-buttons td:nth-child(n+3),
+body[data-theme="light"] #comboView #Table1 tr.combo-row-notes td:nth-child(n+3) {
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-command td:nth-child(n+3) {
+    border-top-style: solid !important;
+    border-top-width: 1px !important;
+    border-top-color: #cbcbcb !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td:nth-child(n+3) {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #c6c6c6 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 tr.combo-row-visible-end td {
+    border-bottom-style: solid !important;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #c6c6c6 !important;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sortable::after,
+body[data-theme="light"] #comboView #Table1 .combo-sortable[data-sort="asc"]::after,
+body[data-theme="light"] #comboView #Table1 .combo-sortable[data-sort="desc"]::after {
+    color: #111;
+    text-shadow: none;
+}
+
+body[data-theme="light"] #comboView #comboTableHeader .combo-sortable::after,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sortable[data-sort="asc"]::after,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sortable[data-sort="desc"]::after {
+    color: #111;
+    text-shadow: none;
+}
+
+body[data-theme="light"] #comboView #Table1 .combo-sortable.combo-header-selected,
+body[data-theme="light"] #comboView #comboTableHeader .combo-sortable.combo-header-selected {
+    background: rgba(249, 115, 22, 0.16) !important;
+    box-shadow: inset 0 0 0 1px rgba(217, 119, 6, 0.45);
+}
+
+body[data-theme="light"] #comboView #Table1 tr:not(.selected) td.combo-column-selected,
+body[data-theme="light"] #comboView #Table1 tr:not(.selected) th.combo-column-selected,
+body[data-theme="light"] #comboView #comboTableHeader td.combo-column-selected,
+body[data-theme="light"] #comboView #comboTableHeader th.combo-column-selected {
+    background: rgba(37, 99, 235, 0.14) !important;
+    box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.4);
+}
+
+body[data-theme="light"] #comboView #comboTableScroll {
+    border-bottom: 2px solid #bfbfbf;
+}
+
+body[data-theme="light"] #comboView #Table2 td,
+body[data-theme="light"] #comboView #Table4 td,
+body[data-theme="light"] #comboView #Table5 td {
+    background: #f7f7f7;
+    color: #111;
+    border-color: #d6d6d6;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell #SiteSearch1 {
+    background: #ffffff;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-btn,
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-adv-btn,
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-secondary,
+body[data-theme="light"] #comboView .combo-search-shell .filter-actions button {
+    background: #e7e7e7;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-save-status {
+    color: #2b313a;
+    opacity: 0.85;
+}
+
+body[data-theme="light"] #comboView .combo-loading-status {
+    color: #92400e;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(146, 64, 14, 0.35);
+}
+
+body[data-theme="light"] #comboView .combo-game-version-info {
+    color: #4b5563;
+    opacity: 0.9;
+}
+
+body[data-theme="light"] #comboView #Button1,
+body[data-theme="light"] #comboView #Button2,
+body[data-theme="light"] #comboView #Button3,
+body[data-theme="light"] #comboView #Button4 {
+    background: #e7e7e7;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-btn:hover,
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-adv-btn:hover,
+body[data-theme="light"] #comboView .combo-search-shell .combo-search-secondary:hover,
+body[data-theme="light"] #comboView .combo-search-shell .filter-actions button:hover {
+    border-color: #f97306;
+}
+
+body[data-theme="light"] #comboView .combo-filter-panel {
+    background: #f7f7f7;
+    border-color: #c4c4c4;
+    color: #111;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] #comboView .combo-action-btn {
+    background: #e4e4e4;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] .tutorial-flow-trigger {
+    background: #e6e6e6;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] .tutorial-flow-trigger:hover {
+    background: #fff2e2;
+    color: #111;
+    border-color: #f97306;
+}
+
+body[data-theme="light"] #comboView .combo-col-preset.is-active {
+    background: #ffe8cc;
+    border-color: #f97306;
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-action-create {
+    background: #e4f3ea;
+    border-color: #99d1ae;
+    color: #14532d;
+}
+
+body[data-theme="light"] #comboView .combo-action-duplicate {
+    background: #e6eefc;
+    border-color: #9ab6ea;
+    color: #1e3a8a;
+}
+
+body[data-theme="light"] #comboView .combo-action-delete {
+    background: #fde8e8;
+    border-color: #f2a2a2;
+    color: #7f1d1d;
+}
+
+body[data-theme="light"] #comboView .combo-action-dedupe {
+    background: #fff4d6;
+    border-color: #e3c070;
+    color: #7a4b00;
+}
+
+body[data-theme="light"] #comboView .combo-action-restore {
+    background: #ececec;
+    border-color: #bdbdbd;
+    color: #2b2b2b;
+}
+
+body[data-theme="light"] #comboView .combo-bottom-toggle {
+    background: #ececec;
+    color: #111;
+    border-color: #b1b1b1;
+}
+
+body[data-theme="light"] #comboView img.ui-btn-hotkey-icon[src*="/PS/"],
+body[data-theme="light"] #comboView img.ui-btn-hotkey-icon[src*="\\PS\\"],
+body[data-theme="light"] #comboView img.ui-btn-hotkey-icon[src*="/Xbox/"],
+body[data-theme="light"] #comboView img.ui-btn-hotkey-icon[src*="\\Xbox\\"] {
+    filter: invert(1);
+}
+
+body[data-theme="light"] #comboView .combo-bottom-toggle[data-state="collapsed"] {
+    background: #ececec;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-quick-label {
+    color: #111;
+}
+
+/* Force command field font size to follow the variable */
+#comboView .cmd-input[data-field="command"] {
+    font-size: var(--command-font-size, 20px) !important;
+    line-height: 1.1 !important;
+}
+
+#comboView .cmd-input[data-field="command"] * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+body[data-theme="light"] #comboView .combo-bottom-toggle[data-state="expanded"] {
+    border-top-color: transparent;
+}
+
+body[data-theme="light"] #comboView #wb_Image1 .combo-portrait-caret {
+    color: #111;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+body[data-theme="light"] #comboView .cell-input,
+body[data-theme="light"] #comboView select,
+body[data-theme="light"] #comboView .cmd-input,
+body[data-theme="light"] #comboView #Table1 select {
+    background: #ffffff;
+    color: #111;
+    border-color: #cfcfcf;
+}
+
+body[data-theme="light"] #comboView .cmd-output {
+    background: #ffffff;
+    border-color: #cfcfcf;
+    color: #111;
+}
+
+body[data-theme="light"] #comboView #Table1 th,
+body[data-theme="light"] #comboView #Table1 td {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-ui-backdrop {
+    background: #efefef;
+}
+
+body[data-theme="light"] #comboView #comboTableScroll {
+    background: #efefef;
+    scrollbar-color: #8a8a8a rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] #comboView #comboTableScroll::-webkit-scrollbar-thumb {
+    background: rgba(120, 120, 120, 0.72);
+}
+
+body[data-theme="light"] #comboView #comboTableScroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="light"] #comboView .combo-row-toggles {
+    background: #ececec;
+    color: #111;
+    border-color: #c2c2c2;
+}
+
+body[data-theme="light"] #comboView .combo-row-label {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-col-label {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-row-toggles label {
+    background: #e6e6e6;
+    border-color: #bcbcbc;
+    color: #111;
+}
+
+body[data-theme="light"] #comboView #toggleAllRowsBtn {
+    background: #e6e6e6;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView #Table3 select,
+body[data-theme="light"] #comboView #Table3 button {
+    background: #ffffff;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-export-menu {
+    background: #f7f7f7;
+    border-color: #c4c4c4;
+    color: #111;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-export-menu button:not(.tutorial-flow-trigger) {
+    background: #e6e6e6;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-export-options {
+    border-bottom-color: #c4c4c4;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-export-options label {
+    color: #333;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .combo-export-options select {
+    background: #ffffff;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] .combo-export-toast {
+    background: #ffffff;
+    color: #111;
+    border-color: #666666;
+}
+
+body[data-theme="light"] .combo-export-toast.error {
+    background: #fdecec;
+    border-color: #d58b8b;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .advanced-filters {
+    background: #f7f7f7;
+    border-color: #c4c4c4;
+    color: #111;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] #comboView[data-layout="desktop"] .combo-search-shell {
+    background: #f5f5f7;
+    border-color: #bdbdbd;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] #comboView[data-layout="desktop"] .combo-row-toggles {
+    background: #ebebee;
+    border-color: #c4c4c4;
+}
+
+body[data-theme="light"] #comboView[data-layout="desktop"] #comboTableScroll {
+    background: #fff;
+    border-color: #c4c4c4;
+}
+
+body[data-theme="light"] #mainHeader .combo-layout-global {
+    border-left-color: #c2c2c2;
+}
+
+body[data-theme="light"] #mainHeader .combo-layout-global-toggle {
+    color: #111;
+}
+
+body[data-theme="light"] #mainHeader .combo-layout-global-toggle:hover {
+    color: #000;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .controls select,
+body[data-theme="light"] #comboView .combo-search-shell .controls input[type="text"],
+body[data-theme="light"] #comboView .combo-search-shell .controls input[type="number"],
+body[data-theme="light"] #comboView .combo-search-shell .field-search-controls input[type="text"],
+body[data-theme="light"] #comboView .combo-search-shell .field-search-controls input[type="search"],
+body[data-theme="light"] #comboView .combo-search-shell .range-row input {
+    background: #ffffff;
+    color: #111;
+    border-color: #bcbcbc;
+    border-radius: 6px;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .grouped-control {
+    background: #f0f0f0;
+    border-color: #c4c4c4;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .grouped-control-label,
+body[data-theme="light"] #comboView .combo-search-shell .field-search-inline-label,
+body[data-theme="light"] #comboView .combo-search-shell .control-label,
+body[data-theme="light"] #comboView .combo-search-shell .search-advanced-additional-options summary {
+    color: #555;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .control-group,
+body[data-theme="light"] #comboView .combo-search-shell .search-advanced-additional-options {
+    background: #ededed;
+    border-color: #c4c4c4;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .checkbox-item,
+body[data-theme="light"] #comboView .combo-search-shell .range-row,
+body[data-theme="light"] #comboView .combo-search-shell .range-label,
+body[data-theme="light"] #comboView .combo-search-shell .range-sep,
+body[data-theme="light"] #comboView .combo-search-shell .grouped-control-field {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .range-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table {
+    background: #f2f2f2;
+    box-shadow: inset 0 0 0 1px #c4c4c4;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table td,
+body[data-theme="light"] #comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table th {
+    border-color: #c8c8c8;
+    background: #f2f2f2;
+    color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-section th {
+    background: #e7e7e7;
+}
+
+body[data-theme="light"] #comboView .combo-search-shell .range-grid.range-grid-categorized .combo-range-layout-table .range-layout-empty {
+    background: #f2f2f2;
+    border: 0;
+}
+
+body[data-theme="light"] #comboView .ui-btn-desc {
+    color: #111;
+}
+
+body[data-theme="light"] #comboView #wb_Text1 span {
+    color: #111 !important;
+}
+
+#comboView .combo-customize-frame {
+    position: absolute;
+    border: 1px solid #444;
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: 13;
+}
+
+#comboView .combo-ui-backdrop {
+    position: absolute;
+    background: #0f0f0f;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#comboView #Table3 td {
+    padding: 2px;
+    background: transparent;
+    border: none;
+}
+
+#comboView #Table3 .combo-input-title {
+    margin: 0 0 2px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+#comboView #Table3 select,
+#comboView #Table3 button {
+    width: 100%;
+    height: 22px;
+    background: #151515;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+#comboView #comboDeviceSelect {
+    text-align: center;
+    text-align-last: center;
+}
+
+#comboView #Table3 button {
+    cursor: pointer;
+}
+
+#comboView #Table3 button:hover,
+#comboView #Table3 select:focus {
+    border-color: #f97306;
+    outline: none;
+}
+
+#comboView #Table3 .cell1,
+#comboView #Table3 .cell2 {
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+#comboView #Table3 .cell1 p,
+#comboView #Table3 .cell2 p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 23px;
+    background: #151515;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+#comboView #Table3 .cell0 p {
+    margin: 0 0 2px;
+    text-align: center;
+    line-height: 1.1;
+}
+
+#comboView #Table3 .cell1 p {
+    margin-top: 0;
+    margin-bottom: 9px;
+}
+
+#comboView #Table3 .cell2 p {
+    margin-top: 0;
+    margin-bottom: 1px;
+}
+
+#comboView #Table3 {
+    height: auto !important;
+}
+
+#comboView #Table3 td {
+    padding: 0;
+}
+
+#comboView #Table3 .cell1 p:hover,
+#comboView #Table3 .cell2 p:hover {
+    border-color: #f97306;
+}
+
+#comboView #Table3 td[data-device]:focus-visible {
+    outline: 2px solid rgba(249, 115, 6, 0.7);
+    outline-offset: 2px;
+}
+
+#comboView .combo-game-version-info {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 10px;
+    line-height: 1;
+    color: #9ca3af;
+    white-space: nowrap;
+    z-index: 30;
+    pointer-events: none;
+}
+
+#comboView.hide-buttons tr.combo-row-buttons {
+    display: none;
+}
+
+#comboView.hide-frame-meter tr.combo-row-frame {
+    display: none;
+}
+
+#comboView.hide-notes tr.combo-row-notes {
+    display: none;
+}
+
+#comboView .combo-row-toggles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: #e6e6e6;
+    padding: 4px 6px;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    background: rgba(16, 16, 16, 0.7);
+}
+
+#comboView .combo-row-label {
+    font-size: 11px;
+    color: #cfcfcf;
+    margin-right: 4px;
+}
+
+#comboView .combo-row-toggles label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+}
+
+#comboView .combo-row-toggles input[type="checkbox"] {
+    accent-color: #f97306;
+}
+
+#comboView .combo-row-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+}
+
+#comboView .combo-col-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+}
+
+#comboView .combo-col-label {
+    font-size: 11px;
+    color: #cfcfcf;
+}
+
+#comboView .combo-col-presets {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#comboView .combo-col-preset,
+#comboView .combo-col-edit {
+    padding: 2px 8px;
+}
+
+#comboView .combo-col-preset.is-active {
+    border-color: #f97306;
+    background: #2a1b0f;
+    color: #fff;
+}
+
+#comboView .combo-crud-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+    z-index: 25;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#comboView .combo-action-btn {
+    background: #151515;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 10px;
+    height: 22px;
+}
+
+#comboView .combo-action-btn:hover {
+    border-color: #f97306;
+}
+
+.tutorial-flow-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    padding: 0;
+    border: 1px solid #4b4b4b;
+    border-radius: 4px;
+    background: #141414;
+    color: #f3f4f6;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.tutorial-flow-trigger:hover {
+    border-color: #f97306;
+    color: #ffffff;
+}
+
+.tutorial-flow-trigger:focus-visible {
+    outline: 2px solid rgba(249, 115, 6, 0.55);
+    outline-offset: 1px;
+}
+
+#comboView .tutorial-flow-trigger-inline {
+    flex: 0 0 auto;
+    margin-left: 2px;
+}
+
+#comboView .combo-search-shell .advanced-filters>.tutorial-flow-trigger-panel-corner,
+#comboView .combo-search-shell .combo-filter-panel .tutorial-flow-trigger-panel-corner {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 80;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    padding: 0;
+    border-radius: 4px;
+    margin-left: 0;
+    pointer-events: auto;
+}
+
+@media (max-width: 1240px) {
+    #comboView .combo-search-shell .advanced-filters {
+        width: calc(100vw - 24px);
+        min-width: 0;
+        max-width: calc(100vw - 24px);
+    }
+}
+
+#comboView[data-layout="desktop"] .combo-search-shell {
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    background: rgba(14, 14, 16, 0.92);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+#comboView[data-layout="desktop"] .combo-row-toggles {
+    border-radius: 4px;
+    border-color: #363636;
+    background: rgba(20, 20, 22, 0.88);
+}
+
+#comboView[data-layout="desktop"] .combo-crud-bar {
+    gap: 4px;
+}
+
+#comboView[data-layout="desktop"] .combo-action-btn {
+    border-radius: 2px;
+    font-size: 12px;
+    height: 24px;
+}
+
+#comboView[data-layout="desktop"] #comboTableScroll {
+    border: 1px solid #353535;
+    border-radius: 4px;
+    background: #0f0f10;
+}
+
+#mainHeader .combo-layout-global {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border-light);
+}
+
+#mainHeader .combo-layout-global-toggle {
+    min-width: 64px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    padding: 0 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+#mainHeader .combo-layout-global-toggle:hover {
+    color: #fff;
+}
+
+#mainHeader .combo-layout-global-toggle.is-active {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+#comboView .combo-action-create {
+    background: #14321f;
+    border-color: #1d5a33;
+    color: #d6ffe4;
+}
+
+#comboView .combo-action-create:hover {
+    border-color: #35c06a;
+}
+
+#comboView .combo-action-duplicate {
+    background: #1c2c4a;
+    border-color: #2e4c86;
+    color: #dbe7ff;
+}
+
+#comboView .combo-action-duplicate:hover {
+    border-color: #6da2ff;
+}
+
+#comboView .combo-action-delete {
+    background: #3a1a1a;
+    border-color: #6a2a2a;
+    color: #ffd7d7;
+}
+
+#comboView .combo-action-delete:hover {
+    border-color: #ff6b6b;
+}
+
+#comboView .combo-action-dedupe {
+    background: #2f2a17;
+    border-color: #5b4a1f;
+    color: #ffe8b0;
+}
+
+#comboView .combo-action-dedupe:hover {
+    border-color: #f5c451;
+}
+
+#comboView .combo-action-restore {
+    background: #2b2b2b;
+    border-color: #5b5b5b;
+    color: #f0f0f0;
+}
+
+#comboView .combo-action-restore:hover {
+    border-color: #f97306;
+}
+
+#comboView .sticky-col {
+    background: #151515;
+}
+
+#comboView .combo-quick-label {
+    position: absolute;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #bfbfbf;
+    text-transform: none;
+    z-index: 14;
+    pointer-events: none;
+}
+
+#comboView .combo-bottom-toggle {
+    position: absolute;
+    min-width: 64px;
+    height: 24px;
+    padding: 0 10px;
+    border: 2px solid #2a2a2a;
+    background: #101010;
+    color: #e6e6e6;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    z-index: 26;
+}
+
+#comboView .combo-bottom-toggle:hover {
+    border-color: #f97306;
+    color: #fff;
+}
+
+#comboView .combo-bottom-toggle[data-state="collapsed"] {
+    border-color: #2a2a2a;
+    background: #101010;
+    color: #e6e6e6;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+}
+
+#comboView .combo-bottom-toggle[data-state="expanded"] {
+    border-top-color: transparent;
+    border-radius: 0 0 6px 6px;
+}
+
+#comboView[data-control="classic"] td.token-modern {
+    opacity: 0.4;
+}
+
+#comboView[data-control="modern"] td.token-modern {
+    opacity: 1;
+    box-shadow: inset 0 0 0 1px rgba(249, 115, 6, 0.4);
+}
+
+.combo-keymap-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 400;
+    --ui-cell-size: 49px;
+    --keymap-icon-row-height: 49px;
+    --keymap-desc-row-height: 18px;
+    font-size: 11px;
+}
+
+.combo-keymap-modal.hidden {
+    display: none;
+}
+
+.combo-keymap-card,
+.combo-keymap-content {
+    width: 640px;
+    max-width: 96vw;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    padding: 12px 14px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.combo-keymap-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.combo-keymap-content header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.combo-keymap-content header h3 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.combo-keymap-content header .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.combo-keymap-content header .tutorial-flow-trigger-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    padding: 0;
+    border-radius: 4px;
+}
+
+.combo-keymap-content header .combo-keymap-help-trigger {
+    left: auto;
+    right: 0;
+}
+
+.combo-notation-content header .tutorial-flow-trigger-modal {
+    right: 0;
+    left: auto;
+}
+
+.combo-notation-content header .combo-notation-help-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+}
+
+.combo-xlsx-map-content header .combo-xlsx-help-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+}
+
+.combo-keymap-header button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.combo-keymap-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.combo-keymap-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 11px;
+}
+
+.combo-keymap-row select {
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 4px 6px;
+    background: #0c0c0c;
+    color: #fff;
+}
+
+.combo-keymap-grid {
+    display: block;
+}
+
+.combo-keymap-notice {
+    min-height: 18px;
+    margin: 0 0 8px;
+    padding: 0 8px;
+    font-size: 11px;
+    line-height: 18px;
+    color: #f8b4b4;
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+}
+
+.combo-keymap-notice.show {
+    opacity: 1;
+    border-color: rgba(248, 113, 113, 0.6);
+}
+
+.combo-keymap-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.combo-keymap-item input {
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #0c0c0c;
+    color: #fff;
+    padding: 4px 6px;
+}
+
+.combo-keymap-layout {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.combo-keymap-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.combo-keymap-table td {
+    border: 1px solid #2a2a2a;
+    background: #121212;
+    color: #f1f1f1;
+    text-align: center;
+    vertical-align: middle;
+    padding: 1px 2px;
+    width: var(--ui-cell-size);
+    height: var(--ui-cell-size);
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.combo-keymap-table tr.keymap-icon-row td {
+    height: var(--keymap-icon-row-height);
+}
+
+.combo-keymap-table tr.keymap-desc-row td {
+    height: var(--keymap-desc-row-height);
+}
+
+.combo-keymap-cell {
+    position: relative;
+}
+
+.combo-keymap-input {
+    position: absolute;
+    bottom: 1px;
+    width: 26px;
+    height: 14px;
+    font-size: 7px;
+    line-height: 12px;
+    color: #fff;
+    background: #0f0f0f;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 0 2px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.combo-keymap-table img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.combo-keymap-table .ui-btn-desc {
+    font-size: 6px;
+    line-height: 1.1;
+    height: 10px;
+}
+
+.combo-keymap-input:focus {
+    outline: none;
+    background: #0f0f0f;
+    border-color: #f97306;
+}
+
+.combo-keymap-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.combo-keymap-actions button {
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+/* Make Customize Input modal larger/readable without affecting other keymap-based modals. */
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) {
+    --ui-cell-size: 58px;
+    --keymap-icon-row-height: 58px;
+    --keymap-desc-row-height: 24px;
+    font-size: 12px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-content {
+    width: min(860px, 96vw);
+    max-height: 90vh;
+    overflow: auto;
+    padding: 16px 18px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-content header h3 {
+    font-size: 16px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-table img {
+    width: 24px;
+    height: 24px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-input {
+    width: 36px;
+    height: 18px;
+    font-size: 10px;
+    line-height: 16px;
+    bottom: 2px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-table .ui-btn-desc {
+    font-size: 9px;
+    line-height: 1.2;
+    min-height: 14px;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-actions button {
+    font-size: 13px;
+    padding: 7px 12px;
+}
+
+.combo-restore-content {
+    width: 560px;
+    max-width: 94vw;
+}
+
+.combo-replace-content {
+    width: 420px;
+    max-width: 94vw;
+}
+
+.combo-restore-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0 8px;
+    max-height: 42vh;
+    overflow-y: auto;
+}
+
+.combo-restore-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #3a3a3a;
+    background: #161616;
+    color: #f3f3f3;
+    border-radius: 6px;
+    min-height: 34px;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.combo-restore-option .source {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.combo-restore-option .time {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.combo-restore-option.active {
+    border-color: #f97306;
+    background: #241a12;
+}
+
+.combo-restore-notice {
+    margin: 0;
+    font-size: 11px;
+    opacity: 0.85;
+}
+
+.combo-import-target-content {
+    width: min(520px, 92vw);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.combo-import-target-desc {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.combo-import-target-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.combo-import-target-label select {
+    width: 100%;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.combo-import-target-actions {
+    justify-content: flex-end;
+}
+
+.combo-notation-content {
+    width: min(980px, 96vw);
+    max-width: 96vw;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.combo-notation-desc {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.combo-notation-hints {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.combo-notation-hints li {
+    margin: 2px 0;
+}
+
+.combo-notation-section-title {
+    margin: 2px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.combo-notation-add,
+.combo-notation-display-add,
+.combo-notation-tools {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.combo-notation-add {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-tools {
+    justify-content: flex-end;
+    padding-top: 6px;
+    border-top: 1px solid #2b2b2b;
+}
+
+.combo-notation-add input {
+    min-width: 150px;
+    flex: 1 1 0;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-tools button,
+.combo-notation-add button,
+.combo-notation-display-add button,
+.combo-notation-map-head button {
+    border: 1px solid #4a4a4a;
+    background: #1b1b1b;
+    color: #f5f5f5;
+    border-radius: 4px;
+    padding: 4px 9px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.combo-notation-test-desc {
+    margin: 2px 0 4px;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.combo-notation-test {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-test-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.combo-notation-test textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    height: 44px;
+    resize: none;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-preview {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.combo-notation-preview .line {
+    display: grid;
+    grid-template-columns: 98px 1fr;
+    gap: 8px;
+    align-items: start;
+}
+
+.combo-notation-preview pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 12px;
+    color: #e5e7eb;
+}
+
+.combo-notation-preview .chip {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #2b2b2b;
+    font-size: 11px;
+}
+
+.combo-notation-preview .chip.unknown {
+    background: #5a3b09;
+    color: #fcd34d;
+}
+
+.combo-notation-table-wrap {
+    flex: 1 1 auto;
+    overflow: auto;
+    border: 1px solid #323232;
+    border-radius: 6px;
+}
+
+.combo-notation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-notation-table th,
+.combo-notation-table td {
+    border-bottom: 1px solid #262626;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.combo-notation-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #141414;
+}
+
+.combo-notation-table .notation-category-row td {
+    background: #1b1b1b;
+    font-weight: 700;
+    border-bottom-color: #343434;
+    border-top: 1px solid #3a3a3a;
+}
+
+.combo-notation-table .notation-category-row:first-child td {
+    border-top: 0;
+}
+
+.combo-notation-table td:nth-child(5) {
+    text-align: center;
+}
+
+.combo-notation-table td button {
+    margin-right: 4px;
+}
+
+.combo-notation-buttons {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.combo-notation-table th:nth-child(3) {
+    text-align: center;
+}
+
+.combo-notation-buttons-wrap {
+    min-width: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 18px;
+    margin: 0 auto;
+}
+
+.combo-notation-buttons-wrap .btn-token {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.combo-notation-buttons-wrap .btn-token img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+}
+
+.combo-notation-buttons-wrap .btn-token-text {
+    display: none;
+}
+
+.combo-notation-buttons-wrap .btn-token.btn-token-fallback {
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+body[data-theme="light"] .combo-notation-add input,
+body[data-theme="light"] .combo-notation-display-add input,
+body[data-theme="light"] .combo-notation-map-input,
+body[data-theme="light"] .combo-notation-test textarea {
+    background: #fff;
+    color: #222;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-notation-tools button,
+body[data-theme="light"] .combo-notation-add button,
+body[data-theme="light"] .combo-notation-display-add button,
+body[data-theme="light"] .combo-notation-map-head button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-notation-add {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-tools {
+    border-top-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-test {
+    border-bottom-color: #d7dce4;
+}
+
+
+body[data-theme="light"] .combo-notation-table-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-table th,
+body[data-theme="light"] .combo-notation-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-table thead th {
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-table .notation-category-row td {
+    background: #eef2f7;
+    border-bottom-color: #d4dbe5;
+    border-top-color: #d4dbe5;
+}
+
+body[data-theme="light"] .combo-notation-preview .chip {
+    background: #dfe4ea;
+    color: #2b3542;
+}
+
+body[data-theme="light"] .combo-notation-preview .chip.unknown {
+    background: #f2d68f;
+    color: #5f3500;
+}
+
+body[data-theme="light"] .combo-notation-buttons-wrap .btn-token.btn-token-fallback {
+    border-color: #bcc2cc;
+}
+
+.combo-notation-display-edit {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-display-add {
+    flex-wrap: wrap;
+}
+
+.combo-notation-display-add input {
+    min-width: 130px;
+    flex: 1 1 0;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-display-list {
+    margin-top: 6px;
+    border: 1px solid #323232;
+    border-radius: 4px;
+    overflow: auto;
+    max-height: 132px;
+}
+
+.combo-notation-display-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-notation-display-table th,
+.combo-notation-display-table td {
+    border-bottom: 1px solid #262626;
+    padding: 5px 7px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.combo-notation-display-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #141414;
+}
+
+.combo-notation-display-table td button {
+    margin-right: 4px;
+}
+
+.combo-notation-import-preview {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-import-preview-wrap {
+    border: 1px solid #323232;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 210px;
+}
+
+.combo-notation-import-preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-notation-import-preview-table th,
+.combo-notation-import-preview-table td {
+    border-bottom: 1px solid #262626;
+    padding: 6px 7px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.combo-notation-import-preview-table td:nth-child(2),
+.combo-notation-import-preview-table td:nth-child(3),
+.combo-notation-import-preview-table td:nth-child(5) {
+    white-space: normal;
+}
+
+.combo-notation-import-preview-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #141414;
+}
+
+.combo-notation-import-preview-table td.combo-notation-buttons,
+.combo-xlsx-map-preview-table td.combo-notation-buttons {
+    text-align: left;
+}
+
+.combo-notation-import-preview-table td.combo-notation-buttons .combo-notation-buttons-wrap,
+.combo-xlsx-map-preview-table td.combo-notation-buttons .combo-notation-buttons-wrap {
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.combo-notation-import-preview-table th,
+.combo-xlsx-map-preview-table th {
+    text-align: center;
+}
+
+.combo-notation-import-preview-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 6px;
+}
+
+.combo-notation-import-preview-actions button {
+    border: 1px solid #4a4a4a;
+    background: #1b1b1b;
+    color: #f5f5f5;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.combo-notation-import-preview .chip,
+.combo-notation-unknown-manage .chip {
+    display: inline-block;
+    margin: 0 4px 2px 0;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #2b2b2b;
+    font-size: 11px;
+}
+
+.combo-notation-import-preview .chip.unknown,
+.combo-notation-unknown-manage .chip.unknown {
+    background: #5a3b09;
+    color: #fcd34d;
+}
+
+.combo-notation-map {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-map-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.combo-notation-map-wrap {
+    border: 1px solid #323232;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 240px;
+    padding: 8px;
+}
+
+.combo-notation-map-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.combo-notation-map-card {
+    border: 1px solid #2b2b2b;
+    border-radius: 6px;
+    background: #151515;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.combo-notation-map-card-buttons {
+    min-height: 18px;
+}
+
+.combo-notation-map-card-lm {
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e5e7eb;
+}
+
+@media (max-width: 1480px) {
+    .combo-notation-map-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1080px) {
+    .combo-notation-map-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .combo-notation-map-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.combo-notation-map-input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.combo-notation-unknown-manage {
+    padding-top: 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.combo-notation-unknown-wrap {
+    border: 1px solid #323232;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 220px;
+}
+
+.combo-notation-unknown-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(360px, 1fr));
+    gap: 0;
+    align-items: start;
+    min-width: 740px;
+}
+
+.combo-notation-unknown-empty {
+    padding: 10px 6px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.combo-notation-unknown-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+    border: 1px solid #262626;
+}
+
+.combo-notation-unknown-table th,
+.combo-notation-unknown-table td {
+    border: 1px solid #262626;
+    padding: 6px 7px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.combo-notation-unknown-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #141414;
+}
+
+.combo-notation-unknown-table th:nth-child(1),
+.combo-notation-unknown-table td:nth-child(1) {
+    width: 20%;
+}
+
+.combo-notation-unknown-table th:nth-child(2),
+.combo-notation-unknown-table td:nth-child(2),
+.combo-notation-unknown-table th:nth-child(3),
+.combo-notation-unknown-table td:nth-child(3),
+.combo-notation-unknown-table th:nth-child(4),
+.combo-notation-unknown-table td:nth-child(4) {
+    width: 11%;
+}
+
+.combo-notation-unknown-table th:nth-child(5),
+.combo-notation-unknown-table td:nth-child(5) {
+    width: 16%;
+}
+
+.combo-notation-unknown-table th:nth-child(6),
+.combo-notation-unknown-table td:nth-child(6) {
+    width: 31%;
+}
+
+.combo-notation-unknown-table td input.combo-notation-unknown-input {
+    width: 100%;
+    max-width: 130px;
+    box-sizing: border-box;
+    min-height: 28px;
+    padding: 4px 6px;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 0 auto;
+    display: block;
+}
+
+.combo-notation-unknown-table .combo-notation-unknown-check-cell {
+    width: 36px;
+    min-width: 36px;
+}
+
+.combo-notation-unknown-table .combo-notation-unknown-check {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.combo-notation-unknown-table tbody {
+    border-bottom: 1px solid #262626;
+}
+
+.combo-notation-unknown-settings {
+    text-align: center;
+}
+
+.combo-notation-unknown-flags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.combo-notation-unknown-flags label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.combo-notation-unknown-replace-wrap {
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+}
+
+.combo-notation-unknown-replace-wrap .combo-notation-unknown-input {
+    max-width: 220px;
+}
+
+.combo-notation-unknown-test {
+    margin: 0;
+    min-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    font-family: Consolas, 'Courier New', monospace;
+    color: #e5e7eb;
+    white-space: normal;
+}
+
+.combo-notation-unknown-test .combo-notation-buttons-wrap {
+    min-width: 0;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.combo-notation-unknown-grid > .combo-notation-unknown-table:first-child {
+    border-right: 1px solid #262626;
+}
+
+.combo-notation-unknown-grid > .combo-notation-unknown-table:last-child {
+    border-left: 1px solid #262626;
+}
+
+.combo-notation-unknown-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.combo-notation-unknown-actions button {
+    border: 1px solid #4a4a4a;
+    background: #1b1b1b;
+    color: #f5f5f5;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+body[data-theme="light"] .combo-notation-display-edit {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-display-list {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-display-table th,
+body[data-theme="light"] .combo-notation-display-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-display-table thead th {
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-import-preview {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-import-preview-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-import-preview-table th,
+body[data-theme="light"] .combo-notation-import-preview-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-import-preview-table thead th {
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-import-preview-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-notation-import-preview .chip,
+body[data-theme="light"] .combo-notation-unknown-manage .chip {
+    background: #dfe4ea;
+    color: #2b3542;
+}
+
+body[data-theme="light"] .combo-notation-import-preview .chip.unknown,
+body[data-theme="light"] .combo-notation-unknown-manage .chip.unknown {
+    background: #f2d68f;
+    color: #5f3500;
+}
+
+body[data-theme="light"] .combo-notation-map {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-map-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-map-card {
+    border-color: #d4dbe5;
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-map-card-lm {
+    color: #1f2937;
+}
+
+body[data-theme="light"] .combo-notation-unknown-manage {
+    border-bottom-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-notation-unknown-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-notation-unknown-empty {
+    color: #4b5563;
+}
+
+body[data-theme="light"] .combo-notation-unknown-table,
+body[data-theme="light"] .combo-notation-unknown-table th,
+body[data-theme="light"] .combo-notation-unknown-table td {
+    border-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-unknown-table thead th {
+    background: #f7f9fc;
+}
+
+body[data-theme="light"] .combo-notation-unknown-table td input.combo-notation-unknown-input {
+    background: #fff;
+    color: #222;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-notation-unknown-table tbody {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-unknown-test {
+    color: #1f2937;
+}
+
+body[data-theme="light"] .combo-notation-unknown-grid > .combo-notation-unknown-table:first-child {
+    border-right-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-unknown-grid > .combo-notation-unknown-table:last-child {
+    border-left-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-notation-unknown-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-notation-modal .combo-notation-content {
+    background: #ffffff;
+    color: #1f2937;
+    border-color: #c8cdd6;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+}
+
+body[data-theme="light"] .combo-notation-modal .combo-notation-content header h3,
+body[data-theme="light"] .combo-notation-modal .combo-notation-section-title {
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-notation-modal .combo-notation-test-desc {
+    color: #374151;
+}
+
+body[data-theme="light"] .combo-notation-modal .combo-keymap-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+.combo-xlsx-map-content {
+    width: min(1800px, 96vw);
+    max-width: 96vw;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.combo-xlsx-map-desc {
+    margin: 2px 0 4px;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.85;
+    text-align: left;
+    min-width: 0;
+}
+
+.combo-xlsx-map-groups {
+    display: block;
+}
+
+.combo-xlsx-map-groups h4 {
+    margin: 2px 0 0;
+    font-size: 13px;
+}
+
+.combo-xlsx-map-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+    border: 1px solid #313131;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.combo-xlsx-map-table th,
+.combo-xlsx-map-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #262626;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.combo-xlsx-map-table td .req {
+    color: #f97316;
+    font-weight: 700;
+}
+
+.combo-xlsx-map-table select {
+    width: 100%;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-preview-wrap {
+    border: 1px solid #313131;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 32vh;
+}
+
+.combo-xlsx-map-preview-wrap h4 {
+    margin: 0;
+    padding: 6px 8px;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-xlsx-map-preview-table th,
+.combo-xlsx-map-preview-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #242424;
+    text-align: left;
+    vertical-align: top;
+}
+
+.combo-xlsx-map-actions {
+    justify-content: flex-end;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table select,
+body[data-theme="light"] .combo-xlsx-map-header-label select {
+    background: #fff;
+    color: #1f2937;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table,
+body[data-theme="light"] .combo-xlsx-map-preview-wrap {
+    border-color: #c8cdd6;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table th,
+body[data-theme="light"] .combo-xlsx-map-table td,
+body[data-theme="light"] .combo-xlsx-map-preview-table th,
+body[data-theme="light"] .combo-xlsx-map-preview-table td {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-xlsx-map-preview-wrap h4 {
+    border-bottom-color: #d4dbe5;
+}
+
+.combo-xlsx-map-sheet {
+    margin: 2px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 1;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 6px;
+    text-align: left;
+}
+
+.combo-xlsx-map-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.combo-xlsx-map-header-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    flex: 0 0 auto;
+}
+
+.combo-xlsx-map-header-label select {
+    min-width: 64px;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    text-align: center;
+    text-align-last: center;
+}
+
+.combo-xlsx-map-layout-cell select option,
+.combo-xlsx-map-header-label select option {
+    text-align: center;
+}
+
+.combo-xlsx-map-divider {
+    border-top: 1px solid #2b2b2b;
+    margin: 2px 0;
+}
+
+.combo-xlsx-map-target-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.combo-xlsx-map-meta-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.combo-xlsx-map-target-heading {
+    margin: 2px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    opacity: 1;
+}
+
+.combo-xlsx-map-target {
+    min-width: 0;
+}
+
+.combo-xlsx-map-target.hidden {
+    display: none;
+}
+
+.combo-xlsx-map-target-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 4px 10px;
+}
+
+.combo-xlsx-map-target-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.combo-xlsx-map-target-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.combo-xlsx-map-target-actions.hidden {
+    display: none;
+}
+
+.combo-xlsx-map-target-actions button {
+    border-radius: 4px;
+    border: 1px solid #4a4a4a;
+    background: #1b1b1b;
+    color: #f5f5f5;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.combo-xlsx-map-target-panel {
+    border: 1px solid #323232;
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 0;
+}
+
+.combo-xlsx-map-target-panel.hidden {
+    display: none;
+}
+
+.combo-xlsx-map-preset-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 0 2px;
+}
+
+.combo-xlsx-map-save-preset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.combo-xlsx-map-save-preset input {
+    margin: 0;
+}
+
+.combo-xlsx-map-table th {
+    text-align: center;
+}
+
+.combo-xlsx-map-table td:first-child {
+    width: 36%;
+    white-space: normal;
+    line-height: 1.25;
+}
+
+.combo-xlsx-map-table td:last-child {
+    width: 64%;
+}
+
+.combo-xlsx-map-table.stack td {
+    display: block;
+    width: auto !important;
+    border-bottom: 0;
+}
+
+.combo-xlsx-map-table.stack td:first-child {
+    padding-bottom: 2px;
+    font-weight: 700;
+}
+
+.combo-xlsx-map-table.stack td:last-child {
+    padding-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #262626;
+}
+
+.combo-xlsx-map-table.stack tbody tr:last-child td:last-child {
+    border-bottom: 0;
+}
+
+.combo-xlsx-map-layout-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+    border: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #111;
+    box-shadow: inset 0 0 0 1px #2f2f2f;
+}
+
+.combo-xlsx-map-layout-table td,
+.combo-xlsx-map-layout-table th {
+    border: 1px solid #2f2f2f;
+    padding: 6px 8px;
+    vertical-align: middle;
+    background: #111;
+    color: #f5f5f5;
+}
+
+.combo-xlsx-map-layout-table .combo-xlsx-map-layout-empty {
+    background: #111;
+    border: 0;
+}
+
+.combo-xlsx-map-layout-table .combo-xlsx-map-layout-section th {
+    text-align: center;
+    font-weight: 700;
+    background: #0d0d0d;
+    color: #ffffff;
+}
+
+.combo-xlsx-map-layout-table .combo-xlsx-map-layout-section th.empty {
+    background: #111;
+    border: 0;
+    color: transparent;
+}
+
+.combo-xlsx-map-layout-table tr:last-child .combo-xlsx-map-layout-empty,
+.combo-xlsx-map-layout-table tr:last-child .combo-xlsx-map-layout-section th.empty {
+    border-bottom: 1px solid #2f2f2f;
+}
+
+.combo-xlsx-map-layout-table tr:first-child .combo-xlsx-map-layout-empty,
+.combo-xlsx-map-layout-table tr:first-child .combo-xlsx-map-layout-section th.empty {
+    border-top: 1px solid #2f2f2f;
+}
+
+.combo-xlsx-map-layout-cell-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.combo-xlsx-map-layout-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.2;
+    flex: 0 1 auto;
+}
+
+.combo-xlsx-map-layout-cell .req {
+    color: #f97316;
+    font-weight: 700;
+}
+
+.combo-xlsx-map-layout-cell select {
+    min-width: 78px;
+    width: clamp(78px, 52%, 220px);
+    background: #0f0f0f;
+    color: #f5f5f5;
+    border: 1px solid #454545;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+    text-align: center;
+    text-align-last: center;
+}
+
+.combo-xlsx-map-layout-table.stack .combo-xlsx-map-layout-cell-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.combo-xlsx-map-layout-table.stack .combo-xlsx-map-layout-cell select {
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .combo-xlsx-map-meta-row {
+        flex-wrap: wrap;
+        gap: 6px 10px;
+    }
+
+    .combo-xlsx-map-desc {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+body[data-theme="light"] .combo-import-target-label select {
+    background: #fff;
+    color: #1f2937;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-xlsx-map-divider {
+    border-top-color: #d7dce4;
+}
+
+body[data-theme="light"] .combo-xlsx-map-table.stack td:last-child {
+    border-bottom-color: #e0e4ea;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table {
+    box-shadow: inset 0 0 0 1px #c8cdd6;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table td,
+body[data-theme="light"] .combo-xlsx-map-layout-table th {
+    border-color: #e0e4ea;
+    color: #111827;
+    background: #f9fafb;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table .combo-xlsx-map-layout-section th {
+    background: #e8edf4;
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table .combo-xlsx-map-layout-empty,
+body[data-theme="light"] .combo-xlsx-map-layout-table .combo-xlsx-map-layout-section th.empty {
+    background: #f9fafb;
+    border: 0;
+    color: transparent;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table tr:last-child .combo-xlsx-map-layout-empty,
+body[data-theme="light"] .combo-xlsx-map-layout-table tr:last-child .combo-xlsx-map-layout-section th.empty {
+    border-bottom: 1px solid #c8cdd6;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-table tr:first-child .combo-xlsx-map-layout-empty,
+body[data-theme="light"] .combo-xlsx-map-layout-table tr:first-child .combo-xlsx-map-layout-section th.empty {
+    border-top: 1px solid #c8cdd6;
+}
+
+body[data-theme="light"] .combo-xlsx-map-layout-cell select {
+    background: #fff;
+    color: #1f2937;
+    border-color: #c3c7cf;
+}
+
+body[data-theme="light"] .combo-xlsx-map-target-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-content {
+    background: #ffffff;
+    color: #1f2937;
+    border-color: #c8cdd6;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+}
+
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-content header .close,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-content h3,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-sheet strong {
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-sheet,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-desc,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-item,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-heading,
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-save-preset {
+    color: #374151;
+}
+
+body[data-theme="light"] .combo-xlsx-map-modal .combo-keymap-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
+}
+
+body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
+    border-color: #c8cdd6;
+    background: transparent;
+}
+
+.combo-multi-panel {
+    position: absolute;
+    min-width: 220px;
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 8px;
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    display: none;
+    z-index: 500;
+}
+
+.combo-multi-panel.active {
+    display: block;
+}
+
+.combo-multi-header {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.combo-multi-body {
+    display: grid;
+    gap: 4px;
+    max-height: 220px;
+    overflow: auto;
+    font-size: 12px;
+}
+
+.combo-multi-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.combo-multi-actions button {
+    border-radius: 4px;
+    border: 1px solid #333;
+    background: #1b1b1b;
+    color: #fff;
+    padding: 4px 8px;
+    cursor: pointer;
+}

@@ -1,0 +1,104 @@
+CURRENT_VERSION: 1.0.2
+
+## UPDATE 1.0.2 | 2026-02-28 | important | tags: UI, UX, Import, Notation, Performance, Bugfix
+### JP
+- 大量のコンボリスト（数百件以上）のパフォーマンスを改善。
+- .bat形式のランチャーを通しての更新機能を追加。*更新機能を有効にするには.batで実行する必要があります。
+- オンボーディングを改善（ヘルプ導線・使い方案内の強化）。
+- EN環境でホットキーに指定されているキーが表示されない不具合を修正。
+- EN向けの表記辞書（notation dictionary）対応範囲を拡張。
+- インポート処理中の「Importing」ポップアップ表示を追加。
+- 複数選択機能を追加。
+- 特殊条件をキャラ別表示に変更。
+- 表記変換機能を改善。
+- 詳細検索のUIを改善。
+- インポートのUIを改善（設定・確認フローを整理）。
+- 行と列に右クリックコマンドを追加。
+- 行操作ショートカット（Ctrl+Z / Ctrl+Y / Delete / Ctrl+C / Ctrl+V）を追加。
+- 既存コマンドへのカスタム表記適用機能（置換）を追加。
+- EN環境で旧バージョンのフレーム表が正しく表示されない不具合を修正。
+
+### EN
+- Improved performance for large combo lists (hundreds of entries).
+- Added auto-update function to through use of .bat launcher. *To enable update function, you must run the app via the .bat file.
+- Improved onboarding guidance and in-app help flow.
+- Fixed an issue where some assigned keys were not showing up in the input section in EN.
+- Expanded EN notation-dictionary coverage.
+- Added an "Importing" progress popup during import processing.
+- Added multi-select support for rows an columns.
+- Cleaned up special-conditions handling so its character specific.
+- Improved notation processing functions.
+- Improved Advanced Search UI.
+- Improved Import UI flow.
+- Added right-click command actions for rows and columns.
+- Added row-level shortcuts (Ctrl+Z / Ctrl+Y / Delete / Ctrl+C / Ctrl+V).
+- Added apply-custom-notation support for existing commands (replace-style workflow).
+- Fixed a bug where older frame-table versions did not show the correct table in English.
+
+
+## UPDATE 1.0.1 | 2026-02-18 | important | tags: Combo, Import, Validation, Updates
+### JP
+- 起動時の速度を改善しました。
+- 選択していたキャラや操作モードを記憶するようにしました。
+- データが自動保存される間隔を調整しました。
+- 大規模なインポート等の前に自動的にバックアップを行う機能を追加しました。
+- 複数のポイントからデータを復元できる機能を追加しました。
+- インポート用の表記辞書を追加し、JP/EN別名の正規化とユーザーが追加できるようにしました。
+- XLSXインポートに列マッピング機能を追加し、テンプレート以外の取り込みを強化しました。
+- 選択中の操作方法に応じて、自動的に操作タイプが適応されるようになりました。（保存済みのコンボも自動的に反映されます）
+- 選択中の操作モードのコンボのみ表示されるようにしました。
+- コマンド表記と操作モードが不一致の際に警告が表示されるようにしました。
+- Dゲージ効率（ダメージ/Dゲージ消費[負値]）の自動計算機能を追加しました。
+- 更新履歴と今後の予定を情報ページに統合し、更新時は差分表示のポップアップを表示するようにしました。
+- その他UIの調整（バージョン表記、ヘッダーの高さの調整など）
+
+### EN
+- Improved startup performance.
+- The tool now remembers the character and control mode you were using.
+- Adjusted the autosave interval.
+- Added automatic backups before imports and other major changes.
+- Added restore points so data can be recovered from multiple backup snapshots.
+- Added an import notation dictionary with JP/EN alias normalization and user-defined entries.
+- Added XLSX column mapping import to handle non-standard sheets more reliably.
+- Control mode is now applied automatically based on your current mode (also applied to existing saved combos).
+- The combo table now shows only combos for the selected control mode.
+- Added command validation and control-mode mismatch warnings.
+- Added automatic Drive Gauge efficiency calculation (damage / drive gauge spent [negative value]) from entered values.
+- Unified changelog and roadmap under Information, and added a version-diff update popup.
+- Included additional UI refinements (version display, header height, etc.).
+
+## UPDATE 1.0.0 | 2026-02-16 | tags: Release
+### JP
+- Lab Monster SF6 の初回リリース。
+- フレームデータ閲覧、コンボ編集、基本的な入出力機能を実装。
+### EN
+- Initial release of Lab Monster SF6.
+- Included the frame-data viewer, combo editor, and baseline import/export workflow.
+
+## ROADMAP REALISTIC
+### JP
+- [planned] タグ、お気に入り、星評価 :: 絞り込みなどで限定しきれないものや、より簡単にコンボを管理・整理できる機能。
+- [planned] 自動計算（ダメージ系） :: パニカン時や、SA3時の体力25%以下等の場合の補助計算機能。
+- [planned] Classic/Modern 間の変換補助 :: コマンド/ボタン変換と不可ルート判定の補助機能を段階実装。
+- [planned] UI改善（ツールチップ/詳細検索/小画面対応） :: 項目説明の明確化、検索UI整理、小さい画面表示時の視認性改善。
+- [planned] 継続的なパフォーマンス最適化 :: 起動、検索/並び替え、大規模データ表示の処理を改善。
+### EN
+- [planned] Tags, favorites, and star ratings :: Add metadata to make combo management and filtering easier.
+- [planned] Auto-calculation (damage fields) :: Add assist calculations for punish-counter and low-health SA3 scenarios.
+- [planned] Classic/Modern conversion assist :: Phase in command/button conversion support and impossible-route hints.
+- [planned] UI polish (tooltips/advanced search/small-screen support) :: Clarify field guidance, organize search UI, and improve compact-window readability.
+- [planned] Continuous performance optimization :: Keep improving startup, search/sort, and large-table rendering performance.
+
+## ROADMAP STRETCH
+### JP
+- [planned] 運びなどの実数値などの自動計算 :: 検証すべき要素が多いため、実現性を継続検討。
+- [planned] フレームメーターの自動生成 :: キャンセルタイミングなどをどのように統一するかなど課題が多いため、長期検討。
+- [planned] コンボ品質の分析レポート :: 品質指標の定義が必要で、実装コストが高いため長期検討。
+- [planned] コンボ自動生成 :: データ整備と検証コストが非常に高く、実現性を継続検討。
+- [planned] モバイル版（タブレット向け） :: UI再設計が必要なため、優先度は低め。（現時点でもタブレットでは最低限機能するはず）
+### EN
+- [planned] Automatic carry-distance and other in-game value calculations :: Very high data/validation cost; feasibility under review.
+- [planned] Automatic frame-meter generation :: Requires normalization of cancel timing and related logic; feasibility under review.
+- [planned] Combo quality analytics :: Requires a reliable quality metric; high implementation complexity.
+- [planned] Automatic combo generation :: Very high data/validation cost; feasibility under review.
+- [planned] Mobile/tablet build :: Requires substantial UI redesign; low near-term priority. (Should technically work on tablets already.)
