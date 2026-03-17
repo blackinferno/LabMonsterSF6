@@ -29,7 +29,7 @@
             "Height": 155.9300994873047,
             "Leg": 111.23094177246094
         },
-        "Priority0": 17,
+        "Priority0": 19,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -263,7 +263,17 @@
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 1
+                            "PartsID": 1,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "DefaultProps": {
@@ -272,7 +282,17 @@
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 0
+                            "PartsID": 0,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "TargetProps": {
@@ -281,7 +301,17 @@
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 1
+                            "PartsID": 1,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "useCommon": false,

@@ -1,10 +1,36 @@
-CURRENT_VERSION: 1.0.2
+CURRENT_VERSION: 1.0.3
+## UPDATE 1.0.3 | 2026-03-17 | important | tags: UI, UX, FrameMeter, Automation, Performance, Bugfix
+
+### JP
+- Alexを追加
+- 2025.03.17版のフレームデータ表を追加。
+- 大量のコンボリスト（数百件以上）のパフォーマンスを改善。
+- コンボ後の相手の状態と入れ替えの項目を追加。
+- 限定的なケースに対応するために、フレームとヒットアイコンを入力に追加。
+- フレームメーターの自動生成のプロトタイプ版を追加。
+- ダメージ、運び・コンボ距離、有利フレーム、コンボ後の相手の状態、詐欺飛び、入れ替えの自動計算・入力のプロトタイプ版を追加。
+- 手動入力した項目が自動入力で上書きされないようにロックする機能を追加。
+- AKIに毒ダメージ有り無しの項目を追加
+- 人形、スプレー、JP用に「爆発」を追加。
+- 細かいUI/UXの改善
+
+### EN
+- Added Alex
+- Added 2025.03.17 frame table
+- Improved performance for large combo lists (hundreds of entries).
+- Added fields for opponent state after combo and side change.
+- Added Frame and Hits icons to the input to cover more edge cases.
+- Added prototype frame data auto-generation function.
+- Added prototype damage, carry/combo distance, advantage frames, opponent state after combo, safe jump, and side change auto-calculation/input function.
+- Added a function to lock manually entered fields from being overwritten.
+- Added fields for poison tick damage for AKI.
+- Added "Explosion" for dolls, sprays, and JP.
+- Various UI/UX improvements.
 
 ## UPDATE 1.0.2 | 2026-03-05 | important | tags: UI, UX, Import, Notation, Performance, Bugfix, Launcher
 ### JP
 - 大量のコンボリスト（数百件以上）のパフォーマンスを改善。
-- .exeランチャーから更新機能を利用可能。*更新機能を有効にするにはStart_LabMonster.exeで実行してください。
-- 起動導線を .exe ランチャー中心に整理し、旧 .bat 起動を廃止。
+- .exeランチャーから更新機能を利用可能にしました。*更新機能を有効にするにはStart_LabMonster.exeで実行してください。
 - オンボーディングを改善（ヘルプ導線・使い方案内の強化）。
 - EN環境でホットキーに指定されているキーが表示されない不具合を修正。
 - EN向けの表記辞書（notation dictionary）対応範囲を拡張。
@@ -22,7 +48,6 @@ CURRENT_VERSION: 1.0.2
 ### EN
 - Improved performance for large combo lists (hundreds of entries).
 - Added auto-update support via the .exe launcher. *To enable updates, run the app through Start_LabMonster.exe.
-- Switched startup flow to EXE launcher only and removed legacy BAT startup.
 - Improved onboarding guidance and in-app help flow.
 - Fixed an issue where some assigned keys were not showing up in the input section in EN.
 - Expanded EN notation-dictionary coverage.

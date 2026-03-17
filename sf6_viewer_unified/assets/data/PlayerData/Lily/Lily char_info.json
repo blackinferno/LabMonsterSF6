@@ -1,27 +1,14 @@
 {
     "PlData": {
-        "AdjustRatio": {
-            "Arm": 1.0,
-            "Height": 1.0,
-            "Leg": 1.0
-        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16416,
-        "ConvertRatio": {
-            "Arm": 1.0,
-            "Height": 1.0,
-            "Leg": 1.0
-        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
-        "FootRotMax": 0.0,
-        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.0,
         "Gauge": 30000,
-        "HeadHeight": 0,
         "MaxShotNum": 5,
         "MultiJumpCount": 0,
         "Physique": {
@@ -29,7 +16,9 @@
             "Height": 135.68603515625,
             "Leg": 89.38209533691406
         },
-        "Priority0": 32,
+        "Priority0": 31,
+        "RecoverDrvJust": 10000,
+        "RecoverDrvNorm": 10000,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -263,14 +252,34 @@
                             "IsON": true,
                             "JointHash": -2003049796,
                             "MasterID": 0,
-                            "PartsID": 0
+                            "PartsID": 0,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         },
                         "1": {
                             "AttachTo": 0,
                             "IsON": true,
                             "JointHash": 1875488531,
                             "MasterID": 0,
-                            "PartsID": 1
+                            "PartsID": 1,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "useCommon": false,

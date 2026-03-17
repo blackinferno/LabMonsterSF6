@@ -8689,7 +8689,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 27,
@@ -8919,7 +8919,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 29,
@@ -9034,7 +9034,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 31,
@@ -9266,7 +9266,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 27,
@@ -9381,7 +9381,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 27,
@@ -9611,7 +9611,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 27,
@@ -10186,7 +10186,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 29,
@@ -10301,7 +10301,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 29,
@@ -10531,7 +10531,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 29,
@@ -10646,7 +10646,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 31,
@@ -10761,7 +10761,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 31,
@@ -10991,7 +10991,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 55,
                     "y": 0
                 },
                 "MoveTime": 31,
@@ -28856,7 +28856,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -28971,7 +28971,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -29086,7 +29086,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 16,
@@ -29201,7 +29201,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 18,
@@ -29316,7 +29316,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 10,
@@ -29433,7 +29433,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -29548,7 +29548,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -29778,7 +29778,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -29893,7 +29893,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -30008,7 +30008,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -30123,7 +30123,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -30238,7 +30238,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 14,
@@ -30353,7 +30353,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 16,
@@ -30468,7 +30468,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 16,
@@ -30698,7 +30698,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 16,
@@ -30813,7 +30813,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 18,
@@ -30928,7 +30928,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 18,
@@ -31158,7 +31158,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 18,
@@ -31273,7 +31273,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 10,
@@ -31388,7 +31388,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 10,
@@ -31503,7 +31503,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 10,
@@ -31618,7 +31618,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 49,
                     "y": 0
                 },
                 "MoveTime": 10,
@@ -121855,7 +121855,7 @@
                 "JuggleAdd": 3,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 203,
+                    "x": 200,
                     "y": 140
                 },
                 "MoveTime": 33,
@@ -122775,7 +122775,7 @@
                 "JuggleAdd": 3,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 203,
+                    "x": 200,
                     "y": 140
                 },
                 "MoveTime": 33,
@@ -123235,7 +123235,7 @@
                 "JuggleAdd": 3,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 203,
+                    "x": 200,
                     "y": 140
                 },
                 "MoveTime": 33,
@@ -124722,7 +124722,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 1000,
                 "FocusTgt": 0,
-                "HitStopOwner": 7,
+                "HitStopOwner": 6,
                 "HitStopTarget": 6,
                 "HitStun": 27,
                 "Hitmark": 8,
@@ -125642,7 +125642,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 1000,
                 "FocusTgt": 0,
-                "HitStopOwner": 7,
+                "HitStopOwner": 6,
                 "HitStopTarget": 6,
                 "HitStun": 27,
                 "Hitmark": 8,
@@ -126102,7 +126102,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 1000,
                 "FocusTgt": -5000,
-                "HitStopOwner": 7,
+                "HitStopOwner": 6,
                 "HitStopTarget": 6,
                 "HitStun": 27,
                 "Hitmark": 8,
@@ -259439,7 +259439,7 @@
                 "FocusTgt": 2000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 28,
+                "HitStun": 24,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -259454,7 +259454,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 28,
+                "MoveTime": 24,
                 "MoveType": 24,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -259784,7 +259784,7 @@
                 "FocusTgt": -4000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 24,
+                "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -259799,7 +259799,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 24,
+                "MoveTime": 20,
                 "MoveType": 37,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -260361,7 +260361,7 @@
                 "FocusTgt": 2000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 28,
+                "HitStun": 24,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -260376,7 +260376,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 28,
+                "MoveTime": 24,
                 "MoveType": 24,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -260476,7 +260476,7 @@
                 "FocusTgt": 2000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 28,
+                "HitStun": 24,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -260491,7 +260491,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 28,
+                "MoveTime": 24,
                 "MoveType": 24,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -260591,7 +260591,7 @@
                 "FocusTgt": 2000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 28,
+                "HitStun": 24,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -260606,7 +260606,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 28,
+                "MoveTime": 24,
                 "MoveType": 24,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -260706,7 +260706,7 @@
                 "FocusTgt": 2000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 28,
+                "HitStun": 24,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -260721,7 +260721,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 28,
+                "MoveTime": 24,
                 "MoveType": 24,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -261741,7 +261741,7 @@
                 "FocusTgt": -4000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 24,
+                "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -261756,7 +261756,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 24,
+                "MoveTime": 20,
                 "MoveType": 37,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -261856,7 +261856,7 @@
                 "FocusTgt": -4000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 24,
+                "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -261871,7 +261871,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 24,
+                "MoveTime": 20,
                 "MoveType": 37,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -261971,7 +261971,7 @@
                 "FocusTgt": -4000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 24,
+                "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -261986,7 +261986,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 24,
+                "MoveTime": 20,
                 "MoveType": 37,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -262086,7 +262086,7 @@
                 "FocusTgt": -4000,
                 "HitStopOwner": 12,
                 "HitStopTarget": 12,
-                "HitStun": 24,
+                "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 7,
                 "HitmarkDirY": 0,
@@ -262101,7 +262101,7 @@
                     "x": 50,
                     "y": 0
                 },
-                "MoveTime": 24,
+                "MoveTime": 20,
                 "MoveType": 37,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -412230,7 +412230,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -412345,7 +412345,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -413497,7 +413497,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -413612,7 +413612,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -413727,7 +413727,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 11,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -413842,7 +413842,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 18,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -413957,7 +413957,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -414072,7 +414072,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -414187,7 +414187,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 11,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -414302,7 +414302,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 18,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -415111,7 +415111,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -415226,7 +415226,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416378,7 +416378,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416493,7 +416493,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416608,7 +416608,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 11,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416723,7 +416723,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 18,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416838,7 +416838,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -416953,7 +416953,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 3,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -417068,7 +417068,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 11,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,
@@ -417183,7 +417183,7 @@
                 "DmgRecover": 0,
                 "DmgRecover0": 0,
                 "DmgType": 18,
-                "DmgValue": 200,
+                "DmgValue": 240,
                 "DmgValue0": 0,
                 "DmgVari": -1,
                 "DownTime": 1,

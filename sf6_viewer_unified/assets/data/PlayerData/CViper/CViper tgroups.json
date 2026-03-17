@@ -37,8 +37,9 @@
         "167": "715 NGS",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
+        "188": "1214 SAA_02_START",
         "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -84,8 +85,8 @@
         "178": "854 ATK_CTA",
         "179": "850 ATK_CTA_4",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "190": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "193": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "197": "1222 START_HIT(1)",
@@ -110,8 +111,9 @@
         "118": "928 SPA_Burning(1)",
         "119": "929 SPA_Burning(2)",
         "187": "1200 SAA_1_START",
+        "188": "1214 SAA_02_START",
         "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -147,8 +149,8 @@
         "155": "480 DPA_STD_START",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "190": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "200": "1200 SAA_1_START",
         "201": "1214 SAA_02_START",
@@ -202,8 +204,8 @@
         "167": "715 NGS",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "191": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -214,8 +216,8 @@
     },
     "017": {
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "191": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -267,8 +269,8 @@
         "160": "761 DRIVE_RUSH(1)",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "190": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -299,8 +301,8 @@
         "119": "929 SPA_Burning(2)",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "190": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -328,7 +330,7 @@
         "045": "644 ATK_2LK_B"
     },
     "040": {
-        "189": "1214 SAA_02_START",
+        "190": "1214 SAA_02_START",
         "193": "1218 START_HIT",
         "197": "1222 START_HIT(1)"
     },
@@ -355,21 +357,21 @@
     },
     "049": {
         "077": "913 SPA_THN_L_AD(1)",
-        "080": "912 SPA_THN_L_AD"
+        "080": "912 SPA_THN_L_AD(2)"
     },
     "050": {
         "078": "915 SPA_THN_M_AD(1)",
-        "081": "914 SPA_THN_M_AD"
+        "081": "914 SPA_THN_M_AD(2)"
     },
     "051": {
         "079": "917 SPA_THN_H_AD(1)",
-        "082": "916 SPA_THN_H_AD"
+        "082": "916 SPA_THN_H_AD(2)"
     },
     "053": {
         "090": "945 SPA_Burning_punch(1)",
         "091": "948 SPA_Burning_Kick(1)",
-        "093": "944 SPA_Burning_punch",
-        "094": "947 SPA_Burning_Kick"
+        "093": "944 SPA_Burning_punch(2)",
+        "094": "947 SPA_Burning_Kick(2)"
     },
     "056": {
         "051": "1040 BAS_Hi_JUMP_N_START(4)",
@@ -445,8 +447,9 @@
         "167": "715 NGS",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
+        "188": "1214 SAA_02_START",
         "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",
@@ -529,8 +532,8 @@
         "167": "715 NGS",
         "178": "854 ATK_CTA",
         "187": "1200 SAA_1_START",
-        "189": "1214 SAA_02_START",
-        "191": "1218 START_HIT",
+        "188": "1214 SAA_02_START",
+        "192": "1218 START_HIT",
         "195": "1222 START_HIT(1)",
         "210": "993 SPA_Armor_Start(3)",
         "211": "930 SPA_BURNING_OD",

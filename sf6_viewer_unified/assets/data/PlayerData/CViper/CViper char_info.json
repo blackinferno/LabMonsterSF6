@@ -29,7 +29,7 @@
             "Height": 165.74525451660156,
             "Leg": 107.3760986328125
         },
-        "Priority0": 9,
+        "Priority0": 10,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -325,14 +325,34 @@
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 0
+                            "PartsID": 0,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         },
                         "1": {
                             "AttachTo": 0,
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 14
+                            "PartsID": 14,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "useCommon": false,

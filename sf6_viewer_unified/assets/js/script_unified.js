@@ -12,8 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageToggle();
   initTutorialOverlay();
   initInfoModals();
+  const bootLastSeen = getLastSeenAppVersion();
+  const bootAutomationSeen = getAutomationTutorialSeenVersion();
+  // Show "automation-2" once per app version until it is actually seen, including
+  // recovery from prior launches where update log showed but tutorial got blocked.
+  automationTutorialEligibleThisLaunch = (
+    bootAutomationSeen !== APP_VERSION
+    && cmpSemver(bootLastSeen || '0.0.0', APP_VERSION) <= 0
+  );
   maybeShowWelcomePopup().catch((err) => {
     console.warn('Failed to show welcome popup:', err);
+  }).finally(() => {
+    maybeShowAutomationUpdateTutorial();
   });
   checkForAppUpdate()
     .then((info) => {
@@ -38,6 +48,8 @@ const frameMovesCache = new Map();
 const APP_VERSION_FALLBACK = '1.0.2';
 const APP_VERSION = getCurrentAppVersion();
 const TUTORIAL_FIRST_RUN_KEY = 'lm_tutorial_seen_v1';
+const TUTORIAL_AUTOMATION_UPDATE_SEEN_KEY = 'lm_tutorial_automation_seen_v1';
+const AUTOMATION_TUTORIAL_FLOW_KEY = 'automation-2';
 const LANGUAGE_PREF_KEY = 'lm_lang_pref_v1';
 const I18NEXT_LANGUAGE_KEY = 'i18nextLng';
 const LAST_SEEN_VERSION_KEY = 'lm_last_seen_version';
@@ -55,6 +67,8 @@ let offlineBundlePromise = null;
 let updatesDataCache = null;
 let updatesDataPromise = null;
 let pendingWelcomeGroups = [];
+let automationTutorialEligibleThisLaunch = false;
+let automationTutorialRetryTimer = null;
 let appUpdateInfo = {
   checked: false,
   checkFailed: false,
@@ -89,12 +103,12 @@ const ONBOARDING_TUTORIAL_SLIDES = [
     textKey: 'tutorial.slide.2.text',
   },
   {
-    image: 'assets/images/help/help-3-2_jp.png',
+    image: 'assets/images/help/help-1_jp.png',
     titleKey: 'tutorial.slide.3.title',
     textKey: 'tutorial.slide.3.text',
   },
   {
-    image: 'assets/images/help/help-1_jp.png',
+    image: 'assets/images/help/help-3-2_jp.png',
     titleKey: 'tutorial.slide.4.title',
     textKey: 'tutorial.slide.4.text',
   },
@@ -102,6 +116,13 @@ const ONBOARDING_TUTORIAL_SLIDES = [
     image: 'assets/images/help/help-1_jp.png',
     titleKey: 'tutorial.slide.5.title',
     textKey: 'tutorial.slide.5.text',
+  },
+  {
+    image: 'assets/images/help/help-1_jp.png',
+    titleKey: 'tutorial.slide.6.title',
+    textKey: 'tutorial.slide.6.text',
+
+
   },
 ];
 const TUTORIAL_FLOW_SLIDES = {
@@ -382,6 +403,48 @@ const TUTORIAL_FLOW_SLIDES = {
       text: {
         jp: '出力前に重複削除、検索解除、対象キャラ確認を行うと管理しやすくなります。',
         en: 'Before exporting, run dedupe, clear filters, and confirm target characters.',
+      },
+    },
+  ],
+  'automation-2': [
+    {
+      image: 'assets/images/help/help-1-2_jp.png',
+      title: { jp: 'Automation 2.0', en: 'Automation 2.0' },
+      text: {
+        jp: 'Ver.1.0.3で暫定版の自動入力機能が追加されました。今回はダメージや距離関連の一部の項目のみです。',
+        en: 'In Ver.1.0.3, a preliminary version of the auto-input feature was added. It currently only covers some damage and spacing related fields.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-10_jp.png',
+      title: { jp: '自動入力トグル', en: 'Auto Input Toggle' },
+      text: {
+        jp: '表の上にある自動入力をON/OFFで切り替えることができます。まだ試験段階なので、精度はいまいちです。',
+        en: 'Use the ON/OFF Auto Input toggle above the table section to enable automation. Since this is still experimental, accuracy is not great.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-10_jp.png',
+      title: { jp: '上書きトグル', en: 'Overwrite Toggle' },
+      text: {
+        jp: 'デフォルトでは自動入力は手入力されたセルを上書きしません。上書きをONにすると手入力値も上書きされるようになります。',
+        en: 'Manually entered values will not be overwritten by default. Turning Overwrite ON allows automation to replace manual inputs as well.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-10_jp.png',
+      title: { jp: 'フレームメーター', en: 'Frame Meter' },
+      text: {
+        jp: 'Ver.1.0.3で暫定版のフレームメーター生成機能が追加されました。まだ試験段階なので、抜けや誤りが多いです。',
+        en: 'In Ver.1.0.3, a preliminary version of the frame meter generation feature was added. Since this is still experimental, there may be missing or incorrect meter.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-10_jp.png',
+      title: { jp: '入力補助の追加', en: 'Notation/Input Additions' },
+      text: {
+        jp: 'ディレイやヒット数を指定できるように、F と Hit、ブランカ人形やJPの爆発等用のアイコンを追加しました。',
+        en: 'Added F and Hit notation helpers to enable specifying delays and hit counts as well as icon for explosions for Blanka, JP, and other characters.',
       },
     },
   ],
@@ -704,6 +767,14 @@ const CHARACTER_ART_PRESETS = {
     "shift": "22%",
     "shiftx": "-10%"
   },
+  "alex": {
+    "top": "calc(1px - min(4.16667vw, 80px))",
+    "left": "calc(50% - min(34.375vw, 660px))",
+    "width": "min(63.0208vw, 1210px)",
+    "height": "min(80.7292vw, 1550px)",
+    "shift": "8%",
+    "shiftx": "-4%"
+  },
   "ed": {
     "top": "calc(1px - min(5.20833vw, 130px))",
     "left": "calc(50% - min(40.625vw, 780px))",
@@ -776,7 +847,8 @@ const CHARACTER_ART_DEFAULT = {
   shiftX: '0%'
 };
 
-const CHARACTER_ORDER = Object.keys(CHARACTER_ART_PRESETS);
+// Keep legacy select-thumb numbering stable; Alex uses CHARACTER_SELECT_SPECIAL.
+const CHARACTER_ORDER = Object.keys(CHARACTER_ART_PRESETS).filter((slug) => slug !== 'alex');
 const CHARACTER_SELECT_SPECIAL = {
   gouki_akuma: {
     jp: 'assets/images/characters/select_character22_gouki_over.png',
@@ -786,6 +858,7 @@ const CHARACTER_SELECT_SPECIAL = {
     jp: 'assets/images/characters/select_character23_vega_over.png',
     en: 'assets/images/characters/select_character23_over.png'
   },
+  alex: 'assets/images/characters/select_character29_over.png',
   jp: 'assets/images/characters/select_character15_over.png',
   deejay: 'assets/images/characters/select_character12_over.png',
   marisa: 'assets/images/characters/select_character14_over.png',
@@ -1370,14 +1443,16 @@ const I18N_CORE = {
     'tutorial.help': '\u30d8\u30eb\u30d7',
     'tutorial.slide.1.title': '\u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u3068\u64cd\u4f5c\u30e2\u30fc\u30c9',
     'tutorial.slide.1.text': '\u5de6\u4e0a\u306e\u30ad\u30e3\u30e9\u753b\u50cf\u304b\u3089\u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u3092\u9078\u3073\u3001Classic / Modern \u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002',
-    'tutorial.slide.2.title': '\u5165\u529b\u65b9\u6cd5\u3092\u9078\u629e',
-    'tutorial.slide.2.text': '\u5de6\u4e0b\u306e\u30d7\u30eb\u30c0\u30a6\u30f3\u30e1\u30cb\u30e5\u30fc\u3067\u5165\u529b\u30c7\u30d0\u30a4\u30b9\u3092\u9078\u3073\u3001\u300c\u65b0\u898f\u300d\u3092\u30af\u30ea\u30c3\u30af\u3057\u3066\u884c\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002',
-    'tutorial.slide.3.title': '\u30b3\u30de\u30f3\u30c9\u5165\u529b',
-    'tutorial.slide.3.text': '\u30b3\u30de\u30f3\u30c9\u6b04\u3092\u9078\u629e\u3057\u3066\u30b3\u30f3\u30dc\u3092\u5165\u529b\u3057\u307e\u3059\u3002\u30dc\u30bf\u30f3\u8868\u793a\u306f\u81ea\u52d5\u66f4\u65b0\u3055\u308c\u307e\u3059\u3002',
-    'tutorial.slide.4.title': '\u691c\u7d22\u3068\u7d5e\u308a\u8fbc\u307f',
-    'tutorial.slide.4.text': '\u691c\u7d22\u306f\u5168\u4f53\u304b\u3089\u63a2\u3059\u3068\u304d\u306b\u4f7f\u7528\u3057\u3001\u8a73\u7d30\u691c\u7d22\u3067\u306f\u8907\u6570\u6761\u4ef6\u3084\u7bc4\u56f2\u3092\u6307\u5b9a\u3057\u3066\u7d5e\u308a\u8fbc\u3081\u307e\u3059\u3002',
-    'tutorial.slide.5.title': '\u30a4\u30f3\u30dd\u30fc\u30c8\u3068\u30a8\u30af\u30b9\u30dd\u30fc\u30c8',
-    'tutorial.slide.5.text': 'IMPORT/EXPORT \u304b\u3089\u30c7\u30fc\u30bf\u3092\u53d6\u308a\u8fbc\u307f\u30fb\u66f8\u304d\u51fa\u3057\u3067\u304d\u307e\u3059\u3002JSON/XLSX\u3067\u5b9a\u671f\u7684\u306b\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
+    'tutorial.slide.2.title': '\u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u3068\u64cd\u4f5c\u30e2\u30fc\u30c9',
+    'tutorial.slide.2.text': '\u5de6\u4e0a\u306e\u30ad\u30e3\u30e9\u753b\u50cf\u304b\u3089\u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u3092\u9078\u3073\u3001Classic / Modern \u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002',
+    'tutorial.slide.3.title': '\u5165\u529b\u65b9\u6cd5\u3092\u9078\u629e',
+    'tutorial.slide.3.text': '\u5de6\u4e0b\u306e\u30d7\u30eb\u30c0\u30a6\u30f3\u30e1\u30cb\u30e5\u30fc\u3067\u5165\u529b\u30c7\u30d0\u30a4\u30b9\u3092\u9078\u3073\u3001\u300c\u65b0\u898f\u300d\u3092\u30af\u30ea\u30c3\u30af\u3057\u3066\u884c\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002',
+    'tutorial.slide.4.title': '\u30b3\u30de\u30f3\u30c9\u5165\u529b',
+    'tutorial.slide.4.text': '\u30b3\u30de\u30f3\u30c9\u6b04\u3092\u9078\u629e\u3057\u3066\u30b3\u30f3\u30dc\u3092\u5165\u529b\u3057\u307e\u3059\u3002\u30dc\u30bf\u30f3\u8868\u793a\u306f\u81ea\u52d5\u66f4\u65b0\u3055\u308c\u307e\u3059\u3002',
+    'tutorial.slide.5.title': '\u691c\u7d22\u3068\u7d5e\u308a\u8fbc\u307f',
+    'tutorial.slide.5.text': '\u691c\u7d22\u306f\u5168\u4f53\u304b\u3089\u63a2\u3059\u3068\u304d\u306b\u4f7f\u7528\u3057\u3001\u8a73\u7d30\u691c\u7d22\u3067\u306f\u8907\u6570\u6761\u4ef6\u3084\u7bc4\u56f2\u3092\u6307\u5b9a\u3057\u3066\u7d5e\u308a\u8fbc\u3081\u307e\u3059\u3002',
+    'tutorial.slide.6.title': '\u30a4\u30f3\u30dd\u30fc\u30c8\u3068\u30a8\u30af\u30b9\u30dd\u30fc\u30c8',
+    'tutorial.slide.6.text': 'IMPORT/EXPORT \u304b\u3089\u30c7\u30fc\u30bf\u3092\u53d6\u308a\u8fbc\u307f\u30fb\u66f8\u304d\u51fa\u3057\u3067\u304d\u307e\u3059\u3002JSON/XLSX\u3067\u5b9a\u671f\u7684\u306b\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002',
     'help.title': 'HELP',
     'help.description': 'Lab Monster SF6 の使い方',
     'help.main_title': 'Lab Monster SF6 - 利用ガイド',
@@ -1389,6 +1464,7 @@ const I18N_CORE = {
     'help.tab.roadmap': '今後の予定',
     'help.group.frame': 'フレームデータ',
     'help.group.combo': 'コンボリスト',
+    'help.group.analysis': '分析機能（予定）',
     'help.howto.heading': '機能別ワークフロー',
     'help.howto.frame_compare': 'フレームデータ比較',
     'help.howto.combo_entry': 'コンボ入力',
@@ -1529,14 +1605,16 @@ const I18N_CORE = {
     'tutorial.help': 'Help',
     'tutorial.slide.1.title': 'Choose Character and Mode',
     'tutorial.slide.1.text': 'Select a character from the portrait on the top left, then choose Classic or Modern mode.',
-    'tutorial.slide.2.title': 'Choose Input Method',
-    'tutorial.slide.2.text': 'Choose input device from the pulldown menu on the bottom left, then click Create to add a new row.',
-    'tutorial.slide.3.title': 'Enter Commands',
-    'tutorial.slide.3.text': 'Select a Command field and enter the combo. Button icons update automatically.',
-    'tutorial.slide.4.title': 'Search and Filter',
-    'tutorial.slide.4.text': 'Use Search for broad lookup or Advanced Search to specify multiple conditions and/or ranges.',
-    'tutorial.slide.5.title': 'Importing and Exporting',
-    'tutorial.slide.5.text': 'Import/export data from IMPORT/EXPORT. Keep regular backups in JSON/XLSX.',
+    'tutorial.slide.2.title': 'Toggle Automation/Overwrite',
+    'tutorial.slide.2.text': 'Beta version of auto-calculation and auto-fill can be turned ON/OFF. It does not overwrite manually entered data, but you can toggle overwriting manual inputs.',
+    'tutorial.slide.3.title': 'Choose Input Method',
+    'tutorial.slide.3.text': 'Choose input device from the pulldown menu on the bottom left, then click Create to add a new row.',
+    'tutorial.slide.4.title': 'Enter Commands',
+    'tutorial.slide.4.text': 'Select a Command field and enter the combo. Button icons update automatically.',
+    'tutorial.slide.5.title': 'Search and Filter',
+    'tutorial.slide.5.text': 'Use Search for broad lookup or Advanced Search to specify multiple conditions and/or ranges.',
+    'tutorial.slide.6.title': 'Importing and Exporting',
+    'tutorial.slide.6.text': 'Import/export data from IMPORT/EXPORT. Keep regular backups in JSON/XLSX.',
     'help.title': 'HELP',
     'help.description': 'How to use Lab Monster SF6.',
     'help.main_title': 'Lab Monster SF6 - Usage Guide',
@@ -1548,6 +1626,7 @@ const I18N_CORE = {
     'help.tab.roadmap': "What's Next",
     'help.group.frame': 'Frame Data',
     'help.group.combo': 'Combo List',
+    'help.group.analysis': 'Analysis (Planned)',
     'help.howto.heading': 'Function-Based Workflows',
     'help.howto.frame_compare': 'Frame Data Compare',
     'help.howto.combo_entry': 'Combo Entry',
@@ -2050,6 +2129,9 @@ function closeUpdateOverlay() {
   if (!overlay) return;
   overlay.classList.add('hidden');
   overlay.setAttribute('aria-hidden', 'true');
+  window.setTimeout(() => {
+    maybeShowAutomationUpdateTutorial();
+  }, 0);
 }
 
 function resetUpdateOverlayLayout() {
@@ -2249,6 +2331,64 @@ function setLastSeenAppVersion(version) {
   try {
     localStorage.setItem(LAST_SEEN_VERSION_KEY, String(version || '').trim());
   } catch { /* ignore localStorage write failures */ }
+}
+
+function getAutomationTutorialSeenVersion() {
+  try {
+    return String(localStorage.getItem(TUTORIAL_AUTOMATION_UPDATE_SEEN_KEY) || '').trim();
+  } catch {
+    return '';
+  }
+}
+
+function setAutomationTutorialSeenVersion(version) {
+  try {
+    localStorage.setItem(TUTORIAL_AUTOMATION_UPDATE_SEEN_KEY, String(version || '').trim());
+  } catch { /* ignore localStorage write failures */ }
+}
+
+function scheduleAutomationTutorialRetry() {
+  if (!automationTutorialEligibleThisLaunch) return;
+  if (automationTutorialRetryTimer) return;
+  automationTutorialRetryTimer = window.setTimeout(() => {
+    automationTutorialRetryTimer = null;
+    maybeShowAutomationUpdateTutorial();
+  }, 250);
+}
+
+function maybeShowAutomationUpdateTutorial() {
+  let tutorialSeen = false;
+  try {
+    tutorialSeen = localStorage.getItem(TUTORIAL_FIRST_RUN_KEY) === '1';
+  } catch { /* ignore */ }
+  if (!tutorialSeen) return;
+  if (!automationTutorialEligibleThisLaunch) return;
+  if (getAutomationTutorialSeenVersion() === APP_VERSION) {
+    automationTutorialEligibleThisLaunch = false;
+    return;
+  }
+
+  if (
+    isOverlayVisible('onboardingOverlay')
+    || isOverlayVisible('welcomeOverlay')
+    || isOverlayVisible('tutorialOverlay')
+    || isOverlayVisible('updateOverlay')
+    || isOverlayVisible('charSelectOverlay')
+  ) {
+    scheduleAutomationTutorialRetry();
+    return;
+  }
+
+  if (automationTutorialRetryTimer) {
+    window.clearTimeout(automationTutorialRetryTimer);
+    automationTutorialRetryTimer = null;
+  }
+  setAutomationTutorialSeenVersion(APP_VERSION);
+  automationTutorialEligibleThisLaunch = false;
+  openTutorialOverlay({
+    flow: AUTOMATION_TUTORIAL_FLOW_KEY,
+    startIndex: 0,
+  });
 }
 
 function normalizeMainView(value) {
@@ -2677,6 +2817,9 @@ function closeWelcomeOverlay({ markSeen = false } = {}) {
   if (markSeen) setLastSeenAppVersion(APP_VERSION);
   overlay.classList.add('hidden');
   overlay.setAttribute('aria-hidden', 'true');
+  window.setTimeout(() => {
+    maybeShowAutomationUpdateTutorial();
+  }, 0);
 }
 
 async function maybeShowWelcomePopup() {
@@ -3871,6 +4014,7 @@ const TUTORIAL_FLOW_IMAGE_PREFIXES = {
   'import-target': ['5'],
   'xlsx-map': ['5'],
   'export-flow': ['9'],
+  'automation-2': ['10'],
   'hotkey-customize': ['7'],
   'frame-view': ['6'],
   'import-notation': ['8'],
@@ -4338,7 +4482,12 @@ function initCharacterSelect() {
   const closeBtn = document.getElementById('charSelectClose');
   const grid = overlay ? overlay.querySelector('.char-grid') : null;
   const open = () => overlay.classList.remove('hidden');
-  const close = () => overlay.classList.add('hidden');
+  const close = () => {
+    overlay.classList.add('hidden');
+    window.setTimeout(() => {
+      maybeShowAutomationUpdateTutorial();
+    }, 0);
+  };
   if (openBtn) openBtn.addEventListener('click', open);
   if (closeBtn) closeBtn.addEventListener('click', close);
   if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay || e.target.classList.contains('overlay-bg')) close(); });

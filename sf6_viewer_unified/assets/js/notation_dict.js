@@ -17,7 +17,7 @@
     'forwarddash', 'backdash', 'fdash', 'bdash', 'fjump', 'bjump', 'd/b', 'd/f', 'dd', 'c.', 'cr.',
   ]);
   const UTILITY_TOKENS = new Set([
-    '投げ', 'THROW', 'JUMP', 'HOLD', 'ANY', 'DP', 'DI', 'DR', 'CR', 'OR', '>', '>>', '-', '[]',
+    '投げ', 'THROW', 'JUMP', 'HOLD', 'HOLD2', 'HOLD3', 'BOMB', 'ANY', 'DP', 'DI', 'DR', 'CR', 'OR', '>', '>>', '-', '[]',
   ]);
   const KNOWN_LM_KEYWORDS = new Set([
     ...Array.from(ATTACK_TOKENS),
@@ -26,7 +26,7 @@
   ]);
   const PROTECTED_USER_ALIAS_KEYS = new Set([
     'lp', 'mp', 'hp', 'lk', 'mk', 'hk', 'pp', 'kk', 'p', 'k', 'l', 'm', 'h',
-    'sp', 'auto', 'jump', 'hold', 'any', 'throw',
+    'sp', 'auto', 'jump', 'hold', 'hold2', 'hold3', 'bomb', 'any', 'throw',
     'dp', 'di', 'dr', 'cr', 'or',
     '[]', '-', '>', '>>',
     '1', '2', '3', '4', '5', '6', '7', '8', '9',

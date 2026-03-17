@@ -34,7 +34,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 17,
+                "HitStun": 16,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -49,7 +49,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 17,
+                "MoveTime": 16,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -264,7 +264,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 19,
+                "HitStun": 18,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -279,7 +279,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 19,
+                "MoveTime": 18,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -379,7 +379,7 @@
                 "FocusTgt": -2000,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 21,
+                "HitStun": 20,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -394,7 +394,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 21,
+                "MoveTime": 20,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -611,7 +611,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 17,
+                "HitStun": 16,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -626,7 +626,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 17,
+                "MoveTime": 16,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -726,7 +726,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 17,
+                "HitStun": 16,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -741,7 +741,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 17,
+                "MoveTime": 16,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -956,7 +956,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 17,
+                "HitStun": 16,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -971,7 +971,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 17,
+                "MoveTime": 16,
                 "MoveType": 23,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -1531,7 +1531,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 19,
+                "HitStun": 18,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -1546,7 +1546,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 19,
+                "MoveTime": 18,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -1646,7 +1646,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 19,
+                "HitStun": 18,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -1661,7 +1661,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 19,
+                "MoveTime": 18,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -1876,7 +1876,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 19,
+                "HitStun": 18,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -1891,7 +1891,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 19,
+                "MoveTime": 18,
                 "MoveType": 23,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -1991,7 +1991,7 @@
                 "FocusTgt": -2000,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 21,
+                "HitStun": 20,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -2006,7 +2006,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 21,
+                "MoveTime": 20,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -2106,7 +2106,7 @@
                 "FocusTgt": -2000,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 21,
+                "HitStun": 20,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -2121,7 +2121,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 21,
+                "MoveTime": 20,
                 "MoveType": 0,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -2336,7 +2336,7 @@
                 "FocusTgt": -2000,
                 "HitStopOwner": 9,
                 "HitStopTarget": 9,
-                "HitStun": 21,
+                "HitStun": 20,
                 "Hitmark": 2,
                 "HitmarkDirX": 0,
                 "HitmarkDirY": 0,
@@ -2351,7 +2351,7 @@
                     "x": 40,
                     "y": 0
                 },
-                "MoveTime": 21,
+                "MoveTime": 20,
                 "MoveType": 23,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -34576,7 +34576,7 @@
             "0": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -34592,7 +34592,7 @@
                 "DmgValue": 900,
                 "DmgValue0": 0,
                 "DmgVari": 2,
-                "DownTime": 7,
+                "DownTime": 10,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -34604,7 +34604,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
+                "HitStopOwner": 13,
                 "HitStopTarget": 13,
                 "HitStun": 20,
                 "Hitmark": 1,
@@ -34681,7 +34681,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -34691,7 +34691,7 @@
             "1": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -34796,7 +34796,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -34806,7 +34806,7 @@
             "2": {
                 "ArmorPoint": 0,
                 "Attr0": 0,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -34821,8 +34821,8 @@
                 "DmgType": 6,
                 "DmgValue": 1080,
                 "DmgValue0": 0,
-                "DmgVari": 2,
-                "DownTime": 7,
+                "DmgVari": 0,
+                "DownTime": 26,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -34834,8 +34834,8 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
-                "HitStopTarget": 13,
+                "HitStopOwner": 16,
+                "HitStopTarget": 16,
                 "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 0,
@@ -34911,7 +34911,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": false,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35036,7 +35036,7 @@
             "4": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35141,7 +35141,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35153,7 +35153,7 @@
             "00": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35169,7 +35169,7 @@
                 "DmgValue": 900,
                 "DmgValue0": 0,
                 "DmgVari": 2,
-                "DownTime": 7,
+                "DownTime": 10,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -35181,7 +35181,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
+                "HitStopOwner": 13,
                 "HitStopTarget": 13,
                 "HitStun": 20,
                 "Hitmark": 1,
@@ -35258,7 +35258,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35268,7 +35268,7 @@
             "01": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35284,7 +35284,7 @@
                 "DmgValue": 900,
                 "DmgValue0": 0,
                 "DmgVari": 2,
-                "DownTime": 7,
+                "DownTime": 10,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -35296,7 +35296,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
+                "HitStopOwner": 13,
                 "HitStopTarget": 13,
                 "HitStun": 20,
                 "Hitmark": 1,
@@ -35373,7 +35373,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35498,7 +35498,7 @@
             "03": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35514,7 +35514,7 @@
                 "DmgValue": 900,
                 "DmgValue0": 0,
                 "DmgVari": 2,
-                "DownTime": 7,
+                "DownTime": 10,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -35526,7 +35526,7 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
+                "HitStopOwner": 13,
                 "HitStopTarget": 13,
                 "HitStun": 20,
                 "Hitmark": 1,
@@ -35603,7 +35603,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35613,7 +35613,7 @@
             "04": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35718,7 +35718,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35728,7 +35728,7 @@
             "05": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35833,7 +35833,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35843,7 +35843,7 @@
             "06": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -35948,7 +35948,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -35958,7 +35958,7 @@
             "07": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -36063,7 +36063,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -36073,7 +36073,7 @@
             "08": {
                 "ArmorPoint": 0,
                 "Attr0": 0,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -36088,8 +36088,8 @@
                 "DmgType": 6,
                 "DmgValue": 1080,
                 "DmgValue0": 0,
-                "DmgVari": 2,
-                "DownTime": 7,
+                "DmgVari": 0,
+                "DownTime": 26,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -36101,8 +36101,8 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
-                "HitStopTarget": 13,
+                "HitStopOwner": 16,
+                "HitStopTarget": 16,
                 "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 0,
@@ -36178,7 +36178,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": false,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -36188,7 +36188,7 @@
             "09": {
                 "ArmorPoint": 0,
                 "Attr0": 0,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -36203,8 +36203,8 @@
                 "DmgType": 6,
                 "DmgValue": 1080,
                 "DmgValue0": 0,
-                "DmgVari": 2,
-                "DownTime": 7,
+                "DmgVari": 0,
+                "DownTime": 26,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -36216,8 +36216,8 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
-                "HitStopTarget": 13,
+                "HitStopOwner": 16,
+                "HitStopTarget": 16,
                 "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 0,
@@ -36293,7 +36293,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": false,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -36418,7 +36418,7 @@
             "11": {
                 "ArmorPoint": 0,
                 "Attr0": 0,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -36433,8 +36433,8 @@
                 "DmgType": 18,
                 "DmgValue": 1080,
                 "DmgValue0": 0,
-                "DmgVari": 2,
-                "DownTime": 7,
+                "DmgVari": 0,
+                "DownTime": 26,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -36446,8 +36446,8 @@
                 "FloorTime": 0,
                 "FocusOwn": 3000,
                 "FocusTgt": 0,
-                "HitStopOwner": 10,
-                "HitStopTarget": 13,
+                "HitStopOwner": 16,
+                "HitStopTarget": 16,
                 "HitStun": 20,
                 "Hitmark": 1,
                 "HitmarkDirX": 0,
@@ -36523,7 +36523,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": false,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -36993,7 +36993,7 @@
             "16": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -37098,7 +37098,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -37108,7 +37108,7 @@
             "17": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -37213,7 +37213,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -37223,7 +37223,7 @@
             "18": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -37328,7 +37328,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -37338,7 +37338,7 @@
             "19": {
                 "ArmorPoint": 0,
                 "Attr0": 1,
-                "Attr1": 0,
+                "Attr1": 64,
                 "Attr2": 0,
                 "Attr3": 8,
                 "BoundDest": 0,
@@ -37443,7 +37443,7 @@
                 "_no_gauge_gain": false,
                 "_no_hit_stop": false,
                 "_no_kezu_death": false,
-                "_no_rolling": false,
+                "_no_rolling": true,
                 "_no_zu": true,
                 "_nrm_catch": false,
                 "_poison_burst": false,
@@ -138334,8 +138334,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -138564,8 +138564,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -138679,8 +138679,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -138911,8 +138911,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -139026,8 +139026,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -139141,8 +139141,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -139256,8 +139256,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -139831,8 +139831,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -139946,8 +139946,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -140061,8 +140061,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -140176,8 +140176,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -140291,8 +140291,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -140406,8 +140406,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -140521,8 +140521,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -140636,8 +140636,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -144096,8 +144096,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -144326,8 +144326,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -144441,8 +144441,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -144673,8 +144673,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -144788,8 +144788,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -144903,8 +144903,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -145018,8 +145018,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -145593,8 +145593,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -145708,8 +145708,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -145823,8 +145823,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -145938,8 +145938,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -146053,8 +146053,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -146168,8 +146168,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -146283,8 +146283,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 13,
@@ -146398,8 +146398,8 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 160,
-                    "y": 35
+                    "x": 140,
+                    "y": 30
                 },
                 "MoveTime": 15,
                 "MoveType": 23,
@@ -184410,7 +184410,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -184430,7 +184430,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -184525,7 +184525,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -184640,7 +184640,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -184660,7 +184660,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -184755,7 +184755,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -184775,7 +184775,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -184870,7 +184870,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -184987,7 +184987,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185007,7 +185007,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -185102,7 +185102,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185122,7 +185122,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -185217,7 +185217,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185237,7 +185237,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -185332,7 +185332,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185352,7 +185352,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -185447,7 +185447,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185562,7 +185562,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185677,7 +185677,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185792,7 +185792,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185907,7 +185907,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -185927,7 +185927,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186022,7 +186022,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186042,7 +186042,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186137,7 +186137,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186157,7 +186157,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186252,7 +186252,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186272,7 +186272,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186367,7 +186367,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186387,7 +186387,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186482,7 +186482,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186502,7 +186502,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186597,7 +186597,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186617,7 +186617,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186712,7 +186712,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186732,7 +186732,7 @@
                 "JuggleAdd": 0,
                 "JuggleLimit": 10,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 50,
                     "y": -100
                 },
                 "MoveTime": 5,
@@ -186827,7 +186827,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -186942,7 +186942,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -187057,7 +187057,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -187172,7 +187172,7 @@
                 "Ext0": 0,
                 "Ext1": 0,
                 "FloorDest": {
-                    "x": 40,
+                    "x": 50,
                     "y": 50
                 },
                 "FloorTime": 29,
@@ -198809,7 +198809,7 @@
                 "DmgValue": 1200,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -198924,7 +198924,7 @@
                 "DmgValue": 300,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -199039,7 +199039,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199154,7 +199154,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199269,7 +199269,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -199386,7 +199386,7 @@
                 "DmgValue": 1200,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199501,7 +199501,7 @@
                 "DmgValue": 1200,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199616,7 +199616,7 @@
                 "DmgValue": 1200,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199731,7 +199731,7 @@
                 "DmgValue": 1200,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -199846,7 +199846,7 @@
                 "DmgValue": 300,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -199961,7 +199961,7 @@
                 "DmgValue": 300,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -200076,7 +200076,7 @@
                 "DmgValue": 300,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -200191,7 +200191,7 @@
                 "DmgValue": 300,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -200306,7 +200306,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200421,7 +200421,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200536,7 +200536,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200651,7 +200651,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200766,7 +200766,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200881,7 +200881,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -200996,7 +200996,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -201111,7 +201111,7 @@
                 "DmgValue": 1440,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -201226,7 +201226,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -201341,7 +201341,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -201456,7 +201456,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -201571,7 +201571,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -204571,7 +204571,7 @@
                 "DmgValue": 1400,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -204686,7 +204686,7 @@
                 "DmgValue": 350,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -204801,7 +204801,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -204916,7 +204916,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -205031,7 +205031,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -205148,7 +205148,7 @@
                 "DmgValue": 1400,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -205263,7 +205263,7 @@
                 "DmgValue": 1400,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -205378,7 +205378,7 @@
                 "DmgValue": 1400,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -205493,7 +205493,7 @@
                 "DmgValue": 1400,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -205608,7 +205608,7 @@
                 "DmgValue": 350,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -205723,7 +205723,7 @@
                 "DmgValue": 350,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -205838,7 +205838,7 @@
                 "DmgValue": 350,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -205953,7 +205953,7 @@
                 "DmgValue": 350,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -206068,7 +206068,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206183,7 +206183,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206298,7 +206298,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206413,7 +206413,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206528,7 +206528,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206643,7 +206643,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206758,7 +206758,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206873,7 +206873,7 @@
                 "DmgValue": 1680,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 2,
@@ -206988,7 +206988,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -207103,7 +207103,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -207218,7 +207218,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,
@@ -207333,7 +207333,7 @@
                 "DmgValue": 0,
                 "DmgValue0": 0,
                 "DmgVari": -1,
-                "DownTime": 7,
+                "DownTime": 1,
                 "DriveJust": 65535,
                 "DriveNorm": 65535,
                 "Ext0": 0,

@@ -1,6 +1,46 @@
 {
-  "current_version": "1.0.2",
+  "current_version": "1.0.3",
   "updates": [
+    {
+      "version": "1.0.3",
+      "date": "2026-03-17",
+      "important": true,
+      "tags": [
+        "Help",
+        "UX",
+        "UI",
+        "Automation",
+        "Frame Meter"
+      ],
+      "items": {
+        "jp": [
+          "Added Alex.",
+          "Added 2025.03.17 frame table",
+          "Improved performance for large combo lists (hundreds of entries).",
+          "Added fields for opponent state after combo and side change.",
+          "Added Frame and Hits icons to the input to cover more edge cases.",
+          "Added prototype frame data auto-generation function.",
+          "Added prototype damage, carry/combo distance, advantage frames, opponent state after combo, safe jump, and side change auto-calculation/input function.",
+          "Added a function to lock manually entered fields from being overwritten.",
+          "Added fields for poison tick damage for AKI.",
+          "Added 'Explosion' for dolls, sprays, and JP.",
+          "Various UI/UX improvements."
+        ],
+        "en": [
+          "Added Alex.",
+          "Added 2025.03.17 frame table",
+          "Improved performance for large combo lists (hundreds of entries).",
+          "Added fields for opponent state after combo and side change.",
+          "Added Frame and Hits icons to the input to cover more edge cases.",
+          "Added prototype frame data auto-generation function.",
+          "Added prototype damage, carry/combo distance, advantage frames, opponent state after combo, safe jump, and side change auto-calculation/input function.",
+          "Added a function to lock manually entered fields from being overwritten.",
+          "Added fields for poison tick damage for AKI.",
+          "Added 'Explosion' for dolls, sprays, and JP.",
+          "Various UI/UX improvements."
+        ]
+      }
+    },
     {
       "version": "1.0.2",
       "date": "2026-03-05",

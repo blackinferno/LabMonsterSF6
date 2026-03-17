@@ -311,6 +311,14 @@
         "146": "958 SPA_CondorDive(1)",
         "154": "967 SPA_CondorDive_Wind(2)"
     },
+    "028": {
+        "033": "601 ATK_5LP_B",
+        "041": "617 ATK_2LP_B"
+    },
+    "029": {
+        "034": "602 ATK_5LP_C",
+        "038": "618 ATK_2LP_C"
+    },
     "032": {
         "050": "900 SPA_CondorWind_START",
         "051": "905 SPA_CondorWind_START(1)",

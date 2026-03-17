@@ -324,12 +324,6 @@
         "180": "923 SPA_CANNONSPIKE_AIR(6)",
         "186": "910 SPA_SPIRALARROW_END(4)"
     },
-    "035": {
-        "146": "1200 SPA_SPIRALARROW_END(5)",
-        "148": "1210 SA2_KILLERBEESPIN_START",
-        "156": "1231 SPA_SPIRALARROW_END(6)",
-        "160": "1241 SPA_SPIRALARROW_END(7)"
-    },
     "036": {
         "148": "1210 SA2_KILLERBEESPIN_START",
         "158": "1231 SPA_SPIRALARROW_END(6)",
@@ -358,6 +352,9 @@
         "032": "602 ATK_5LP(1)",
         "034": "620 ATK_2LP(1)",
         "035": "629 ATK_2LK_C"
+    },
+    "046": {
+        "039": "620 ATK_2LP(1)"
     },
     "048": {
         "117": "480 DPA_STD_START"

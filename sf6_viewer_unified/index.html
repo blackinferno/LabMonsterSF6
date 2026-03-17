@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/combo_view.css" />
 </head>
 
-<body data-theme="dark" data-lang="jp" data-version="1.0.2">
+<body data-theme="dark" data-lang="jp" data-version="1.0.3">
     <header id="mainHeader" class="site-header">
         <div class="site-header-inner">
             <div class="site-brand">
@@ -166,6 +166,28 @@
                                 height="23">
                         </li>
                     </ul>
+                    <div id="autoInputToggleWrap" class="combo-auto-input-toggles">
+                        <div class="combo-poison-toggle">
+                            <span id="toggleAutoInputLabel" class="combo-poison-toggle-label">自動入力</span>
+                            <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                aria-labelledby="toggleAutoInputLabel">
+                                <button type="button" id="toggleAutoInputOn" class="lang-btn combo-poison-toggle-btn"
+                                    aria-pressed="false">ON</button>
+                                <button type="button" id="toggleAutoInputOff"
+                                    class="lang-btn combo-poison-toggle-btn active" aria-pressed="true">OFF</button>
+                            </div>
+                        </div>
+                        <div class="combo-poison-toggle">
+                            <span id="toggleAutoInputOverwriteLabel" class="combo-poison-toggle-label">上書き</span>
+                            <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                aria-labelledby="toggleAutoInputOverwriteLabel">
+                                <button type="button" id="toggleAutoInputOverwriteOn"
+                                    class="lang-btn combo-poison-toggle-btn" aria-pressed="false">ON</button>
+                                <button type="button" id="toggleAutoInputOverwriteOff"
+                                    class="lang-btn combo-poison-toggle-btn active" aria-pressed="true">OFF</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <section id="comboSearchShell" class="search-container combo-search-shell"
                     style="position:absolute;left:610px;top:103px;right:20px;transform:translateY(-100%);z-index:40;">
@@ -373,8 +395,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="range-row" data-field="damage_poison_normal">
+                                                <span class="range-label">ダメージ<br>通常(毒)</span>
+                                                <div class="range-inputs">
+                                                    <input type="text" inputmode="numeric" class="range-exact"
+                                                        placeholder="exact">
+                                                    <div class="range-minmax">
+                                                        <input type="text" inputmode="numeric" class="range-min"
+                                                            placeholder="min">
+                                                        <span class="range-sep">～</span>
+                                                        <input type="text" inputmode="numeric" class="range-max"
+                                                            placeholder="max">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="range-row" data-field="damage_counter">
-                                                <span class="range-label">ダメージ<br>カウンター</span>
+                                                <span class="range-label">ダメージ<br>C</span>
                                                 <div class="range-inputs">
                                                     <input type="text" inputmode="numeric" class="range-exact"
                                                         placeholder="exact">
@@ -605,7 +641,7 @@
                                         style="font-family:Microsoft YaHei;font-size:11px;line-height:14px;">条件</span>
                                 </p>
                             </th>
-                            <th colspan="8" class="cell4">
+                            <th colspan="14" class="cell4">
                                 <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
                                         style="font-family:Yu Gothic;font-size:11px;line-height:13.5px;">ダメージ</span></p>
                             </th>
@@ -720,22 +756,40 @@
                                         style="font-family:Microsoft YaHei;">通常</span></p>
                             </td>
                             <td class="cell22">
-                                <p style="font-family:Yu Gothic;line-height:17.5px;"><span
-                                        style="font-family:Calibri;">C</span></p>
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">C</span></p>
                             </td>
                             <td class="cell22">
                                 <p style="font-family:Arial;"><span style="font-family:Calibri;">PC</span></p>
                             </td>
                             <td class="cell21">
                                 <p style="font-family:Arial;line-height:12px;"><span
+                                        style="font-family:Microsoft YaHei;">通常(毒)</span></p>
+                            </td>
+                            <td class="cell22">
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">C(毒)</span></p>
+                            </td>
+                            <td class="cell22">
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">PC(毒)</span></p>
+                            </td>
+                            <td class="cell21">
+                                <p style="font-family:Arial;line-height:12px;"><span
                                         style="font-family:Microsoft YaHei;">通常(CA)</span></p>
                             </td>
                             <td class="cell22">
-                                <p style="font-family:Yu Gothic;line-height:17.5px;"><span
-                                        style="font-family:Calibri;">C(CA)</span></p>
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">C(CA)</span></p>
                             </td>
                             <td class="cell22">
                                 <p style="font-family:Arial;"><span style="font-family:Calibri;">PC(CA)</span></p>
+                            </td>
+                            <td class="cell21">
+                                <p style="font-family:Arial;line-height:12px;"><span
+                                        style="font-family:Microsoft YaHei;">通常(毒/CA)</span></p>
+                            </td>
+                            <td class="cell22">
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">C(毒/CA)</span></p>
+                            </td>
+                            <td class="cell22">
+                                <p style="font-family:Arial;"><span style="font-family:Calibri;">PC(毒/CA)</span></p>
                             </td>
                             <td class="cell23">
                                 <p style="font-family:Arial;line-height:12px;"><span
@@ -2561,131 +2615,64 @@
                 </table>
                 <table style="position:absolute;left:368px;top:928px;width:277px;z-index:15;" id="Table4">
                     <tr>
-                        <td class="cell0">
-                            <p style="font-size:13px;line-height:16px;"><span
-                                    style="font-size:16px;line-height:18px;">&nbsp;</span></p>
-                        </td>
-                        <td class="cell1">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
+                        <td class="cell0"></td>
                         <td class="cell1"></td>
-                        </td>
-                        <td class="cell1">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell2">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
+                        <td class="cell1"></td>
+                        <td class="cell1"></td>
+                        <td class="cell1"></td>
+                        <td class="cell1"></td>
+                        <td class="cell1"></td>
+                        <td class="cell2"></td>
                     </tr>
                     <tr>
-                        <td class="cell4">
-                            <p style="font-size:13px;line-height:16px;"><span
-                                    style="font-size:16px;line-height:18px;">&nbsp;</span><span
-                                    style="font-family:Calibri;font-size:16px;line-height:19.5px;">LP</span></p>
-                        </td>
-                        <td class="cell5">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell5">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
-                        <td class="cell1"></td>
-                        </td>
-                        <td class="cell5">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell6">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
+                        <td class="cell4"></td>
+                        <td class="cell5"></td>
+                        <td class="cell5"></td>
+                        <td class="cell5"></td>
+                        <td class="cell5"></td>
+                        <td class="cell5"></td>
+                        <td class="cell5"></td>
+                        <td class="cell6"></td>
                     </tr>
                     <tr>
-                        <td class="cell8">
-                            <p style="font-size:13px;line-height:16px;"><span
-                                    style="font-size:16px;line-height:18px;">&nbsp;</span></p>
-                        </td>
-                        <td class="cell9">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell9">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
-                        <td class="cell1"></td>
-                        </td>
-                        <td class="cell9">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell10">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
+                        <td class="cell8"></td>
+                        <td class="cell9"></td>
+                        <td class="cell9"></td>
+                        <td class="cell9"></td>
+                        <td class="cell9"></td>
+                        <td class="cell9"></td>
+                        <td class="cell9"></td>
+                        <td class="cell10"></td>
                     </tr>
                     <tr>
-                        <td class="cell12">
-                            <p style="font-family:Arial;"><span style="font-family:Calibri;">L</span></p>
-                        </td>
-                        <td class="cell12">
-                            <p style="font-family:Arial;"><span style="font-family:Calibri;">M</span></p>
-                        </td>
-                        <td class="cell12">
-                            <p style="font-family:Arial;"><span style="font-family:Calibri;">H</span></p>
-                        </td>
-                        <td class="cell1">
-                        <td class="cell1"></td>
-                        </td>
-                        <td class="cell13">
-                            <p style="font-family:Arial;"><span style="font-family:Calibri;">Any</span></p>
-                        </td>
-                        <td class="cell14">
-                            <p style="font-family:Arial;font-size:11px;"><span
-                                    style="font-family:Yu Gothic;font-size:9.3px;"></span></p>
-                        </td>
+                        <td class="cell12"></td>
+                        <td class="cell12"></td>
+                        <td class="cell12"></td>
+                        <td class="cell12"></td>
+                        <td class="cell13"></td>
+                        <td class="cell13"></td>
+                        <td class="cell13"></td>
+                        <td class="cell14"></td>
                     </tr>
                     <tr>
-                        <td class="cell16">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell16">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell16">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
-                        <td class="cell1"></td>
-                        </td>
-                        <td class="cell16">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell17">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell16"></td>
+                        <td class="cell17"></td>
                     </tr>
                     <tr>
-                        <td class="cell19">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell19">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell19">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell1">
-                        <td class="cell1"></td>
-                        </td>
-                        <td class="cell19">
-                            <p style="font-size:13px;line-height:16px;">&nbsp;</p>
-                        </td>
-                        <td class="cell14">
-                            <p style="font-family:Arial;line-height:11px;"><span
-                                    style="font-family:Yu Gothic;">ドライブ</span><br /><span
-                                    style="font-family:Yu Gothic;">ラッシュ</span></p>
-                        </td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell19"></td>
+                        <td class="cell14"></td>
                     </tr>
                 </table>
                 <table style="position: absolute; left: 696px; top: 928px; width: 329px; height: 127px; z-index: 16;"
@@ -2781,8 +2768,8 @@
         <footer class="site-footer">
             <p>Unofficial reference built for lab work. All assets &copy; CAPCOM CO., LTD.</p>
             <div class="site-footer-meta">
-                <span id="footerAppVersionText">Tool Ver: 1.0.2</span>
-                <span id="footerGameVersionText">Game Ver: 2025.12.16</span>
+                <span id="footerAppVersionText">Tool Ver.: 1.0.3</span>
+                <span id="footerGameVersionText">Game Ver.: 2025.03.17</span>
             </div>
         </footer>
         <section class="site-view" data-view="help" id="helpView" aria-hidden="true">
@@ -2809,6 +2796,8 @@
                             Data</button>
                         <button type="button" data-help-target="help-feature-combo" data-i18n="help.group.combo">Combo
                             List</button>
+                        <button type="button" data-help-target="help-feature-analysis" data-i18n="help.group.analysis">
+                            Analysis (Planned)</button>
                     </nav>
                     <p class="help-view-heading" data-i18n="help.group.frame">Frame Data</p>
                     <section id="help-feature-frame" class="help-subcard">
@@ -2836,6 +2825,7 @@
                             <li>Comprehensive fields for conditions, damage variants, resources, carry, and post-combo
                                 state.</li>
                             <li>Multiline notes field for setup details and other memos.</li>
+                            <li>(Beta) Auto-generated damage inputs.</li>
                         </ul>
                         <h3>Editing / Maintenance Tools</h3>
                         <ul class="help-list-tight">
@@ -2844,6 +2834,7 @@
                             <li>Often used keyboard shortcuts (ex. Ctrl+C, Ctrl+V, Ctrl+Z) for efficient workflow.</li>
                             <li>Sortable headers/subheaders for quick data review.</li>
                             <li>Auto-generated button icons from command notation.</li>
+                            <li>(Beta) Auto-generated frame meter for reference.</li>
                         </ul>
                         <h3>View / Workflow Controls</h3>
                         <ul class="help-list-tight">
@@ -2869,10 +2860,26 @@
                             <li>Export to .xlsx, .html, and .json for backup or sharing.</li>
                             <li>Supports current context and all-character batch workflows.</li>
                         </ul>
-                        <h3>Automation (Planned)</h3>
+                        <h3>Automation (Beta)</h3>
                         <ul class="help-list-tight">
-                            <li>Auto-calculation and auto-fill support for selected metrics.</li>
+                            <li>Auto-calculation and auto-fill support for damages, distance, and other data.</li>
                             <li>Automatically change command and buttons based on the selected control mode.</li>
+                        </ul>
+                    </section>
+                    <p class="help-view-heading" data-i18n="help.group.analysis">Analysis (Planned)</p>
+                    <section id="help-feature-analysis" class="help-subcard">
+                        <h3>Combo Comparison</h3>
+                        <ul class="help-list-tight">
+                            <li>Function to compare selected combos.</li>
+                        </ul>
+                        <h3>Combo Tree</h3>
+                        <ul class="help-list-tight">
+                            <li>Function to visualize combos in a tree structure.</li>
+                        </ul>
+                        <h3>Report</h3>
+                        <ul class="help-list-tight">
+                            <li>Report on various metrics based on entered combos.</li>
+                            <li>Ex. Expected damage per starter.</li>
                         </ul>
                     </section>
                 </section>
@@ -2937,8 +2944,14 @@
                                 </ul>
                                 <h3 data-i18n="help.common.how_to_do">How To Do It</h3>
                                 <ol class="help-steps">
-                                    <li>Select character and mode from the portrait selector.</li>
-                                    <li>Enter route notation in <b>Command</b> (or use quick input/hotkeys).
+                                    <li>Select character from the portrait selector and click the desired control mode.
+                                    </li>
+                                    <li>Click <b>Auto Input</b> if you want the tool to generate damage and other fields
+                                        (Beta function). This will not overwrite manually input fields.</li>
+                                    <li>Click <b>Overwrite</b> if you want to allow the auto input to overwrite manually
+                                        input fields.</li>
+                                    <li>Enter route notation in <b>Command</b> using quick input/hotkeys (or copy &
+                                        paste).
                                     </li>
                                     <li>Fill required condition fields and numeric result fields.</li>
                                     <li>Add more specific setup or other details in <b>Notes</b> where needed.
@@ -3155,28 +3168,13 @@
                 </section>
                 <section id="help-notations" class="help-card help-tab-panel">
                     <nav class="help-subtoc" aria-label="Notation sections">
-                        <button type="button" data-help-target="help-notation-command"
-                            data-i18n="help.notation.command">Command Structure</button>
                         <button type="button" data-help-target="help-notation-symbols"
                             data-i18n="help.notation.symbols">Symbols / Tokens</button>
+                        <button type="button" data-help-target="help-notation-command"
+                            data-i18n="help.notation.command">Command Structure</button>
                         <button type="button" data-help-target="help-notation-examples"
                             data-i18n="help.notation.examples">Examples</button>
                     </nav>
-                    <section id="help-notation-command" class="help-subcard">
-                        <h3 data-i18n="help.notation.command">Command Structure</h3>
-                        <ul class="help-list-tight">
-                            <li>Use &quot;<strong>&gt;&quot;</strong> between move parts that are cancel extensions.
-                            </li>
-                            <li>Use &quot;<strong>&gt;&gt;&quot;</strong> between move parts that has gaps, not cancel
-                                extensions, or anything else that are not part of the &quot;combo&quot; like micro
-                                walks, set ups.
-                            </li>
-                            <li>Use &quot;-&quot; for target combos or follow-up options.</li>
-                            <li>Use consistent move notation for sorting, filtering, and icon conversion to work
-                                correctly.</li>
-                            <li>Air routes should include jump notation where required by your current format.</li>
-                        </ul>
-                    </section>
                     <section id="help-notation-symbols" class="help-subcard">
                         <h3 data-i18n="help.notation.symbols">Symbols / Tokens</h3>
                         <div class="help-definition-table-wrap">
@@ -3206,7 +3204,8 @@
                                         </td>
                                         <td><code>1/2/3/4/5/6/7/8/9</code></td>
                                         <td>Direction (numpad notation)</td>
-                                        <td>Relative to facing direction.</td>
+                                        <td>Assuming you are on the left side. It can also be used as numbers inside the
+                                            delay notation ("[]")</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -3220,7 +3219,7 @@
                                             data-help-jp-html="<code>2(タメ) / 4(タメ) / 360</code>"><code>2(Charge) /
                                                 4(Charge) / 360</code></td>
                                         <td>Charges / 360&nbsp;(numpad notation)</td>
-                                        <td>Relative to facing direction.</td>
+                                        <td>Assuming you are on the left side.</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -3245,11 +3244,12 @@
                                                 <img src="assets/images/icons/modern_l.png" alt="Modern light icon">
                                                 <img src="assets/images/icons/modern_m.png" alt="Modern medium icon">
                                                 <img src="assets/images/icons/modern_h.png" alt="Modern heavy icon">
+                                                <img src="assets/images/icons/key-all.png" alt="Any icon">
                                                 <img src="assets/images/icons/modern_sp.png" alt="Modern SP icon">
                                                 <img src="assets/images/icons/modern_auto.png" alt="Modern auto icon">
                                             </div>
                                         </td>
-                                        <td><code>L/M/H/SP/Auto</code></td>
+                                        <td><code>L/M/H/Any/SP/Auto</code></td>
                                         <td>Modern attack notation</td>
                                         <td>Use for attacks in Modern control. The tool is planned to distinguishes the
                                             use of SP button and full command (for damage calculation, etc.).</td>
@@ -3262,11 +3262,12 @@
                                                 <img src="assets/images/icons/modern_dl.png" alt="Modern DI icon">
                                                 <img src="assets/images/icons/modern_dr.png" alt="Modern DR icon">
                                                 <img src="assets/images/icons/modern_cr.png" alt="Modern CR icon">
+                                                <img src="assets/images/icons/jump.png" alt="Jump icon">
                                             </div>
                                         </td>
-                                        <td data-help-en-html="<code>Throw/DP/DI/DR/CR</code>"
-                                            data-help-jp-html="<code>投げ/DP/DI/DR/CR</code>">
-                                            <code>Throw/DP/DI/DR/CR</code>
+                                        <td data-help-en-html="<code>Throw/DP/DI/DR/CR/Jump</code>"
+                                            data-help-jp-html="<code>投げ/DP/DI/DR/CR/Jump</code>">
+                                            <code>Throw/DP/DI/DR/CR/Jump</code>
                                         </td>
                                         <td>Common tokens</td>
                                         <td>Common notation tokens. The tool does not recognize regular inputs like
@@ -3275,17 +3276,42 @@
                                     <tr>
                                         <td>
                                             <div class="help-token-icons">
-                                                <img src="assets/images/icons/jump.png" alt="Jump icon">
                                                 <img src="assets/images/icons/key-barrage.png" alt="Hold icon">
+                                                <img src="assets/images/icons/key-barrage2.png" alt="Hold2 icon">
+                                                <img src="assets/images/icons/key-barrage3.png" alt="Hold3 icon">
                                                 <img src="assets/images/icons/key-or.png" alt="Or icon">
-                                                <img src="assets/images/icons/key-all.png" alt="Any icon">
-                                                <img src="assets/images/icons/delay.png" alt="Delay icon">
                                             </div>
                                         </td>
-                                        <td><code>Jump/Hold/Or/Any/[ ]</code></td>
+                                        <td><code>Hold/Hold2/Hold3/Or</code></td>
                                         <td>Utility tokens</td>
-                                        <td>Used for jump state, hold, alternatives, wildcard, and frame-delay or other
-                                            timing notes.</td>
+                                        <td>Used for hold, holdLv2, holdLv3, and alternatives.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="help-token-icons">
+                                                <img src="assets/images/icons/delay.png" alt="Delay icon">
+                                                <img src="assets/images/icons/f.png" alt="F icon">
+                                                <img src="assets/images/icons/hit.png" alt="Hit icon">
+                                            </div>
+                                        </td>
+                                        <td><code>[ ]/F/Hit</code></td>
+                                        <td>Specifier tokens</td>
+                                        <td>Used for adding specifiers like delay frames and nth hit to cancel or number
+                                            of hits.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="help-token-icons">
+                                                <img src="assets/images/icons/bomb.png" alt="Bomb icon">
+                                            </div>
+                                        </td>
+                                        <td data-help-en-html="<code>BOMB</code>" data-help-jp-html="<code>BOMB</code>">
+                                            <code>BOMB</code>
+                                        </td>
+                                        <td>Special tokens</td>
+                                        <td>Used for indicating when explosions like Blanka's
+                                            dolls and JP's Departure hit. Explosions triggered with a move like AKI's
+                                            bloom and Baison's mine are already accounted for and do not need this.</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -3303,6 +3329,21 @@
                             </table>
                         </div>
                     </section>
+                    <section id="help-notation-command" class="help-subcard">
+                        <h3 data-i18n="help.notation.command">Command Structure</h3>
+                        <ul class="help-list-tight">
+                            <li>Use &quot;<strong>&gt;&quot;</strong> between move parts that are cancel extensions.
+                            </li>
+                            <li>Use &quot;<strong>&gt;&gt;&quot;</strong> between move parts that has gaps, or anything
+                                else that are not part of the &quot;combo&quot; like micro
+                                walks, set ups.
+                            </li>
+                            <li>Use &quot;-&quot; for target combos or follow-up options.</li>
+                            <li>Use consistent move notation for sorting, filtering, and icon conversion to work
+                                correctly.</li>
+                            <li>Air routes should include jump notation while in air.</li>
+                        </ul>
+                    </section>
                     <section id="help-notation-examples" class="help-subcard">
                         <h3 data-i18n="help.notation.examples">Examples</h3>
                         <ul class="help-list-tight">
@@ -3313,8 +3354,12 @@
                                 <code>Jump HK &gt; DR &gt; 2MP &gt; 214MP Hold &gt; SA3</code> (air starter into super)
                             </li>
                             <li>
-                                <code>DI &gt;&gt; 214MP &gt;&gt; HP - HP &gt; 236LP</code> (Drive Impact to set up and
+                                <code>DI &gt; 214MP &gt;&gt; HP - HP &gt; 236LP</code> (Drive Impact to set up and
                                 to the main combo)
+                            </li>
+                            <li>
+                                <code>2MP &gt; CR &gt; 2HP [1 Hit] &gt; 236HK - HK &gt; 2HP &gt; CR [4F] &gt; 2HP &gt; 623HP</code>
+                                (Combo that require specific hit counts and timing for the route to work)
                             </li>
                         </ul>
                     </section>
@@ -3725,6 +3770,10 @@
                     <li class="char-card" data-char="aki">
                         <img src="assets/images/characters/aki.png" alt="A.K.I." />
                         <span>A.K.I.</span>
+                    </li>
+                    <li class="char-card" data-char="alex">
+                        <img src="assets/images/characters/alex.png" alt="Alex" />
+                        <span>Alex</span>
                     </li>
                     <li class="char-card" data-char="blanka">
                         <img src="assets/images/characters/blanka.png" alt="Blanka" />

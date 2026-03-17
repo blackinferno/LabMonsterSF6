@@ -1,27 +1,14 @@
 {
     "PlData": {
-        "AdjustRatio": {
-            "Arm": 1.0,
-            "Height": 1.0,
-            "Leg": 1.0
-        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16416,
-        "ConvertRatio": {
-            "Arm": 1.0,
-            "Height": 1.0,
-            "Leg": 1.0
-        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
-        "FootRotMax": 0.0,
-        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.0,
         "Gauge": 30000,
-        "HeadHeight": 0,
         "MaxShotNum": 10,
         "MultiJumpCount": 0,
         "Physique": {
@@ -29,7 +16,9 @@
             "Height": 166.4197998046875,
             "Leg": 106.97279357910156
         },
-        "Priority0": 13,
+        "Priority0": 12,
+        "RecoverDrvJust": 10000,
+        "RecoverDrvNorm": 10000,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -124,7 +113,7 @@
                     "OffensiveScale": 100,
                     "TimeLimit": 0
                 },
-                "Entity": 22,
+                "Entity": 23,
                 "Facial": {
                     "Atck00FCE": {
                         "0": {
@@ -281,21 +270,51 @@
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 0
+                            "PartsID": 0,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         },
                         "1": {
                             "AttachTo": 0,
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 2
+                            "PartsID": 2,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         },
                         "2": {
                             "AttachTo": 0,
                             "IsON": true,
                             "JointHash": -1,
                             "MasterID": 0,
-                            "PartsID": 4
+                            "PartsID": 4,
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            }
                         }
                     },
                     "useCommon": false,
@@ -311,7 +330,7 @@
                 },
                 "Version": 200,
                 "_IsAction": false,
-                "_IsBasic": false,
+                "_IsBasic": true,
                 "_IsFacial": false,
                 "_IsMotion": true,
                 "_IsParts": false,
@@ -322,6 +341,19 @@
         "2": {
             "ParentStyleID": 0,
             "StyleData": {
+                "Basic": {
+                    "DefensiveScale": 100,
+                    "FluctuationSA": 0,
+                    "FocusRecoverIC": 50,
+                    "FocusRecoverICA": 20,
+                    "FocusRecoverNM": 40,
+                    "FocusRecoverNMA": 20,
+                    "GaugeGainRatio": 100,
+                    "LifeFluctuation": 0,
+                    "MoveSpeedScale": 100,
+                    "OffensiveScale": 100,
+                    "TimeLimit": 0
+                },
                 "Entity": 4,
                 "Motion": {
                     "AirNorm": {

@@ -552,6 +552,10 @@
     --combo-col-size: 60px;
     --combo-ui-reserve: 30px;
     --command-font-size: 13px;
+    --fat-frame-meter-startup: #17a075;
+    --fat-frame-meter-active: #ae165e;
+    --fat-frame-meter-recovery: #0d6898;
+    --fat-frame-meter-invalid: #4d4d4d;
 }
 
 #comboView,
@@ -703,15 +707,17 @@
 }
 
 #comboView #comboColumnTogglePanel {
-    position: absolute;
-    min-width: 240px;
-    max-width: 360px;
+    position: fixed;
+    min-width: 360px;
+    max-width: 720px;
+    max-height: min(72vh, 560px);
     padding: 10px 12px;
     border: 1px solid #333;
     border-radius: 8px;
     background: rgba(14, 14, 14, 0.98);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
-    z-index: 40;
+    z-index: 1400;
+    overflow-y: auto;
 }
 
 #comboView #comboColumnTogglePanel.hidden {
@@ -720,9 +726,9 @@
 
 #comboView #comboColumnTogglePanel .combo-col-panel-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px 12px;
-    max-height: 220px;
+    max-height: min(62vh, 500px);
     overflow: auto;
 }
 
@@ -764,6 +770,12 @@
 #comboView #comboTableHeader tr:nth-child(2) th,
 #comboView #comboTableHeader tr:nth-child(2) td {
     background: #1a1a1a;
+    border-bottom: 2px solid #5a5a5a;
+}
+
+/* Keep bottom divider thickness consistent for top-level headers without subheaders. */
+#comboView #comboTableHeader tr:nth-child(1) th[rowspan="2"],
+#comboView #comboTableHeader tr:nth-child(1) td[rowspan="2"] {
     border-bottom: 2px solid #5a5a5a;
 }
 
@@ -908,6 +920,11 @@
     padding: 0 !important;
     border: 0 !important;
     overflow: hidden !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    text-shadow: none !important;
+    visibility: hidden !important;
 }
 
 #comboView #Table1 .combo-hidden-col>* {
@@ -921,6 +938,11 @@
     padding: 0 !important;
     border: 0 !important;
     overflow: hidden !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    text-shadow: none !important;
+    visibility: hidden !important;
 }
 
 #comboView #comboTableHeader .combo-hidden-col>* {
@@ -1403,8 +1425,37 @@
     text-align: left !important;
 }
 
+/* Keep first-column labels consistent across initial/example and loaded rows. */
+#comboView #Table1 tbody tr td:first-child,
+#comboView #Table1 tbody tr td:first-child p,
+#comboView #Table1 tbody tr td:first-child span {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+}
+
+/* Keep body column 1 strictly inside its own width (no bleed into col 2+). */
+#comboView #Table1 tbody tr td:first-child {
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#comboView #Table1 tbody tr td:first-child p,
+#comboView #Table1 tbody tr td:first-child span {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 #comboView #Table1 tr.combo-group-row {
     height: auto;
+}
+
+#comboView #Table1 tr.combo-group-row td:nth-child(n+3) {
+    contain: paint;
 }
 
 #comboView #Table1 tr.combo-group-row td:nth-child(2),
@@ -1597,8 +1648,8 @@
 }
 
 #comboView #Table4 {
-    width: calc(var(--ui-cell-size) * 7) !important;
-    min-width: calc(var(--ui-cell-size) * 7) !important;
+    width: calc(var(--ui-cell-size) * 8) !important;
+    min-width: calc(var(--ui-cell-size) * 8) !important;
     height: auto !important;
 }
 
@@ -1780,6 +1831,11 @@
 #comboView #Table1 tbody td .cmd-input[data-field="command"] {
     font-size: var(--command-font-size, 12px) !important;
     line-height: 1.1 !important;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow: visible;
+    text-overflow: clip;
 }
 
 #comboView #Table1 tbody td .cmd-input[data-field="command"] * {
@@ -1808,10 +1864,235 @@
     cursor: default;
 }
 
+#comboView .frame-meter-wrap {
+    width: min(100%, var(--combo-command-col-width, 440px));
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    max-width: var(--combo-command-col-width, 440px);
+    box-sizing: border-box;
+}
+
+#comboView .frame-meter-hidden-input {
+    display: none !important;
+}
+
+#comboView .frame-meter-visual {
+    width: min(100%, var(--combo-command-col-width, 440px));
+    min-height: 26px;
+    min-width: 0;
+    max-width: var(--combo-command-col-width, 440px);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 0;
+    padding: 0;
+    border: 1px solid #000;
+    background: #0b0f14;
+    overflow: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #1f2733 #0b0f14;
+    user-select: none;
+    contain: layout paint style;
+    overflow-x: hidden;
+}
+
+#comboView #Table1 tr.combo-row-frame td p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: min(100%, var(--combo-command-col-width, 440px));
+    max-width: var(--combo-command-col-width, 440px);
+    min-width: 0;
+    overflow: hidden;
+}
+
+#comboView .frame-meter-empty {
+    color: #8d8d8d;
+    font-size: 11px;
+    line-height: 1;
+}
+
+#comboView .frame-meter-block {
+    min-width: 10px;
+    min-height: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    border: solid #000;
+    border-width: 2px 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 1;
+    color: transparent;
+    margin: 0;
+    contain: paint;
+}
+
+#comboView .frame-meter-startup {
+    background-color: var(--fat-frame-meter-startup);
+}
+
+#comboView .frame-meter-active {
+    background-color: var(--fat-frame-meter-active);
+}
+
+#comboView .frame-meter-recovery {
+    background-color: var(--fat-frame-meter-recovery);
+}
+
+#comboView .frame-meter-delay {
+    background-color: #0b0f14;
+    color: #f1f5f9;
+}
+
+#comboView .frame-meter-state-complete-invincible {
+    background: repeating-linear-gradient(0deg, #f8fafc 0 2px, #cfd4db 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#comboView .frame-meter-state-projectile-invincible {
+    background: repeating-linear-gradient(0deg, #f3a311 0 2px, #f8fafc 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#comboView .frame-meter-state-atk-projectile-invincible {
+    background-image:
+        repeating-linear-gradient(0deg, #d61f78 0 2px, #f8fafc 2px 4px),
+        repeating-linear-gradient(0deg, #f3a311 0 2px, #f8fafc 2px 4px);
+    background-size: 100% 50%, 100% 50%;
+    background-position: top left, bottom left;
+    background-repeat: no-repeat, no-repeat;
+    color: #111827;
+    text-shadow: none;
+}
+
+#comboView .frame-meter-state-atk-throw-invincible {
+    background: repeating-linear-gradient(0deg, #d61f78 0 2px, #f8fafc 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#comboView .frame-meter-state-projectile {
+    background: #f3a311;
+}
+
+#comboView .frame-meter-state-parry {
+    background: #7b2fb5;
+}
+
+#comboView .frame-meter-segment-end {
+    border-color: #f2f2f2;
+    padding: 0 2px;
+    font-size: 14px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#comboView .frame-meter-gap {
+    min-width: 10px;
+    min-height: 20px;
+    padding: 0 2px;
+    box-sizing: border-box;
+    border: solid #000;
+    border-width: 2px 1px;
+    background: var(--fat-frame-meter-invalid);
+    color: #f1f5f9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin: 0;
+}
+
+/* High-volume mode: reduce paint cost of frame meters on large datasets. */
+#comboView .frame-meter-visual.frame-meter-lite {
+    border-width: 1px;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-block,
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-gap {
+    border-width: 1px;
+    text-shadow: none;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-lite-segment {
+    min-width: 14px;
+    padding: 0 4px;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-state-complete-invincible {
+    background: #d7dbe2;
+    color: #111827;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-state-projectile-invincible {
+    background: #f3a311;
+    color: #111827;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-state-atk-throw-invincible {
+    background: #d61f78;
+    color: #111827;
+}
+
+#comboView .frame-meter-visual.frame-meter-lite .frame-meter-state-atk-projectile-invincible {
+    background: linear-gradient(to bottom, #d61f78 0 50%, #f3a311 50% 100%);
+    color: #111827;
+}
+
+body[data-theme="light"] #comboView .frame-meter-block {
+    border-color: #000;
+    color: transparent;
+    text-shadow: none;
+}
+
+body[data-theme="light"] #comboView .frame-meter-segment-end {
+    border-color: #f2f2f2;
+}
+
+/* In light mode, keep numeric labels visible on segment-end blocks. */
+body[data-theme="light"] #comboView .frame-meter-block.frame-meter-segment-end {
+    color: #ffffff;
+    text-shadow: -1px -1px 0 #0b0f14, 1px -1px 0 #0b0f14, -1px 1px 0 #0b0f14, 1px 1px 0 #0b0f14;
+}
+
+body[data-theme="light"] #comboView .frame-meter-state-complete-invincible {
+    color: #111827;
+    border-color: #000;
+}
+
+body[data-theme="light"] #comboView .frame-meter-visual {
+    border-color: #000;
+    background: #e2e8f0;
+    scrollbar-color: #94a3b8 #e2e8f0;
+}
+
+body[data-theme="light"] #comboView .frame-meter-gap {
+    border-color: #000;
+    background: #4d4d4d;
+    color: #f1f5f9;
+    text-shadow: none;
+    letter-spacing: 0;
+}
+
 #comboView .cmd-input[data-field="buttons"] {
     border: none;
     background: transparent;
     padding: 0 0 0 6px;
+    line-height: 1.45;
 }
 
 #comboView .cmd-input.cmd-active {
@@ -1860,6 +2141,7 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
 
 #comboView .cmd-input[data-field="buttons"] .btn-token {
     margin-right: 4px;
+    margin-bottom: 2px;
 }
 
 #comboView .cmd-input[data-field="buttons"] .btn-token:last-child {
@@ -2051,6 +2333,50 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
     display: none;
 }
 
+#comboView .combo-load-more-wrap {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    z-index: 32;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid #2f2f2f;
+    border-radius: 8px;
+    background: rgba(12, 12, 12, 0.88);
+}
+
+#comboView .combo-load-more-wrap.hidden {
+    display: none;
+}
+
+#comboView .combo-load-more-info {
+    font-size: 10px;
+    color: #bdbdbd;
+    white-space: nowrap;
+}
+
+#comboView .combo-load-more-btn {
+    border: 1px solid #3a3a3a;
+    background: #171717;
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    height: 26px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+#comboView .combo-load-more-btn:hover {
+    border-color: #f97306;
+}
+
+#comboView .combo-load-more-btn:disabled {
+    opacity: 0.75;
+    cursor: wait;
+}
+
 #comboView .combo-search-shell .combo-export-wrapper {
     position: relative;
     display: inline-flex;
@@ -2138,6 +2464,14 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
     inset: 0;
     background: rgba(0, 0, 0, 0.35);
     z-index: 9998;
+}
+
+.combo-loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 9998;
+    pointer-events: none;
 }
 
 #comboView .combo-search-shell .combo-export-menu.hidden {
@@ -2632,6 +2966,7 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
 #comboView .combo-control-tabs {
     width: auto;
     justify-content: flex-start;
+    gap: 8px;
     padding: 0;
     margin: 0;
 }
@@ -2653,9 +2988,97 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
     width: auto;
 }
 
+#comboView .combo-control-tabs .combo-auto-input-toggles {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#comboView .combo-control-tabs .combo-poison-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px 4px 6px;
+    border-radius: 18px;
+    background: #161616;
+    border: 1px solid #2a2a2a;
+}
+
+#comboView .combo-control-tabs .combo-poison-toggle-label {
+    color: #d0d0d0;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+#comboView .combo-control-tabs .combo-poison-toggle-group.lang-toggle {
+    margin-right: 0;
+    height: 22px;
+    padding: 2px;
+    gap: 2px;
+    background: #1f1f1f;
+    border-color: #2c2c2c;
+}
+
+#comboView .combo-control-tabs .combo-poison-toggle-btn {
+    min-width: 40px;
+    height: 18px;
+    padding: 0 8px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: none;
+}
+
+#comboView .combo-control-tabs .combo-poison-toggle-btn.is-disabled {
+    opacity: 0.55;
+    cursor: default;
+    pointer-events: none;
+}
+
+#comboView #Table1 td.combo-auto-source-marker {
+    position: relative;
+}
+
+#comboView #Table1 td.combo-auto-source-marker::before {
+    content: "*";
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 700;
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+#comboView #Table1 td.combo-cell-auto-source-auto::before {
+    color: #3cc5f7;
+}
+
+#comboView #Table1 td.combo-cell-auto-source-user::before {
+    color: #ffcc70;
+}
+
+
 body[data-theme="light"] #comboView {
     background: #efefef;
     color: #111;
+}
+
+/* Combo view top strip should not inherit frame-view top/bottom lines in light mode. */
+body[data-theme="light"] #comboView .char-control-tabs.combo-control-tabs {
+    background: transparent !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+body[data-theme="light"] #comboView .combo-control-tabs .combo-poison-toggle-label {
+    color: #333;
+}
+
+body[data-theme="light"] #comboView .combo-control-tabs .combo-poison-toggle-group.lang-toggle {
+    background: #e7e7e7;
+    border-color: #cbcbcb;
 }
 
 body[data-theme="light"] #comboView #Table1 th {
@@ -2686,6 +3109,12 @@ body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) th,
 body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(2) td {
     background: #ececec;
     border-bottom-color: #b9b9b9;
+}
+
+/* Light-mode parity: same bottom border thickness for rowspan headers. */
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) th[rowspan="2"],
+body[data-theme="light"] #comboView #comboTableHeader tr:nth-child(1) td[rowspan="2"] {
+    border-bottom: 2px solid #b9b9b9;
 }
 
 body[data-theme="light"] #comboView .combo-col-eye {
@@ -3188,7 +3617,7 @@ body[data-theme="light"] #comboView .combo-quick-label {
 
 /* Force command field font size to follow the variable */
 #comboView .cmd-input[data-field="command"] {
-    font-size: var(--command-font-size, 20px) !important;
+    font-size: var(--command-font-size, 12px) !important;
     line-height: 1.1 !important;
 }
 
@@ -3261,6 +3690,28 @@ body[data-theme="light"] #comboView .combo-row-toggles label {
     background: #e6e6e6;
     border-color: #bcbcbc;
     color: #111;
+}
+
+body[data-theme="light"] #comboView .combo-control-tabs .combo-poison-toggle {
+    background: #e6e6e6;
+    border-color: #bcbcbc;
+}
+
+/* Keep inactive Classic/Modern dimmed in light mode too. */
+body[data-theme="light"] #comboView .combo-control-tabs .char-control-tabs-list li {
+    filter: grayscale(100%) opacity(.7);
+}
+
+body[data-theme="light"] #comboView .combo-control-tabs .char-control-tabs-list li.active {
+    filter: none;
+}
+
+body[data-theme="light"] #comboView #Table1 td.combo-cell-auto-source-auto::before {
+    color: #2a8db3;
+}
+
+body[data-theme="light"] #comboView #Table1 td.combo-cell-auto-source-user::before {
+    color: #b07b2b;
 }
 
 body[data-theme="light"] #comboView #toggleAllRowsBtn {
@@ -4135,10 +4586,10 @@ body[data-theme="light"] #comboView #wb_Text1 span {
 
 /* Make Customize Input modal larger/readable without affecting other keymap-based modals. */
 .combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) {
-    --ui-cell-size: 58px;
+    --ui-cell-size: 65px;
     --keymap-icon-row-height: 58px;
-    --keymap-desc-row-height: 24px;
-    font-size: 12px;
+    --keymap-desc-row-height: 30px;
+    font-size: 11px;
 }
 
 .combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-content {
@@ -4155,10 +4606,11 @@ body[data-theme="light"] #comboView #wb_Text1 span {
 .combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-table img {
     width: 24px;
     height: 24px;
+    transform: translateY(-5px);
 }
 
 .combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-keymap-input {
-    width: 36px;
+    width: 50px;
     height: 18px;
     font-size: 10px;
     line-height: 16px;
@@ -4184,6 +4636,68 @@ body[data-theme="light"] #comboView #wb_Text1 span {
 .combo-replace-content {
     width: 420px;
     max-width: 94vw;
+}
+
+.combo-keymap-modal:not(.combo-restore-modal):not(.combo-import-target-modal):not(.combo-notation-modal):not(.combo-xlsx-map-modal) .combo-row-action-confirm-content {
+    width: 380px;
+    max-width: 92vw;
+}
+
+body[data-theme="light"] .combo-keymap-modal {
+    background: rgba(255, 255, 255, 0.62);
+}
+
+body[data-theme="light"] .combo-keymap-card,
+body[data-theme="light"] .combo-keymap-content {
+    background: #ffffff;
+    border-color: #c8cdd6;
+    color: #1f2937;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+}
+
+body[data-theme="light"] .combo-keymap-content header h3,
+body[data-theme="light"] .combo-keymap-header,
+body[data-theme="light"] .combo-keymap-notice {
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-keymap-content header .close,
+body[data-theme="light"] .combo-keymap-header button {
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-keymap-row,
+body[data-theme="light"] .combo-keymap-desc-row {
+    color: #374151;
+}
+
+body[data-theme="light"] .combo-keymap-row select {
+    border-color: #c8cdd6;
+    background: #ffffff;
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-keymap-table td {
+    border-color: #d6d9e0;
+    background: #f7f8fb;
+    color: #111827;
+}
+
+body[data-theme="light"] .combo-keymap-input {
+    color: #111827;
+    background: #ffffff;
+    border-color: #bfc5cf;
+}
+
+body[data-theme="light"] .combo-keymap-input:focus {
+    background: #ffffff;
+    border-color: #f97306;
+}
+
+body[data-theme="light"] .combo-keymap-actions button {
+    background: #eceff4;
+    color: #1f2937;
+    border-color: #bcc2cc;
 }
 
 .combo-restore-list {
@@ -4942,11 +5456,11 @@ body[data-theme="light"] .combo-notation-buttons-wrap .btn-token.btn-token-fallb
     margin: 0 auto;
 }
 
-.combo-notation-unknown-grid > .combo-notation-unknown-table:first-child {
+.combo-notation-unknown-grid>.combo-notation-unknown-table:first-child {
     border-right: 1px solid #262626;
 }
 
-.combo-notation-unknown-grid > .combo-notation-unknown-table:last-child {
+.combo-notation-unknown-grid>.combo-notation-unknown-table:last-child {
     border-left: 1px solid #262626;
 }
 
@@ -5072,11 +5586,11 @@ body[data-theme="light"] .combo-notation-unknown-test {
     color: #1f2937;
 }
 
-body[data-theme="light"] .combo-notation-unknown-grid > .combo-notation-unknown-table:first-child {
+body[data-theme="light"] .combo-notation-unknown-grid>.combo-notation-unknown-table:first-child {
     border-right-color: #e0e4ea;
 }
 
-body[data-theme="light"] .combo-notation-unknown-grid > .combo-notation-unknown-table:last-child {
+body[data-theme="light"] .combo-notation-unknown-grid>.combo-notation-unknown-table:last-child {
     border-left-color: #e0e4ea;
 }
 
