@@ -162,7 +162,8 @@ function Apply-Update([string]$RepoName, [string]$Tag, [string]$AppRoot) {
             }
             $srcUpdateBat = Join-Path $srcLauncherDir "Update_LabMonster.bat"
             if (Test-Path $srcUpdateBat) {
-                $dstUpdateBat = Join-Path $dstLauncherDir "Update_LabMonster.bat"
+                # Stage updater BAT as .new to avoid replacing a currently running batch file.
+                $dstUpdateBat = Join-Path $dstLauncherDir "Update_LabMonster.bat.new"
                 Copy-Item -Path $srcUpdateBat -Destination $dstUpdateBat -Force
             }
         }
@@ -175,7 +176,8 @@ function Apply-Update([string]$RepoName, [string]$Tag, [string]$AppRoot) {
             }
             $srcUpdateBatLegacy = Join-Path $srcRoot "Update_LabMonster.bat"
             if (Test-Path $srcUpdateBatLegacy) {
-                $dstUpdateBat = Join-Path $dstLauncherDir "Update_LabMonster.bat"
+                # Stage updater BAT as .new to avoid replacing a currently running batch file.
+                $dstUpdateBat = Join-Path $dstLauncherDir "Update_LabMonster.bat.new"
                 Copy-Item -Path $srcUpdateBatLegacy -Destination $dstUpdateBat -Force
             }
         }
@@ -194,12 +196,41 @@ function Apply-Update([string]$RepoName, [string]$Tag, [string]$AppRoot) {
     }
 }
 
+function Finalize-LauncherSelfUpdate([string]$ScriptRoot) {
+    $pairs = @(
+        @{
+            NewPath = Join-Path $ScriptRoot "Start_LabMonster.ps1.new"
+            CurrentPath = Join-Path $ScriptRoot "Start_LabMonster.ps1"
+        },
+        @{
+            NewPath = Join-Path $ScriptRoot "Update_LabMonster.bat.new"
+            CurrentPath = Join-Path $ScriptRoot "Update_LabMonster.bat"
+        }
+    )
+
+    foreach ($pair in $pairs) {
+        $newPath = [string]$pair.NewPath
+        $currentPath = [string]$pair.CurrentPath
+        if (-not (Test-Path $newPath)) {
+            continue
+        }
+        try {
+            Move-Item -Path $newPath -Destination $currentPath -Force
+        }
+        catch {
+            Write-Warning ("Failed to finalize launcher self-update file '{0}': {1}" -f $currentPath, $_.Exception.Message)
+        }
+    }
+}
+
 $scriptRoot = Get-ScriptRoot
 $appRoot = Resolve-AppRoot -ScriptRoot $scriptRoot
 $indexPath = Join-Path $appRoot "index.html"
 if (-not (Test-Path $indexPath)) {
     throw "index.html not found: $indexPath"
 }
+
+Finalize-LauncherSelfUpdate -ScriptRoot $scriptRoot
 
 try {
     if (-not $SkipUpdateCheck) {
@@ -221,16 +252,6 @@ try {
 catch {
     Write-Warning ("Update check failed: " + $_.Exception.Message)
     Write-Warning "Starting current local version."
-}
-
-try {
-    $newLauncher = Join-Path $scriptRoot "Start_LabMonster.ps1.new"
-    if (Test-Path $newLauncher) {
-        Move-Item -Path $newLauncher -Destination (Join-Path $scriptRoot "Start_LabMonster.ps1") -Force
-    }
-}
-catch {
-    Write-Warning ("Failed to finalize launcher self-update: " + $_.Exception.Message)
 }
 
 if (-not $NoLaunch) {
