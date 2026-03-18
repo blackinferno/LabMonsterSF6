@@ -1,4 +1,4 @@
-﻿// Combo List UI (rebuilt)
+// Combo List UI (rebuilt)
 (() => {
   const STORAGE_KEY_BASE = 'sf6_combo_table_v3';
   const LEGACY_STORAGE_KEY = 'sf6_combo_table_v2';
@@ -460,6 +460,9 @@
         modern: 'モダン',
         both: '両方',
         semi: '準',
+        safe_jump_backrise: '後転可',
+        safe_jump_neutral_only: 'その場のみ',
+        safe_jump_backrise_crossup: '後転可+その場めくり',
         close: '密着',
         tip: '先端',
         ground: '地上',
@@ -894,6 +897,9 @@
         modern: 'Modern',
         both: 'Both',
         semi: 'Semi',
+        safe_jump_backrise: 'Back Rise',
+        safe_jump_neutral_only: 'Neutral Only',
+        safe_jump_backrise_crossup: 'Back Rise + Neutral CU',
         close: 'Close',
         tip: 'Tip',
         ground: 'Ground',
@@ -1233,14 +1239,14 @@
     { jp: 'Dゲージ増減', en: 'D Gauge Δ' },
     { jp: 'Dゲージ効率', en: 'D Gauge Eff.' },
     { jp: 'SAゲージ増減', en: 'SA Gauge Δ' },
+    { jp: '表裏入替', en: 'Side Switch' },
     { jp: '運びヒット時', en: 'Carry<br>on Hit' },
     { jp: 'コンボ後距離ヒット時', en: 'End Dist<br>on Hit' },
     { jp: 'フレーム差ヒット時', en: 'Frame Adv<br>on Hit' },
     { jp: '相手状態', en: 'Opp State' },
     { jp: '詐欺飛び', en: 'Safe Jump' },
-    { jp: '表裏入替', en: 'Side Switch' },
-    { jp: '割込', en: 'Interrupt' },
     { jp: '重ね', en: 'Meaty' },
+    { jp: '割込', en: 'Interrupt' },
     { jp: '自分', en: 'Self' },
     { jp: '相手', en: 'Opp' },
     { jp: 'Ver.', en: 'Ver.' },
@@ -2527,14 +2533,14 @@
     'drive_efficiency',
     'sa_delta',
     'sa_delta_opponent',
+    'side_switch',
     'carry_distance',
     'end_distance',
     'frame_adv',
     'opponent_state',
     'safe_jump',
-    'side_switch',
-    'interrupt',
     'oki',
+    'interrupt',
   ];
   const AUTOSAVE_HEAVY_COMBO_THRESHOLD = 120;
   const AUTOSAVE_HEAVY_DELAY_MS = AUTOSAVE_DELAY_MS;
@@ -2608,14 +2614,14 @@
     'drive_efficiency',
     'sa_delta',
     'sa_delta_opponent',
+    'side_switch',
     'carry_distance',
     'end_distance',
     'frame_adv',
     'opponent_state',
     'safe_jump',
-    'side_switch',
-    'interrupt',
     'oki',
+    'interrupt',
     'game_version',
     'buttons',
     'combo_notes',
@@ -2785,7 +2791,7 @@
     sa_req: 70,
     vs_character: 120,
     special_condition: 90,
-    safe_jump: 70,
+    safe_jump: 140,
     interrupt: 65,
     oki: 70,
     drive_delta: 60,
@@ -4498,10 +4504,11 @@
         control = buildSpecialConditionTableControl(group);
       } else if (field === 'safe_jump') {
         control = buildSelect(field, group, [
-          { value: '', label: '-' },
-          { value: '可', label: comboValueLabel('yes', '可') },
-          { value: '準', label: comboValueLabel('semi', '準') },
           { value: '不可', label: comboValueLabel('no', '不可') },
+          { value: '準', label: comboValueLabel('semi', '準') },
+          { value: '後転可', label: comboValueLabel('safe_jump_backrise', '後転可') },
+          { value: 'その場のみ', label: comboValueLabel('safe_jump_neutral_only', 'その場のみ') },
+          { value: '後転可+その場めくり', label: comboValueLabel('safe_jump_backrise_crossup', '後転可+その場めくり') },
         ]);
       } else if (field === 'opponent_state') {
         control = buildSelect(field, group, [
@@ -4692,32 +4699,38 @@
       }
       return 0;
     };
+    const carryCol = findColumnIndexByText(headerRow, ['運び', 'carryonhit', 'carry']);
     const frameAdvCol = findColumnIndexByText(headerRow, ['フレーム差', 'frameadv']);
     const safeJumpCol = findColumnIndexByText(headerRow, ['詐欺飛び', 'safejump']);
     const interruptCol = findColumnIndexByText(headerRow, ['割込', 'interrupt']);
     const okiCol = findColumnIndexByText(headerRow, ['重ね', 'meaty']);
-    if (!frameAdvCol || !safeJumpCol || !interruptCol || !okiCol) return;
+    if (!carryCol || !frameAdvCol || !safeJumpCol || !interruptCol || !okiCol) return;
+
+    const moveAfter = (row, cell, anchorCell) => {
+      if (!row || !cell || !anchorCell) return;
+      if (cell === anchorCell) return;
+      if (cell.parentElement !== row || anchorCell.parentElement !== row) return;
+      row.insertBefore(cell, anchorCell.nextSibling);
+    };
 
     const reorderRowTail = (row) => {
       if (!row) return;
+      const carryCell = getCellAtColumn(row, carryCol);
       const frameCell = getCellAtColumn(row, frameAdvCol);
-      if (!frameCell) return;
+      if (!carryCell || !frameCell) return;
       const safeCell = getCellAtColumn(row, safeJumpCol);
       const interruptCell = getCellAtColumn(row, interruptCol);
       const okiCell = getCellAtColumn(row, okiCol);
       const oppCell = row.querySelector('[data-outcome-col="opponent_state"]');
       const sideCell = row.querySelector('[data-outcome-col="side_switch"]');
-      const versionCell = row.querySelector('[data-version-col="true"]');
-      const ordered = [oppCell, safeCell, sideCell, interruptCell, okiCell, versionCell]
-        .filter((cell) => cell && cell !== frameCell && cell.parentElement === row)
-        .filter((cell, idx, arr) => arr.indexOf(cell) === idx);
-      if (!ordered.length) return;
-      ordered.forEach((cell) => cell.remove());
-      let ref = frameCell.nextSibling;
-      ordered.forEach((cell) => {
-        row.insertBefore(cell, ref);
-        ref = cell.nextSibling;
-      });
+
+      if (sideCell && sideCell.parentElement === row && sideCell !== carryCell) {
+        row.insertBefore(sideCell, carryCell);
+      }
+      moveAfter(row, oppCell, frameCell);
+      moveAfter(row, safeCell, oppCell && oppCell.parentElement === row ? oppCell : frameCell);
+      moveAfter(row, okiCell, safeCell);
+      moveAfter(row, interruptCell, okiCell && okiCell.parentElement === row ? okiCell : safeCell);
     };
 
     reorderRowTail(headerRow);
@@ -4851,35 +4864,6 @@
       }
     });
 
-    const { cellPositions: updatedPositions } = buildCellMatrixFromRows([headerRow, secondRow], {
-      table: ui.table,
-    });
-    const rowspanCols = new Set();
-    Array.from(headerRow.children).forEach((cell) => {
-      const span = Number(cell.getAttribute('rowspan') || 1);
-      if (span < 2) return;
-      const pos = updatedPositions.get(cell);
-      if (!pos) return;
-      for (let c = pos.col; c < pos.col + pos.colspan; c += 1) {
-        rowspanCols.add(c);
-      }
-    });
-    if (rowspanCols.size) {
-      Array.from(secondRow.children).forEach((cell) => {
-        const pos = updatedPositions.get(cell);
-        if (!pos) return;
-        let overlaps = false;
-        for (let c = pos.col; c < pos.col + pos.colspan; c += 1) {
-          if (rowspanCols.has(c)) {
-            overlaps = true;
-            break;
-          }
-        }
-        if (overlaps) {
-          cell.remove();
-        }
-      });
-    }
   }
 
   function applyComboColumnWidths() {
@@ -5014,10 +4998,8 @@
     const headerRect = headerRow ? headerRow.getBoundingClientRect() : null;
     const subHeaderRect = subHeaderRow ? subHeaderRow.getBoundingClientRect() : null;
     const headerHeight = headerRect ? headerRect.height : (headerRow ? headerRow.offsetHeight || 0 : 0);
-    const borderBottom = firstCell
-      ? Number.parseFloat(getComputedStyle(firstCell).borderBottomWidth) || 0
-      : 0;
-    const headerTop = Math.max(headerHeight + borderBottom, 25);
+    // Avoid additive growth: row height already includes borders.
+    const headerTop = Math.max(headerHeight, 25);
     const subHeaderHeight = subHeaderRect ? subHeaderRect.height : (subHeaderRow ? subHeaderRow.offsetHeight || 0 : 0);
     const safeHeaderHeight = Math.ceil(headerTop);
     const safeSubHeight = Math.ceil(Math.max(subHeaderHeight, 25));
@@ -6433,9 +6415,16 @@
         if (input.value === 'デカキャラのみ') span.textContent = comboValueLabel('big_only', 'デカキャラのみ', active);
         if (input.value === 'デカキャラ以外') span.textContent = comboValueLabel('no_big', 'デカキャラ以外', active);
         if (input.value === 'ザンギエフ') span.textContent = comboValueLabel('zangief', 'ザンギエフ', active);
-      } else if (name.includes('comboFilter-interrupt') || name.includes('comboFilter-safe_jump')) {
+      } else if (name.includes('comboFilter-interrupt')) {
         if (input.value === '可') span.textContent = comboValueLabel('yes', '可', active);
+        if (input.value === '不可') span.textContent = comboValueLabel('no', '不可', active);
+      } else if (name.includes('comboFilter-safe_jump')) {
         if (input.value === '準') span.textContent = comboValueLabel('semi', '準', active);
+        if (input.value === '後転可') span.textContent = comboValueLabel('safe_jump_backrise', '後転可', active);
+        if (input.value === 'その場のみ') span.textContent = comboValueLabel('safe_jump_neutral_only', 'その場のみ', active);
+        if (input.value === '後転可+その場めくり') span.textContent = comboValueLabel('safe_jump_backrise_crossup', '後転可+その場めくり', active);
+        if (input.value === '可') span.textContent = comboValueLabel('safe_jump_backrise', '後転可', active);
+        if (input.value === '後転可,その場のみ') span.textContent = comboValueLabel('semi', '準', active);
         if (input.value === '不可') span.textContent = comboValueLabel('no', '不可', active);
       } else if (name.includes('comboFilter-command_scope')) {
         if (input.value === 'first_hit') span.textContent = comboT('filter.command_first_hit', active) || 'First Hit';
@@ -6515,10 +6504,20 @@
       if (value === 'ザンギエフ') return comboValueLabel('zangief', 'ザンギエフ', active);
       return value;
     }
-    if (field === 'safe_jump' || field === 'interrupt') {
+    if (field === 'safe_jump') {
+      if (!value) return '-';
+      if (value === '準') return comboValueLabel('semi', '準', active);
+      if (value === '後転可') return comboValueLabel('safe_jump_backrise', '後転可', active);
+      if (value === 'その場のみ') return comboValueLabel('safe_jump_neutral_only', 'その場のみ', active);
+      if (value === '後転可+その場めくり') return comboValueLabel('safe_jump_backrise_crossup', '後転可+その場めくり', active);
+      if (value === '可') return comboValueLabel('safe_jump_backrise', '後転可', active);
+      if (value === '後転可,その場のみ') return comboValueLabel('semi', '準', active);
+      if (value === '不可') return comboValueLabel('no', '不可', active);
+      return value;
+    }
+    if (field === 'interrupt') {
       if (!value) return '-';
       if (value === '可') return comboValueLabel('yes', '可', active);
-      if (value === '準') return comboValueLabel('semi', '準', active);
       if (value === '不可') return comboValueLabel('no', '不可', active);
       return value;
     }
@@ -13008,6 +13007,23 @@
     return text;
   }
 
+  function normalizeSafeJumpValue(value) {
+    const text = String(value == null ? '' : value).trim();
+    if (!text || text === '-') return '';
+    const normalized = text.replace(/\s+/g, '');
+    if (normalized === '後転可、その場のみ' || normalized === '後転可,その場のみ' || normalized === '後転可その場のみ') return '準';
+    if (normalized === '後転可') return '後転可';
+    if (normalized === 'その場のみ') return 'その場のみ';
+    if (normalized === '後転可+その場めくり') return '後転可+その場めくり';
+    if (/^(?:不可|no)$/i.test(text)) return '不可';
+    if (/^(?:準|semi)$/i.test(text)) return '準';
+    if (/^(?:可|yes)$/i.test(text)) return '後転可';
+    if (/^back\s*rise$/i.test(text)) return '後転可';
+    if (/^neutral\s*only$/i.test(text)) return 'その場のみ';
+    if (/^back\s*rise\s*\+\s*neutral\s*cross-?up$/i.test(text)) return '後転可+その場めくり';
+    return text;
+  }
+
   function resolveEntryOpponentStateOnHit(entry, options = {}) {
     if (!entry || typeof entry !== 'object') return '';
     const useBloom = !!(options && options.usePoisonBloom);
@@ -13399,8 +13415,9 @@
 
     // Step 2: distance windows (roughly separating 8-jump and 9-jump routes).
     if (!Number.isFinite(endDistanceUnits)) {
-      if (adv >= 44) return '可';
-      if (adv >= 40) return '準';
+      if (adv >= 44) return '後転可+その場めくり';
+      if (adv >= 42) return '後転可';
+      if (adv >= 40) return 'その場のみ';
       return '不可';
     }
 
@@ -13410,8 +13427,9 @@
     const inGapWindow = distance > 95 && distance < 115;
 
     if (inJump8Window || inJump9Window) {
-      if (adv >= 44) return '可';
-      if (adv >= 40) return '準';
+      if (adv >= 44) return '後転可+その場めくり';
+      if (adv >= 42) return '後転可';
+      if (adv >= 40) return 'その場のみ';
       return '不可';
     }
     if (inGapWindow) {
@@ -13419,8 +13437,9 @@
       return '不可';
     }
     if (distance < 25) {
-      if (adv >= 44) return '可';
-      if (adv >= 40) return '準';
+      if (adv >= 44) return '後転可+その場めくり';
+      if (adv >= 42) return '後転可';
+      if (adv >= 40) return 'その場のみ';
       return '不可';
     }
     return '不可';
@@ -13648,6 +13667,11 @@
     const normalizedOpponentState = normalizeOpponentStateValue(combo.opponent_state || '');
     if (String(combo.opponent_state || '') !== normalizedOpponentState) {
       combo.opponent_state = normalizedOpponentState;
+      changed = true;
+    }
+    const normalizedSafeJump = normalizeSafeJumpValue(combo.safe_jump || '');
+    if (String(combo.safe_jump || '') !== normalizedSafeJump) {
+      combo.safe_jump = normalizedSafeJump;
       changed = true;
     }
     const sideSwitchRaw = String(combo.side_switch || '').trim();
@@ -14475,6 +14499,7 @@
         merged.buttons = merged.command;
       }
       merged.opponent_state = normalizeOpponentStateValue(merged.opponent_state || '');
+      merged.safe_jump = normalizeSafeJumpValue(merged.safe_jump || '');
       const sideSwitchRaw = String(merged.side_switch || '').trim();
       if (/^(?:yes|可)$/i.test(sideSwitchRaw)) merged.side_switch = 'Yes';
       else if (/^(?:no|不可)$/i.test(sideSwitchRaw)) merged.side_switch = 'No';
@@ -22550,9 +22575,11 @@
         { value: '可', label: comboValueLabel('yes', '可') },
       ]);
       buildCheckboxGroup('comboFilterSafeJumpGroup', 'safe_jump', [
-        { value: '可', label: comboValueLabel('yes', '可') },
-        { value: '準', label: comboValueLabel('semi', '準') },
         { value: '不可', label: comboValueLabel('no', '不可') },
+        { value: '準', label: comboValueLabel('semi', '準') },
+        { value: '後転可', label: comboValueLabel('safe_jump_backrise', '後転可') },
+        { value: 'その場のみ', label: comboValueLabel('safe_jump_neutral_only', 'その場のみ') },
+        { value: '後転可+その場めくり', label: comboValueLabel('safe_jump_backrise_crossup', '後転可+その場めくり') },
       ]);
       refreshSaFilterGroup(panel);
       refreshSpecialConditionFilterGroup(panel);
@@ -25036,14 +25063,14 @@ ${table.outerHTML}
             <th colspan="9">${sectionLabel('その他', 'Other')}</th>
           </tr>
           <tr>
+            ${buildLayoutCell('side_switch')}
             ${buildLayoutCell('carry_distance')}
             ${buildLayoutCell('end_distance')}
             ${buildLayoutCell('frame_adv')}
             ${buildLayoutCell('opponent_state')}
             ${buildLayoutCell('safe_jump')}
-            ${buildLayoutCell('side_switch')}
-            ${buildLayoutCell('interrupt')}
             ${buildLayoutCell('oki')}
+            ${buildLayoutCell('interrupt')}
             ${buildLayoutCell('game_version')}
           </tr>
         </tbody>
