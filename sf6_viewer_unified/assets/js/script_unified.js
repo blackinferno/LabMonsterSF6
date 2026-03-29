@@ -14,16 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initInfoModals();
   const bootLastSeen = getLastSeenAppVersion();
   const bootAutomationSeen = getAutomationTutorialSeenVersion();
+  const bootComboDetailsSeen = getComboDetailsTutorialSeenVersion();
   // Show "automation-2" once per app version until it is actually seen, including
   // recovery from prior launches where update log showed but tutorial got blocked.
   automationTutorialEligibleThisLaunch = (
-    bootAutomationSeen !== APP_VERSION
+    bootAutomationSeen !== AUTOMATION_TUTORIAL_VERSION
+    && cmpSemver(bootLastSeen || '0.0.0', AUTOMATION_TUTORIAL_VERSION) <= 0
+  );
+  comboDetailsTutorialEligibleThisLaunch = (
+    bootComboDetailsSeen !== APP_VERSION
     && cmpSemver(bootLastSeen || '0.0.0', APP_VERSION) <= 0
   );
   maybeShowWelcomePopup().catch((err) => {
     console.warn('Failed to show welcome popup:', err);
   }).finally(() => {
-    maybeShowAutomationUpdateTutorial();
+    maybeShowUpdateTutorials();
   });
   checkForAppUpdate()
     .then((info) => {
@@ -49,7 +54,10 @@ const APP_VERSION_FALLBACK = '1.0.2';
 const APP_VERSION = getCurrentAppVersion();
 const TUTORIAL_FIRST_RUN_KEY = 'lm_tutorial_seen_v1';
 const TUTORIAL_AUTOMATION_UPDATE_SEEN_KEY = 'lm_tutorial_automation_seen_v1';
+const TUTORIAL_COMBO_DETAILS_UPDATE_SEEN_KEY = 'lm_tutorial_combo_details_seen_v1';
 const AUTOMATION_TUTORIAL_FLOW_KEY = 'automation-2';
+const AUTOMATION_TUTORIAL_VERSION = '1.0.3.1';
+const COMBO_DETAILS_TUTORIAL_FLOW_KEY = 'combo-details';
 const LANGUAGE_PREF_KEY = 'lm_lang_pref_v1';
 const I18NEXT_LANGUAGE_KEY = 'i18nextLng';
 const LAST_SEEN_VERSION_KEY = 'lm_last_seen_version';
@@ -69,6 +77,8 @@ let updatesDataPromise = null;
 let pendingWelcomeGroups = [];
 let automationTutorialEligibleThisLaunch = false;
 let automationTutorialRetryTimer = null;
+let comboDetailsTutorialEligibleThisLaunch = false;
+let comboDetailsTutorialRetryTimer = null;
 let appUpdateInfo = {
   checked: false,
   checkFailed: false,
@@ -159,7 +169,7 @@ const TUTORIAL_FLOW_SLIDES = {
       title: { jp: 'コンボ表の全体像', en: 'Combo Table Overview' },
       text: {
         jp: '上段は検索と各種機能、中央はコンボ表、下段は入力セクションです。まずこの3層構成を把握します。',
-        en: 'Top is search and tools, center is the combo table, bottom is input controls.',
+        en: 'Top section is search and tools, center is the combo table, bottom is input controls.',
       },
     },
     {
@@ -196,11 +206,62 @@ const TUTORIAL_FLOW_SLIDES = {
       },
     },
     {
+      image: 'assets/images/help/help-3_jp.png',
+      title: { jp: '自動入力と上書き', en: 'Auto-Input and Overwrite' },
+      text: {
+        jp: '表の上にある自動入力および上書き機能をON/OFFで切り替えることができます。自動入力は手動入力を上書きしないのがデフォルトですが、上書きをONにすると手動入力値も自動入力で上書きされるようになります。',
+        en: 'You can toggle the auto-input and overwrite features on/off at the top of the table. Auto-input defaults to not overwriting manual inputs, but when overwrite is enabled, manual input values will be replaced by auto-input.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-3_jp.png',
+      title: { jp: 'コンボ詳細（ポップアップ）', en: 'Combo Details Popup' },
+      text: {
+        jp: '行をダブルクリックまたは右クリックのコンテキストメニューから、フレームメーターや統計を確認できる詳細表示を開けます。',
+        en: 'Double-click a row or use right-click menu to open Combo Details with frame meter and stats.',
+      },
+    },
+
+    {
       image: 'assets/images/help/help-5_jp.png',
       title: { jp: '整理と保存', en: 'Cleanup and Save Strategy' },
       text: {
         jp: '共有前は重複削除を実行し、JSON/XLSXをExportして復元用バックアップを残します。',
         en: 'Before sharing, run dedupe and export JSON or XLSX backups for recovery.',
+      },
+    },
+  ],
+  'combo-details': [
+    {
+      image: 'assets/images/help/help-3-7_jp.png',
+      title: { jp: 'コンボ詳細', en: 'Combo Details' },
+      text: {
+        jp: '行をダブルクリックまたは右クリックのコンテキストメニューから、フレームメーターや統計を確認できる詳細表示を開けます。',
+        en: 'Open Combo Details with frame meter and stats by double-clicking a row or using the right-click menu.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-11_jp.png',
+      title: { jp: 'フレームメーターとコマンド', en: 'Frame Meter and Command' },
+      text: {
+        jp: '上部でフレームメーター、ボタン、コマンドを確認します。コマンドや備考などは編集して保存できます。',
+        en: 'Review the frame meter, buttons, and command at the top. You can edit and save command and notes.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-11_jp.png',
+      title: { jp: 'URLと動画の埋め込み', en: 'URL and Video Embed' },
+      text: {
+        jp: 'URL欄に動画リンクを入れると、下にプレビューが表示されます。',
+        en: 'Paste a video URL to show an embedded preview under the URL field.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-11_jp.png',
+      title: { jp: '始動別の統計', en: 'Starter-Based Stats' },
+      text: {
+        jp: '下部で始動平均、順位、トップコンボなどの統計を確認できます。',
+        en: 'Check starter averages, ranks, and top combos in the stats section.',
       },
     },
   ],
@@ -249,7 +310,7 @@ const TUTORIAL_FLOW_SLIDES = {
   'advanced-search': [
     {
       image: 'assets/images/help/help-4_jp.png',
-      title: { jp: '詳細検索の入口', en: 'Advanced Search Entry' },
+      title: { jp: '詳細検索', en: 'Advanced Search' },
       text: {
         jp: '検索バー横のADVANCED SEARCHから複合条件パネルを開きます。',
         en: 'Open the condition panel from ADVANCED SEARCH next to the search bar.',
@@ -1428,7 +1489,7 @@ const I18N_CORE = {
     'combo.export.columns_current': '表示中',
     'combo.export.columns_full': '全て',
     'combo.rows.label': '行:',
-    'combo.rows.frame': 'フレームメーター',
+    'combo.rows.frame': 'タグ',
     'combo.rows.buttons': 'ボタン',
     'combo.rows.notes': '備考',
     'combo.rows.all': '全表示',
@@ -1468,12 +1529,16 @@ const I18N_CORE = {
     'help.howto.heading': '機能別ワークフロー',
     'help.howto.frame_compare': 'フレームデータ比較',
     'help.howto.combo_entry': 'コンボ入力',
-    'help.howto.table_control': 'テーブル操作',
+    'help.howto.combo_details': 'コンボ詳細',
+    'help.howto.table_control': '表操作',
+    'help.howto.shortcuts': 'ショートカット',
     'help.howto.search': '検索 / フィルター',
     'help.howto.import': 'インポート',
     'help.howto.export': 'エクスポート',
     'help.howto.data_management': 'データ管理',
-    'help.howto.table_control_full': 'テーブル操作（行 / 列 / ソート）',
+    'help.howto.combo_details_full': 'コンボ詳細',
+    'help.howto.table_control_full': '表操作（行 / 列 / ソート）',
+    'help.howto.shortcuts_full': 'ショートカット',
     'help.howto.search_full': '検索 / 詳細フィルター',
     'help.howto.data_management_full': 'データ管理 / 復旧',
     'help.common.what_it_does': '機能概要',
@@ -1553,8 +1618,8 @@ const I18N_CORE = {
     'onboarding.desc': '最初にこの4点だけ確認してください。',
     'onboarding.item.1': 'Classic / Modern はキャラ画像の下にあるタブで切り替えます。',
     'onboarding.item.2': 'コンボは「新規」で行を作成し、コマンド欄に入力します。',
-    'onboarding.item.3': '検索と詳細検索で必要なルートだけを絞り込めます。',
-    'onboarding.item.4': 'データはブラウザに保存されます。共有・退避はEXPORTを使ってください。',
+    'onboarding.item.3': '行をダブルクリックするとコンボ詳細（フレーム・メモ・統計）を確認できます。',
+    'onboarding.item.4': '検索/詳細検索で必要なルートだけを絞り込み、共有・退避はEXPORTを使ってください。',
     'onboarding.close': '開始する',
 
   },
@@ -1590,7 +1655,7 @@ const I18N_CORE = {
     'combo.export.columns_current': 'Current',
     'combo.export.columns_full': 'All',
     'combo.rows.label': 'Rows:',
-    'combo.rows.frame': 'Frame Meter',
+    'combo.rows.frame': 'Tags',
     'combo.rows.buttons': 'Buttons',
     'combo.rows.notes': 'Notes',
     'combo.rows.all': 'All',
@@ -1630,11 +1695,13 @@ const I18N_CORE = {
     'help.howto.heading': 'Function-Based Workflows',
     'help.howto.frame_compare': 'Frame Data Compare',
     'help.howto.combo_entry': 'Combo Entry',
+    'help.howto.combo_details': 'Combo Details',
     'help.howto.table_control': 'Table Control',
     'help.howto.search': 'Search / Filter',
     'help.howto.import': 'Importing',
     'help.howto.export': 'Exporting',
     'help.howto.data_management': 'Data Management',
+    'help.howto.combo_details_full': 'Combo Details',
     'help.howto.table_control_full': 'Table Control (Rows / Columns / Sorting)',
     'help.howto.search_full': 'Search / Advanced Filter',
     'help.howto.data_management_full': 'Data Management / Recovery',
@@ -1715,8 +1782,8 @@ const I18N_CORE = {
     'onboarding.desc': 'Check these four points first.',
     'onboarding.item.1': 'Switch Classic / Modern with the tabs under the character portrait.',
     'onboarding.item.2': 'Create a row with Create, then enter your route in Command.',
-    'onboarding.item.3': 'Use Search and Advanced Search to filter only the routes you need.',
-    'onboarding.item.4': 'Data is stored in your browser. Use EXPORT for backup and sharing.',
+    'onboarding.item.3': 'Double-click a row to open Combo Details (frame meter, notes, stats).',
+    'onboarding.item.4': 'Use Search/Advanced Search to filter, and use EXPORT for backup and sharing.',
     'onboarding.close': 'Get Started',
 
   }
@@ -2130,7 +2197,7 @@ function closeUpdateOverlay() {
   overlay.classList.add('hidden');
   overlay.setAttribute('aria-hidden', 'true');
   window.setTimeout(() => {
-    maybeShowAutomationUpdateTutorial();
+    maybeShowUpdateTutorials();
   }, 0);
 }
 
@@ -2347,12 +2414,40 @@ function setAutomationTutorialSeenVersion(version) {
   } catch { /* ignore localStorage write failures */ }
 }
 
+function getComboDetailsTutorialSeenVersion() {
+  try {
+    return String(localStorage.getItem(TUTORIAL_COMBO_DETAILS_UPDATE_SEEN_KEY) || '').trim();
+  } catch {
+    return '';
+  }
+}
+
+function setComboDetailsTutorialSeenVersion(version) {
+  try {
+    localStorage.setItem(TUTORIAL_COMBO_DETAILS_UPDATE_SEEN_KEY, String(version || '').trim());
+  } catch { /* ignore localStorage write failures */ }
+}
+
+function maybeShowUpdateTutorials() {
+  maybeShowAutomationUpdateTutorial();
+  maybeShowComboDetailsUpdateTutorial();
+}
+
 function scheduleAutomationTutorialRetry() {
   if (!automationTutorialEligibleThisLaunch) return;
   if (automationTutorialRetryTimer) return;
   automationTutorialRetryTimer = window.setTimeout(() => {
     automationTutorialRetryTimer = null;
     maybeShowAutomationUpdateTutorial();
+  }, 250);
+}
+
+function scheduleComboDetailsTutorialRetry() {
+  if (!comboDetailsTutorialEligibleThisLaunch) return;
+  if (comboDetailsTutorialRetryTimer) return;
+  comboDetailsTutorialRetryTimer = window.setTimeout(() => {
+    comboDetailsTutorialRetryTimer = null;
+    maybeShowComboDetailsUpdateTutorial();
   }, 250);
 }
 
@@ -2363,7 +2458,7 @@ function maybeShowAutomationUpdateTutorial() {
   } catch { /* ignore */ }
   if (!tutorialSeen) return;
   if (!automationTutorialEligibleThisLaunch) return;
-  if (getAutomationTutorialSeenVersion() === APP_VERSION) {
+  if (getAutomationTutorialSeenVersion() === AUTOMATION_TUTORIAL_VERSION) {
     automationTutorialEligibleThisLaunch = false;
     return;
   }
@@ -2383,10 +2478,45 @@ function maybeShowAutomationUpdateTutorial() {
     window.clearTimeout(automationTutorialRetryTimer);
     automationTutorialRetryTimer = null;
   }
-  setAutomationTutorialSeenVersion(APP_VERSION);
+  setAutomationTutorialSeenVersion(AUTOMATION_TUTORIAL_VERSION);
   automationTutorialEligibleThisLaunch = false;
   openTutorialOverlay({
     flow: AUTOMATION_TUTORIAL_FLOW_KEY,
+    startIndex: 0,
+  });
+}
+
+function maybeShowComboDetailsUpdateTutorial() {
+  let tutorialSeen = false;
+  try {
+    tutorialSeen = localStorage.getItem(TUTORIAL_FIRST_RUN_KEY) === '1';
+  } catch { /* ignore */ }
+  if (!tutorialSeen) return;
+  if (!comboDetailsTutorialEligibleThisLaunch) return;
+  if (getComboDetailsTutorialSeenVersion() === APP_VERSION) {
+    comboDetailsTutorialEligibleThisLaunch = false;
+    return;
+  }
+
+  if (
+    isOverlayVisible('onboardingOverlay')
+    || isOverlayVisible('welcomeOverlay')
+    || isOverlayVisible('tutorialOverlay')
+    || isOverlayVisible('updateOverlay')
+    || isOverlayVisible('charSelectOverlay')
+  ) {
+    scheduleComboDetailsTutorialRetry();
+    return;
+  }
+
+  if (comboDetailsTutorialRetryTimer) {
+    window.clearTimeout(comboDetailsTutorialRetryTimer);
+    comboDetailsTutorialRetryTimer = null;
+  }
+  setComboDetailsTutorialSeenVersion(APP_VERSION);
+  comboDetailsTutorialEligibleThisLaunch = false;
+  openTutorialOverlay({
+    flow: COMBO_DETAILS_TUTORIAL_FLOW_KEY,
     startIndex: 0,
   });
 }
@@ -2818,7 +2948,7 @@ function closeWelcomeOverlay({ markSeen = false } = {}) {
   overlay.classList.add('hidden');
   overlay.setAttribute('aria-hidden', 'true');
   window.setTimeout(() => {
-    maybeShowAutomationUpdateTutorial();
+    maybeShowUpdateTutorials();
   }, 0);
 }
 
@@ -3660,7 +3790,9 @@ function applyFrameHeaderLanguage(lang) {
 }
 
 function initLanguageToggle() {
-  const buttons = document.querySelectorAll('.lang-btn');
+  // Only bind language switching to the actual JP/EN language buttons.
+  // Other parts of the UI reuse `.lang-btn` styling for toggle buttons.
+  const buttons = document.querySelectorAll('.lang-btn[data-lang]');
   if (!buttons.length) return;
   const body = document.body;
   const normalizeLang = (value) => (String(value || '').toLowerCase() === 'en' ? 'en' : 'jp');
@@ -4008,6 +4140,7 @@ function createTutorialFlowPageImagePath(flowKey, slideNumber, locale) {
 const TUTORIAL_FLOW_IMAGE_PREFIXES = {
   onboarding: ['1'],
   'combo-table': ['3'],
+  'combo-details': ['3'],
   'input-section': ['2'],
   'advanced-search': ['4'],
   'import-flow': ['5'],
@@ -4485,7 +4618,7 @@ function initCharacterSelect() {
   const close = () => {
     overlay.classList.add('hidden');
     window.setTimeout(() => {
-      maybeShowAutomationUpdateTutorial();
+      maybeShowUpdateTutorials();
     }, 0);
   };
   if (openBtn) openBtn.addEventListener('click', open);

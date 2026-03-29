@@ -1,33 +1,86 @@
 {
-  "current_version": "1.0.3",
+  "current_version": "1.0.4",
   "updates": [
+    {
+      "version": "1.0.4",
+      "date": "2026-03-29",
+      "important": true,
+      "tags": [
+        "UI",
+        "UX",
+        "Automation",
+        "Performance"
+      ],
+      "items": {
+        "jp": [
+          "ダメージ以外の項目の自動入力機能を追加。",
+          "既存の自動計算の精度を改善。",
+          "ダメージ関連の分割やその他のヘッダを整理。",
+          "フレームメーターがあまり有用では無いのに負荷が高いので、タグ機能に変更。",
+          "フレームメーター、コンボ比較などを含めたコンボ詳細ポップアップを追加。",
+          "大量のコンボリストのパフォーマンスを改善。"
+        ],
+        "en": [
+          "Expanded auto-input coverage beyond damage.",
+          "Improved overall calculation accuracy.",
+          "Reorganized headers by separated damage items, etc.",
+          "Change the frame meter section to tags as frame meter was not very beneficial compared to the amount of impact it has.",
+          "Added Combo Details popup with frame meter, combo comparison, etc.",
+          "Improved performance for large combo lists."
+        ]
+      }
+    },
+    {
+      "version": "1.0.3.1",
+      "date": "2026-03-18",
+      "important": true,
+      "tags": [
+        "Hotfix",
+        "UI"
+      ],
+      "items": {
+        "jp": [
+          "詐欺飛びのオプションを細分化。",
+          "ヘッダーが広がる問題を修正。",
+          "一部のサブヘッダーが表示されなくなる問題を修正。",
+          "アップデート中にアップデーターがエラーを表示する問題を修正。"
+        ],
+        "en": [
+          "Expanded safe jump options.",
+          "Fixed a issue of headers expanding.",
+          "Fixed a issue of some subheaders not being displayed.",
+          "Fixed the updater showing errors during updates."
+        ]
+      }
+    },
     {
       "version": "1.0.3",
       "date": "2026-03-17",
       "important": true,
       "tags": [
-        "Help",
-        "UX",
         "UI",
+        "UX",
+        "FrameMeter",
         "Automation",
-        "Frame Meter"
+        "Performance",
+        "Bugfix"
       ],
       "items": {
         "jp": [
-          "Added Alex.",
-          "Added 2025.03.17 frame table",
-          "Improved performance for large combo lists (hundreds of entries).",
-          "Added fields for opponent state after combo and side change.",
-          "Added Frame and Hits icons to the input to cover more edge cases.",
-          "Added prototype frame data auto-generation function.",
-          "Added prototype damage, carry/combo distance, advantage frames, opponent state after combo, safe jump, and side change auto-calculation/input function.",
-          "Added a function to lock manually entered fields from being overwritten.",
-          "Added fields for poison tick damage for AKI.",
-          "Added 'Explosion' for dolls, sprays, and JP.",
-          "Various UI/UX improvements."
+          "Alexを追加",
+          "2025.03.17版のフレームデータ表を追加。",
+          "大量のコンボリスト（数百件以上）のパフォーマンスを改善。",
+          "コンボ後の相手の状態と入れ替えの項目を追加。",
+          "限定的なケースに対応するために、フレームとヒットアイコンを入力に追加。",
+          "フレームメーターの自動生成のプロトタイプ版を追加。",
+          "ダメージ、運び・コンボ距離、有利フレーム、コンボ後の相手の状態、詐欺飛び、入れ替えの自動計算・入力のプロトタイプ版を追加。",
+          "手動入力した項目が自動入力で上書きされないようにロックする機能を追加。",
+          "AKIに毒ダメージ有り無しの項目を追加。",
+          "人形、スプレー、JP用に「爆発」を追加。",
+          "細かいUI/UXの改善"
         ],
         "en": [
-          "Added Alex.",
+          "Added Alex",
           "Added 2025.03.17 frame table",
           "Improved performance for large combo lists (hundreds of entries).",
           "Added fields for opponent state after combo and side change.",
@@ -36,7 +89,7 @@
           "Added prototype damage, carry/combo distance, advantage frames, opponent state after combo, safe jump, and side change auto-calculation/input function.",
           "Added a function to lock manually entered fields from being overwritten.",
           "Added fields for poison tick damage for AKI.",
-          "Added 'Explosion' for dolls, sprays, and JP.",
+          "Added \"Explosion\" for dolls, sprays, and JP.",
           "Various UI/UX improvements."
         ]
       }
@@ -46,37 +99,48 @@
       "date": "2026-03-05",
       "important": true,
       "tags": [
-        "Tutorial",
-        "Help",
+        "UI",
         "UX",
+        "Import",
+        "Notation",
+        "Performance",
+        "Bugfix",
         "Launcher"
       ],
       "items": {
         "jp": [
-          "Added contextual '?' guide triggers to major screens and key popups.",
-          "Added section-based guided flows for Frame Data View, Combo Table, Input section, and Advanced Search.",
-          "Added dedicated workflow guides for Import, Export, and Import Notation handling.",
-          "Added focused guide flow for Hotkey Customize and input mapping.",
-          "Reused the existing tutorial overlay so guided help is consistent with startup onboarding.",
-          "Extended the tutorial system to support named flows instead of a single fixed slide sequence.",
-          "Added delegated data-tutorial-flow trigger handling so new guides can be wired without extra JS listeners.",
-          "Added contextual guide entry points inside major modals (Import Target, XLSX Mapping, Notation Manager, Hotkey Customize).",
-          "Added shared '?' trigger styling for dark/light themes and inline/modal placements.",
-          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes.",
-          "Switched startup flow to EXE launcher only and removed legacy BAT startup."
+          "大量のコンボリスト（数百件以上）のパフォーマンスを改善。",
+          ".exeランチャーから更新機能を利用可能にしました。*更新機能を有効にするにはStart_LabMonster.exeで実行してください。",
+          "オンボーディングを改善（ヘルプ導線・使い方案内の強化）。",
+          "EN環境でホットキーに指定されているキーが表示されない不具合を修正。",
+          "EN向け表記辞書の対応範囲を拡張。",
+          "インポート処理中の「Importing」ポップアップ表示を追加。",
+          "複数選択機能を追加。",
+          "特殊条件をキャラ別表示に変更。",
+          "表記変換機能を改善。",
+          "詳細検索のUIを改善。",
+          "インポートのUIを改善（設定・確認フローを整理）。",
+          "行と列に右クリックコマンドを追加。",
+          "行操作ショートカット（Ctrl+Z / Ctrl+Y / Delete / Ctrl+C / Ctrl+V）を追加。",
+          "既存コマンドへのカスタム表記適用機能（置換）を追加。",
+          "EN環境で旧バージョンのフレーム表が正しく表示されない不具合を修正。"
         ],
         "en": [
-          "Added contextual '?' guide triggers to major screens and key popups.",
-          "Added section-based guided flows for Frame Data View, Combo Table, Input section, and Advanced Search.",
-          "Added dedicated workflow guides for Import, Export, and Import Notation handling.",
-          "Added focused guide flow for Hotkey Customize and input mapping.",
-          "Reused the existing tutorial overlay so guided help is consistent with startup onboarding.",
-          "Extended the tutorial system to support named flows instead of a single fixed slide sequence.",
-          "Added delegated data-tutorial-flow trigger handling so new guides can be wired without extra JS listeners.",
-          "Added contextual guide entry points inside major modals (Import Target, XLSX Mapping, Notation Manager, Hotkey Customize).",
-          "Added shared '?' trigger styling for dark/light themes and inline/modal placements.",
-          "Bumped current app/update version to v1.0.2 while preserving v1.0.1 notes.",
-          "Switched startup flow to EXE launcher only and removed legacy BAT startup."
+          "Improved performance for large combo lists (hundreds of entries).",
+          "Added auto-update support via the .exe launcher. *To enable updates, run the app through Start_LabMonster.exe.",
+          "Improved onboarding guidance and in-app help flow.",
+          "Fixed an issue where some assigned keys were not showing up in the input section in EN.",
+          "Expanded EN notation-dictionary coverage.",
+          "Added an \"Importing\" progress popup during import processing.",
+          "Added multi-select support for rows an columns.",
+          "Cleaned up special-conditions handling so its character specific.",
+          "Improved notation processing functions.",
+          "Improved Advanced Search UI.",
+          "Improved Import UI flow.",
+          "Added right-click command actions for rows and columns.",
+          "Added row-level shortcuts (Ctrl+Z / Ctrl+Y / Delete / Ctrl+C / Ctrl+V).",
+          "Added apply-custom-notation support for existing commands (replace-style workflow).",
+          "Fixed a bug where older frame-table versions did not show the correct table in English."
         ]
       }
     },
@@ -92,19 +156,19 @@
       ],
       "items": {
         "jp": [
-          "Improved startup performance.",
-          "The tool now remembers the character and control mode you were using.",
-          "Adjusted the autosave interval.",
-          "Added automatic backups before imports and other major changes.",
-          "Added restore points so data can be recovered from multiple backup snapshots.",
-          "Added an import notation dictionary with JP/EN alias normalization and user-defined entries.",
-          "Added XLSX column mapping import to handle non-standard sheets more reliably.",
-          "Control mode is now applied automatically based on your current mode (also applied to existing saved combos).",
-          "The combo table now shows only combos for the selected control mode.",
-          "Added command validation and control-mode mismatch warnings.",
-          "Added automatic Drive Gauge efficiency calculation (damage / drive gauge spent [negative value]) from entered values.",
-          "Unified changelog and roadmap under Information, and added a version-diff update popup.",
-          "Included additional UI refinements (version display, header height, etc.)."
+          "起動時の速度を改善しました。",
+          "選択していたキャラや操作モードを記憶するようにしました。",
+          "データが自動保存される間隔を調整しました。",
+          "大規模なインポート等の前に自動的にバックアップを行う機能を追加しました。",
+          "複数のポイントからデータを復元できる機能を追加しました。",
+          "インポート用の表記辞書を追加し、JP/EN別名の正規化とユーザーが追加できるようにしました。",
+          "XLSXインポートに列マッピング機能を追加し、テンプレート以外の取り込みを強化しました。",
+          "選択中の操作方法に応じて、自動的に操作タイプが適応されるようになりました。（保存済みのコンボも自動的に反映されます）",
+          "選択中の操作モードのコンボのみ表示されるようにしました。",
+          "コマンド表記と操作モードが不一致の際に警告が表示されるようにしました。",
+          "Dゲージ効率（ダメージ/Dゲージ消費[負値]）の自動計算機能を追加しました。",
+          "更新履歴と今後の予定を情報ページに統合し、更新時は差分表示のポップアップを表示するようにしました。",
+          "その他UIの調整（バージョン表記、ヘッダーの高さの調整など）"
         ],
         "en": [
           "Improved startup performance.",
@@ -132,12 +196,12 @@
       ],
       "items": {
         "jp": [
-          "Lab Monster SF6 \u306e\u521d\u56de\u30ea\u30ea\u30fc\u30b9\u3002",
-          "\u30d5\u30ec\u30fc\u30e0\u30c7\u30fc\u30bf\u95b2\u89a7\u3001\u30b3\u30f3\u30dc\u7de8\u96c6\u3001\u57fa\u672c\u7684\u306a\u5165\u51fa\u529b\u6a5f\u80fd\u3092\u5b9f\u88c5\u3002"
+          "Lab Monster SF6 の初回リリース。",
+          "フレームデータ閲覧、コンボ編集、基本的な入出力機能を実装。"
         ],
         "en": [
           "Initial release of Lab Monster SF6.",
-          "Included frame-data viewer, combo editor, and baseline import/export workflow."
+          "Included the frame-data viewer, combo editor, and baseline import/export workflow."
         ]
       }
     }
@@ -145,90 +209,126 @@
   "roadmap": {
     "jp": [
       {
+        "title": "タグ、お気に入り、星評価",
+        "status": "done",
         "track": "realistic",
-        "title": "Classic/Modern \u9593\u306e\u5909\u63db\u88dc\u52a9",
-        "status": "planned",
-        "notes": "\u30b3\u30de\u30f3\u30c9/\u30dc\u30bf\u30f3\u5909\u63db\u3068\u4e0d\u53ef\u30eb\u30fc\u30c8\u5224\u5b9a\u306e\u88dc\u52a9\u6a5f\u80fd\u3092\u6bb5\u968e\u5b9f\u88c5\u3002"
+        "notes": "絞り込みなどで限定しきれないものや、より簡単にコンボを管理・整理できる機能。"
       },
       {
+        "title": "自動計算（ダメージ系）",
+        "status": "done",
         "track": "realistic",
-        "title": "\u81ea\u52d5\u8a08\u7b97\uff08CA\u30c0\u30e1\u30fc\u30b8\u7cfb\uff09",
-        "status": "planned",
-        "notes": "SA3\u6642\u306e\u4f53\u529b25%\u4ee5\u4e0b\u60f3\u5b9a\u5024\uff08\u901a\u5e38(CA)/C(CA)/PC(CA)\uff09\u306e\u88dc\u52a9\u8a08\u7b97\u3092\u691c\u8a0e\u3002"
+        "notes": "パニカン時や、SA3時の体力25%以下等の場合の補助計算機能。"
       },
       {
-        "track": "realistic",
-        "title": "UI\u6539\u5584\uff08\u30c4\u30fc\u30eb\u30c1\u30c3\u30d7/\u8a73\u7d30\u691c\u7d22/\u5c0f\u753b\u9762\uff09",
+        "title": "Classic/Modern 間の変換補助",
         "status": "planned",
-        "notes": "\u9805\u76ee\u8aac\u660e\u306e\u660e\u78ba\u5316\u3001\u691c\u7d22UI\u6574\u7406\u3001\u72ed\u5e45\u6642\u306e\u8996\u8a8d\u6027\u6539\u5584\u3002"
+        "track": "realistic",
+        "notes": "コマンド/ボタン変換と不可ルート判定の補助機能を段階実装。"
       },
       {
-        "track": "realistic",
-        "title": "\u7d99\u7d9a\u7684\u306a\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u6700\u9069\u5316",
+        "title": "UI改善（ツールチップ/詳細検索/小画面対応）",
         "status": "planned",
-        "notes": "\u8d77\u52d5\u3001\u691c\u7d22/\u4e26\u3073\u66ff\u3048\u3001\u5927\u898f\u6a21\u30c7\u30fc\u30bf\u8868\u793a\u306e\u51e6\u7406\u3092\u6539\u5584\u3002"
+        "track": "realistic",
+        "notes": "項目説明の明確化、検索UI整理、小さい画面表示時の視認性改善。"
       },
       {
+        "title": "継続的なパフォーマンス最適化",
+        "status": "planned",
+        "track": "realistic",
+        "notes": "起動、検索/並び替え、大規模データ表示の処理を改善。"
+      },
+      {
+        "title": "運びなどの実数値などの自動計算",
+        "status": "done",
         "track": "stretch",
-        "title": "\u30b3\u30f3\u30dc\u54c1\u8cea\u306e\u5206\u6790\u30ec\u30dd\u30fc\u30c8",
-        "status": "planned",
-        "notes": "\u54c1\u8cea\u6307\u6a19\u306e\u5b9a\u7fa9\u304c\u5fc5\u8981\u3067\u3001\u5b9f\u88c5\u30b3\u30b9\u30c8\u304c\u9ad8\u3044\u305f\u3081\u9577\u671f\u691c\u8a0e\u3002"
+        "notes": "検証すべき要素が多いため、実現性を継続検討。"
       },
       {
+        "title": "フレームメーターの自動生成",
+        "status": "done",
         "track": "stretch",
-        "title": "\u30b3\u30f3\u30dc\u81ea\u52d5\u751f\u6210",
-        "status": "planned",
-        "notes": "\u30c7\u30fc\u30bf\u6574\u5099\u3068\u691c\u8a3c\u30b3\u30b9\u30c8\u304c\u975e\u5e38\u306b\u9ad8\u304f\u3001\u5b9f\u73fe\u6027\u3092\u7d99\u7d9a\u691c\u8a0e\u3002"
+        "notes": "キャンセルタイミングなどをどのように統一するかなど課題が多いため、長期検討。"
       },
       {
+        "title": "コンボ品質の分析レポート",
+        "status": "done",
         "track": "stretch",
-        "title": "\u30e2\u30d0\u30a4\u30eb\u7248\uff08\u30bf\u30d6\u30ec\u30c3\u30c8\u542b\u3080\uff09",
+        "notes": "品質指標の定義が必要で、実装コストが高いため長期検討。"
+      },
+      {
+        "title": "コンボ自動生成",
         "status": "planned",
-        "notes": "UI\u518d\u8a2d\u8a08\u304c\u5fc5\u8981\u306a\u305f\u3081\u3001\u512a\u5148\u5ea6\u306f\u4f4e\u3081\u3002"
+        "track": "stretch",
+        "notes": "データ整備と検証コストが非常に高く、実現性を継続検討。"
+      },
+      {
+        "title": "モバイル版（タブレット向け）",
+        "status": "planned",
+        "track": "stretch",
+        "notes": "UI再設計が必要なため、優先度は低め。（現時点でもタブレットでは最低限機能するはず）"
       }
     ],
     "en": [
       {
+        "title": "Tags, favorites, and star ratings",
+        "status": "done",
         "track": "realistic",
+        "notes": "Add metadata to make combo management and filtering easier."
+      },
+      {
+        "title": "Auto-calculation (damage fields)",
+        "status": "done",
+        "track": "realistic",
+        "notes": "Add assist calculations for punish-counter and low-health SA3 scenarios."
+      },
+      {
         "title": "Classic/Modern conversion assist",
         "status": "planned",
-        "notes": "Phase in command/button conversion assistance and impossible-route hints."
+        "track": "realistic",
+        "notes": "Phase in command/button conversion support and impossible-route hints."
       },
       {
-        "track": "realistic",
-        "title": "Auto-calculation (CA damage fields)",
+        "title": "UI polish (tooltips/advanced search/small-screen support)",
         "status": "planned",
-        "notes": "Plan assist calculations for SA3 low-health values (Normal(CA)/C(CA)/PC(CA))."
+        "track": "realistic",
+        "notes": "Clarify field guidance, organize search UI, and improve compact-window readability."
       },
       {
-        "track": "realistic",
-        "title": "UI polish (tooltips/advanced search/small screens)",
-        "status": "planned",
-        "notes": "Clarify field guidance, reorganize search UI, and improve compact-window readability."
-      },
-      {
-        "track": "realistic",
         "title": "Continuous performance optimization",
         "status": "planned",
+        "track": "realistic",
         "notes": "Keep improving startup, search/sort, and large-table rendering performance."
       },
       {
+        "title": "Automatic carry-distance and other in-game value calculations",
+        "status": "done",
         "track": "stretch",
-        "title": "Combo quality analytics",
-        "status": "planned",
-        "notes": "Needs a reliable quality metric; high implementation complexity."
-      },
-      {
-        "track": "stretch",
-        "title": "Automatic combo generation",
-        "status": "planned",
         "notes": "Very high data/validation cost; feasibility under review."
       },
       {
+        "title": "Automatic frame-meter generation",
+        "status": "done",
         "track": "stretch",
+        "notes": "Requires normalization of cancel timing and related logic; feasibility under review."
+      },
+      {
+        "title": "Combo quality analytics",
+        "status": "done",
+        "track": "stretch",
+        "notes": "Requires a reliable quality metric; high implementation complexity."
+      },
+      {
+        "title": "Automatic combo generation",
+        "status": "planned",
+        "track": "stretch",
+        "notes": "Very high data/validation cost; feasibility under review."
+      },
+      {
         "title": "Mobile/tablet build",
         "status": "planned",
-        "notes": "Requires substantial UI redesign; low near-term priority."
+        "track": "stretch",
+        "notes": "Requires substantial UI redesign; low near-term priority. (Should technically work on tablets already.)"
       }
     ]
   }

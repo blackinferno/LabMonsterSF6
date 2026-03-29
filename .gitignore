@@ -1,0 +1,28 @@
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+
+# Local build/output artifacts
+.dist_build/
+dist/*.zip
+
+# Local scratch files
+_tmp_*
+*.bak
+*.bak_*
+*.latest_working*
+sf6_viewer_unified/LATEST_WORKING_STATE.txt
+
+# Local dev datasets/tools
+tools/moveset/Context/psychodrive/
+tools/moveset/Context/wabt-*/
+tools/moveset/Context/wabt-*.tar.gz
+tools/moveset/Context/*.bak
+tools/moveset/*.db
+tools/moveset/*.db.bak*
+
+# Local docs
+docs/CODEX_WORKING_RULES.md
+
+# Local sandbox projects
+SF6Trial/

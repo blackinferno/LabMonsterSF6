@@ -193,9 +193,12 @@ body {
 }
 
 @keyframes updatePulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.2);
     }
+
     50% {
         box-shadow: 0 0 0 1px rgba(249, 115, 6, 0.45), 0 0 12px rgba(249, 115, 6, 0.32);
     }
@@ -730,6 +733,10 @@ body[data-lang="jp"] .char-name-en {
     display: none;
 }
 
+#tutorialOverlay {
+    z-index: 1200;
+}
+
 .modal-backdrop,
 
 
@@ -900,7 +907,7 @@ body[data-lang="jp"] .char-name-en {
     padding-left: 16px;
 }
 
-.info-block .welcome-list li + li {
+.info-block .welcome-list li+li {
     margin-top: 4px;
 }
 
@@ -1053,7 +1060,7 @@ body[data-lang="jp"] .char-name-en {
     margin-left: 6px;
 }
 
-.info-update-entry + .info-update-entry {
+.info-update-entry+.info-update-entry {
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -1104,7 +1111,7 @@ body[data-lang="jp"] .char-name-en {
     gap: 8px;
 }
 
-.info-roadmap-group + .info-roadmap-group {
+.info-roadmap-group+.info-roadmap-group {
     margin-top: 14px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -1302,11 +1309,11 @@ body[data-theme="light"] .welcome-checkbox {
 }
 
 body[data-theme="light"] .welcome-group-header,
-body[data-theme="light"] .info-update-entry + .info-update-entry {
+body[data-theme="light"] .info-update-entry+.info-update-entry {
     border-top-color: rgba(0, 0, 0, 0.14);
 }
 
-body[data-theme="light"] .info-roadmap-group + .info-roadmap-group {
+body[data-theme="light"] .info-roadmap-group+.info-roadmap-group {
     border-top-color: rgba(0, 0, 0, 0.14);
 }
 
@@ -1526,7 +1533,7 @@ body[data-theme="light"] .donation-link {
     }
 
     .frame-table th,
-    
+
 
 
     .frame-table td {
@@ -2612,7 +2619,7 @@ body[data-theme="light"] .help-meta span {
     border-color: transparent;
 }
 
-body[data-theme="light"] .help-meta span + span::before {
+body[data-theme="light"] .help-meta span+span::before {
     color: #7f8ca1;
 }
 
@@ -2635,7 +2642,7 @@ body[data-theme="light"] .help-subtoc button {
     border-color: #c5c5c5;
 }
 
-body[data-theme="light"] .help-grid > div {
+body[data-theme="light"] .help-grid>div {
     border-color: #dddddd;
     background: #ffffff;
 }
@@ -2645,7 +2652,7 @@ body[data-theme="light"] #help-howto .help-grid {
     background: #ffffff;
 }
 
-body[data-theme="light"] #help-howto .help-grid > div {
+body[data-theme="light"] #help-howto .help-grid>div {
     background: transparent;
 }
 
@@ -2886,13 +2893,13 @@ body:not([data-theme="light"]) #mainHeader.site-header {
     }
 
     .frame-version-select,
-    
+
     #frameCompareVersionSelect,
-    
+
     .frame-compare-btn,
-    
+
     #frameCompareApplyBtn,
-    
+
     #frameCompareClearBtn {
         height: 22px;
         font-size: 10px;
@@ -3493,7 +3500,7 @@ body {
     letter-spacing: 0.02em;
 }
 
-.help-meta span + span::before {
+.help-meta span+span::before {
     content: "•";
     color: #7f7f7f;
     margin: 0 8px 0 6px;
@@ -3655,9 +3662,9 @@ body {
     color: var(--text-dim);
 }
 
-.help-subcard ul + h3,
-.help-subcard ol + h3,
-.help-subcard .help-definition-table-wrap + h3 {
+.help-subcard ul+h3,
+.help-subcard ol+h3,
+.help-subcard .help-definition-table-wrap+h3 {
     margin-top: 16px;
 }
 
@@ -3667,7 +3674,7 @@ body {
     gap: 12px;
 }
 
-.help-grid > div {
+.help-grid>div {
     border: 1px solid #2b2b2b;
     border-radius: 8px;
     padding: 10px 11px;
@@ -3681,11 +3688,11 @@ body {
     background: rgba(14, 14, 14, 0.55);
 }
 
-#help-howto .help-grid + .help-grid {
+#help-howto .help-grid+.help-grid {
     margin-top: 12px;
 }
 
-#help-howto .help-grid > div {
+#help-howto .help-grid>div {
     border: none;
     border-radius: 0;
     padding: 0;
@@ -3770,6 +3777,13 @@ body {
     object-fit: contain;
     vertical-align: middle;
     margin: 0;
+}
+
+#help-notation-symbols .help-token-icons img[src*="key-barrage2"],
+#help-notation-symbols .help-token-icons img[src*="key-barrage3"] {
+    width: 40px;
+    height: 20px;
+    margin: 1px;
 }
 
 #help-notation-symbols .help-definition-table th:first-child,

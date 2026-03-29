@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/combo_view.css" />
 </head>
 
-<body data-theme="dark" data-lang="jp" data-version="1.0.3">
+<body data-theme="dark" data-lang="jp" data-version="1.0.4">
     <header id="mainHeader" class="site-header">
         <div class="site-header-inner">
             <div class="site-brand">
@@ -608,7 +608,8 @@
                     style="position:absolute;left:5px;top:104px;z-index:10;">
                     <span class="combo-row-label" data-i18n="combo.rows.label">行:</span>
                     <label>
-                        <input type="checkbox" id="toggleFrameRows"> <span data-i18n="combo.rows.frame">フレームデータ</span>
+                        <input type="checkbox" id="toggleFrameRows" checked> <span
+                            data-i18n="combo.rows.frame">フレームデータ</span>
                     </label>
                     <label>
                         <input type="checkbox" id="toggleButtonsRows" checked> <span
@@ -641,9 +642,24 @@
                                         style="font-family:Microsoft YaHei;font-size:11px;line-height:14px;">条件</span>
                                 </p>
                             </th>
-                            <th colspan="14" class="cell4">
+                            <th colspan="5" class="cell4">
                                 <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
                                         style="font-family:Yu Gothic;font-size:11px;line-height:13.5px;">ダメージ</span></p>
+                            </th>
+                            <th colspan="3" class="cell4">
+                                <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
+                                        style="font-family:Yu Gothic;font-size:11px;line-height:13.5px;">ダメージ(毒)</span>
+                                </p>
+                            </th>
+                            <th colspan="3" class="cell4">
+                                <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
+                                        style="font-family:Yu Gothic;font-size:11px;line-height:13.5px;">ダメージ(CA)</span>
+                                </p>
+                            </th>
+                            <th colspan="3" class="cell4">
+                                <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
+                                        style="font-family:Yu Gothic;font-size:11px;line-height:13.5px;">ダメージ(毒/CA)</span>
+                                </p>
                             </th>
                             <th colspan="3" class="cell5">
                                 <p style="font-family:Arial;font-size:13px;line-height:16px;"><span
@@ -2768,7 +2784,7 @@
         <footer class="site-footer">
             <p>Unofficial reference built for lab work. All assets &copy; CAPCOM CO., LTD.</p>
             <div class="site-footer-meta">
-                <span id="footerAppVersionText">Tool Ver.: 1.0.3</span>
+                <span id="footerAppVersionText">Tool Ver.: 1.0.4</span>
                 <span id="footerGameVersionText">Game Ver.: 2025.03.17</span>
             </div>
         </footer>
@@ -2825,6 +2841,7 @@
                             <li>Comprehensive fields for conditions, damage variants, resources, carry, and post-combo
                                 state.</li>
                             <li>Multiline notes field for setup details and other memos.</li>
+                            <li>Tag support for labeling routes and quick filtering.</li>
                             <li>(Beta) Auto-generated damage inputs.</li>
                         </ul>
                         <h3>Editing / Maintenance Tools</h3>
@@ -2834,7 +2851,7 @@
                             <li>Often used keyboard shortcuts (ex. Ctrl+C, Ctrl+V, Ctrl+Z) for efficient workflow.</li>
                             <li>Sortable headers/subheaders for quick data review.</li>
                             <li>Auto-generated button icons from command notation.</li>
-                            <li>(Beta) Auto-generated frame meter for reference.</li>
+                            <li>Combo Details popup with frame meter and per-starter stats.</li>
                         </ul>
                         <h3>View / Workflow Controls</h3>
                         <ul class="help-list-tight">
@@ -2889,8 +2906,12 @@
                             data-i18n="help.howto.frame_compare">Frame Data Compare</button>
                         <button type="button" data-help-target="help-howto-combo-entry"
                             data-i18n="help.howto.combo_entry">Combo Entry</button>
+                        <button type="button" data-help-target="help-howto-combo-details"
+                            data-i18n="help.howto.combo_details">Combo Details</button>
                         <button type="button" data-help-target="help-howto-table-control"
                             data-i18n="help.howto.table_control">Table Control</button>
+                        <button type="button" data-help-target="help-howto-shortcuts"
+                            data-i18n="help.howto.shortcuts">Shortcuts</button>
                         <button type="button" data-help-target="help-howto-search" data-i18n="help.howto.search">Search
                             / Filter</button>
                         <button type="button" data-help-target="help-howto-import"
@@ -2973,6 +2994,36 @@
                             </div>
                         </div>
                     </section>
+                    <section id="help-howto-combo-details" class="help-subcard">
+                        <h3 data-i18n="help.howto.combo_details_full">Combo Details</h3>
+                        <div class="help-grid">
+                            <div>
+                                <h3 data-i18n="help.common.what_it_does">What It Does</h3>
+                                <ul class="help-list-tight">
+                                    <li>Opens a detailed view with frame meter, command edit, notes, URL/video, and
+                                        stats.</li>
+                                    <li>Shows same starter and D gauge averages, ranks, and top combo links for quick
+                                        comparison.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 data-i18n="help.common.how_to_do">How To Do It</h3>
+                                <ol class="help-steps">
+                                    <li>Double-click a combo row or open Combo Details from the right-click menu.</li>
+                                    <li>Edit the command or notes and click Save to overwrite the row.</li>
+                                    <li>Paste a video URL to preview embedded footage in the modal.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h3 data-i18n="help.common.specific_uses">Specific Uses</h3>
+                                <ul class="help-list-tight">
+                                    <li>Review routes with frame meter and button icons in one view.</li>
+                                    <li>Compare same starter and same D gauge averages and top combos without leaving
+                                        the popup.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
                     <section id="help-howto-table-control" class="help-subcard">
                         <h3 data-i18n="help.howto.table_control_full">Table Control (Rows / Columns / Sorting)</h3>
                         <div class="help-grid">
@@ -3008,6 +3059,32 @@
                                     <li>Click the&nbsp;<b>Close</b>&nbsp;button below the table to collapse the lower
                                         input section when you need more table workspace.
                                     </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="help-howto-shortcuts" class="help-subcard">
+                        <h3 data-i18n="help.howto.shortcuts_full">Shortcuts</h3>
+                        <div class="help-grid">
+                            <div>
+                                <h3 data-i18n="help.common.what_it_does">What It Does</h3>
+                                <ul class="help-list-tight">
+                                    <li>Commonly used shortcuts are available for efficient workflow.</li>
+                                    <li>These shortcuts can be used in conjunction with the right-click context menu.
+                                    </li>
+                                    <li>A full list of available shortcuts is provided below.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 data-i18n="help.common.specific_uses">Shortcuts</h3>
+                                <ul class="help-list-tight">
+                                    <li>Ctrl + C: Copy selected rows</li>
+                                    <li>Ctrl + V: Paste copied rows</li>
+                                    <li>Ctrl + X: Cut selected rows</li>
+                                    <li>Ctrl + Z: Undo edits</li>
+                                    <li>Ctrl + Y: Redo edits</li>
+                                    <li>Ctrl + H: Opens Replace popup</li>
+                                    <li>Ctrl + F: Jumps cursor to main search bar for quick lookup</li>
                                 </ul>
                             </div>
                         </div>
@@ -3402,7 +3479,7 @@
                                     </tr>
                                     <tr>
                                         <td>フレームメーター</td>
-                                        <td>Reserved display field for frame meter</td>
+                                        <td>Reserved display field for tags (frame meter moved to Combo Details)</td>
                                         <td>Display / future auto</td>
                                     </tr>
                                     <tr>
@@ -3450,14 +3527,14 @@
                                         <td>Select</td>
                                     </tr>
                                     <tr>
-                                        <td>開始Dゲージ / 開始SAゲージ</td>
+                                        <td>開始最小Dゲージ / 開始最小SAゲージ</td>
                                         <td>Minimum resource required at combo start</td>
                                         <td>Number</td>
                                     </tr>
                                     <tr>
                                         <td>対応キャラ / 特殊条件</td>
                                         <td>Character-specific or state-specific constraints</td>
-                                        <td>Text / tags</td>
+                                        <td>Text / Select</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -3477,7 +3554,8 @@
                                 <tbody>
                                     <tr>
                                         <td>ダメージ</td>
-                                        <td>Damage values for normal/C/PC and CA variants where applicable</td>
+                                        <td>Damage values for damage after just parry, chip damage, normal/C/PC and
+                                            CA variants where applicable</td>
                                         <td>Number</td>
                                     </tr>
                                     <tr>
@@ -3533,9 +3611,29 @@
                                         <td>Number</td>
                                     </tr>
                                     <tr>
-                                        <td>詐欺飛び / 重ね</td>
-                                        <td>Safe jump, oki, and other post-combo interaction notes</td>
-                                        <td>Select / text</td>
+                                        <td>相手状態</td>
+                                        <td>State of the opponent after the combo</td>
+                                        <td>Select</td>
+                                    </tr>
+                                    <tr>
+                                        <td>詐欺飛び</td>
+                                        <td>Safe jumps possibilities</td>
+                                        <td>Select</td>
+                                    </tr>
+                                    <tr>
+                                        <td>入替</td>
+                                        <td>Whether combo switches sides</td>
+                                        <td>Select</td>
+                                    </tr>
+                                    <tr>
+                                        <td>割込</td>
+                                        <td>Whether combo is interruptible</td>
+                                        <td>Select</td>
+                                    </tr>
+                                    <tr>
+                                        <td>重ね</td>
+                                        <td>Meaty options</td>
+                                        <td>Text</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -3713,6 +3811,182 @@
                         <button type="button" id="tutorialDone" class="header-help-btn"
                             data-i18n="tutorial.close">Close</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frameMeterOverlay" class="modal-overlay hidden" aria-hidden="true">
+            <div class="overlay-bg modal-backdrop" aria-hidden="true"></div>
+            <div class="modal-panel frame-meter-panel" role="dialog" aria-modal="true"
+                aria-labelledby="frameMeterTitle">
+                <button type="button" id="comboDetailsHelpBtn"
+                    class="header-help-btn tutorial-flow-trigger combo-details-help-trigger"
+                    data-tutorial-flow="combo-details" aria-label="Combo details guide"
+                    title="Combo details guide">?</button>
+                <h2 id="frameMeterTitle" class="modal-title" data-combo-details-label="title">Combo Details</h2>
+                <p id="frameMeterMeta" class="modal-meta"></p>
+
+                <div class="combo-details-scroll">
+                    <div class="combo-details-bars">
+                        <div class="combo-details-bar combo-details-bar-meter">
+                            <div class="frame-meter-modal-visual-wrap combo-details-meter-wrap">
+                                <div id="frameMeterModalVisual" class="frame-meter-visual"></div>
+                            </div>
+                        </div>
+                        <div class="combo-details-bar combo-details-bar-command">
+                            <div id="comboDetailsCommandEdit" class="combo-details-command-edit" contenteditable="true"
+                                spellcheck="false" role="textbox" aria-multiline="true"></div>
+                        </div>
+                        <div class="combo-details-bar combo-details-bar-buttons">
+                            <div id="comboDetailsButtonsIcons" class="combo-details-buttons-icons"></div>
+                        </div>
+                        <div id="comboDetailsTags" class="combo-details-bar combo-details-bar-tags"
+                            data-combo-details-label="tags">Tags (Coming soon)</div>
+                    </div>
+
+                    <div class="combo-details-form">
+                        <label class="combo-details-label" for="comboDetailsNotes"
+                            data-combo-details-label="notes">Notes</label>
+                        <input id="comboDetailsNotes" class="combo-details-input" type="text" />
+
+                        <label class="combo-details-label" for="comboDetailsOki"
+                            data-combo-details-label="oki">Oki</label>
+                        <input id="comboDetailsOki" class="combo-details-input" type="text" />
+
+                        <label class="combo-details-label" for="comboDetailsExtraNotes"
+                            data-combo-details-label="extra">Extra Notes</label>
+                        <textarea id="comboDetailsExtraNotes" class="combo-details-textarea" rows="3"></textarea>
+
+                        <label class="combo-details-label" for="comboDetailsUrl"
+                            data-combo-details-label="url">URL</label>
+                        <input id="comboDetailsUrl" class="combo-details-input" type="text" placeholder="https://" />
+
+                        <div id="comboDetailsVideoWrap" class="combo-details-video-wrap" hidden>
+                            <div id="comboDetailsVideoEmbed" class="combo-details-video-embed"></div>
+                        </div>
+                    </div>
+
+                    <div class="combo-details-sep" aria-hidden="true"></div>
+
+                    <div class="combo-details-stats">
+                        <div class="combo-details-stats-head">
+                            <div class="combo-details-head-this" data-combo-details-label="head_this"
+                                data-combo-details-tooltip="tip_this" title="This combo values">This Combo</div>
+                            <div data-combo-details-label="head_starter_avg"
+                                data-combo-details-tooltip="tip_starter_avg"
+                                title="Average of combos with the same starter">Starter<br>Average</div>
+                            <div data-combo-details-label="head_rank" data-combo-details-tooltip="tip_rank"
+                                title="Rank among combos with the same starter">RANK</div>
+                            <div data-combo-details-label="head_top" data-combo-details-tooltip="tip_top"
+                                title="Top value among combos with the same starter">Top</div>
+                            <div data-combo-details-label="head_top_combo" data-combo-details-tooltip="tip_top_combo"
+                                title="Top combo among combos with the same starter">Top<br>Combo</div>
+                            <div data-combo-details-label="head_spent_avg" data-combo-details-tooltip="tip_spent_avg"
+                                title="Average of combos with the same D gauge spent">Average per<br>D Gauge spent</div>
+                            <div data-combo-details-label="head_rank_spent" data-combo-details-tooltip="tip_rank_spent"
+                                title="Rank among combos with the same D gauge spent">RANK</div>
+                            <div data-combo-details-label="head_top_spent" data-combo-details-tooltip="tip_top_spent"
+                                title="Top value among combos with the same D gauge spent">Top</div>
+                            <div data-combo-details-label="head_top_combo_spent"
+                                data-combo-details-tooltip="tip_top_combo_spent"
+                                title="Top combo among combos with the same D gauge spent">Top<br>Combo</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_damage">Damage</div>
+                            <div id="comboDetailsStatDamage">-</div>
+                            <div id="comboDetailsStatStarterAvg">-</div>
+                            <div id="comboDetailsStatStarterRank">-</div>
+                            <div id="comboDetailsStatStarterTopDamage">-</div>
+                            <div id="comboDetailsStatStarterTop">-</div>
+                            <div id="comboDetailsStatDmgPerDrive">-</div>
+                            <div id="comboDetailsStatDriveRank">-</div>
+                            <div id="comboDetailsStatDriveTopEff">-</div>
+                            <div id="comboDetailsStatDriveTop">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_dmg_dgauge">D Gauge Damage</div>
+                            <div id="comboDetailsStatDriveDamage">-</div>
+                            <div id="comboDetailsStatDriveDamageStarterAvg">-</div>
+                            <div id="comboDetailsStatDriveDamageStarterRank">-</div>
+                            <div id="comboDetailsStatDriveDamageStarterTopVal">-</div>
+                            <div id="comboDetailsStatDriveDamageStarterTopCmd">-</div>
+                            <div id="comboDetailsStatDriveDamageSpentAvg">-</div>
+                            <div id="comboDetailsStatDriveDamageSpentRank">-</div>
+                            <div id="comboDetailsStatDriveDamageSpentTopVal">-</div>
+                            <div id="comboDetailsStatDriveDamageSpentTopCmd">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_dgauge_delta">D Gauge Delta</div>
+                            <div id="comboDetailsStatDriveDelta">-</div>
+                            <div id="comboDetailsStatDriveDeltaStarterAvg">-</div>
+                            <div id="comboDetailsStatDriveDeltaStarterRank">-</div>
+                            <div id="comboDetailsStatDriveDeltaStarterTopVal">-</div>
+                            <div id="comboDetailsStatDriveDeltaStarterTopCmd">-</div>
+                            <div id="comboDetailsStatDriveDeltaSpentAvg">-</div>
+                            <div id="comboDetailsStatDriveDeltaSpentRank">-</div>
+                            <div id="comboDetailsStatDriveDeltaSpentTopVal">-</div>
+                            <div id="comboDetailsStatDriveDeltaSpentTopCmd">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_dgauge_eff">D Gauge Efficiency</div>
+                            <div id="comboDetailsStatDriveEff">-</div>
+                            <div id="comboDetailsStatDriveEffStarterAvg">-</div>
+                            <div id="comboDetailsStatDriveEffStarterRank">-</div>
+                            <div id="comboDetailsStatDriveEffStarterTopVal">-</div>
+                            <div id="comboDetailsStatDriveEffStarterTopCmd">-</div>
+                            <div id="comboDetailsStatDriveEffSpentAvg">-</div>
+                            <div id="comboDetailsStatDriveEffSpentRank">-</div>
+                            <div id="comboDetailsStatDriveEffSpentTopVal">-</div>
+                            <div id="comboDetailsStatDriveEffSpentTopCmd">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_sa_gain">SA Gauge Gain</div>
+                            <div id="comboDetailsStatSaGain">-</div>
+                            <div id="comboDetailsStatSaGainStarterAvg">-</div>
+                            <div id="comboDetailsStatSaGainStarterRank">-</div>
+                            <div id="comboDetailsStatSaGainStarterTopVal">-</div>
+                            <div id="comboDetailsStatSaGainStarterTopCmd">-</div>
+                            <div id="comboDetailsStatSaGainSpentAvg">-</div>
+                            <div id="comboDetailsStatSaGainSpentRank">-</div>
+                            <div id="comboDetailsStatSaGainSpentTopVal">-</div>
+                            <div id="comboDetailsStatSaGainSpentTopCmd">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_carry">Carry</div>
+                            <div id="comboDetailsStatCarry">-</div>
+                            <div id="comboDetailsStatCarryStarterAvg">-</div>
+                            <div id="comboDetailsStatCarryStarterRank">-</div>
+                            <div id="comboDetailsStatCarryStarterTopVal">-</div>
+                            <div id="comboDetailsStatCarryStarterTopCmd">-</div>
+                            <div id="comboDetailsStatCarrySpentAvg">-</div>
+                            <div id="comboDetailsStatCarrySpentRank">-</div>
+                            <div id="comboDetailsStatCarrySpentTopVal">-</div>
+                            <div id="comboDetailsStatCarrySpentTopCmd">-</div>
+                        </div>
+                        <div class="combo-details-stats-row">
+                            <div data-combo-details-label="row_frame_adv">Frame Advantage</div>
+                            <div id="comboDetailsStatFrameAdv">-</div>
+                            <div id="comboDetailsStatFrameAdvStarterAvg">-</div>
+                            <div id="comboDetailsStatFrameAdvStarterRank">-</div>
+                            <div id="comboDetailsStatFrameAdvStarterTopVal">-</div>
+                            <div id="comboDetailsStatFrameAdvStarterTopCmd">-</div>
+                            <div id="comboDetailsStatFrameAdvSpentAvg">-</div>
+                            <div id="comboDetailsStatFrameAdvSpentRank">-</div>
+                            <div id="comboDetailsStatFrameAdvSpentTopVal">-</div>
+                            <div id="comboDetailsStatFrameAdvSpentTopCmd">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions combo-details-actions">
+                    <button type="button" id="comboDetailsBtnCopy" class="header-help-btn"
+                        title="Copy command">Copy</button>
+                    <button type="button" id="comboDetailsBtnDuplicate" class="header-help-btn"
+                        title="Duplicate row">Duplicate</button>
+                    <button type="button" id="comboDetailsBtnDelete" class="header-help-btn combo-details-btn-danger"
+                        title="Delete row">Delete</button>
+                    <button type="button" id="comboDetailsBtnSave" class="header-help-btn active"
+                        title="Save changes">Save</button>
                 </div>
             </div>
         </div>

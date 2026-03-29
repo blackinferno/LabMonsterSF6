@@ -848,7 +848,8 @@
 
 #comboView #Table1 .combo-sortable.combo-header-selected,
 #comboView #comboTableHeader .combo-sortable.combo-header-selected {
-    background: rgba(249, 115, 22, 0.2) !important;
+    /* Layer semi-transparent orange over solid base so sticky headers stay opaque. */
+    background: linear-gradient(rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.2)), #1b1b1b !important;
     box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.6);
 }
 
@@ -856,8 +857,22 @@
 #comboView #Table1 tr:not(.selected) th.combo-column-selected,
 #comboView #comboTableHeader td.combo-column-selected,
 #comboView #comboTableHeader th.combo-column-selected {
-    background: rgba(59, 130, 246, 0.14) !important;
+    /* Same layering for body column highlight. */
+    background: linear-gradient(rgba(59, 130, 246, 0.14), rgba(59, 130, 246, 0.14)), #121212 !important;
     box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.45);
+}
+
+/* Suppress browser default focus outline on sortable headers on mouse click.
+   :focus-visible still shows the ring for keyboard navigation. */
+#comboView #Table1 .combo-sortable:focus,
+#comboView #comboTableHeader .combo-sortable:focus {
+    outline: none;
+}
+
+#comboView #Table1 .combo-sortable:focus-visible,
+#comboView #comboTableHeader .combo-sortable:focus-visible {
+    outline: 1px solid rgba(249, 115, 22, 0.7);
+    outline-offset: -2px;
 }
 
 #comboView #Table1 tr:nth-child(2) td {
@@ -1873,6 +1888,363 @@
     box-sizing: border-box;
 }
 
+#comboView .combo-tags-wrap {
+    width: min(100%, var(--combo-command-col-width, 440px));
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    max-width: var(--combo-command-col-width, 440px);
+    box-sizing: border-box;
+    position: relative;
+    gap: 6px;
+}
+
+#comboView .combo-tags-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    /* Leave room for the + button so the overlay rect matches the chip area. */
+    right: 30px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#comboView .combo-tags-chips {
+    width: 100%;
+    min-height: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#comboView .combo-tags-add-btn {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #1b1b1b;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+    font-size: 14px;
+    padding: 0;
+}
+
+#comboView .combo-tags-add-btn:hover {
+    border-color: #f97306;
+}
+
+#comboView .combo-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    line-height: 1.4;
+    border: none;
+    color: #f1f5f9;
+    background: rgba(148, 163, 184, 0.16);
+    user-select: none;
+    white-space: nowrap;
+    position: relative;
+}
+
+#comboView .combo-tag-chip-empty {
+    opacity: 0.7;
+}
+
+#comboView .combo-tag-chip-del {
+    border: none;
+    background: transparent;
+    color: rgba(241, 245, 249, 0.7);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#comboView .combo-tag-chip:hover .combo-tag-chip-del {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#comboView .combo-tag-chip-del:hover {
+    color: #fff;
+}
+
+#comboView .combo-tag-chip.tagmod-0 {
+    background: rgba(56, 189, 248, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-1 {
+    background: rgba(52, 211, 153, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-2 {
+    background: rgba(251, 113, 133, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-3 {
+    background: rgba(251, 191, 36, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-4 {
+    background: rgba(167, 139, 250, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-5 {
+    background: rgba(34, 197, 94, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-6 {
+    background: rgba(249, 115, 22, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-7 {
+    background: rgba(96, 165, 250, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-8 {
+    background: rgba(45, 212, 191, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-9 {
+    background: rgba(244, 114, 182, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-10 {
+    background: rgba(248, 113, 113, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-11 {
+    background: rgba(253, 224, 71, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-12 {
+    background: rgba(129, 140, 248, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-13 {
+    background: rgba(74, 222, 128, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-14 {
+    background: rgba(251, 146, 60, 0.18);
+}
+
+#comboView .combo-tag-chip.tagmod-15 {
+    background: rgba(103, 232, 249, 0.18);
+}
+
+/* Tag picker (multi-input panel when editing tags) */
+.combo-multi-body.combo-tag-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 360px;
+    max-height: 260px;
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt {
+    border-radius: 999px;
+    border: none;
+    background: rgba(148, 163, 184, 0.16);
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt:hover {
+    outline: 1px solid rgba(241, 245, 249, 0.35);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.is-selected,
+.combo-multi-body.combo-tag-picker .combo-tag-opt:disabled {
+    outline: 1px solid rgba(241, 245, 249, 0.45);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 {
+    background: rgba(56, 189, 248, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 {
+    background: rgba(52, 211, 153, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 {
+    background: rgba(251, 113, 133, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 {
+    background: rgba(251, 191, 36, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 {
+    background: rgba(167, 139, 250, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 {
+    background: rgba(34, 197, 94, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 {
+    background: rgba(249, 115, 22, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 {
+    background: rgba(96, 165, 250, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 {
+    background: rgba(45, 212, 191, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 {
+    background: rgba(244, 114, 182, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 {
+    background: rgba(248, 113, 113, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 {
+    background: rgba(253, 224, 71, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 {
+    background: rgba(129, 140, 248, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 {
+    background: rgba(74, 222, 128, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 {
+    background: rgba(251, 146, 60, 0.18);
+}
+
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 {
+    background: rgba(103, 232, 249, 0.18);
+}
+
+/* Override tag palette with a more distinct 16-color HSL wheel (chips + modal + picker). */
+#comboView .combo-tag-chip.tagmod-0,
+#frameMeterOverlay .combo-tag-chip.tagmod-0,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 {
+    background: linear-gradient(135deg, hsla(200, 90%, 55%, 0.38), hsla(220, 90%, 55%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-1,
+#frameMeterOverlay .combo-tag-chip.tagmod-1,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 {
+    background: linear-gradient(135deg, hsla(165, 90%, 48%, 0.38), hsla(185, 90%, 48%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-2,
+#frameMeterOverlay .combo-tag-chip.tagmod-2,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 {
+    background: linear-gradient(135deg, hsla(135, 90%, 50%, 0.38), hsla(155, 90%, 50%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-3,
+#frameMeterOverlay .combo-tag-chip.tagmod-3,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 {
+    background: linear-gradient(135deg, hsla(105, 90%, 48%, 0.38), hsla(125, 90%, 48%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-4,
+#frameMeterOverlay .combo-tag-chip.tagmod-4,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 {
+    background: linear-gradient(135deg, hsla(75, 95%, 50%, 0.38), hsla(95, 95%, 50%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-5,
+#frameMeterOverlay .combo-tag-chip.tagmod-5,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 {
+    background: linear-gradient(135deg, hsla(50, 95%, 52%, 0.38), hsla(70, 95%, 52%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-6,
+#frameMeterOverlay .combo-tag-chip.tagmod-6,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 {
+    background: linear-gradient(135deg, hsla(28, 95%, 55%, 0.38), hsla(48, 95%, 55%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-7,
+#frameMeterOverlay .combo-tag-chip.tagmod-7,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 {
+    background: linear-gradient(135deg, hsla(10, 95%, 55%, 0.38), hsla(30, 95%, 55%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-8,
+#frameMeterOverlay .combo-tag-chip.tagmod-8,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 {
+    background: linear-gradient(135deg, hsla(350, 95%, 58%, 0.38), hsla(10, 95%, 58%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-9,
+#frameMeterOverlay .combo-tag-chip.tagmod-9,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 {
+    background: linear-gradient(135deg, hsla(330, 95%, 58%, 0.38), hsla(350, 95%, 58%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-10,
+#frameMeterOverlay .combo-tag-chip.tagmod-10,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 {
+    background: linear-gradient(135deg, hsla(305, 90%, 58%, 0.38), hsla(325, 90%, 58%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-11,
+#frameMeterOverlay .combo-tag-chip.tagmod-11,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 {
+    background: linear-gradient(135deg, hsla(280, 90%, 60%, 0.38), hsla(300, 90%, 60%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-12,
+#frameMeterOverlay .combo-tag-chip.tagmod-12,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 {
+    background: linear-gradient(135deg, hsla(255, 90%, 60%, 0.38), hsla(275, 90%, 60%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-13,
+#frameMeterOverlay .combo-tag-chip.tagmod-13,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 {
+    background: linear-gradient(135deg, hsla(230, 90%, 58%, 0.38), hsla(250, 90%, 58%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-14,
+#frameMeterOverlay .combo-tag-chip.tagmod-14,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 {
+    background: linear-gradient(135deg, hsla(210, 90%, 56%, 0.38), hsla(230, 90%, 56%, 0.22));
+}
+
+#comboView .combo-tag-chip.tagmod-15,
+#frameMeterOverlay .combo-tag-chip.tagmod-15,
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 {
+    background: linear-gradient(135deg, hsla(190, 90%, 52%, 0.38), hsla(210, 90%, 52%, 0.22));
+}
+
 #comboView .frame-meter-hidden-input {
     display: none !important;
 }
@@ -1897,6 +2269,682 @@
     user-select: none;
     contain: layout paint style;
     overflow-x: hidden;
+}
+
+/* ======================================================================== */
+/* Frame Meter Details Modal */
+/* ======================================================================== */
+#frameMeterOverlay {
+    --fat-frame-meter-startup: #17a075;
+    --fat-frame-meter-active: #ae165e;
+    --fat-frame-meter-recovery: #0d6898;
+    --fat-frame-meter-invalid: #4d4d4d;
+}
+
+#frameMeterOverlay .frame-meter-panel {
+    /* Wide enough so the stats grid fits without horizontal scrolling on desktop. */
+    max-width: 1540px;
+    width: min(98vw, 1540px);
+    /* Keep the modal usable on smaller displays. */
+    max-height: 92vh;
+    overflow: hidden;
+    padding: 16px 18px 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+#frameMeterOverlay .modal-meta:empty {
+    display: none;
+}
+
+#frameMeterOverlay .modal-title {
+    margin-bottom: 14px;
+}
+
+#frameMeterOverlay .combo-details-help-trigger {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0;
+    line-height: 20px;
+    border-radius: 4px;
+}
+
+#frameMeterOverlay .modal-meta {
+    margin: -2px 0 10px;
+}
+
+#frameMeterOverlay .combo-details-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 2px 0 10px;
+}
+
+#frameMeterOverlay .combo-details-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+}
+
+#frameMeterOverlay .combo-details-btn-danger {
+    border-color: #7f1d1d;
+    color: #fecaca;
+}
+
+#frameMeterOverlay .combo-details-btn-danger:hover {
+    border-color: #ef4444;
+    color: #fff;
+}
+
+#frameMeterOverlay .combo-details-bar {
+    background: #0f0f0f;
+    border: 1px solid #444;
+    border-radius: 6px;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+}
+
+#frameMeterOverlay .combo-details-bar:focus-within {
+    border-color: rgba(241, 245, 249, 0.55);
+}
+
+#frameMeterOverlay .combo-details-bar-meter {
+    border-color: #444;
+}
+
+#frameMeterOverlay .combo-details-bar-command {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+}
+
+#frameMeterOverlay .combo-details-bar-buttons {
+    min-height: 32px;
+}
+
+#frameMeterOverlay #comboDetailsTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+#frameMeterOverlay .combo-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    line-height: 1.4;
+    border: none;
+    color: #f1f5f9;
+    background: rgba(148, 163, 184, 0.16);
+    user-select: none;
+    white-space: nowrap;
+    position: relative;
+}
+
+#frameMeterOverlay .combo-tag-chip-del {
+    border: none;
+    background: transparent;
+    color: rgba(241, 245, 249, 0.7);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#frameMeterOverlay .combo-tag-chip:hover .combo-tag-chip-del {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#frameMeterOverlay .combo-tag-chip-del:hover {
+    color: #fff;
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-0 {
+    background: rgba(56, 189, 248, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-1 {
+    background: rgba(52, 211, 153, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-2 {
+    background: rgba(251, 113, 133, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-3 {
+    background: rgba(251, 191, 36, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-4 {
+    background: rgba(167, 139, 250, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-5 {
+    background: rgba(34, 197, 94, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-6 {
+    background: rgba(249, 115, 22, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-7 {
+    background: rgba(96, 165, 250, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-8 {
+    background: rgba(45, 212, 191, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-9 {
+    background: rgba(244, 114, 182, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-10 {
+    background: rgba(248, 113, 113, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-11 {
+    background: rgba(253, 224, 71, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-12 {
+    background: rgba(129, 140, 248, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-13 {
+    background: rgba(74, 222, 128, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-14 {
+    background: rgba(251, 146, 60, 0.18);
+}
+
+#frameMeterOverlay .combo-tag-chip.tagmod-15 {
+    background: rgba(103, 232, 249, 0.18);
+}
+
+#frameMeterOverlay .combo-details-buttons-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    width: 100%;
+}
+
+#frameMeterOverlay .combo-details-buttons-icons .btn-token {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+#frameMeterOverlay .combo-details-buttons-icons .btn-token img {
+    /* Main table uses 18px; modal should be 1.5x. */
+    width: 27px;
+    height: 27px;
+    object-fit: contain;
+}
+
+#frameMeterOverlay .combo-details-buttons-icons .btn-token[data-token="Hold2"] img,
+#frameMeterOverlay .combo-details-buttons-icons .btn-token[data-token="Hold3"] img {
+    width: auto;
+    height: 27px;
+}
+
+#frameMeterOverlay .combo-details-buttons-icons .btn-token-text {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#frameMeterOverlay .combo-details-bar-meter {
+    padding: 8px 10px;
+    overflow: visible;
+}
+
+#frameMeterOverlay .combo-details-bar-tags {
+    color: #cbd5e1;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+}
+
+#frameMeterOverlay .combo-details-command {
+    display: block;
+    width: 100%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    color: #f1f5f9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+#frameMeterOverlay .combo-details-command-edit {
+    display: block;
+    width: 100%;
+    min-height: 20px;
+    /* The surrounding bar already provides the panel styling. */
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 18px;
+    /* 1.5x */
+    color: #f1f5f9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+}
+
+#frameMeterOverlay .combo-details-command-edit .frame-meter-command-step {
+    color: var(--fm-step-accent, #f1f5f9);
+    font-weight: 700;
+}
+
+#frameMeterOverlay .frame-meter-modal-visual-wrap {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+}
+
+#frameMeterOverlay .frame-meter-block[data-step] {
+    box-shadow: inset 0 -2px 0 var(--fm-step-accent, rgba(148, 163, 184, 0.0));
+}
+
+#frameMeterOverlay .frame-meter-block.frame-meter-step-start {
+    border-left-width: 2px;
+    border-left-color: var(--fm-step-accent, #000);
+}
+
+#frameMeterOverlay .combo-details-command .frame-meter-command-step {
+    color: var(--fm-step-accent, #f1f5f9);
+    font-weight: 700;
+}
+
+#frameMeterOverlay .frame-meter-block.is-step-highlight {
+    outline: 1px solid rgba(241, 245, 249, 0.75);
+    outline-offset: -1px;
+}
+
+/* Cycle per-move accent colors (repeats every 8 moves). */
+#frameMeterOverlay .frame-meter-stepmod-0 {
+    --fm-step-accent: #38bdf8;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-1 {
+    --fm-step-accent: #34d399;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-2 {
+    --fm-step-accent: #fb7185;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-3 {
+    --fm-step-accent: #fbbf24;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-4 {
+    --fm-step-accent: #a78bfa;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-5 {
+    --fm-step-accent: #22c55e;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-6 {
+    --fm-step-accent: #f97316;
+}
+
+#frameMeterOverlay .frame-meter-stepmod-7 {
+    --fm-step-accent: #60a5fa;
+}
+
+#frameMeterOverlay .frame-meter-visual {
+    width: 100%;
+    max-width: 100%;
+    min-height: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0;
+    border: 1px solid #000;
+    background: #0b0f14;
+    user-select: none;
+    contain: layout paint style;
+}
+
+#frameMeterOverlay .frame-meter-line-break {
+    flex: 0 0 100%;
+    height: 0;
+}
+
+#frameMeterOverlay .frame-meter-empty {
+    color: #8d8d8d;
+    font-size: 11px;
+    line-height: 1;
+}
+
+#frameMeterOverlay .frame-meter-block {
+    width: 10px;
+    min-width: 10px;
+    min-height: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    border: solid #000;
+    border-width: 2px 1px;
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 1;
+    color: transparent;
+    margin: 0;
+    contain: paint;
+}
+
+#frameMeterOverlay .frame-meter-startup {
+    background-color: var(--fat-frame-meter-startup);
+}
+
+#frameMeterOverlay .frame-meter-active {
+    background-color: var(--fat-frame-meter-active);
+}
+
+#frameMeterOverlay .frame-meter-recovery {
+    background-color: var(--fat-frame-meter-recovery);
+}
+
+#frameMeterOverlay .frame-meter-delay {
+    background-color: #0b0f14;
+    color: #f1f5f9;
+}
+
+#frameMeterOverlay .frame-meter-state-complete-invincible {
+    background: repeating-linear-gradient(0deg, #f8fafc 0 2px, #cfd4db 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#frameMeterOverlay .frame-meter-state-projectile-invincible {
+    background: repeating-linear-gradient(0deg, #f3a311 0 2px, #f8fafc 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#frameMeterOverlay .frame-meter-state-atk-projectile-invincible {
+    background-image:
+        repeating-linear-gradient(0deg, #d61f78 0 2px, #f8fafc 2px 4px),
+        repeating-linear-gradient(0deg, #f3a311 0 2px, #f8fafc 2px 4px);
+    background-size: 100% 50%, 100% 50%;
+    background-position: top left, bottom left;
+    background-repeat: no-repeat, no-repeat;
+    color: #111827;
+    text-shadow: none;
+}
+
+#frameMeterOverlay .frame-meter-state-atk-throw-invincible {
+    background: repeating-linear-gradient(0deg, #d61f78 0 2px, #f8fafc 2px 4px);
+    color: #111827;
+    text-shadow: none;
+}
+
+#frameMeterOverlay .frame-meter-state-projectile {
+    background: #f3a311;
+}
+
+#frameMeterOverlay .frame-meter-state-parry {
+    background: #7b2fb5;
+}
+
+#frameMeterOverlay .frame-meter-segment-end {
+    padding: 0;
+    font-size: 12px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#frameMeterOverlay .frame-meter-gap {
+    width: 10px;
+    min-width: 10px;
+    min-height: 20px;
+    padding: 0 2px;
+    box-sizing: border-box;
+    border: solid #000;
+    border-width: 2px 1px;
+    background: var(--fat-frame-meter-invalid);
+    color: #f1f5f9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    margin: 0;
+}
+
+#frameMeterOverlay .combo-details-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin: 0 0 10px;
+}
+
+#frameMeterOverlay .combo-details-label {
+    font-size: 12px;
+    color: var(--text-dim, #c9c9c9);
+}
+
+#frameMeterOverlay .combo-details-input,
+#frameMeterOverlay .combo-details-textarea {
+    width: 100%;
+    background: #0f0f0f;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 6px;
+    padding: 5px 7px;
+    font-size: 11px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    box-sizing: border-box;
+}
+
+#frameMeterOverlay .combo-details-video-wrap[hidden] {
+    display: none;
+}
+
+#frameMeterOverlay .combo-details-video-embed {
+    width: min(520px, 60%);
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: #0f0f0f;
+    padding: 8px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+#frameMeterOverlay .combo-details-video-embed iframe,
+#frameMeterOverlay .combo-details-video-embed video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    display: block;
+    border: 0;
+    border-radius: 4px;
+    background: #000;
+}
+
+#frameMeterOverlay .combo-details-textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+#frameMeterOverlay #comboDetailsExtraNotes {
+    resize: none;
+}
+
+#frameMeterOverlay .combo-details-sep {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.22);
+    margin: 10px 0 10px;
+}
+
+#frameMeterOverlay .combo-details-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: 11px;
+    overflow-x: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+}
+
+#frameMeterOverlay .combo-details-stats-head,
+#frameMeterOverlay .combo-details-stats-row {
+    display: grid;
+    /* Use narrow numeric columns; keep command columns flexible for long routes. */
+    grid-template-columns:
+        150px
+        /* Field */
+        90px
+        /* Value */
+        110px
+        /* Starter Avg */
+        60px
+        /* Rank */
+        95px
+        /* Top Damage/Eff */
+        minmax(260px, 1fr)
+        /* Top Combo (starter) */
+        160px
+        /* Spent Avg */
+        60px
+        /* Rank */
+        110px
+        /* Top Eff */
+        minmax(260px, 1fr);
+    /* Top Combo (spent) */
+    column-gap: 0;
+    row-gap: 0;
+    align-items: center;
+}
+
+#frameMeterOverlay .combo-details-stats-head {
+    padding: 0;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+#frameMeterOverlay .combo-details-stats-head>div {
+    text-align: center;
+    line-height: 1.1;
+}
+
+#frameMeterOverlay .combo-details-head-this {
+    grid-column: 1 / 3;
+}
+
+#frameMeterOverlay .combo-details-stats-row {
+    color: #ffffff;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(2),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(3),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(4),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(5),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(7),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(8),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(9) {
+    text-align: right;
+}
+
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(6),
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(10) {
+    text-align: left;
+}
+
+#frameMeterOverlay .combo-details-jump {
+    color: #93c5fd;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#frameMeterOverlay .combo-details-jump:hover {
+    color: #bfdbfe;
+}
+
+#frameMeterOverlay .combo-details-stats-row:nth-of-type(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+#frameMeterOverlay .combo-details-stats-row>div:nth-child(1) {
+    color: #ffffff;
+}
+
+#frameMeterOverlay .combo-details-stats-row>div:not(:first-child) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 11px;
+    color: #f1f5f9;
+}
+
+#frameMeterOverlay .combo-details-stats-row>div,
+#frameMeterOverlay .combo-details-stats-head>div {
+    padding: 3px 8px;
+}
+
+#frameMeterOverlay .combo-details-stats-head>div:not(:first-child),
+#frameMeterOverlay .combo-details-stats-row>div:not(:first-child) {
+    border-left: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+#frameMeterOverlay .combo-details-actions {
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+    background: #111;
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 1100px) {
+
+    #frameMeterOverlay .combo-details-stats-head,
+    #frameMeterOverlay .combo-details-stats-row {
+        grid-template-columns:
+            140px 80px 110px 60px 90px minmax(220px, 1fr) 140px 60px 90px minmax(220px, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    #frameMeterOverlay .combo-details-stats {
+        overflow-x: auto;
+    }
 }
 
 #comboView #Table1 tr.combo-row-frame td p {
@@ -1987,7 +3035,6 @@
 }
 
 #comboView .frame-meter-segment-end {
-    border-color: #f2f2f2;
     padding: 0 2px;
     font-size: 14px;
     font-family: "Roboto", "Helvetica Neue", sans-serif;
@@ -2059,10 +3106,6 @@ body[data-theme="light"] #comboView .frame-meter-block {
     text-shadow: none;
 }
 
-body[data-theme="light"] #comboView .frame-meter-segment-end {
-    border-color: #f2f2f2;
-}
-
 /* In light mode, keep numeric labels visible on segment-end blocks. */
 body[data-theme="light"] #comboView .frame-meter-block.frame-meter-segment-end {
     color: #ffffff;
@@ -2084,8 +3127,8 @@ body[data-theme="light"] #comboView .frame-meter-gap {
     border-color: #000;
     background: #4d4d4d;
     color: #f1f5f9;
-    text-shadow: none;
-    letter-spacing: 0;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    letter-spacing: -1px;
 }
 
 #comboView .cmd-input[data-field="buttons"] {
@@ -2152,6 +3195,12 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
     width: 18px;
     height: 18px;
     object-fit: contain;
+}
+
+#comboView .btn-token[data-token="Hold2"] img,
+#comboView .btn-token[data-token="Hold3"] img {
+    width: auto;
+    height: 18px;
 }
 
 #comboView .btn-token-text {
@@ -3049,6 +4098,11 @@ body[data-theme="light"] #comboView .cmd-input.cmd-warning::after {
     font-weight: 700;
     pointer-events: none;
     opacity: 0.95;
+}
+
+/* Frame meter cells should not show auto-source asterisk marker. */
+#comboView #Table1 tr.combo-row-frame td.combo-auto-source-marker::before {
+    content: none;
 }
 
 #comboView #Table1 td.combo-cell-auto-source-auto::before {
@@ -5009,6 +6063,12 @@ body[data-theme="light"] .combo-keymap-actions button {
     display: block;
 }
 
+.combo-notation-buttons-wrap .btn-token[data-token="Hold2"] img,
+.combo-notation-buttons-wrap .btn-token[data-token="Hold3"] img {
+    width: auto;
+    height: 16px;
+}
+
 .combo-notation-buttons-wrap .btn-token-text {
     display: none;
 }
@@ -6160,4 +7220,33 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     color: #fff;
     padding: 4px 8px;
     cursor: pointer;
+}
+
+
+/* PsychoDrive-aligned frame meter cues (non-disruptive overlays) */
+#comboView .frame-meter-block.frame-meter-recover-forward {
+    box-shadow: inset 0 -1px 0 rgba(72, 174, 255, 0.55);
+}
+
+#comboView .frame-meter-block.frame-meter-recover-reverse {
+    box-shadow: inset 0 -1px 0 rgba(255, 166, 72, 0.6);
+}
+
+#comboView .frame-meter-block.frame-meter-wall-stop {
+    border-right: 1px dashed rgba(255, 235, 120, 0.8);
+}
+
+#comboView .frame-meter-block.frame-meter-hitstop {
+    outline: 1px solid rgba(255, 255, 255, 0.16);
+    outline-offset: -1px;
+}
+
+#comboView .frame-meter-block.frame-meter-multihit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(90deg,
+            rgba(255, 255, 255, 0.06) 0 1px,
+            transparent 1px 3px);
+    pointer-events: none;
 }

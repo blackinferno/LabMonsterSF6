@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "template": true,
+    "name": "combo_import_all_characters",
+    "created_at": "2026-03-29T16:21:20+00:00",
+    "note": "Fill combos for each character. Keep schema keys unchanged."
+  },
+  "characters": [
+    {
+      "character": "aki",
+      "combos": []
+    },
+    {
+      "character": "alex",
+      "combos": []
+    },
+    {
+      "character": "blanka",
+      "combos": []
+    },
+    {
+      "character": "cammy",
+      "combos": []
+    },
+    {
+      "character": "chunli",
+      "combos": []
+    },
+    {
+      "character": "cviper",
+      "combos": []
+    },
+    {
+      "character": "deejay",
+      "combos": []
+    },
+    {
+      "character": "dhalsim",
+      "combos": []
+    },
+    {
+      "character": "ed",
+      "combos": []
+    },
+    {
+      "character": "ehonda",
+      "combos": []
+    },
+    {
+      "character": "elena",
+      "combos": []
+    },
+    {
+      "character": "gouki_akuma",
+      "combos": []
+    },
+    {
+      "character": "guile",
+      "combos": []
+    },
+    {
+      "character": "jamie",
+      "combos": []
+    },
+    {
+      "character": "jp",
+      "combos": []
+    },
+    {
+      "character": "juri",
+      "combos": []
+    },
+    {
+      "character": "ken",
+      "combos": []
+    },
+    {
+      "character": "kimberly",
+      "combos": []
+    },
+    {
+      "character": "lily",
+      "combos": []
+    },
+    {
+      "character": "luke",
+      "combos": []
+    },
+    {
+      "character": "mai",
+      "combos": []
+    },
+    {
+      "character": "manon",
+      "combos": []
+    },
+    {
+      "character": "marisa",
+      "combos": []
+    },
+    {
+      "character": "rashid",
+      "combos": []
+    },
+    {
+      "character": "ryu",
+      "combos": []
+    },
+    {
+      "character": "sagat",
+      "combos": []
+    },
+    {
+      "character": "terry",
+      "combos": []
+    },
+    {
+      "character": "vega_mbison",
+      "combos": []
+    },
+    {
+      "character": "zangief",
+      "combos": []
+    }
+  ]
+}
