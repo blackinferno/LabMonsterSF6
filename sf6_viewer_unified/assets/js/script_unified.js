@@ -1463,6 +1463,7 @@ const I18N_CORE = {
     'theme.light': 'LIGHT',
     'nav.frame': 'FRAME DATA',
     'nav.combo': 'COMBO LIST',
+    'nav.tree': 'COMBO TREE',
     'frame.char_label': 'キャラクターフレームアーカイブ',
     'frame.char_select': 'SELECT CHARACTER',
     'frame.data_version': 'データ',
@@ -1629,6 +1630,7 @@ const I18N_CORE = {
     'theme.light': 'Light',
     'nav.frame': 'FRAME DATA',
     'nav.combo': 'COMBO LIST',
+    'nav.tree': 'COMBO TREE',
     'frame.char_label': 'Character Frame Archive',
     'frame.char_select': 'CHARACTER SELECT',
     'frame.data_version': 'Data',
@@ -5097,7 +5099,7 @@ function initMainTabs() {
   const body = document.body;
   const infoBtn = document.getElementById('appInfoBtn');
   const helpBtn = document.getElementById('appHelpBtn');
-  const MAIN_VIEWS = new Set(['combos', 'frame', 'help', 'info']);
+  const MAIN_VIEWS = new Set(['combos', 'frame', 'tree', 'help', 'info']);
   const normalizeAppView = (value) => {
     const key = String(value || '').trim().toLowerCase();
     return MAIN_VIEWS.has(key) ? key : 'combos';
@@ -5145,6 +5147,9 @@ function initMainTabs() {
     if (helpBtn) helpBtn.classList.toggle('active', nextView === 'help');
     if (infoBtn) infoBtn.classList.toggle('active', nextView === 'info');
     body.setAttribute('data-view', nextView);
+    if (nextView === 'tree' && typeof window.rebuildComboTree === 'function') {
+      window.requestAnimationFrame(() => window.rebuildComboTree());
+    }
     if (nextView === 'frame' || nextView === 'combos') {
       savePersistedMainView(nextView);
     }
@@ -5154,9 +5159,11 @@ function initMainTabs() {
     if (headerTitle) {
       const titleKey = nextView === 'combos'
         ? 'nav.combo'
-        : (nextView === 'help'
-          ? 'help.button'
-          : (nextView === 'info' ? 'info.button' : 'nav.frame'));
+        : (nextView === 'tree'
+          ? 'nav.tree'
+          : (nextView === 'help'
+            ? 'help.button'
+            : (nextView === 'info' ? 'info.button' : 'nav.frame')));
       headerTitle.dataset.i18n = titleKey;
       headerTitle.textContent = translateKey(headerTitle.dataset.i18n, getCurrentLang());
     }

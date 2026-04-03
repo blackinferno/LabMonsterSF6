@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" />
     <link rel="stylesheet" href="assets/css/capcom_unified.css" />
     <link rel="stylesheet" href="assets/css/combo_view.css" />
+    <link rel="stylesheet" href="assets/css/combo_tree.css" />
 </head>
 
 <body data-theme="dark" data-lang="jp" data-version="1.0.4">
@@ -41,6 +42,8 @@
                     data-i18n="nav.combo">COMBO LIST</button>
                 <button class="app-tab" data-view-tab="frame" role="tab" aria-selected="false"
                     data-i18n="nav.frame">FRAME DATA</button>
+                <button class="app-tab" data-view-tab="tree" role="tab" aria-selected="false" data-i18n="nav.tree">COMBO
+                    TREE</button>
                 <div class="app-tools">
                     <button type="button" id="appHelpBtn" class="header-help-btn" data-i18n="help.button">HELP</button>
                     <button type="button" id="appInfoBtn" class="header-help-btn" data-i18n="info.button">INFO</button>
@@ -624,6 +627,14 @@
                     <button type="button" class="tutorial-flow-trigger tutorial-flow-trigger-inline"
                         data-tutorial-flow="input-section" aria-label="Input section guide"
                         title="Input section guide">?</button>
+                </div>
+                <div id="comboTreePanel" class="combo-tree-panel hidden" aria-label="Combo Tree View" hidden>
+                    <div class="combo-tree-header">
+                        <span class="combo-tree-title" data-i18n="combo.tree_view">Tree</span>
+                        <button type="button" id="comboTreeCloseBtn" class="combo-tree-close"
+                            aria-label="Close tree">&times;</button>
+                    </div>
+                    <div id="comboTreeBody" class="combo-tree-body"></div>
                 </div>
                 <div id="comboTableScroll"
                     style="position:absolute;left:5px;top:112px;width:1643px;height:754px;z-index:11;overflow:auto;">
@@ -2779,6 +2790,105 @@
                     </tr>
                 </table>
             </section>
+            <section class="site-view" data-view="tree" id="treeView" aria-hidden="true">
+                <div class="tree-main-layout tree-body-split">
+                    <div class="tree-main-left">
+                        <div class="combo-tree-topstrip">
+                            <div id="treeCharBtn" class="combo-tree-char-btn tree-char-btn">
+                                <img id="treeCharImg" src="assets/images/characters/select_character_random_over.png"
+                                    alt="Character">
+                                <span class="combo-portrait-caret">▼</span>
+                            </div>
+                            <div class="char-control-tabs combo-control-tabs tree-control-tabs">
+                                <ul class="char-control-tabs-list">
+                                    <li id="treeTabClassic" class="combo-control-tab" tabindex="0">
+                                        <img src="assets/images/misc/logo-classic.png" alt="Classic" width="90"
+                                            height="23">
+                                    </li>
+                                    <li id="treeTabModern" class="combo-control-tab" tabindex="0">
+                                        <img src="assets/images/misc/logo-modern.png" alt="Modern" width="90"
+                                            height="23">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="treePillFilterPanel" class="tree-pill-filter-panel">
+                            <div id="treeInlineFilterGroups"></div>
+                        </div>
+                        <div id="treeStickyStripHost" class="tree-sticky-strip-host">
+                            <div class="tree-strip-inline">
+                                <div class="tree-axis-toggle">
+                                    <button type="button" id="treeRailModeDrive" class="combo-search-secondary">D
+                                        Gauge</button>
+                                    <button type="button" id="treeRailModeDamage" class="combo-search-secondary">Damage</button>
+                                </div>
+                                <button type="button" id="treeViewRefreshBtn"
+                                    class="combo-search-secondary">Refresh</button>
+                                <button type="button" id="treeViewExpandAllBtn" class="combo-search-secondary">Expand
+                                    All</button>
+                                <button type="button" id="treeViewCollapseAllBtn"
+                                    class="combo-search-secondary">Collapse All</button>
+                                <span id="treeScaleColTitle" class="tree-scale-col-title">STARTER</span>
+                                <span id="treeViewCount" class="tree-view-count">0 COMBOS</span>
+                            </div>
+                        </div>
+                        <div id="treeViewScroll" class="tree-view-scroll">
+                            <div id="treeViewRoot"></div>
+                        </div>
+                    </div>
+                    <aside id="treeDetailPane" class="tree-detail-pane">
+                        <div class="tree-detail-head">
+                            <span id="treeDetailHeadText">SELECTED COMBO</span>
+                            <button type="button" id="treeDetailOpenModalBtn" class="combo-search-secondary">Combo
+                                Details</button>
+                        </div>
+                        <div id="treeDetailEmpty">Select a branch to show details.</div>
+                        <div id="treeDetailModalHost" class="tree-detail-modal-host"></div>
+                        <div id="treeAutoInputToggleWrap" class="combo-auto-input-toggles">
+                            <div class="combo-poison-toggle">
+                                <span id="treeToggleAutoInputLabel" class="combo-poison-toggle-label">Auto Input</span>
+                                <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                    aria-labelledby="treeToggleAutoInputLabel">
+                                    <button type="button" id="treeToggleAutoInputOn"
+                                        class="lang-btn combo-poison-toggle-btn">ON</button>
+                                    <button type="button" id="treeToggleAutoInputOff"
+                                        class="lang-btn combo-poison-toggle-btn active">OFF</button>
+                                </div>
+                            </div>
+                            <div class="combo-poison-toggle">
+                                <span id="treeToggleAutoInputOverwriteLabel"
+                                    class="combo-poison-toggle-label">Overwrite</span>
+                                <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                    aria-labelledby="treeToggleAutoInputOverwriteLabel">
+                                    <button type="button" id="treeToggleAutoInputOverwriteOn"
+                                        class="lang-btn combo-poison-toggle-btn">ON</button>
+                                    <button type="button" id="treeToggleAutoInputOverwriteOff"
+                                        class="lang-btn combo-poison-toggle-btn active">OFF</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="treeDetailMedia" hidden>
+                            <a id="treeDetailUrlLink" href="#" target="_blank" rel="noopener noreferrer">Open URL</a>
+                            <img id="treeDetailVideoThumb" hidden alt="Video thumbnail">
+                        </div>
+                        <div id="treeDetailButtons"></div>
+                        <input id="treeDetailCommandInput" type="text" hidden>
+                        <input id="treeDetailTagsInput" type="text" hidden>
+                        <input id="treeDetailNotesInput" type="text" hidden>
+                        <input id="treeDetailOkiInput" type="text" hidden>
+                        <input id="treeDetailExtraNotesInput" type="text" hidden>
+                        <input id="treeDetailUrlInput" type="text" hidden>
+                        <div id="treeDetailGrid"></div>
+                        <div class="tree-detail-footer">
+                            <button type="button" id="treeDetailToggleBtn"
+                                class="combo-search-secondary">Details</button>
+                            <button type="button" id="treeDetailSaveBtn" class="combo-search-secondary">Save</button>
+                            <button type="button" id="treeDetailDeleteBtn"
+                                class="combo-search-secondary">Delete</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
             <div class="ui-btn-desc"></div>
         </main>
         <footer class="site-footer">
@@ -3834,8 +3944,9 @@
                             </div>
                         </div>
                         <div class="combo-details-bar combo-details-bar-command">
-                            <div id="comboDetailsCommandEdit" class="combo-details-command-edit" contenteditable="true"
-                                spellcheck="false" role="textbox" aria-multiline="true"></div>
+                            <div id="comboDetailsCommandEdit"
+                                class="combo-details-command-edit cmd-input" contenteditable="true"
+                                spellcheck="false" role="textbox" aria-multiline="true" data-field="command"></div>
                         </div>
                         <div class="combo-details-bar combo-details-bar-buttons">
                             <div id="comboDetailsButtonsIcons" class="combo-details-buttons-icons"></div>
@@ -3865,6 +3976,8 @@
                             <div id="comboDetailsVideoEmbed" class="combo-details-video-embed"></div>
                         </div>
                     </div>
+
+                    <div id="comboDetailsAllFields" class="combo-details-allfields"></div>
 
                     <div class="combo-details-sep" aria-hidden="true"></div>
 
@@ -3979,14 +4092,19 @@
                 </div>
 
                 <div class="modal-actions combo-details-actions">
-                    <button type="button" id="comboDetailsBtnCopy" class="header-help-btn"
-                        title="Copy command">Copy</button>
-                    <button type="button" id="comboDetailsBtnDuplicate" class="header-help-btn"
-                        title="Duplicate row">Duplicate</button>
-                    <button type="button" id="comboDetailsBtnDelete" class="header-help-btn combo-details-btn-danger"
-                        title="Delete row">Delete</button>
-                    <button type="button" id="comboDetailsBtnSave" class="header-help-btn active"
-                        title="Save changes">Save</button>
+                    <div class="combo-details-actions-tree">
+                        <button type="button" id="comboDetailsOpenTreeBtn"
+                            class="header-help-btn combo-details-open-tree-btn" data-combo-details-label="open_tree"
+                            title="Open combo tree">Combo Tree</button>
+                    </div>
+                    <div class="combo-details-actions-main">
+                        <button type="button" id="comboDetailsBtnDuplicate" class="header-help-btn"
+                            title="Duplicate row">Duplicate</button>
+                        <button type="button" id="comboDetailsBtnDelete"
+                            class="header-help-btn combo-details-btn-danger" title="Delete row">Delete</button>
+                        <button type="button" id="comboDetailsBtnSave" class="header-help-btn active"
+                            title="Save changes">Save</button>
+                    </div>
                 </div>
             </div>
         </div>

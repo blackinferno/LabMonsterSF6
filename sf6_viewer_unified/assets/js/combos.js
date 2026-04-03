@@ -1,4 +1,4 @@
-﻿// Combo List UI (rebuilt)
+// Combo List UI (rebuilt)
 (() => {
   const STORAGE_KEY_BASE = 'sf6_combo_table_v3';
   const LEGACY_STORAGE_KEY = 'sf6_combo_table_v2';
@@ -276,6 +276,7 @@
         context_delete_rows: '行を削除',
         context_insert_rows: '行を挿入',
         context_clear_rows: '値をクリア',
+        context_open_in_tree: 'ツリーで開く',
         context_header_hide: '列を非表示',
         context_header_show: '列を表示',
         context_sort_asc: '昇順で並び替え',
@@ -747,6 +748,7 @@
         context_delete_rows: 'Delete Rows',
         context_insert_rows: 'Insert Rows',
         context_clear_rows: 'Clear Values',
+        context_open_in_tree: 'Open in Tree',
         context_header_hide: 'Hide Column',
         context_header_show: 'Show Columns',
         context_sort_asc: 'Sort Ascending',
@@ -1290,20 +1292,20 @@
     { jp: '対応キャラ', en: 'Opp Character' },
     { jp: '特殊条件', en: 'Special Conditions' },
     { jp: 'ダメージ', en: 'Damage' },
-    { jp: 'ダメージ(毒)', en: 'Damage (Poison)' },
     { jp: 'ダメージ(CA)', en: 'Damage (CA)' },
+    { jp: 'ダメージ(毒)', en: 'Damage (Poison)' },
     { jp: 'ダメージ(毒/CA)', en: 'Damage (Poison/CA)' },
     { jp: 'ジャスパ後', en: 'After Just Parry' },
     { jp: 'BOガード時', en: 'BO Block' },
     { jp: '通常', en: 'Normal' },
     { jp: 'C', en: 'C' },
     { jp: 'PC', en: 'PC' },
-    { jp: '通常(毒)', en: 'Normal (Poison)' },
-    { jp: 'C(毒)', en: 'C (Poison)' },
-    { jp: 'PC(毒)', en: 'PC (Poison)' },
     { jp: '通常(CA)', en: 'Normal (CA)' },
     { jp: 'C(CA)', en: 'C (CA)' },
     { jp: 'PC(CA)', en: 'PC (CA)' },
+    { jp: '通常(毒)', en: 'Normal (Poison)' },
+    { jp: 'C(毒)', en: 'C (Poison)' },
+    { jp: 'PC(毒)', en: 'PC (Poison)' },
     { jp: '通常(毒/CA)', en: 'Normal (Poison/CA)' },
     { jp: 'C(毒/CA)', en: 'C (Poison/CA)' },
     { jp: 'PC(毒/CA)', en: 'PC (Poison/CA)' },
@@ -1377,17 +1379,17 @@
     {
       key: 'damage_poison',
       fields: [
-        'damage_poison_normal',
-        'damage_poison_counter',
-        'damage_poison_punish',
+        'damage_normal_ca',
+        'damage_counter_ca',
+        'damage_punish_ca',
       ],
     },
     {
       key: 'damage_ca',
       fields: [
-        'damage_normal_ca',
-        'damage_counter_ca',
-        'damage_punish_ca',
+        'damage_poison_normal',
+        'damage_poison_counter',
+        'damage_poison_punish',
       ],
     },
     {
@@ -1549,18 +1551,18 @@
     }));
     appendFixedFieldRow(['drive_req', 'sa_req', 'carry_distance', 'end_distance', 'frame_adv', null]);
 
-    // Damage + Damage (Poison)
+    // Damage + Damage (CA)
     tbody.appendChild(createSectionRow(null, {
       left: { key: 'damage', colspan: 3 },
-      right: { key: 'damage_poison', colspan: 3 },
+      right: { key: 'damage_ca', colspan: 3 },
     }));
     appendFixedFieldRow([
       'damage_jp',
       'damage_bo_guard',
       'damage_normal',
-      'damage_poison_normal',
-      'damage_poison_counter',
-      'damage_poison_punish',
+      'damage_normal_ca',
+      'damage_counter_ca',
+      'damage_punish_ca',
     ]);
     appendFixedFieldRow([
       'damage_counter',
@@ -1573,15 +1575,15 @@
       null,
     ]);
 
-    // Damage (CA) + Damage (Poison/CA)
+    // Damage (Poison) + Damage (Poison/CA)
     tbody.appendChild(createSectionRow(null, {
-      left: { key: 'damage_ca', colspan: 3 },
+      left: { key: 'damage_poison', colspan: 3 },
       right: { key: 'damage_poison_ca', colspan: 3 },
     }));
     appendFixedFieldRow([
-      'damage_normal_ca',
-      'damage_counter_ca',
-      'damage_punish_ca',
+      'damage_poison_normal',
+      'damage_poison_counter',
+      'damage_poison_punish',
       'damage_poison_normal_ca',
       'damage_poison_counter_ca',
       'damage_poison_punish_ca',
@@ -2619,12 +2621,12 @@
     'damage_normal',
     'damage_counter',
     'damage_punish',
-    'damage_poison_normal',
-    'damage_poison_counter',
-    'damage_poison_punish',
     'damage_normal_ca',
     'damage_counter_ca',
     'damage_punish_ca',
+    'damage_poison_normal',
+    'damage_poison_counter',
+    'damage_poison_punish',
     'damage_poison_normal_ca',
     'damage_poison_counter_ca',
     'damage_poison_punish_ca',
@@ -2703,10 +2705,10 @@
     'damage_bo_guard',
     'damage_normal',
     'damage_punish',
-    'damage_poison_normal',
-    'damage_poison_punish',
     'damage_normal_ca',
     'damage_punish_ca',
+    'damage_poison_normal',
+    'damage_poison_punish',
     'damage_poison_normal_ca',
     'damage_poison_punish_ca',
     'd_guard',
@@ -3125,6 +3127,7 @@
     { action: 'delete-rows', labelKey: 'context_delete_rows', group: 'edit' },
     { action: 'clear-rows', labelKey: 'context_clear_rows', group: 'edit' },
     { action: 'frame-meter-details', labelKey: 'context_frame_meter_details', group: 'view' },
+    { action: 'open-in-tree', labelKey: 'context_open_in_tree', group: 'view' },
   ];
   const HEADER_CONTEXT_MENU_ITEMS = [
     { action: 'sort-asc', labelKey: 'context_sort_asc' },
@@ -3159,6 +3162,7 @@
   const state = {
     groups: [],
     combos: [],
+    viewIndexes: [],
     renderLimit: 0,
     hydrationPromise: null,
     hydrationQueued: false,
@@ -3259,6 +3263,10 @@
       open: false,
       rowIndex: -1,
       returnFocusEl: null,
+      forceStandalone: false,
+      renderAsTreeDocked: false,
+      restoreTreeDockedOnClose: false,
+      treeDockedRowIndex: -1,
     },
     headerContextMenu: {
       open: false,
@@ -3291,6 +3299,23 @@
     autoLoadMorePauseScrollTop: null,
     pendingBottomJumpIndex: -1,
     suppressBottomJumpCancel: false,
+    virtual: {
+      enabled: true,
+      poolSize: 0,
+      windowStart: 0,
+      viewCount: 0,
+      avgHeight: 72,
+      rowHeights: [],
+      prefixSums: [],
+      viewIndexByCombo: new Map(),
+      needsPrefixRebuild: false,
+      topSpacer: null,
+      bottomSpacer: null,
+      scrollBound: false,
+      lastScrollTop: 0,
+      scrollRaf: null,
+      lastViewCount: 0,
+    },
   };
 
   const ui = {};
@@ -3319,6 +3344,18 @@
   })();
 
   const qs = (id) => document.getElementById(id);
+
+  function isVirtualScrollEnabled() {
+    return !!(VIRTUAL_SCROLL_ENABLED && state && state.virtual && state.virtual.enabled);
+  }
+
+  function getComboCount() {
+    return Array.isArray(state.combos) ? state.combos.length : 0;
+  }
+
+  function getPerfRowCount() {
+    return isVirtualScrollEnabled() ? getComboCount() : (state.groups ? state.groups.length : 0);
+  }
 
   function createPerfLogger(scope) {
     if (!PERF_ENABLED || typeof performance === 'undefined') return () => { };
@@ -3363,6 +3400,14 @@
   const FRAME_METER_QUEUE_MAX_PER_TICK = 4;
   const FRAME_METER_QUEUE_MAX_SCAN_PER_TICK = 20;
   const FRAME_METER_LITE_MODE_ROW_THRESHOLD = 999999;
+  const VIRTUAL_SCROLL_ENABLED = false;
+  const USE_CLONED_COMBO_HEADER = false;
+  const VIRTUAL_OVERSCAN = 6;
+  const VIRTUAL_MIN_POOL = 12;
+  const VIRTUAL_MAX_POOL = 200;
+  /** Tag / frame-meter band row height (drives --combo-tag-row-height + inline lock). */
+  const COMBO_TAG_ROW_HEIGHT_PX = 26;
+  const COMBO_TAG_ROW_INNER_MIN_PX = 22;
 
   function shouldUseFrameMeterLiteMode() {
     const loadedRows = Math.max(0, Number(state && state.groups ? state.groups.length : 0) || 0);
@@ -3385,6 +3430,10 @@
       state.renderLimit = 0;
       return;
     }
+    if (isVirtualScrollEnabled()) {
+      state.renderLimit = total;
+      return;
+    }
     const baseline = getFastBootTarget(total);
     const keepCurrent = !(options && options.keepCurrent === false);
     if (!keepCurrent) {
@@ -3398,6 +3447,7 @@
   function getRenderTargetCount() {
     const total = Array.isArray(state.combos) ? state.combos.length : 0;
     if (!total) return 0;
+    if (isVirtualScrollEnabled()) return total;
     const limit = Math.max(0, Number(state.renderLimit) || 0);
     if (!limit) return Math.min(total, getFastBootTarget(total));
     return Math.min(total, limit);
@@ -3407,6 +3457,31 @@
     const count = Math.max(0, Number(total) || 0);
     if (count <= FAST_BOOT_THRESHOLD) return count;
     return Math.min(FAST_BOOT_ROWS, count);
+  }
+
+  function getViewIndexes() {
+    if (!Array.isArray(state.viewIndexes) || !state.viewIndexes.length) {
+      return Array.from({ length: getComboCount() }, (_, i) => i);
+    }
+    return state.viewIndexes;
+  }
+
+  function getViewIndexForCombo(comboIndex) {
+    if (!isVirtualScrollEnabled()) return comboIndex;
+    const map = state.virtual && state.virtual.viewIndexByCombo ? state.virtual.viewIndexByCombo : null;
+    if (map && map.has(comboIndex)) return map.get(comboIndex);
+    return -1;
+  }
+
+  function getComboIndexForView(viewIndex) {
+    const view = getViewIndexes();
+    if (!Number.isFinite(viewIndex) || viewIndex < 0 || viewIndex >= view.length) return -1;
+    return Number(view[viewIndex]);
+  }
+
+  function getVisibleGroupForCombo(comboIndex) {
+    if (!Number.isFinite(comboIndex) || comboIndex < 0) return null;
+    return state.groups.find((group) => Number(group && group.index) === comboIndex) || null;
   }
 
   function resetHydrationState() {
@@ -3921,11 +3996,16 @@
     ui.charImg = qs('Image1');
     ui.tabClassic = qs('comboTabClassic') || qs('Image3');
     ui.tabModern = qs('comboTabModern') || qs('Image2');
+    ui.charBtnTree = qs('treeCharBtn');
+    ui.charImgTree = qs('treeCharImg');
+    ui.tabClassicTree = qs('treeTabClassic');
+    ui.tabModernTree = qs('treeTabModern');
     ui.keymapTable = qs('Table3');
     ui.deviceSelect = qs('comboDeviceSelect');
     ui.customizeBtn = qs('comboCustomizeBtn');
 
     setupCustomizeControls();
+    initComboTreePanel();
     ensureSaveStatusUi();
     ensureHydrationStatusUi();
     ensureNotationDisplayControl();
@@ -3973,11 +4053,16 @@
     resetRenderLimitForCurrentData({ keepCurrent: false });
     const fullTarget = getRenderTargetCount();
     const initialTarget = getFastBootTarget(fullTarget);
-    trimGroupCount(initialTarget);
-    if (initialTarget > CHUNKED_APPLY_THRESHOLD) {
-      await ensureGroupCountChunked(initialTarget, GROUP_BUILD_CHUNK, perfMark);
+    if (isVirtualScrollEnabled()) {
+      ensureVirtualSpacers();
+      ensureVirtualPoolSize(getVirtualPoolTarget());
     } else {
-      ensureGroupCount(initialTarget);
+      trimGroupCount(initialTarget);
+      if (initialTarget > CHUNKED_APPLY_THRESHOLD) {
+        await ensureGroupCountChunked(initialTarget, GROUP_BUILD_CHUNK, perfMark);
+      } else {
+        ensureGroupCount(initialTarget);
+      }
     }
     perfMark(`ensureGroupCount (${initialTarget}/${state.combos.length} combos)`);
     if (state.groups.length > CHUNKED_APPLY_THRESHOLD) {
@@ -3995,7 +4080,7 @@
     perfMark('applyStateToTable');
     bindEvents();
     bindRowToggles();
-    if (state.autoInputEnabled !== false && state.groups.length <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS) {
+    if (state.autoInputEnabled !== false && getPerfRowCount() <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS) {
       refreshDerivedDamageForAllRows();
     }
     bindCrudButtons();
@@ -4006,6 +4091,7 @@
     perfMark('applyFilters');
     ensureTableScrollContainer();
     initComboDragScroll();
+    bindVirtualScroll();
     layoutInputButtons();
     layoutHeaderActions();
     perfMark('layout');
@@ -4344,28 +4430,40 @@
       return (a.originalIndex - b.originalIndex) * dir;
     });
 
+    if (isVirtualScrollEnabled() && Array.isArray(state.virtual && state.virtual.rowHeights)) {
+      const nextHeights = sorted.map((item) => {
+        const src = Number(item.originalIndex);
+        const prev = state.virtual.rowHeights[src];
+        return Number(prev) || Number(state.virtual.avgHeight) || 72;
+      });
+      state.virtual.rowHeights = nextHeights;
+      state.virtual.needsPrefixRebuild = true;
+    }
     state.combos = sorted.map((item) => item.combo);
 
-    state.groups.forEach((group, idx) => {
-      group.index = idx;
-      const isEven = idx % 2 === 0;
-      group.rowList.forEach((row) => {
-        row.dataset.row = String(idx);
-        row.classList.toggle('combo-group-even', isEven);
-        row.classList.toggle('combo-group-odd', !isEven);
-        row.classList.toggle('selected', false);
+    if (isVirtualScrollEnabled()) {
+      applyFilters();
+    } else {
+      state.groups.forEach((group, idx) => {
+        group.index = idx;
+        const isEven = idx % 2 === 0;
+        group.rowList.forEach((row) => {
+          row.dataset.row = String(idx);
+          row.classList.toggle('combo-group-even', isEven);
+          row.classList.toggle('combo-group-odd', !isEven);
+          row.classList.toggle('selected', false);
+        });
+        Object.values(group.inputs).forEach((input) => {
+          if (input && input.dataset) input.dataset.row = String(idx);
+        });
       });
-      Object.values(group.inputs).forEach((input) => {
-        if (input && input.dataset) input.dataset.row = String(idx);
-      });
-    });
-
-    applyStateToTable({ rangeStart: 0, rangeEnd: state.groups.length, finalize: true });
-    applyFilters();
+      applyStateToTable({ rangeStart: 0, rangeEnd: state.groups.length, finalize: true });
+      applyFilters();
+    }
 
     if (currentSelectedCombo) {
       const newIndex = state.combos.findIndex((combo) => combo === currentSelectedCombo);
-      if (newIndex >= 0 && newIndex < state.groups.length) {
+      if (newIndex >= 0 && newIndex < state.combos.length) {
         state.selectedGroup = newIndex;
         setSelectedGroup(newIndex, { scroll: false });
       } else {
@@ -4402,6 +4500,7 @@
   }
 
   function applyHeaderFilterSort() {
+    if (isVirtualScrollEnabled()) return;
     if (!Array.isArray(state.combos) || !state.combos.length) return;
     const field = resolveHeaderOperationField(state.filters.headerField || '');
     const rawValues = Array.isArray(state.filters.headerValues) ? state.filters.headerValues : [];
@@ -4433,11 +4532,16 @@
       : null;
     state.combos = state.preFilterComboOrder;
     state.preFilterComboOrder = null;
-    remapLoadedGroupIndices();
-    applyStateToTable({ rangeStart: 0, rangeEnd: state.groups.length, finalize: true });
+    if (isVirtualScrollEnabled()) {
+      applyFilters();
+    } else {
+      remapLoadedGroupIndices();
+      applyStateToTable({ rangeStart: 0, rangeEnd: state.groups.length, finalize: true });
+    }
     if (currentSelected) {
       const newIdx = state.combos.findIndex((c) => c === currentSelected);
-      if (newIdx >= 0 && newIdx < state.groups.length) {
+      const max = isVirtualScrollEnabled() ? getComboCount() : state.groups.length;
+      if (newIdx >= 0 && newIdx < max) {
         state.selectedGroup = newIdx;
         setSelectedGroup(newIdx, { scroll: false });
       }
@@ -5286,7 +5390,7 @@
 
     const freezeCol = getFreezeColumnIndex();
     const bodyStickyAllowed = (table !== ui.table)
-      || state.groups.length <= STICKY_BODY_DISABLE_THRESHOLD;
+      || getPerfRowCount() <= STICKY_BODY_DISABLE_THRESHOLD;
     const { cellPositions, colWidthsPx } = buildCellMatrixFromRows(rows, { skipHidden: false, table });
     const colgroup = table.querySelector('colgroup.combo-cols');
     const colWidths = [];
@@ -5308,6 +5412,7 @@
       leftOffsets[i] = offset;
       offset += colWidths[i] || 0;
     }
+    const headerTop = `${Math.ceil(parseFloat(getComputedStyle(table).getPropertyValue('--combo-header-row-height')) || 25)}px`;
 
     rows.forEach((row, rowIdx) => {
       const cells = Array.from(row.children).filter((el) => el.tagName === 'TD' || el.tagName === 'TH');
@@ -5315,7 +5420,17 @@
         const pos = cellPositions.get(cell);
         const colIndex = pos ? pos.col : null;
         const isBodyRow = rowIdx > 1;
-        const shouldSticky = !!(colIndex && colIndex <= freezeCol && (!isBodyRow || bodyStickyAllowed));
+        const alwaysStickyCoreCol = !!(colIndex && colIndex <= 2);
+        if (rowIdx === 0 || rowIdx === 1) {
+          cell.style.position = 'sticky';
+          cell.style.top = rowIdx === 0 ? '0px' : headerTop;
+          cell.style.zIndex = rowIdx === 0 ? '12' : '11';
+        }
+        const shouldSticky = !!(
+          colIndex
+          && colIndex <= freezeCol
+          && (!isBodyRow || alwaysStickyCoreCol || bodyStickyAllowed)
+        );
         if (shouldSticky) {
           cell.classList.add('combo-sticky-col');
           cell.style.left = `${leftOffsets[colIndex] || 0}px`;
@@ -5383,6 +5498,11 @@
 
   function ensureComboHeaderTable() {
     if (!ui.comboView || !ui.table) return;
+    if (!USE_CLONED_COMBO_HEADER) {
+      const existingWrap = qs('comboTableHeaderWrap');
+      if (existingWrap) existingWrap.style.display = 'none';
+      return;
+    }
     const scrollWrap = qs('comboTableScroll');
     if (!scrollWrap) return;
     let headerWrap = qs('comboTableHeaderWrap');
@@ -5409,11 +5529,16 @@
   }
 
   function syncComboHeaderTable() {
+    if (!USE_CLONED_COMBO_HEADER) return;
     if (!ui.table || !ui.headerWrap || !ui.headerTable) return;
     const scrollWrap = qs('comboTableScroll');
     if (!scrollWrap) return;
     const thead = ui.table.tHead || ui.table.querySelector('thead');
-    const headerRows = thead ? Array.from(thead.rows) : Array.from(ui.table.rows).slice(0, 2);
+    let headerRows = thead ? Array.from(thead.rows) : Array.from(ui.table.rows).slice(0, 2);
+    if (headerRows.length < 2) {
+      const fallbackRows = Array.from(ui.table.rows).slice(0, 2);
+      if (fallbackRows.length >= 2) headerRows = fallbackRows;
+    }
     if (!headerRows.length) return;
 
     ui.headerTable.innerHTML = '';
@@ -5427,6 +5552,18 @@
       headerThead.appendChild(row.cloneNode(true));
     });
     ui.headerTable.appendChild(headerThead);
+    if (headerThead.rows.length >= 2) {
+      const second = headerThead.rows[1];
+      second.style.display = 'table-row';
+      second.style.visibility = 'visible';
+      second.style.opacity = '1';
+    }
+    if (headerThead.rows.length >= 2) {
+      const second = headerThead.rows[1];
+      second.style.display = 'table-row';
+      second.style.visibility = 'visible';
+      second.style.opacity = '1';
+    }
     cacheHeaderBaseSpans(ui.table);
     cacheHeaderBaseLabels(ui.table);
     syncHeaderBaseSpans(ui.table, ui.headerTable);
@@ -5438,11 +5575,16 @@
     ui.headerWrap.style.top = `${top}px`;
     ui.headerWrap.style.width = `${scrollWrap.clientWidth}px`;
 
-    const headerHeight = headerRows.reduce((sum, row) => {
+    const measuredHeaderHeight = headerRows.reduce((sum, row) => {
       const rect = row.getBoundingClientRect();
       return sum + (rect.height || row.offsetHeight || 0);
     }, 0);
-    ui.headerWrap.style.height = `${Math.ceil(headerHeight)}px`;
+    const tableStyles = window.getComputedStyle(ui.table);
+    const cssHeaderRow = Number.parseFloat(tableStyles.getPropertyValue('--combo-header-row-height')) || 25;
+    const cssSubheaderRow = Number.parseFloat(tableStyles.getPropertyValue('--combo-subheader-row-height')) || 25;
+    const fallbackHeaderHeight = Math.max(24, cssHeaderRow) + Math.max(22, cssSubheaderRow);
+    const headerHeight = Math.ceil(fallbackHeaderHeight);
+    ui.headerWrap.style.height = `${headerHeight}px`;
     ui.headerWrap.scrollLeft = scrollWrap.scrollLeft;
 
     bindComboHeaderSort();
@@ -6425,6 +6567,12 @@
       input.inputMode = 'numeric';
       input.dataset.numeric = 'true';
     }
+    if (field === 'combo_url') {
+      input.classList.add('combo-url-input');
+      input.title = getComboLang() === 'en'
+        ? 'Double-click to open URL'
+        : 'ダブルクリックでURLを開く';
+    }
     group.inputs[field] = input;
     return input;
   }
@@ -7159,8 +7307,9 @@
       if (existing && (!coreBlank || existing === mode)) return;
       combo.control_mode = mode;
       changed = true;
-      const input = state.groups[rowIndex] && state.groups[rowIndex].inputs
-        ? state.groups[rowIndex].inputs.control_mode
+      const group = getVisibleGroupForCombo(rowIndex);
+      const input = group && group.inputs
+        ? group.inputs.control_mode
         : null;
       if (input && 'value' in input) input.value = mode;
     });
@@ -7259,16 +7408,34 @@
     return !!resolveCharacterSlug(state.currentCharacter || getCharacterSlugFromUi());
   }
 
-  function hasStoredComboData(slug) {
+  /** True when a persisted row counts as "real data" for the given Classic/Modern tab (not the other mode). */
+  function storedComboRowMatchesControlMode(combo, mode) {
+    const active = getEffectiveControlModeForSample(mode);
+    if (active !== 'classic' && active !== 'modern') return true;
+    if (!combo || typeof combo !== 'object') return false;
+    const rowMode = getComboModeForMatch(combo);
+    if (rowMode === '両方') return true;
+    if (rowMode === active) return true;
+    if (rowMode === 'classic' || rowMode === 'modern') return false;
+    const explicit = canonicalControlMode(combo.control_mode || '');
+    if (explicit === '両方') return true;
+    if (explicit === active) return true;
+    if (explicit === 'classic' || explicit === 'modern') return false;
+    return true;
+  }
+
+  function hasStoredComboDataForMode(slug, mode) {
     try {
       const raw = localStorage.getItem(getStorageKey(slug));
       const parsed = parseStoredCombos(raw);
       if (!parsed || !Array.isArray(parsed.combos)) return false;
       return parsed.combos.some((combo) => {
         if (!combo || typeof combo !== 'object') return false;
-        if (combo._manual) return true;
         const fields = ['command', 'buttons', 'combo_notes', 'frame_meter', 'game_version', ...FIELD_ORDER];
-        return fields.some((field) => String(combo[field] || '').trim().length > 0);
+        const has = combo._manual
+          || fields.some((field) => String(combo[field] || '').trim().length > 0);
+        if (!has) return false;
+        return storedComboRowMatchesControlMode(combo, mode);
       });
     } catch {
       return false;
@@ -7278,7 +7445,8 @@
   function shouldUseSampleComboForFirstRow() {
     if (!hasSelectedCharacterForCombos()) return false;
     const slug = state.currentCharacter || getCharacterSlugFromUi();
-    if (!hasStoredComboData(slug)) return true;
+    const mode = getEffectiveControlModeForSample(state.controlMode);
+    if (!hasStoredComboDataForMode(slug, mode)) return true;
     return false;
   }
 
@@ -7331,7 +7499,8 @@
 
   function isSampleSuppressedForMode(combo, mode = '') {
     const slug = state.currentCharacter || getCharacterSlugFromUi();
-    if (!hasStoredComboData(slug)) return false;
+    const eff = getEffectiveControlModeForSample(mode);
+    if (!hasStoredComboDataForMode(slug, eff)) return false;
     const persisted = getSampleSuppressedFlag(mode, slug);
     if (!combo || typeof combo !== 'object') return persisted;
     const raw = normalizeSampleSuppressionState(combo._sample_disabled, mode);
@@ -7371,9 +7540,13 @@
       return false;
     }
     if (sampleSuppressed && isBlankComboRowForSample(first)) return false;
+    const firstRowMode = getComboModeForMatch(first);
+    const firstRowIsOnlyOtherMode = (activeMode === 'modern' && firstRowMode === 'classic')
+      || (activeMode === 'classic' && firstRowMode === 'modern');
     const shouldReplace = isBlankComboRowForSample(first)
       || isDefaultSampleCombo(first)
-      || isSampleLikeCombo(first, { ignoreManual: true });
+      || isSampleLikeCombo(first, { ignoreManual: true })
+      || firstRowIsOnlyOtherMode;
     if (!shouldReplace) return false;
     const sample = defaultCombo(true);
     if (activeMode === 'classic' || activeMode === 'modern') {
@@ -7396,7 +7569,7 @@
   function syncAuthoredVersionInput(row) {
     const idx = Number(row);
     if (!Number.isFinite(idx) || idx < 0) return;
-    const group = state.groups[idx];
+    const group = getVisibleGroupForCombo(idx);
     const combo = state.combos[idx];
     if (!group || !combo) return;
     const select = group.inputs && group.inputs.game_version;
@@ -7462,7 +7635,7 @@
   function refreshCommandWarning(row) {
     const idx = Number(row);
     if (!Number.isFinite(idx) || idx < 0) return;
-    const group = state.groups[idx];
+    const group = getVisibleGroupForCombo(idx);
     const combo = state.combos[idx];
     if (!group || !combo) return;
     const commandInput = group.inputs && group.inputs.command;
@@ -8067,7 +8240,19 @@
       if (descriptors.length) return descriptors;
     }
 
-    const rawTokens = source.split(/\s+/).map((v) => String(v || '').trim()).filter(Boolean);
+    // Split glued modern auto steps (e.g. "2AUTO SP", "2AutoMK") so the digit+AUTO+attack
+    // merge runs the same as >-separated commands after spacing normalization.
+    const rawTokens = source.split(/\s+/).map((v) => String(v || '').trim()).filter(Boolean)
+      .flatMap((t) => {
+        const s = String(t || '').trim();
+        if (!s) return [];
+        const atk = '(?:LP|MP|HP|LK|MK|HK|PP|KK|P|K|L|M|H|SP|ANY)';
+        const gluedStep = new RegExp(`^([1-9])auto(${atk})$`, 'i').exec(s);
+        if (gluedStep) return [`${gluedStep[1]}Auto${gluedStep[2]}`];
+        const gluedPrefix = /^([1-9])auto$/i.exec(s);
+        if (gluedPrefix) return [gluedPrefix[1], 'AUTO'];
+        return [s];
+      });
     const isAttackToken = (value) => /^(?:LP|MP|HP|LK|MK|HK|PP|KK|P|K|L|M|H|SP|AUTO|ANY)$/i.test(value);
     const isDirectionalAttackToken = (value) => /^(?:[1-9](?:LP|MP|HP|LK|MK|HK|PP|KK|P|K|L|M|H|SP|AUTO(?:L|M|H)?|ANY))$/i.test(value);
     const isMetaToken = (value) => isSupportedBracketMetaToken(value);
@@ -8102,7 +8287,19 @@
       } else if (/^auto$/i.test(current) && isAttackToken(next)) {
         combined = `Auto${next}`;
         i += 2;
-      } else if (/^\d+$/.test(current) && isAttackToken(next)) {
+      } else if (
+        /^\d+$/.test(current)
+        && /^auto$/i.test(next)
+        && isAttackToken(rawTokens[i + 2] || '')
+      ) {
+        combined = `${current}Auto${rawTokens[i + 2]}`;
+        i += 3;
+        const next2 = rawTokens[i] || '';
+        if (next2 && isAttackToken(next2)) {
+          combined = `${combined}${next2}`;
+          i += 1;
+        }
+      } else if (/^\d+$/.test(current) && isAttackToken(next) && !/^auto$/i.test(next)) {
         combined = `${current}${next}`;
         i += 2;
         // Double-button input: "214 Any Any" → "214ANYANY", "214 P P" → "214PP"
@@ -8136,7 +8333,9 @@
   }
 
   function getComboCalcCharacterSlug() {
-    const resolved = resolveCharacterSlug(getCharacterSlugFromUi() || state.currentCharacter || '');
+    const resolved = resolveCharacterSlug(
+      state.currentCharacter || getCharacterSlugFromUi() || '',
+    );
     return String(resolved || '').trim();
   }
 
@@ -13544,7 +13743,7 @@
         }
         if (!(entry.isIntersecting || entry.intersectionRatio > 0)) return;
         const row = Number(host.dataset && host.dataset.row ? host.dataset.row : NaN);
-        if (!Number.isFinite(row) || row < 0 || row >= state.groups.length) return;
+        if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) return;
         if (FRAME_METER_ACTIVE_ROW_ONLY) {
           const selected = Number(state.selectedGroup);
           if (!Number.isFinite(selected) || selected < 0 || row !== selected) {
@@ -13554,7 +13753,7 @@
             return;
           }
         }
-        const group = state.groups[row];
+        const group = getVisibleGroupForCombo(row);
         const combo = state.combos[row];
         if (!group || !combo) return;
         const renderKey = getFrameMeterRenderKey(combo);
@@ -13642,11 +13841,11 @@
         continue;
       }
       const row = Number(host.dataset && host.dataset.row ? host.dataset.row : NaN);
-      if (!Number.isFinite(row) || row < 0 || row >= state.groups.length) {
+      if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) {
         frameMeterRenderQueue.delete(host);
         continue;
       }
-      const group = state.groups[row];
+      const group = getVisibleGroupForCombo(row);
       const combo = state.combos[row];
       if (!group || !combo) {
         frameMeterRenderQueue.delete(host);
@@ -13720,12 +13919,12 @@
   function scheduleActiveFrameMeterRender(rowIndex) {
     if (FRAME_METER_DISABLED) return;
     const row = Number(rowIndex);
-    if (!Number.isFinite(row) || row < 0 || row >= state.groups.length) return;
+    if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) return;
     cancelActiveFrameMeterRender();
     const token = activeFrameMeterRenderToken;
     const run = () => {
       if (token !== activeFrameMeterRenderToken) return;
-      const group = state.groups[row];
+      const group = getVisibleGroupForCombo(row);
       const combo = state.combos[row];
       if (!group || !combo) return;
       renderFrameMeterVisual(group, combo, { defer: false });
@@ -15496,7 +15695,7 @@
   function applyDerivedRowVisualSync(rowIndex, options = {}) {
     const row = Number(rowIndex);
     if (!Number.isFinite(row) || row < 0) return;
-    const group = state.groups[row];
+    const group = getVisibleGroupForCombo(row);
     const combo = state.combos[row];
     if (!group || !combo) return;
     DERIVED_ROW_SYNC_FIELDS.forEach((field) => {
@@ -15584,7 +15783,7 @@
       const changed = needsSync ? syncDerivedComboFields(combo, nextOptions) : false;
       applyAutoTagsForRow(row);
       if (changed) scheduleTopTagRefresh();
-      const group = state.groups[row];
+      const group = getVisibleGroupForCombo(row);
       if (!group) return changed;
       const shouldRenderFrameMeter = !(options && options.renderFrameMeter === false)
         && (changed || hostNeedsFrameMeterRender(group, combo));
@@ -15631,7 +15830,7 @@
       persist();
       return;
     }
-    if (state.combos.length < state.groups.length) {
+    if (!isVirtualScrollEnabled() && state.combos.length < state.groups.length) {
       const missing = state.groups.length - state.combos.length;
       for (let i = 0; i < missing; i += 1) {
         state.combos.push(defaultCombo());
@@ -15713,18 +15912,22 @@
   }
 
   function applyComboPortrait(slug) {
-    if (!ui.charImg) return;
     const resolved = resolveCharacterSlug(slug) || '';
-    if (!resolved) {
-      ui.charImg.src = 'assets/images/characters/select_character_random_over.png';
-      ui.charImg.alt = 'Select Character';
-      return;
-    }
-    const thumb = typeof window.getSelectThumbForSlug === 'function'
-      ? window.getSelectThumbForSlug(resolved, getComboLang())
-      : '';
-    const src = thumb || `assets/images/characters/${resolved}.png`;
-    ui.charImg.src = src;
+    const applyImg = (img) => {
+      if (!img) return;
+      if (!resolved) {
+        img.src = 'assets/images/characters/select_character_random_over.png';
+        img.alt = 'Select Character';
+        return;
+      }
+      const thumb = typeof window.getSelectThumbForSlug === 'function'
+        ? window.getSelectThumbForSlug(resolved, getComboLang())
+        : '';
+      const src = thumb || `assets/images/characters/${resolved}.png`;
+      img.src = src;
+    };
+    applyImg(ui.charImg);
+    applyImg(ui.charImgTree);
   }
 
   function getStorageSafeSlug(slug) {
@@ -16610,6 +16813,11 @@
         fallbackMode: migrationMode,
         preserveEmpty: true,
       });
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        state.virtual.rowHeights = new Array(state.combos.length).fill(fill);
+        state.virtual.needsPrefixRebuild = true;
+      }
       migrateCounterDamageToMergedPc();
       if (source === 'draft') {
         // Promote a valid draft to main storage so the session starts in a saved state.
@@ -16813,11 +17021,16 @@
         fallbackMode: state.controlMode,
         preserveEmpty: true,
       });
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        state.virtual.rowHeights = new Array(state.combos.length).fill(fill);
+        state.virtual.needsPrefixRebuild = true;
+      }
       resetRenderLimitForCurrentData();
       const renderTarget = getRenderTargetCount();
       trimGroupCount(renderTarget);
       ensureGroupCount(renderTarget);
-      while (state.combos.length < state.groups.length) {
+      while (!isVirtualScrollEnabled() && state.combos.length < state.groups.length) {
         state.combos.push(defaultCombo());
       }
       persist();
@@ -16877,14 +17090,20 @@
       const idx = Number(state.selectedGroup);
       if (Number.isFinite(idx) && idx >= 0) refreshCommandWarning(idx);
       else if (state.groups.length) refreshCommandWarning(0);
-      if (state.groups.length <= WARNING_SWEEP_THRESHOLD) {
+      if (getPerfRowCount() <= WARNING_SWEEP_THRESHOLD) {
         queueCommandWarningSweep();
       }
     }
     flushFrameMeterRenderQueue();
     if (!state.loadingMore) updateEmptyGroups();
+    normalizeTagRowHeightFromFirstVisible();
     applyCommandFontSize();
     scheduleVisualHydrationOrdered();
+    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+      window.requestAnimationFrame(() => {
+        normalizeTagRowHeightFromFirstVisible();
+      });
+    }
   }
 
   function applyStateToTable(options = {}) {
@@ -16901,9 +17120,10 @@
     const skipFrameMeterRender = opts.skipFrameMeterRender === true;
     const skipRowDataBinding = opts.skipRowDataBinding === true;
     const skipTagsRender = opts.skipTagsRender === true;
-    const scheduleWarningSweep = !disableWarningRefresh && state.groups.length > WARNING_SWEEP_THRESHOLD;
+    const scheduleWarningSweep = !disableWarningRefresh && getPerfRowCount() > WARNING_SWEEP_THRESHOLD;
     for (let i = start; i < end; i += 1) {
       const group = state.groups[i];
+      if (!group || !Number.isFinite(Number(group.index)) || Number(group.index) < 0) continue;
       const combo = state.combos[group.index] || defaultCombo();
       const comboId = ensureComboIdentity(combo);
       state.combos[group.index] = combo;
@@ -17005,6 +17225,10 @@
   }
 
   async function ensureGroupCountChunked(targetCount, chunkSize = GROUP_BUILD_CHUNK, perfMark = null) {
+    if (isVirtualScrollEnabled()) {
+      ensureVirtualPoolSize(getVirtualPoolTarget());
+      return;
+    }
     const count = Math.max(0, Number(targetCount) || 0);
     while (state.groups.length < count) {
       const limit = Math.min(count, state.groups.length + Math.max(1, Number(chunkSize) || GROUP_BUILD_CHUNK));
@@ -17029,7 +17253,7 @@
       if (typeof perfMark === 'function') perfMark(`applyState chunk (${end}/${endAt})`);
       if (end < endAt) await yieldToBrowser();
     }
-    const shouldQueueWarningSweep = !extraOptions.disableWarningRefresh && state.groups.length > WARNING_SWEEP_THRESHOLD;
+    const shouldQueueWarningSweep = !extraOptions.disableWarningRefresh && getPerfRowCount() > WARNING_SWEEP_THRESHOLD;
     finalizeApplyStateToTable(shouldQueueWarningSweep);
   }
 
@@ -17144,6 +17368,14 @@
   }
 
   function ensureLoadMoreControl() {
+    if (isVirtualScrollEnabled()) {
+      const existingWrap = qs('comboLoadMoreWrap');
+      if (existingWrap) existingWrap.classList.add('hidden');
+      ui.loadMoreWrap = existingWrap || null;
+      ui.loadMoreInfo = qs('comboLoadMoreInfo');
+      ui.loadMoreBtn = qs('comboLoadMoreBtn');
+      return;
+    }
     if (AUTO_BACKGROUND_LOAD_MORE) {
       const existingWrap = qs('comboLoadMoreWrap');
       if (existingWrap) existingWrap.classList.add('hidden');
@@ -17203,6 +17435,7 @@
   }
 
   async function loadMoreComboRows(step = LOAD_MORE_CHUNK) {
+    if (isVirtualScrollEnabled()) return;
     const total = Array.isArray(state.combos) ? state.combos.length : 0;
     if (!total || state.loadingMore) return;
     const start = state.groups.length;
@@ -17286,6 +17519,10 @@
   }
 
   function updateLoadMoreControl() {
+    if (isVirtualScrollEnabled()) {
+      if (ui.loadMoreWrap) ui.loadMoreWrap.classList.add('hidden');
+      return;
+    }
     if (AUTO_BACKGROUND_LOAD_MORE) {
       if (ui.loadMoreWrap) ui.loadMoreWrap.classList.add('hidden');
       const total = Array.isArray(state.combos) ? state.combos.length : 0;
@@ -17369,6 +17606,7 @@
   }
 
   function queueAutoLoadMoreIfNeeded() {
+    if (isVirtualScrollEnabled()) return;
     if (!AUTO_BACKGROUND_LOAD_MORE) return;
     if (autoLoadMoreTimer != null) {
       window.clearTimeout(autoLoadMoreTimer);
@@ -17551,6 +17789,13 @@
   }
 
   function requestBottomJumpSelection(targetIndex) {
+    if (isVirtualScrollEnabled()) {
+      const target = Number(targetIndex);
+      if (Number.isFinite(target) && target >= 0) {
+        scrollComboIndexIntoView(target);
+      }
+      return;
+    }
     const target = Number(targetIndex);
     if (!Number.isFinite(target) || target < 0) return;
     if (target < state.groups.length) {
@@ -17677,6 +17922,7 @@
         break;
       }
     }
+    if (rendered > 0) normalizeTagRowHeightFromFirstVisible();
   }
 
   function scheduleVisibleButtonsHydration() {
@@ -17811,7 +18057,10 @@
     if (ui.notationBtn) ui.notationBtn.addEventListener('click', openNotationManager);
     if (ui.tabClassic) ui.tabClassic.addEventListener('click', () => setControlMode('classic'));
     if (ui.tabModern) ui.tabModern.addEventListener('click', () => setControlMode('modern'));
+    if (ui.tabClassicTree) ui.tabClassicTree.addEventListener('click', () => setControlMode('classic'));
+    if (ui.tabModernTree) ui.tabModernTree.addEventListener('click', () => setControlMode('modern'));
     if (ui.charBtn) ui.charBtn.addEventListener('click', openCharSelect);
+    if (ui.charBtnTree) ui.charBtnTree.addEventListener('click', openCharSelect);
 
     if (!ui.importInput) {
       ui.importInput = document.createElement('input');
@@ -17861,7 +18110,7 @@
         const chips = tagDel.closest('.combo-tags-chips');
         const row = chips ? Number(chips.dataset.row) : NaN;
         if (tagValue && Number.isFinite(row) && row >= 0 && row < state.combos.length) {
-          const group = state.groups[row];
+          const group = getVisibleGroupForCombo(row);
           const input = group && group.inputs ? group.inputs.tags : null;
           const combo = state.combos[row];
           if (input && input.classList && input.classList.contains('multi-input')) {
@@ -17898,6 +18147,15 @@
     ui.table.addEventListener('dblclick', (ev) => {
       const target = ev.target;
       if (!target || !target.closest) return;
+      const urlInput = target.closest('input[data-field="combo_url"]');
+      if (urlInput) {
+        const raw = String(urlInput.value || '').trim();
+        if (openComboUrl(raw)) {
+          ev.preventDefault();
+          ev.stopPropagation();
+        }
+        return;
+      }
       const editable = target.closest('input, textarea, select, [contenteditable="true"], .cmd-input');
       if (editable) return;
       const row = target.closest('tr');
@@ -18221,13 +18479,13 @@
       derivedRefreshCursor += 1;
       if (!Number.isFinite(row) || row < 0) continue;
       let changed = false;
-      if (row < state.groups.length) {
+      const group = getVisibleGroupForCombo(row);
+      if (group) {
         changed = syncDerivedComboFieldsForRow(row, {
           ...(derivedRefreshOptions || {}),
           renderFrameMeter: false,
         });
         if (changed) {
-          const group = state.groups[row];
           const combo = state.combos[row];
           if (group && combo) renderFrameMeterVisual(group, combo, { defer: true });
         }
@@ -18272,7 +18530,9 @@
     delete opts.forceAll;
     delete opts.scope;
     delete opts.maxLoadedRows;
-    const loadedCount = Math.max(0, Number(state.groups.length) || 0);
+    const loadedCount = isVirtualScrollEnabled()
+      ? Math.max(0, Number(state.combos.length) || 0)
+      : Math.max(0, Number(state.groups.length) || 0);
     const comboCount = state.combos.length;
     const loadedScope = Math.min(loadedCount || comboCount, maxLoaded);
     const rowTotal = scopeAll
@@ -18340,6 +18600,103 @@
         || overwriteLabel.textContent
         || 'Overwrite';
     }
+
+    const modalWrap = qs('comboDetailsAutoToggleWrap');
+    const modalOn = qs('comboDetailsToggleAutoInputOn');
+    const modalOff = qs('comboDetailsToggleAutoInputOff');
+    const modalLabel = qs('comboDetailsToggleAutoInputLabel');
+    const modalOverwriteOn = qs('comboDetailsToggleAutoInputOverwriteOn');
+    const modalOverwriteOff = qs('comboDetailsToggleAutoInputOverwriteOff');
+    const modalOverwriteLabel = qs('comboDetailsToggleAutoInputOverwriteLabel');
+    if (modalWrap && (modalOn || modalOff)) {
+      modalWrap.style.display = '';
+      if (modalOn) {
+        modalOn.classList.toggle('active', isEnabled);
+        modalOn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      }
+      if (modalOff) {
+        modalOff.classList.toggle('active', !isEnabled);
+        modalOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
+      }
+      if (modalLabel) modalLabel.textContent = comboT('ui.auto_input_toggle', lang || getComboLang()) || modalLabel.textContent || 'Auto Input';
+      if (modalOverwriteOn) {
+        modalOverwriteOn.classList.toggle('active', overwriteEnabled);
+        modalOverwriteOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
+        modalOverwriteOn.disabled = !isEnabled;
+        modalOverwriteOn.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (modalOverwriteOff) {
+        modalOverwriteOff.classList.toggle('active', !overwriteEnabled);
+        modalOverwriteOff.setAttribute('aria-pressed', !overwriteEnabled ? 'true' : 'false');
+        modalOverwriteOff.disabled = !isEnabled;
+        modalOverwriteOff.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (modalOverwriteLabel) {
+        modalOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', lang || getComboLang())
+          || modalOverwriteLabel.textContent
+          || 'Overwrite';
+      }
+    }
+
+    const treeWrap = qs('treeAutoInputToggleWrap');
+    const treeOn = qs('treeToggleAutoInputOn');
+    const treeOff = qs('treeToggleAutoInputOff');
+    const treeLabel = qs('treeToggleAutoInputLabel');
+    const treeOverwriteOn = qs('treeToggleAutoInputOverwriteOn');
+    const treeOverwriteOff = qs('treeToggleAutoInputOverwriteOff');
+    const treeOverwriteLabel = qs('treeToggleAutoInputOverwriteLabel');
+    if (treeWrap && (treeOn || treeOff)) {
+      treeWrap.style.display = '';
+      if (treeOn) {
+        treeOn.classList.toggle('active', isEnabled);
+        treeOn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      }
+      if (treeOff) {
+        treeOff.classList.toggle('active', !isEnabled);
+        treeOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
+      }
+      if (treeLabel) treeLabel.textContent = comboT('ui.auto_input_toggle', lang || getComboLang()) || treeLabel.textContent || 'Auto Input';
+      if (treeOverwriteOn) {
+        treeOverwriteOn.classList.toggle('active', overwriteEnabled);
+        treeOverwriteOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
+        treeOverwriteOn.disabled = !isEnabled;
+        treeOverwriteOn.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (treeOverwriteOff) {
+        treeOverwriteOff.classList.toggle('active', !overwriteEnabled);
+        treeOverwriteOff.setAttribute('aria-pressed', !overwriteEnabled ? 'true' : 'false');
+        treeOverwriteOff.disabled = !isEnabled;
+        treeOverwriteOff.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (treeOverwriteLabel) {
+        treeOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', lang || getComboLang())
+          || treeOverwriteLabel.textContent
+          || 'Overwrite';
+      }
+    }
+  }
+
+  function setAutoInputEnabledGlobal(enabled) {
+    const nextEnabled = enabled !== false;
+    const currentEnabled = state.autoInputEnabled !== false;
+    if (nextEnabled === currentEnabled) return;
+    state.autoInputEnabled = nextEnabled;
+    updateAutoInputToggleUi(getComboLang());
+    saveUiPrefs();
+    if (nextEnabled) {
+      refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
+    }
+  }
+
+  function setAutoInputOverwriteGlobal(enabled) {
+    const nextEnabled = enabled === true;
+    const currentEnabled = state.autoInputOverwriteManual === true;
+    if (nextEnabled === currentEnabled) return;
+    if (state.autoInputEnabled === false) return;
+    state.autoInputOverwriteManual = nextEnabled;
+    updateAutoInputToggleUi(getComboLang());
+    saveUiPrefs();
+    refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
   }
 
   function bindRowToggles() {
@@ -18350,6 +18707,14 @@
     const autoInputToggleOff = qs('toggleAutoInputOff');
     const autoInputOverwriteToggleOn = qs('toggleAutoInputOverwriteOn');
     const autoInputOverwriteToggleOff = qs('toggleAutoInputOverwriteOff');
+    const modalAutoInputToggleOn = qs('comboDetailsToggleAutoInputOn');
+    const modalAutoInputToggleOff = qs('comboDetailsToggleAutoInputOff');
+    const modalAutoInputOverwriteToggleOn = qs('comboDetailsToggleAutoInputOverwriteOn');
+    const modalAutoInputOverwriteToggleOff = qs('comboDetailsToggleAutoInputOverwriteOff');
+    const treeAutoInputToggleOn = qs('treeToggleAutoInputOn');
+    const treeAutoInputToggleOff = qs('treeToggleAutoInputOff');
+    const treeAutoInputOverwriteToggleOn = qs('treeToggleAutoInputOverwriteOn');
+    const treeAutoInputOverwriteToggleOff = qs('treeToggleAutoInputOverwriteOff');
     const allToggle = qs('toggleAllRowsBtn');
     if (!ui.comboView) return;
     if (frameToggle) frameToggle.checked = !!(state.rowVisibility && state.rowVisibility.frame);
@@ -18369,6 +18734,10 @@
         scheduleVisualHydrationOrdered();
       }
       refreshVisibleGroupRowClasses();
+      if (isVirtualScrollEnabled()) {
+        state.virtual.needsPrefixRebuild = true;
+        renderVirtualWindow({ force: true });
+      }
       saveUiPrefs();
       updateAllRowsToggleLabel(frameToggle, buttonToggle, notesToggle, allToggle);
     };
@@ -18376,45 +18745,64 @@
       if (!toggle) return;
       toggle.addEventListener('change', update);
     });
-    const setAutoInputEnabled = (enabled) => {
-      const nextEnabled = enabled !== false;
-      const currentEnabled = state.autoInputEnabled !== false;
-      if (nextEnabled === currentEnabled) return;
-      state.autoInputEnabled = nextEnabled;
-      updateAutoInputToggleUi(getComboLang());
-      saveUiPrefs();
-      if (nextEnabled) {
-        refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
-      }
-    };
-    const setAutoInputOverwrite = (enabled) => {
-      const nextEnabled = enabled === true;
-      const currentEnabled = state.autoInputOverwriteManual === true;
-      if (nextEnabled === currentEnabled) return;
-      if (state.autoInputEnabled === false) return;
-      state.autoInputOverwriteManual = nextEnabled;
-      updateAutoInputToggleUi(getComboLang());
-      saveUiPrefs();
-      refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
-    };
     if (autoInputToggleOn) {
       autoInputToggleOn.addEventListener('click', () => {
-        setAutoInputEnabled(true);
+        setAutoInputEnabledGlobal(true);
       });
     }
     if (autoInputToggleOff) {
       autoInputToggleOff.addEventListener('click', () => {
-        setAutoInputEnabled(false);
+        setAutoInputEnabledGlobal(false);
       });
     }
     if (autoInputOverwriteToggleOn) {
       autoInputOverwriteToggleOn.addEventListener('click', () => {
-        setAutoInputOverwrite(true);
+        setAutoInputOverwriteGlobal(true);
       });
     }
     if (autoInputOverwriteToggleOff) {
       autoInputOverwriteToggleOff.addEventListener('click', () => {
-        setAutoInputOverwrite(false);
+        setAutoInputOverwriteGlobal(false);
+      });
+    }
+    if (modalAutoInputToggleOn) {
+      modalAutoInputToggleOn.addEventListener('click', () => {
+        setAutoInputEnabledGlobal(true);
+      });
+    }
+    if (modalAutoInputToggleOff) {
+      modalAutoInputToggleOff.addEventListener('click', () => {
+        setAutoInputEnabledGlobal(false);
+      });
+    }
+    if (modalAutoInputOverwriteToggleOn) {
+      modalAutoInputOverwriteToggleOn.addEventListener('click', () => {
+        setAutoInputOverwriteGlobal(true);
+      });
+    }
+    if (modalAutoInputOverwriteToggleOff) {
+      modalAutoInputOverwriteToggleOff.addEventListener('click', () => {
+        setAutoInputOverwriteGlobal(false);
+      });
+    }
+    if (treeAutoInputToggleOn) {
+      treeAutoInputToggleOn.addEventListener('click', () => {
+        setAutoInputEnabledGlobal(true);
+      });
+    }
+    if (treeAutoInputToggleOff) {
+      treeAutoInputToggleOff.addEventListener('click', () => {
+        setAutoInputEnabledGlobal(false);
+      });
+    }
+    if (treeAutoInputOverwriteToggleOn) {
+      treeAutoInputOverwriteToggleOn.addEventListener('click', () => {
+        setAutoInputOverwriteGlobal(true);
+      });
+    }
+    if (treeAutoInputOverwriteToggleOff) {
+      treeAutoInputOverwriteToggleOff.addEventListener('click', () => {
+        setAutoInputOverwriteGlobal(false);
       });
     }
     if (allToggle) {
@@ -18478,10 +18866,43 @@
     });
   }
 
+  function normalizeTagRowHeightFromFirstVisible() {
+    if (!ui.table) return;
+    const root = (ui.table.tBodies && ui.table.tBodies.length) ? ui.table.tBodies[0] : ui.table;
+    if (!root || !root.querySelectorAll) return;
+    const rows = Array.from(root.querySelectorAll('tr.combo-row-frame')).filter((row) => (
+      row && row.style.display !== 'none'
+    ));
+    if (!rows.length) return;
+    ui.table.style.setProperty('--combo-tag-row-height', `${COMBO_TAG_ROW_HEIGHT_PX}px`);
+    const baseHeight = COMBO_TAG_ROW_HEIGHT_PX;
+    const innerHeight = Math.max(COMBO_TAG_ROW_INNER_MIN_PX, baseHeight - 8);
+    rows.forEach((row) => {
+      row.style.setProperty('height', `${baseHeight}px`, 'important');
+      row.style.setProperty('min-height', `${baseHeight}px`, 'important');
+      row.style.setProperty('max-height', `${baseHeight}px`, 'important');
+      Array.from(row.cells || []).forEach((td) => {
+        td.style.setProperty('height', `${baseHeight}px`, 'important');
+        td.style.setProperty('min-height', `${baseHeight}px`, 'important');
+        td.style.setProperty('max-height', `${baseHeight}px`, 'important');
+        td.style.setProperty('padding-top', '0px', 'important');
+        td.style.setProperty('padding-bottom', '0px', 'important');
+        td.style.setProperty('vertical-align', 'middle', 'important');
+      });
+      row.querySelectorAll('p, .combo-tags-wrap, .combo-tags-chips').forEach((el) => {
+        el.style.setProperty('min-height', `${innerHeight}px`, 'important');
+        el.style.setProperty('height', `${innerHeight}px`, 'important');
+        el.style.setProperty('max-height', `${innerHeight}px`, 'important');
+      });
+    });
+  }
+
   function updateEmptyGroups() {
     if (!state.groups.length) return;
-    state.groups.forEach((group, idx) => {
-      const combo = state.combos[idx] || defaultCombo();
+    state.groups.forEach((group) => {
+      const comboIndex = Number(group && group.index);
+      if (!Number.isFinite(comboIndex) || comboIndex < 0) return;
+      const combo = state.combos[comboIndex] || defaultCombo();
       const isEmpty = isComboBlank(combo);
       group.rowList.forEach((row) => {
         row.classList.toggle('combo-group-empty', isEmpty);
@@ -18492,8 +18913,8 @@
 
   function updateEmptyGroupForRow(rowIndex) {
     const idx = Number(rowIndex);
-    if (!Number.isFinite(idx) || idx < 0 || idx >= state.groups.length) return;
-    const group = state.groups[idx];
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const group = getVisibleGroupForCombo(idx);
     if (!group || !Array.isArray(group.rowList)) return;
     const combo = state.combos[idx] || defaultCombo();
     const isEmpty = isComboBlank(combo);
@@ -18550,7 +18971,8 @@
   }
 
   function findEmptyGroupIndex() {
-    for (let i = 0; i < state.groups.length; i += 1) {
+    const total = getComboCount();
+    for (let i = 0; i < total; i += 1) {
       const combo = state.combos[i];
       if (isComboBlank(combo)) return i;
     }
@@ -18653,10 +19075,15 @@
   function ensureEmptyGroupIndex() {
     const existing = findEmptyGroupIndex();
     if (existing != null) return existing;
+    if (isVirtualScrollEnabled()) return null;
     return appendEmptyGroup();
   }
 
   function ensureGroupCount(targetCount) {
+    if (isVirtualScrollEnabled()) {
+      ensureVirtualPoolSize(getVirtualPoolTarget());
+      return;
+    }
     const count = Math.max(0, Number(targetCount) || 0);
     while (state.groups.length < count) {
       const idx = appendEmptyGroup();
@@ -18665,6 +19092,7 @@
   }
 
   function trimGroupCount(targetCount) {
+    if (isVirtualScrollEnabled()) return;
     const count = Math.max(0, Number(targetCount) || 0);
     while (state.groups.length > count) {
       const group = state.groups.pop();
@@ -18693,6 +19121,19 @@
     const nextCombo = { ...defaultCombo(), ...(comboData || {}) };
     nextCombo._id = '';
     ensureComboIdentity(nextCombo);
+
+    if (isVirtualScrollEnabled()) {
+      state.combos.splice(insertAt, 0, nextCombo);
+      if (Array.isArray(state.virtual && state.virtual.rowHeights)) {
+        state.virtual.rowHeights.splice(insertAt, 0, Number(state.virtual.avgHeight) || 72);
+        state.virtual.needsPrefixRebuild = true;
+      }
+      persist();
+      applyFilters();
+      updateLoadMoreControl();
+      if (scrollToRow) scrollComboIndexIntoView(insertAt);
+      return insertAt;
+    }
 
     // Fast path: appending a row at the end should not re-apply/filter every loaded row.
     // It also avoids forcing a "jump to bottom" hydration when the dataset is large.
@@ -18737,7 +19178,7 @@
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
+    while (!isVirtualScrollEnabled() && state.combos.length < state.groups.length) {
       state.combos.push(defaultCombo());
     }
     persist();
@@ -18774,6 +19215,13 @@
       setSampleSuppressedForMode(state.combos[idx], state.controlMode, true);
     }
     persist();
+    if (isVirtualScrollEnabled()) {
+      applyFilters();
+      renderVirtualWindow({ force: true });
+      setSelectedGroup(idx, { scroll: false });
+      restoreScroll();
+      return true;
+    }
     applyStateToTable({
       rangeStart: idx,
       rangeEnd: idx + 1,
@@ -18793,7 +19241,7 @@
   }
 
   function normalizeRowIndexes(indexes) {
-    const max = state.groups.length;
+    const max = isVirtualScrollEnabled() ? getComboCount() : state.groups.length;
     return Array.from(new Set((indexes || [])
       .map((value) => Number(value))
       .filter((value) => Number.isFinite(value) && value >= 0 && value < max)))
@@ -18804,42 +19252,55 @@
     const fromSet = normalizeRowIndexes(Array.from(state.selectedRows || []));
     if (fromSet.length) return fromSet;
     const idx = fallbackIndex == null ? Number(state.selectedGroup) : Number(fallbackIndex);
-    if (Number.isFinite(idx) && idx >= 0 && idx < state.groups.length) return [idx];
+    const max = isVirtualScrollEnabled() ? getComboCount() : state.groups.length;
+    if (Number.isFinite(idx) && idx >= 0 && idx < max) return [idx];
     return [];
   }
 
   function refreshSelectedGroupStyles(prevSelected = null, nextSelected = null) {
-    const prevSet = prevSelected instanceof Set
-      ? prevSelected
-      : new Set(getSelectedRowIndexes());
     const nextSet = nextSelected instanceof Set
       ? nextSelected
       : new Set(getSelectedRowIndexes());
-
     if (!state.groups || !state.groups.length) return;
-    const dirty = new Set();
-    prevSet.forEach((idx) => {
-      if (!nextSet.has(idx)) dirty.add(idx);
-    });
-    nextSet.forEach((idx) => {
-      if (!prevSet.has(idx)) dirty.add(idx);
-    });
-    if (!dirty.size) return;
-
-    dirty.forEach((idx) => {
-      const i = Number(idx);
-      if (!Number.isFinite(i) || i < 0 || i >= state.groups.length) return;
-      const group = state.groups[i];
+    state.groups.forEach((group) => {
       if (!group || !Array.isArray(group.rowList)) return;
-      const on = nextSet.has(i);
+      const on = nextSet.has(Number(group.index));
       group.rowList.forEach((row) => {
         row.classList.toggle('selected', on);
       });
     });
   }
 
+  function scrollComboIndexIntoView(comboIndex) {
+    const idx = Number(comboIndex);
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const scroll = qs('comboTableScroll');
+    if (!scroll) return;
+    if (isVirtualScrollEnabled()) {
+      const viewIndex = getViewIndexForCombo(idx);
+      if (!Number.isFinite(viewIndex) || viewIndex < 0) return;
+      updateVirtualPrefixSums();
+      const prefix = state.virtual.prefixSums || [];
+      const top = prefix[viewIndex] || 0;
+      scroll.scrollTop = Math.max(0, Math.round(top));
+      renderVirtualWindow({ force: true });
+      return;
+    }
+    const firstRow = state.groups[idx] && state.groups[idx].rowList[0];
+    if (firstRow) {
+      const rowStyle = window.getComputedStyle(firstRow);
+      if (rowStyle && rowStyle.display === 'none') return;
+      const scrollRect = scroll.getBoundingClientRect();
+      const rowRect = firstRow.getBoundingClientRect();
+      const offset = scrollRect && rowRect && scrollRect.height > 0
+        ? (rowRect.top - scrollRect.top + scroll.scrollTop - 6)
+        : (firstRow.offsetTop - 6);
+      scroll.scrollTop = offset > 0 ? Math.round(offset) : 0;
+    }
+  }
+
   function setSelectedRows(indexes, options = {}) {
-    if (!state.groups.length) return;
+    if (!state.groups.length && !isVirtualScrollEnabled()) return;
     const perfStart = (PERF_ENABLED && typeof performance !== 'undefined')
       ? performance.now()
       : 0;
@@ -18869,25 +19330,26 @@
     } else {
       state.rowSelectAnchor = -1;
     }
-    if (!state.groups.length) return;
+    if (!state.groups.length && !isVirtualScrollEnabled()) return;
     updateComboGameVersionInfo(getComboLang());
     refreshSelectedGroupStyles(prevSelected, state.selectedRows);
+    syncTreeSelectionHighlight();
     if (
       FRAME_METER_ACTIVE_ROW_ONLY
       && Number.isFinite(prevActive)
       && prevActive >= 0
-      && prevActive < state.groups.length
+      && prevActive < getComboCount()
       && prevActive !== nextActive
       && !(state.rowVisibility && state.rowVisibility.frame === false)
     ) {
-      const prevGroup = state.groups[prevActive];
+      const prevGroup = getVisibleGroupForCombo(prevActive);
       const prevCombo = state.combos[prevActive];
       if (prevGroup && prevCombo) {
         renderFrameMeterVisual(prevGroup, prevCombo, { defer: false });
       }
     }
     if (nextActive >= 0 && !(state.rowVisibility && state.rowVisibility.frame === false)) {
-      const group = state.groups[nextActive];
+      const group = getVisibleGroupForCombo(nextActive);
       const combo = state.combos[nextActive];
       if (group && combo) {
         const buttonsInput = group.inputs && group.inputs.buttons ? group.inputs.buttons : null;
@@ -18899,18 +19361,7 @@
       ? Boolean(options.scroll)
       : true;
     if (nextActive < 0 || !shouldScroll) return;
-    const scroll = qs('comboTableScroll');
-    const firstRow = state.groups[nextActive] && state.groups[nextActive].rowList[0];
-    if (scroll && firstRow) {
-      const rowStyle = window.getComputedStyle(firstRow);
-      if (rowStyle && rowStyle.display === 'none') return;
-      const scrollRect = scroll.getBoundingClientRect();
-      const rowRect = firstRow.getBoundingClientRect();
-      const offset = scrollRect && rowRect && scrollRect.height > 0
-        ? (rowRect.top - scrollRect.top + scroll.scrollTop - 6)
-        : (firstRow.offsetTop - 6);
-      scroll.scrollTop = offset > 0 ? Math.round(offset) : 0;
-    }
+    scrollComboIndexIntoView(nextActive);
     logSlowPath('set-selected-rows', perfStart, 20, `(groups=${state.groups.length}, selected=${normalized.length})`);
   }
 
@@ -18925,7 +19376,8 @@
 
   function handleRowSelectionRequest(index, ev, options = {}) {
     const idx = Number(index);
-    if (!Number.isFinite(idx) || idx < 0 || idx >= state.groups.length) return;
+    const max = isVirtualScrollEnabled() ? getComboCount() : state.groups.length;
+    if (!Number.isFinite(idx) || idx < 0 || idx >= max) return;
     const keepScroll = options && options.scroll === false ? false : true;
     const shift = !!(ev && ev.shiftKey);
     const toggle = !!(ev && (ev.ctrlKey || ev.metaKey));
@@ -19084,12 +19536,21 @@
       rows.push(combo);
     }
     state.combos.splice(insertAt, 0, ...rows);
+    if (isVirtualScrollEnabled()) {
+      const fill = Number(state.virtual.avgHeight) || 72;
+      if (!Array.isArray(state.virtual.rowHeights)) state.virtual.rowHeights = [];
+      const inserts = Array.from({ length: count }, () => fill);
+      state.virtual.rowHeights.splice(insertAt, 0, ...inserts);
+      state.virtual.needsPrefixRebuild = true;
+    }
     resetRenderLimitForCurrentData();
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
+    if (!isVirtualScrollEnabled()) {
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
     }
     persist();
     applyStateToTable();
@@ -19113,15 +19574,32 @@
         state.combos.splice(idx, 1);
       }
     }
+    if (isVirtualScrollEnabled() && Array.isArray(state.virtual.rowHeights)) {
+      for (let i = selected.length - 1; i >= 0; i -= 1) {
+        const idx = selected[i];
+        if (idx >= 0 && idx < state.virtual.rowHeights.length) {
+          state.virtual.rowHeights.splice(idx, 1);
+        }
+      }
+      state.virtual.needsPrefixRebuild = true;
+    }
     if (!state.combos.length) {
       state.combos.push(defaultCombo());
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        if (!Array.isArray(state.virtual.rowHeights)) state.virtual.rowHeights = [];
+        if (!state.virtual.rowHeights.length) state.virtual.rowHeights.push(fill);
+        state.virtual.needsPrefixRebuild = true;
+      }
     }
     resetRenderLimitForCurrentData();
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
+    if (!isVirtualScrollEnabled()) {
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
     }
     persist();
     applyStateToTable();
@@ -19240,8 +19718,10 @@
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
+    if (!isVirtualScrollEnabled()) {
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
     }
     persist();
     applyStateToTable();
@@ -19276,12 +19756,21 @@
     if (!insertItems.length) return false;
     pushUndoHistory('insert-copied-below');
     state.combos.splice(insertAt, 0, ...insertItems);
+    if (isVirtualScrollEnabled()) {
+      const fill = Number(state.virtual.avgHeight) || 72;
+      if (!Array.isArray(state.virtual.rowHeights)) state.virtual.rowHeights = [];
+      const inserts = Array.from({ length: insertItems.length }, () => fill);
+      state.virtual.rowHeights.splice(insertAt, 0, ...inserts);
+      state.virtual.needsPrefixRebuild = true;
+    }
     resetRenderLimitForCurrentData();
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
+    if (!isVirtualScrollEnabled()) {
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
     }
     persist();
     applyStateToTable();
@@ -19544,7 +20033,7 @@
     if (preferredRow && preferredRow.classList && preferredRow.classList.contains('combo-group-row')) {
       return preferredRow;
     }
-    const group = state.groups[groupIndex];
+    const group = getVisibleGroupForCombo(groupIndex);
     if (!group || !Array.isArray(group.rowList) || !group.rowList.length) return null;
     return group.rowList.find((row) => row.classList.contains('combo-row-command'))
       || group.rowList[0]
@@ -19578,10 +20067,116 @@
   }
 
   let frameMeterDetailsModalBound = false;
+  let frameMeterOverlayHomeParent = null;
+  let frameMeterOverlayHomeNextSibling = null;
+  let comboDetailsOpenTreeBtnHomeParent = null;
+  let comboDetailsOpenTreeBtnHomeNextSibling = null;
+
+  function bindFrameMeterModalButton(id, fn) {
+    const btn = qs(id);
+    if (!btn || btn.dataset.bound === '1') return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', fn);
+  }
+
+  function isComboTreeViewActive() {
+    const body = document.body;
+    if (!body) return false;
+    const key = String(body.getAttribute('data-view') || body.dataset.view || '').toLowerCase();
+    if (key === 'tree') return true;
+    const tv = qs('treeView');
+    return !!(tv && tv.classList && tv.classList.contains('active'));
+  }
+
+  function openComboTreeFromDetailsModal() {
+    if (!isComboTreeViewActive()) {
+      const next = (state.frameMeterModal && Number.isFinite(state.frameMeterModal.rowIndex))
+        ? Number(state.frameMeterModal.rowIndex)
+        : Number(state.selection.activeGroup);
+      if (Number.isFinite(next)) {
+        const safeIndex = Math.max(0, Math.min(state.combos.length - 1, next));
+        setTreeDetailSelectedCombo(safeIndex);
+      }
+    }
+    if (typeof window.setMainView === 'function') window.setMainView('tree');
+  }
 
   function isFrameMeterDetailsModalOpen() {
     const overlay = qs('frameMeterOverlay');
     return !!(overlay && !overlay.classList.contains('hidden'));
+  }
+
+  function dockFrameMeterOverlayToTreePane() {
+    const overlay = qs('frameMeterOverlay');
+    const host = qs('treeDetailModalHost');
+    if (!overlay || !host) return false;
+    if (!frameMeterOverlayHomeParent) {
+      frameMeterOverlayHomeParent = overlay.parentElement;
+      frameMeterOverlayHomeNextSibling = overlay.nextSibling;
+    }
+    if (overlay.parentElement !== host) host.appendChild(overlay);
+    // Keep the button in DOM; tree-docked view hides it via CSS only.
+    const treeBtn = qs('comboDetailsOpenTreeBtn');
+    if (treeBtn && !comboDetailsOpenTreeBtnHomeParent) {
+      comboDetailsOpenTreeBtnHomeParent = treeBtn.parentElement;
+      comboDetailsOpenTreeBtnHomeNextSibling = treeBtn.nextSibling;
+    }
+    overlay.classList.add('tree-docked');
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    host.style.display = 'block';
+    return true;
+  }
+
+  function undockFrameMeterOverlayFromTreePane() {
+    const overlay = qs('frameMeterOverlay');
+    if (!overlay) return;
+    const host = qs('treeDetailModalHost');
+    if (host) host.style.display = 'none';
+    if (overlay.classList.contains('tree-docked')) overlay.classList.remove('tree-docked');
+    if (frameMeterOverlayHomeParent && overlay.parentElement !== frameMeterOverlayHomeParent) {
+      if (frameMeterOverlayHomeNextSibling && frameMeterOverlayHomeNextSibling.parentElement === frameMeterOverlayHomeParent) {
+        frameMeterOverlayHomeParent.insertBefore(overlay, frameMeterOverlayHomeNextSibling);
+      } else {
+        frameMeterOverlayHomeParent.appendChild(overlay);
+      }
+    } else if (overlay.parentElement === host && document.body) {
+      // Fallback: ensure standalone modal is never left inside the tree pane host.
+      document.body.appendChild(overlay);
+    }
+    let treeBtn = qs('comboDetailsOpenTreeBtn');
+    if (!treeBtn && comboDetailsOpenTreeBtnHomeParent) {
+      const insertBeforeNode = (
+        comboDetailsOpenTreeBtnHomeNextSibling
+        && comboDetailsOpenTreeBtnHomeNextSibling.parentElement === comboDetailsOpenTreeBtnHomeParent
+      ) ? comboDetailsOpenTreeBtnHomeNextSibling : null;
+      const restoredBtn = document.createElement('button');
+      restoredBtn.type = 'button';
+      restoredBtn.id = 'comboDetailsOpenTreeBtn';
+      restoredBtn.className = 'header-help-btn combo-details-open-tree-btn';
+      restoredBtn.setAttribute('data-combo-details-label', 'open_tree');
+      restoredBtn.textContent = 'Combo Tree';
+      if (insertBeforeNode) comboDetailsOpenTreeBtnHomeParent.insertBefore(restoredBtn, insertBeforeNode);
+      else comboDetailsOpenTreeBtnHomeParent.appendChild(restoredBtn);
+      bindFrameMeterModalButton('comboDetailsOpenTreeBtn', openComboTreeFromDetailsModal);
+      if (typeof refreshComboDetailsLabels === 'function') refreshComboDetailsLabels();
+      treeBtn = restoredBtn;
+    }
+    // Safety net: if the saved parent pointer is unavailable, rebuild into the default action slot.
+    if (!treeBtn) {
+      const actionsTree = document.querySelector('#frameMeterOverlay .combo-details-actions-tree');
+      if (actionsTree) {
+        const rebuiltBtn = document.createElement('button');
+        rebuiltBtn.type = 'button';
+        rebuiltBtn.id = 'comboDetailsOpenTreeBtn';
+        rebuiltBtn.className = 'header-help-btn combo-details-open-tree-btn';
+        rebuiltBtn.setAttribute('data-combo-details-label', 'open_tree');
+        rebuiltBtn.textContent = 'Combo Tree';
+        actionsTree.appendChild(rebuiltBtn);
+        bindFrameMeterModalButton('comboDetailsOpenTreeBtn', openComboTreeFromDetailsModal);
+        if (typeof refreshComboDetailsLabels === 'function') refreshComboDetailsLabels();
+      }
+    }
   }
 
   function closeFrameMeterDetailsModal(options = {}) {
@@ -19595,6 +20190,10 @@
     state.frameMeterModal.open = false;
     state.frameMeterModal.rowIndex = -1;
     state.frameMeterModal.returnFocusEl = null;
+    state.frameMeterModal.forceStandalone = false;
+    state.frameMeterModal.renderAsTreeDocked = false;
+    state.frameMeterModal.restoreTreeDockedOnClose = false;
+    state.frameMeterModal.treeDockedRowIndex = -1;
     if (restoreFocus && focusTarget && typeof focusTarget.focus === 'function') {
       focusTarget.focus({ preventScroll: true });
     }
@@ -19640,7 +20239,7 @@
         if (isCatalogAutoTag(tagValue)) noteTagSuppressed(combo, tagValue);
         combo.tags = Array.from(current).join(', ');
         setComboFieldSource(combo, 'tags', 'user');
-        const group = state.groups[row];
+        const group = getVisibleGroupForCombo(row);
         const input = group && group.inputs ? group.inputs.tags : null;
         if (input && input.classList && input.classList.contains('multi-input')) {
           input.dataset.rawValue = combo.tags;
@@ -19744,6 +20343,21 @@
       cmdEdit.addEventListener('focus', () => rehighlightCommandEditor());
     }
 
+    if (overlay.dataset.boundDetailsCmdFocus !== '1') {
+      overlay.dataset.boundDetailsCmdFocus = '1';
+      overlay.addEventListener('focusin', (ev) => {
+        const t = ev.target;
+        if (
+          t
+          && t.id === 'comboDetailsCommandEdit'
+          && t.classList
+          && t.classList.contains('cmd-input')
+        ) {
+          setActiveCell(t);
+        }
+      });
+    }
+
     if (overlay.dataset.boundJumpLinks !== '1') {
       overlay.dataset.boundJumpLinks = '1';
       overlay.addEventListener('click', (ev) => {
@@ -19767,23 +20381,9 @@
       });
     }
 
-    const bindBtn = (id, fn) => {
-      const btn = qs(id);
-      if (!btn || btn.dataset.bound === '1') return;
-      btn.dataset.bound = '1';
-      btn.addEventListener('click', fn);
-    };
+    bindFrameMeterModalButton('comboDetailsOpenTreeBtn', openComboTreeFromDetailsModal);
 
-    bindBtn('comboDetailsBtnCopy', () => {
-      const idx = Number(state.frameMeterModal && state.frameMeterModal.open ? state.frameMeterModal.rowIndex : -1);
-      const combo = Number.isFinite(idx) && idx >= 0 ? state.combos[idx] : null;
-      const command = String(combo && combo.command ? combo.command : '').trim();
-      copyTextToClipboard(command)
-        .then(() => showExportToast(comboMsg('context_copy_done'), false, { dim: false }))
-        .catch(() => showExportToast(comboMsg('context_copy_failed'), true, { dim: false }));
-    });
-
-    bindBtn('comboDetailsBtnDuplicate', () => {
+    bindFrameMeterModalButton('comboDetailsBtnDuplicate', () => {
       const idx = Number(state.frameMeterModal && state.frameMeterModal.open ? state.frameMeterModal.rowIndex : -1);
       if (!Number.isFinite(idx) || idx < 0) return;
       const inserted = duplicateComboFromIndex(idx);
@@ -19791,18 +20391,71 @@
       openFrameMeterDetailsModal(inserted, { returnFocusEl: qs('comboDetailsBtnDuplicate') });
     });
 
-    bindBtn('comboDetailsBtnDelete', () => {
+    bindFrameMeterModalButton('comboDetailsBtnDelete', () => {
       const idx = Number(state.frameMeterModal && state.frameMeterModal.open ? state.frameMeterModal.rowIndex : -1);
       if (!Number.isFinite(idx) || idx < 0) return;
       deleteComboAtIndex(idx, { preserveScroll: true });
       closeFrameMeterDetailsModal({ restoreFocus: true });
     });
 
-    bindBtn('comboDetailsBtnSave', () => {
+    bindFrameMeterModalButton('comboDetailsBtnSave', () => {
       const idx = Number(state.frameMeterModal && state.frameMeterModal.open ? state.frameMeterModal.rowIndex : -1);
       if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
       const combo = state.combos[idx];
       if (!combo || typeof combo !== 'object') return;
+      let undoPushed = false;
+      const pushUndoOnce = () => {
+        if (undoPushed) return;
+        pushUndoHistory('edit-command');
+        undoPushed = true;
+      };
+
+      const notesEl = qs('comboDetailsNotes');
+      const okiEl = qs('comboDetailsOki');
+      const extraEl = qs('comboDetailsExtraNotes');
+      const urlEl = qs('comboDetailsUrl');
+      const nextNotes = notesEl ? String(notesEl.value || '').trim() : String(combo.combo_notes || '').trim();
+      const nextOki = okiEl ? String(okiEl.value || '').trim() : String(combo.oki || '').trim();
+      const nextExtra = extraEl ? String(extraEl.value || '').trim() : String(combo.extra_notes || '').trim();
+      const nextUrl = urlEl ? String(urlEl.value || '').trim() : String(combo.combo_url || '').trim();
+      let changed = false;
+      if (String(combo.combo_notes || '').trim() !== nextNotes) {
+        pushUndoOnce();
+        combo.combo_notes = nextNotes;
+        setComboFieldSource(combo, 'combo_notes', nextNotes ? 'user' : '');
+        changed = true;
+      }
+      if (String(combo.oki || '').trim() !== nextOki) {
+        pushUndoOnce();
+        combo.oki = nextOki;
+        setComboFieldSource(combo, 'oki', nextOki ? 'user' : '');
+        changed = true;
+      }
+      if (String(combo.extra_notes || '').trim() !== nextExtra) {
+        pushUndoOnce();
+        combo.extra_notes = nextExtra;
+        setComboFieldSource(combo, 'extra_notes', nextExtra ? 'user' : '');
+        changed = true;
+      }
+      if (String(combo.combo_url || '').trim() !== nextUrl) {
+        pushUndoOnce();
+        combo.combo_url = nextUrl;
+        setComboFieldSource(combo, 'combo_url', nextUrl ? 'user' : '');
+        changed = true;
+      }
+
+      const allFieldEdits = readComboDetailsAllFieldEdits();
+      Object.keys(allFieldEdits).forEach((field) => {
+        if (!field) return;
+        const prev = String(combo[field] == null ? '' : combo[field]).trim();
+        const next = String(allFieldEdits[field] || '').trim();
+        if (prev === next) return;
+        pushUndoOnce();
+        combo[field] = next;
+        setComboFieldSource(combo, field, next ? 'user' : '');
+        changed = true;
+      });
+
       const cmdEl = qs('comboDetailsCommandEdit');
       const rawText = cmdEl ? String(cmdEl.textContent || '') : '';
       const raw = normalizeDisplayCommandInput(sanitizeCommandEditableText(rawText));
@@ -19810,7 +20463,7 @@
       const canonical = String(normalized && normalized.canonical ? normalized.canonical : '').trim();
       const prev = String(combo.command || '').trim();
       if (prev !== canonical) {
-        pushUndoHistory('edit-command');
+        pushUndoOnce();
         combo.command = canonical;
         setComboFieldSource(combo, 'command', 'user');
         setComboFieldSource(combo, 'frame_meter', '');
@@ -19828,8 +20481,15 @@
           ensureComboAuthoredVersion(combo);
           syncAuthoredVersionInput(idx);
         }
+        changed = true;
+      }
+      if (changed) {
         persist({ immediate: true });
-        applyStateToTable({ rangeStart: idx, rangeEnd: idx + 1, finalize: true });
+        if (isVirtualScrollEnabled()) {
+          renderVirtualWindow({ force: true });
+        } else {
+          applyStateToTable({ rangeStart: idx, rangeEnd: idx + 1, finalize: true });
+        }
       }
       applyAutoTagsForRow(idx);
       // Refresh the modal view from current state (meter + stats + formatted command).
@@ -19899,6 +20559,32 @@
       if (m && m[1]) return { kind: 'vimeo', id: m[1] };
     }
     return null;
+  }
+
+  function normalizeNavigableUrl(rawUrl) {
+    const raw = String(rawUrl || '').trim();
+    if (!raw) return '';
+    try {
+      const parsed = new URL(raw);
+      if (!/^https?:$/i.test(String(parsed.protocol || ''))) return '';
+      return parsed.href;
+    } catch {
+      // Allow bare domains/paths by assuming https.
+      try {
+        const parsed = new URL(`https://${raw}`);
+        if (!/^https?:$/i.test(String(parsed.protocol || ''))) return '';
+        return parsed.href;
+      } catch {
+        return '';
+      }
+    }
+  }
+
+  function openComboUrl(rawUrl) {
+    const href = normalizeNavigableUrl(rawUrl);
+    if (!href) return false;
+    window.open(href, '_blank', 'noopener,noreferrer');
+    return true;
   }
 
   function renderComboDetailsVideoEmbed(rawUrl) {
@@ -20165,7 +20851,7 @@
     if (!changed) return false;
     combo.tags = Array.from(current).join(', ');
     setComboFieldSource(combo, 'tags', 'auto');
-    const group = state.groups[row];
+    const group = getVisibleGroupForCombo(row);
     const input = group && group.inputs ? group.inputs.tags : null;
     if (input && input.classList && input.classList.contains('multi-input')) {
       input.dataset.rawValue = combo.tags;
@@ -20206,9 +20892,12 @@
   }
 
   function applyAutoTagsForLoadedRows() {
-    if (!Array.isArray(state && state.groups) || !state.groups.length) return false;
+    const total = isVirtualScrollEnabled()
+      ? getComboCount()
+      : (Array.isArray(state && state.groups) ? state.groups.length : 0);
+    if (!total) return false;
     let changed = false;
-    for (let i = 0; i < state.groups.length; i += 1) {
+    for (let i = 0; i < total; i += 1) {
       changed = applyAutoTagsForRow(i, { skipPersist: true }) || changed;
     }
     return changed;
@@ -20577,7 +21266,359 @@
     };
   }
 
-  function renderComboDetailsModal(rowIndex) {
+  function isComboDetailsTreeDocked() {
+    const overlay = qs('frameMeterOverlay');
+    const dockHost = qs('treeDetailModalHost');
+    return !!(
+      overlay
+      && dockHost
+      && overlay.classList.contains('tree-docked')
+      && overlay.parentElement === dockHost
+    );
+  }
+
+  function renderComboDetailsAllFields(combo, timeline, options = {}) {
+    const container = qs('comboDetailsAllFields');
+    if (!container) return;
+    const forcedStandalone = !!(state.frameMeterModal && state.frameMeterModal.forceStandalone === true);
+    const actualDocked = isComboDetailsTreeDocked();
+    const isTreeDocked = forcedStandalone
+      ? false
+      : (typeof options.treeDocked === 'boolean')
+        ? options.treeDocked
+        : !!actualDocked;
+    const lang = getComboLang();
+    const rows = isTreeDocked
+      ? [...FIELD_ORDER, 'game_version']
+      : [...FIELD_ORDER.filter((f) => f !== 'oki'), 'game_version'];
+    const labelFor = (field) => {
+      if (field === 'command') return lang === 'en' ? 'Command' : 'コマンド';
+      if (field === 'buttons') return lang === 'en' ? 'Buttons' : 'ボタン';
+      if (field === 'tags') return lang === 'en' ? 'Tags' : 'タグ';
+      if (field === 'combo_notes') return lang === 'en' ? 'Notes' : 'メモ';
+      if (field === 'oki') return lang === 'en' ? 'Oki' : '起き攻め';
+      if (field === 'extra_notes') return lang === 'en' ? 'Extra Notes' : '追加メモ';
+      if (field === 'combo_url') return 'URL';
+      if (field === 'game_version') return lang === 'en' ? 'Game Version' : 'ゲームVer';
+      const entry = XLSX_FIELD_LABELS[field];
+      if (!entry) return field;
+      return String((entry[lang] != null ? entry[lang] : entry.en) || field);
+    };
+    const valueFor = (field) => {
+      if (field === 'command') return formatCommandForDisplay(String(combo.command || ''), lang) || '-';
+      if (field === 'buttons') return String(combo.buttons || combo.command || '').trim() || '-';
+      if (field === 'combo_url') return String(combo.combo_url || '').trim() || '-';
+      if (field === 'tags') return String(combo.tags || '').trim() || '-';
+      if (field === 'combo_notes') return String(combo.combo_notes || '').trim() || '-';
+      if (field === 'oki') return String(combo.oki || '').trim() || '-';
+      if (field === 'extra_notes') return String(combo.extra_notes || '').trim() || '-';
+      if (field === 'game_version') return String(combo.game_version || '').trim() || '-';
+      if (field === 'sa_delta') {
+        return formatMaybeNumberText(String(combo.sa_delta || '').trim() || computeSaGainFromTimeline(timeline));
+      }
+      return formatMaybeNumberText(combo[field]);
+    };
+    const getTableSelectOptions = (field) => {
+      const groups = Array.isArray(state.groups) ? state.groups : [];
+      for (let i = 0; i < groups.length; i += 1) {
+        const input = groups[i] && groups[i].inputs ? groups[i].inputs[field] : null;
+        if (!input || String(input.tagName || '').toUpperCase() !== 'SELECT') continue;
+        return Array.from(input.options || []).map((opt) => ({
+          value: String(opt.value || ''),
+          label: String(opt.textContent || opt.label || opt.value || ''),
+        }));
+      }
+      return [];
+    };
+    const getFallbackSelectOptions = (field) => {
+      const by = comboValueLabel;
+      if (field === 'control_mode') {
+        return [
+          { value: '', label: '-' },
+          { value: 'classic', label: by('classic', 'Classic') },
+          { value: 'modern', label: by('modern', 'Modern') },
+          { value: '両方', label: by('both', '両方') },
+        ];
+      }
+      if (field === 'distance') {
+        return [
+          { value: '', label: '-' },
+          { value: '密着', label: by('close', '密着') },
+          { value: '先端', label: by('tip', '先端') },
+        ];
+      }
+      if (field === 'position') {
+        return [
+          { value: '地上', label: by('ground', '地上') },
+          { value: '空中', label: by('air', '空中') },
+          { value: '壁', label: by('wall', '壁') },
+          { value: '逆壁', label: by('reverse_wall', '逆壁') },
+          { value: '壁付近', label: by('near_wall', '壁付近') },
+          { value: '端端', label: by('far_wall', '端端') },
+        ];
+      }
+      if (field === 'counter_type') return [{ value: '', label: '-' }, { value: 'C', label: 'C' }, { value: 'PC', label: 'PC' }];
+      if (field === 'bo_state') return [{ value: '', label: '-' }, { value: 'BO', label: 'BO' }, { value: 'スタン', label: by('stun', 'スタン') }];
+      if (field === 'vs_character') {
+        return [
+          { value: '', label: '-' },
+          { value: 'デカキャラ以外', label: by('no_big', 'デカキャラ以外') },
+          { value: 'デカキャラのみ', label: by('big_only', 'デカキャラのみ') },
+          { value: 'ザンギエフ', label: by('zangief', 'ザンギエフ') },
+        ];
+      }
+      if (field === 'safe_jump') {
+        return [
+          { value: '不可', label: by('no', '不可') },
+          { value: '準', label: by('semi', '準') },
+          { value: '後転可', label: by('safe_jump_backrise', '後転可') },
+          { value: 'その場のみ', label: by('safe_jump_neutral_only', 'その場のみ') },
+          { value: '後転可+その場めくり', label: by('safe_jump_backrise_crossup', '後転可+その場めくり') },
+        ];
+      }
+      if (field === 'opponent_state') {
+        return [
+          { value: '', label: '-' },
+          { value: 'KD', label: by('kd', 'KD') },
+          { value: 'HKD', label: by('hkd', 'HKD') },
+          { value: 'Crumple', label: by('crumple', 'Crumple') },
+          { value: 'Wall Bounce', label: by('wall_bounce', 'Wall Bounce') },
+          { value: 'Wall Splat', label: by('wall_splat', 'Wall Splat') },
+          { value: 'Launch', label: by('launch', 'Launch') },
+        ];
+      }
+      if (field === 'side_switch') return [{ value: '', label: '-' }, { value: 'Yes', label: by('yes', 'Yes') }, { value: 'No', label: by('no', 'No') }];
+      if (field === 'interrupt') return [{ value: '不可', label: by('no', '不可') }, { value: '可', label: by('yes', '可') }];
+      return [];
+    };
+    const ensureOptionValue = (options, value) => {
+      const current = String(value == null ? '' : value).trim();
+      if (!current) return options;
+      if (options.some((opt) => String((opt && opt.value) || '').trim() === current)) return options;
+      return [...options, { value: current, label: current }];
+    };
+    const buildSelectEditor = (field, rawValue, options) => {
+      const value = String(rawValue == null ? '' : rawValue);
+      const normalized = ensureOptionValue(
+        (Array.isArray(options) ? options : []).map((opt) => ({
+          value: String((opt && opt.value) || ''),
+          label: String((opt && (opt.label || opt.value)) || ''),
+        })),
+        value,
+      );
+      const optionHtml = normalized
+        .map((opt) => {
+          const optVal = String(opt.value || '');
+          const selected = optVal === value ? ' selected' : '';
+          return `<option value="${escapeHtml(optVal)}"${selected}>${escapeHtml(String(opt.label || optVal))}</option>`;
+        })
+        .join('');
+      return `<select class="combo-details-allfields-input" data-field="${escapeHtml(field)}">${optionHtml}</select>`;
+    };
+    const buildEditor = (field) => {
+      const rawValue = valueFor(field);
+      const plainValue = rawValue === '-' ? '' : String(rawValue || '');
+      if (field === 'special_condition') {
+        const specialOptions = getSpecialConditionOptions(lang);
+        if (shouldUseSpecialConditionTableMultiInput(getActiveCharacterSlug())) {
+          const display = formatSpecialConditionDisplay(String(combo.special_condition || ''), lang);
+          return `<input class="combo-details-allfields-input multi-input" data-field="${escapeHtml(field)}" data-options="${escapeHtml(JSON.stringify(specialOptions))}" data-raw-value="${escapeHtml(String(combo.special_condition || ''))}" type="text" value="${escapeHtml(display)}" autocomplete="off" spellcheck="false">`;
+        }
+        return buildSelectEditor(field, combo.special_condition || '', specialOptions);
+      }
+      if (field === 'game_version') {
+        return buildSelectEditor(field, combo.game_version || '', getGameVersionOptions(lang));
+      }
+      const tableSelectOptions = getTableSelectOptions(field);
+      if (tableSelectOptions.length) {
+        return buildSelectEditor(field, combo[field] || '', tableSelectOptions);
+      }
+      const fallbackSelectOptions = getFallbackSelectOptions(field);
+      if (fallbackSelectOptions.length) {
+        return buildSelectEditor(field, combo[field] || '', fallbackSelectOptions);
+      }
+      const numeric = NUMERIC_FIELDS.has(field);
+      const inputMode = numeric ? ' inputmode="numeric" data-numeric="true"' : '';
+      const isUrlField = field === 'combo_url';
+      const urlClass = isUrlField ? ' combo-url-input' : '';
+      const urlTitle = isUrlField
+        ? ` title="${escapeHtml(lang === 'en' ? 'Double-click to open URL' : 'ダブルクリックでURLを開く')}"`
+        : '';
+      return `<input class="combo-details-allfields-input${urlClass}" data-field="${escapeHtml(field)}" type="text"${inputMode} value="${escapeHtml(plainValue)}" autocomplete="off" spellcheck="false"${urlTitle}>`;
+    };
+    const headerLabel = (key, fallback) => {
+      return comboT(`ui.${key}`, lang)
+        || comboT(`filter.${key}`, lang)
+        || fallback
+        || key;
+    };
+    const rowSet = new Set(rows);
+    const hasField = (field) => rowSet.has(field);
+    const buildCell = (field, colspan = 1) => {
+      if (!field || !hasField(field)) return `<td class="combo-details-layout-empty" colspan="${Math.max(1, colspan)}"></td>`;
+      return `<td class="combo-details-layout-cell" colspan="${Math.max(1, colspan)}" data-field="${escapeHtml(field)}">
+        <div class="combo-details-layout-cell-inner">
+          <span class="combo-details-layout-label">${escapeHtml(labelFor(field))}</span>
+          ${buildEditor(field)}
+        </div>
+      </td>`;
+    };
+    const buildCompactField = (field) => {
+      if (!field || !hasField(field)) return '';
+      return `<div class="combo-details-layout-compact-cell" data-field="${escapeHtml(field)}">
+        <div class="combo-details-layout-compact-label">${escapeHtml(labelFor(field))}</div>
+        <div class="combo-details-layout-compact-control">${buildEditor(field)}</div>
+      </div>`;
+    };
+    const buildCompactSection = (title, fields) => `
+      <div class="combo-details-layout-compact-section">
+        <div class="combo-details-layout-compact-section-title">${escapeHtml(title)}</div>
+        <div class="combo-details-layout-compact-grid">
+          ${fields.map((field) => buildCompactField(field)).filter(Boolean).join('')}
+        </div>
+      </div>
+    `;
+    if (isTreeDocked) {
+      container.innerHTML = `
+        <div class="combo-details-layout-compact">
+          ${buildCompactSection(
+        headerLabel('range_group_conditions', lang === 'en' ? 'Conditions' : '条件'),
+        ['control_mode', 'distance', 'position', 'counter_type', 'bo_state', 'drive_req', 'sa_req', 'vs_character', 'special_condition'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_damage', lang === 'en' ? 'Damage' : 'ダメージ'),
+        ['damage_jp', 'damage_bo_guard', 'damage_normal', 'damage_counter', 'damage_punish'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_damage_ca', lang === 'en' ? 'CA Damage' : 'CAãƒ€ãƒ¡ãƒ¼ã‚¸'),
+        ['damage_normal_ca', 'damage_counter_ca', 'damage_punish_ca'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_damage_poison', lang === 'en' ? 'Damage (Poison)' : 'ãƒ€ãƒ¡ãƒ¼ã‚¸(æ¯’)'),
+        ['damage_poison_normal', 'damage_poison_counter', 'damage_poison_punish'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_damage_poison_ca', lang === 'en' ? 'Damage (Poison/CA)' : 'ãƒ€ãƒ¡ãƒ¼ã‚¸(æ¯’/CA)'),
+        ['damage_poison_normal_ca', 'damage_poison_counter_ca', 'damage_poison_punish_ca'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_d_gauge', lang === 'en' ? 'D Gauge' : 'Dゲージ'),
+        ['d_guard', 'd_normal', 'd_pc', 'drive_delta', 'drive_delta_opponent', 'drive_efficiency'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_sa_gauge', lang === 'en' ? 'SA Gauge' : 'SAã‚²ãƒ¼ã‚¸'),
+        ['sa_delta', 'sa_delta_opponent'],
+      )}
+          ${buildCompactSection(
+        headerLabel('range_group_other', lang === 'en' ? 'Other' : 'その他'),
+        ['carry_distance', 'end_distance', 'frame_adv', 'opponent_state', 'safe_jump', 'side_switch', 'interrupt', 'oki', 'game_version'],
+      )}
+        </div>
+      `;
+      return;
+    }
+    container.innerHTML = `
+      <table class="combo-details-layout-table combo-range-layout-table">
+        <tbody>
+          <tr class="combo-details-layout-section split">
+            <th colspan="9">${escapeHtml(headerLabel('range_group_conditions', lang === 'en' ? 'Conditions' : '条件'))}</th>
+          </tr>
+          <tr>
+            ${buildCell('control_mode')}
+            ${buildCell('distance')}
+            ${buildCell('position')}
+            ${buildCell('counter_type')}
+            ${buildCell('bo_state')}
+            ${buildCell('drive_req')}
+            ${buildCell('sa_req')}
+            ${buildCell('vs_character')}
+            ${buildCell('special_condition')}
+          </tr>
+          <tr class="combo-details-layout-section split">
+            <th colspan="5">${escapeHtml(headerLabel('range_group_damage', lang === 'en' ? 'Damage' : 'ダメージ'))}</th>
+            <th colspan="3">${escapeHtml(headerLabel('range_group_damage_ca', lang === 'en' ? 'CA Damage' : 'CAダメージ'))}</th>
+            <th class="empty"></th>
+          </tr>
+          <tr>
+            ${buildCell('damage_jp')}
+            ${buildCell('damage_bo_guard')}
+            ${buildCell('damage_normal')}
+            ${buildCell('damage_counter')}
+            ${buildCell('damage_punish')}
+            ${buildCell('damage_normal_ca')}
+            ${buildCell('damage_counter_ca')}
+            ${buildCell('damage_punish_ca')}
+            ${buildCell(null)}
+          </tr>
+          <tr class="combo-details-layout-section split">
+            <th colspan="3">${escapeHtml(headerLabel('range_group_damage_poison', lang === 'en' ? 'Damage (Poison)' : 'ダメージ(毒)'))}</th>
+            <th colspan="3">${escapeHtml(headerLabel('range_group_damage_poison_ca', lang === 'en' ? 'Damage (Poison/CA)' : 'ダメージ(毒/CA)'))}</th>
+            <th class="empty" colspan="3"></th>
+          </tr>
+          <tr>
+            ${buildCell('damage_poison_normal')}
+            ${buildCell('damage_poison_counter')}
+            ${buildCell('damage_poison_punish')}
+            ${buildCell('damage_poison_normal_ca')}
+            ${buildCell('damage_poison_counter_ca')}
+            ${buildCell('damage_poison_punish_ca')}
+            ${buildCell(null)}
+            ${buildCell(null)}
+            ${buildCell(null)}
+          </tr>
+          <tr class="combo-details-layout-section split">
+            <th colspan="6">${escapeHtml(headerLabel('range_group_d_gauge', lang === 'en' ? 'D Gauge' : 'Dゲージ'))}</th>
+            <th colspan="2">${escapeHtml(headerLabel('range_group_sa_gauge', lang === 'en' ? 'SA Gauge' : 'SAゲージ'))}</th>
+            <th class="empty"></th>
+          </tr>
+          <tr>
+            ${buildCell('d_guard')}
+            ${buildCell('d_normal')}
+            ${buildCell('d_pc')}
+            ${buildCell('drive_delta')}
+            ${buildCell('drive_delta_opponent')}
+            ${buildCell('drive_efficiency')}
+            ${buildCell('sa_delta')}
+            ${buildCell('sa_delta_opponent')}
+            ${buildCell(null)}
+          </tr>
+          <tr class="combo-details-layout-section split">
+            <th colspan="8">${escapeHtml(headerLabel('range_group_other', lang === 'en' ? 'Other' : 'その他'))}</th>
+            <th class="empty"></th>
+          </tr>
+          <tr>
+            ${buildCell('carry_distance')}
+            ${buildCell('end_distance')}
+            ${buildCell('frame_adv')}
+            ${buildCell('opponent_state')}
+            ${buildCell('safe_jump')}
+            ${buildCell('side_switch')}
+            ${buildCell('interrupt')}
+            ${buildCell('game_version')}
+            ${buildCell(null)}
+          </tr>
+        </tbody>
+      </table>
+    `;
+  }
+
+  function readComboDetailsAllFieldEdits() {
+    const out = {};
+    document.querySelectorAll('#comboDetailsAllFields .combo-details-allfields-input[data-field]').forEach((el) => {
+      const field = String(el.dataset.field || '').trim();
+      if (!field) return;
+      if (el.classList && el.classList.contains('multi-input')) {
+        out[field] = String(getMultiInputRawValue(el) || '').trim();
+        return;
+      }
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement) {
+        out[field] = String(el.value || '').trim();
+      }
+    });
+    return out;
+  }
+
+  function renderComboDetailsModal(rowIndex, options = {}) {
     const idx = Number(rowIndex);
     if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
     const combo = state.combos[idx];
@@ -20628,8 +21669,20 @@
       urlEl.dataset.row = String(idx);
       urlEl.dataset.field = 'combo_url';
       urlEl.value = String(combo.combo_url || '');
+      urlEl.classList.add('combo-url-input');
+      urlEl.title = lang === 'en' ? 'Double-click to open URL' : 'ダブルクリックでURLを開く';
     }
     renderComboDetailsVideoEmbed(combo.combo_url || '');
+    const forcedStandalone = !!(state.frameMeterModal && state.frameMeterModal.forceStandalone === true);
+    const actualDocked = isComboDetailsTreeDocked();
+    const treeDocked = forcedStandalone
+      ? false
+      : (typeof options.treeDocked === 'boolean')
+        ? options.treeDocked
+        : !!actualDocked;
+    if (state.frameMeterModal) state.frameMeterModal.renderAsTreeDocked = !!treeDocked;
+    renderComboDetailsAllFields(combo, timeline, { treeDocked });
+    updateAutoInputToggleUi(lang);
 
     // Per-row values.
     const effectiveDamage = getComboEffectiveDamage(combo);
@@ -20737,12 +21790,30 @@
     bindFrameMeterDetailsModal();
     const overlay = qs('frameMeterOverlay');
     if (!overlay) return;
+    const forceStandalone = !!(options && options.forceStandalone === true);
+    const dockInTree = (!forceStandalone) && !!(options && options.treeDocked === true);
     const idx = Number(rowIndex);
     if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
     const combo = state.combos[idx];
     if (!combo) return;
 
-    renderComboDetailsModal(idx);
+    if (dockInTree) dockFrameMeterOverlayToTreePane();
+    else undockFrameMeterOverlayFromTreePane();
+    state.frameMeterModal.renderAsTreeDocked = !!isComboDetailsTreeDocked();
+    if (forceStandalone && overlay.classList.contains('tree-docked')) {
+      overlay.classList.remove('tree-docked');
+    }
+
+    // Set modal state first so any re-entrant render paths cannot reopen as tree-docked.
+    state.frameMeterModal.open = true;
+    state.frameMeterModal.rowIndex = idx;
+    state.frameMeterModal.returnFocusEl = options && options.returnFocusEl ? options.returnFocusEl : document.activeElement;
+    state.frameMeterModal.restoreTreeDockedOnClose = !!(options && options.restoreTreeDockedOnClose === true);
+    state.frameMeterModal.treeDockedRowIndex = state.frameMeterModal.restoreTreeDockedOnClose ? idx : -1;
+    state.frameMeterModal.renderAsTreeDocked = !!isComboDetailsTreeDocked();
+    state.frameMeterModal.forceStandalone = forceStandalone;
+
+    renderComboDetailsModal(idx, { treeDocked: dockInTree });
 
     const metaEl = qs('frameMeterMeta');
     if (metaEl) {
@@ -20756,8 +21827,10 @@
 
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
-    const helpBtn = qs('comboDetailsHelpBtn');
-    if (helpBtn && typeof helpBtn.focus === 'function') helpBtn.focus({ preventScroll: true });
+    if (!dockInTree) {
+      const helpBtn = qs('comboDetailsHelpBtn');
+      if (helpBtn && typeof helpBtn.focus === 'function') helpBtn.focus({ preventScroll: true });
+    }
   }
 
   function setAllAutoLocksForComboById(comboId, locked) {
@@ -20778,7 +21851,11 @@
     if (!changed) return false;
     pushUndoHistory('toggle-auto-lock');
     persist();
-    applyStateToTable({ rangeStart: index, rangeEnd: index + 1 });
+    if (isVirtualScrollEnabled()) {
+      renderVirtualWindow({ force: true });
+    } else {
+      applyStateToTable({ rangeStart: index, rangeEnd: index + 1 });
+    }
     if (state.autoInputEnabled !== false) {
       refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
     }
@@ -20807,7 +21884,11 @@
     const min = rows[0];
     const max = rows[rows.length - 1];
     persist();
-    applyStateToTable({ rangeStart: min, rangeEnd: max + 1 });
+    if (isVirtualScrollEnabled()) {
+      renderVirtualWindow({ force: true });
+    } else {
+      applyStateToTable({ rangeStart: min, rangeEnd: max + 1 });
+    }
     if (state.autoInputEnabled !== false) {
       refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
     }
@@ -20947,7 +22028,7 @@
 
   function openRowContextMenuForGroup(groupIndex, options = {}) {
     const index = Number(groupIndex);
-    if (!Number.isFinite(index) || index < 0 || index >= state.groups.length) return;
+    if (!Number.isFinite(index) || index < 0 || index >= state.combos.length) return;
     if (state.headerContextMenu && state.headerContextMenu.open) {
       closeHeaderContextMenu();
     }
@@ -20970,7 +22051,9 @@
     refreshRowContextMenuLabels();
     menu.querySelectorAll('.combo-row-context-item').forEach((item) => {
       const action = String(item.dataset.action || '');
-      if (action === 'paste-rows' || action === 'insert-copied-below') {
+      if (action === 'open-in-tree' || action === 'frame-meter-details') {
+        item.disabled = !(Number.isFinite(index) && index >= 0 && index < state.combos.length);
+      } else if (action === 'paste-rows' || action === 'insert-copied-below') {
         item.disabled = !targetRows.length || !hasClipboard;
       } else {
         item.disabled = !targetRows.length;
@@ -21018,12 +22101,25 @@
   }
 
   async function handleRowContextAction(action) {
+    const rowIndex = Number(state.rowContextMenu && state.rowContextMenu.rowIndex);
+    if (action === 'open-in-tree') {
+      const focusTarget = state.rowContextMenu.returnFocusEl;
+      if (!Number.isFinite(rowIndex) || rowIndex < 0 || rowIndex >= state.combos.length) {
+        closeRowContextMenu({ restoreFocus: true });
+        return;
+      }
+      closeRowContextMenu({ restoreFocus: false });
+      setTreeDetailSelectedCombo(rowIndex);
+      if (typeof window.setMainView === 'function') window.setMainView('tree');
+      openFrameMeterDetailsModal(rowIndex, { treeDocked: true, returnFocusEl: focusTarget });
+      return;
+    }
+
     const comboId = String(state.rowContextMenu.comboId || '').trim();
     if (!comboId) {
       closeRowContextMenu();
       return;
     }
-    const rowIndex = state.rowContextMenu.rowIndex;
     const selectedRows = getSelectedRowIndexes(rowIndex);
     if (!selectedRows.length) {
       closeRowContextMenu({ restoreFocus: true });
@@ -22526,12 +23622,19 @@
     const ok = window.confirm(comboMsg('dedupe_confirm', { count: dupes }));
     if (!ok) return;
     state.combos = filtered;
+    if (isVirtualScrollEnabled()) {
+      const fill = Number(state.virtual.avgHeight) || 72;
+      state.virtual.rowHeights = new Array(state.combos.length).fill(fill);
+      state.virtual.needsPrefixRebuild = true;
+    }
     resetRenderLimitForCurrentData();
     const renderTarget = getRenderTargetCount();
     trimGroupCount(renderTarget);
     ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
+    if (!isVirtualScrollEnabled()) {
+      while (state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
     }
     persist();
     applyStateToTable();
@@ -23550,7 +24653,7 @@
       if (canonical !== rawCommand) updated += 1;
       combo.command = canonical;
       combo.buttons = canonical;
-      const group = state.groups[row];
+      const group = getVisibleGroupForCombo(row);
       if (group && group.inputs) {
         const commandInput = group.inputs.command;
         if (commandInput && commandInput.classList && commandInput.classList.contains('cmd-input')) {
@@ -23923,12 +25026,19 @@
         fallbackMode: state.controlMode,
         preserveEmpty: true,
       });
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        state.virtual.rowHeights = new Array(state.combos.length).fill(fill);
+        state.virtual.needsPrefixRebuild = true;
+      }
       resetRenderLimitForCurrentData();
       const renderTarget = getRenderTargetCount();
       trimGroupCount(renderTarget);
       ensureGroupCount(renderTarget);
-      while (state.combos.length < state.groups.length) {
-        state.combos.push(defaultCombo());
+      if (!isVirtualScrollEnabled()) {
+        while (state.combos.length < state.groups.length) {
+          state.combos.push(defaultCombo());
+        }
       }
       state.isDirty = false;
       state.recoverySource = '';
@@ -24354,21 +25464,29 @@
       }
     }
     if (!changed) return false;
-    resetRenderLimitForCurrentData();
-    const renderTarget = getRenderTargetCount();
-    trimGroupCount(renderTarget);
-    ensureGroupCount(renderTarget);
-    while (state.combos.length < state.groups.length) {
-      state.combos.push(defaultCombo());
-    }
     const touched = Array.from(touchedRows).sort((a, b) => a - b);
     const rangeStart = touched.length ? touched[0] : 0;
     const rangeEnd = touched.length ? (touched[touched.length - 1] + 1) : state.groups.length;
-    persist();
-    applyStateToTable({ rangeStart, rangeEnd });
-    updateEmptyGroups();
-    applyFilters();
-    updateLoadMoreControl();
+    if (isVirtualScrollEnabled()) {
+      persist();
+      updateEmptyGroups();
+      applyFilters();
+      renderVirtualWindow({ force: true });
+      updateLoadMoreControl();
+    } else {
+      resetRenderLimitForCurrentData();
+      const renderTarget = getRenderTargetCount();
+      trimGroupCount(renderTarget);
+      ensureGroupCount(renderTarget);
+      while (!isVirtualScrollEnabled() && state.combos.length < state.groups.length) {
+        state.combos.push(defaultCombo());
+      }
+      persist();
+      applyStateToTable({ rangeStart, rangeEnd });
+      updateEmptyGroups();
+      applyFilters();
+      updateLoadMoreControl();
+    }
     if (touched.length) {
       const active = touched[touched.length - 1];
       setSelectedRows(touched, { scroll: false, activeIndex: active, anchorIndex: active });
@@ -24409,7 +25527,14 @@
   function isAnyCommandEditorActive() {
     const active = document.activeElement;
     if (!active || !active.classList || !active.classList.contains('cmd-input')) return false;
-    return String(active.dataset && active.dataset.field ? active.dataset.field : '') === 'command';
+    if (String(active.dataset && active.dataset.field ? active.dataset.field : '') !== 'command') return false;
+    // Tree view docks the details modal in-page; when the overlay is hidden, the command editor
+    // must not block background hydration (e.g. frame data loading).
+    if (active.id === 'comboDetailsCommandEdit') {
+      const overlay = qs('frameMeterOverlay');
+      if (!overlay || overlay.classList.contains('hidden')) return false;
+    }
+    return true;
   }
 
   function setEditableTextAndKeepCaret(target, text) {
@@ -24523,7 +25648,7 @@
       syncDerivedComboFieldsForRow(row, { forceSync: true, forceDamage: true, deferDomWrites: false, renderFrameMeter: true });
       persist();
       window.setTimeout(() => {
-        const group = state.groups[row];
+        const group = getVisibleGroupForCombo(row);
         const combo = state.combos[row];
         if (group && combo) {
           renderFrameMeterVisual(group, combo, { force: true, defer: false });
@@ -24550,17 +25675,17 @@
       const sanitized = sanitizeCommandEditableText(el.textContent || '');
       setEditableTextAndKeepCaret(el, sanitized);
       const raw = normalizeDisplayCommandInput(sanitized);
-    if (el.dataset.field === 'command') {
-      const normalized = normalizeCommandForStorage(raw);
-      const canonical = normalized.canonical;
-      const prevValue = String(state.combos[row][el.dataset.field] || '');
-      if (prevValue !== canonical) {
-        pushUndoHistory('edit-command');
-        didCommitChange = true;
-      }
-      state.combos[row][el.dataset.field] = canonical;
-      setComboFieldSource(state.combos[row], el.dataset.field, 'user');
-      setComboFieldSource(state.combos[row], 'frame_meter', '');
+      if (el.dataset.field === 'command') {
+        const normalized = normalizeCommandForStorage(raw);
+        const canonical = normalized.canonical;
+        const prevValue = String(state.combos[row][el.dataset.field] || '');
+        if (prevValue !== canonical) {
+          pushUndoHistory('edit-command');
+          didCommitChange = true;
+        }
+        state.combos[row][el.dataset.field] = canonical;
+        setComboFieldSource(state.combos[row], el.dataset.field, 'user');
+        setComboFieldSource(state.combos[row], 'frame_meter', '');
         if (prevValue !== canonical) {
           markComboDerivedDirty(state.combos[row]);
           shouldSyncDerivedForRow = true;
@@ -24586,31 +25711,31 @@
           ensureComboAuthoredVersion(state.combos[row]);
           syncAuthoredVersionInput(row);
         }
-    } else {
-      const prevValue = String(state.combos[row][el.dataset.field] || '');
-      if (prevValue !== raw) {
-        pushUndoHistory('edit-field');
-        didCommitChange = true;
-        if (el.dataset.field !== 'combo_notes') {
-          markComboDerivedDirty(state.combos[row]);
-          shouldSyncDerivedForRow = true;
+      } else {
+        const prevValue = String(state.combos[row][el.dataset.field] || '');
+        if (prevValue !== raw) {
+          pushUndoHistory('edit-field');
+          didCommitChange = true;
+          if (el.dataset.field !== 'combo_notes') {
+            markComboDerivedDirty(state.combos[row]);
+            shouldSyncDerivedForRow = true;
+          }
+        }
+        state.combos[row][el.dataset.field] = raw;
+        const sourceField = String(el.dataset.field || '').trim();
+        const sourceValue = String(state.combos[row][sourceField] || '').trim();
+        if (AUTO_SOURCE_DERIVED_FIELDS.has(sourceField)) {
+          if (!sourceValue) setComboFieldSource(state.combos[row], sourceField, '');
+          else setComboFieldSource(state.combos[row], sourceField, 'user');
+        } else {
+          setComboFieldSource(state.combos[row], sourceField, 'user');
+        }
+        if (raw.trim()) {
+          state.combos[row]._manual = false;
+          ensureComboAuthoredVersion(state.combos[row]);
+          syncAuthoredVersionInput(row);
         }
       }
-      state.combos[row][el.dataset.field] = raw;
-      const sourceField = String(el.dataset.field || '').trim();
-      const sourceValue = String(state.combos[row][sourceField] || '').trim();
-      if (AUTO_SOURCE_DERIVED_FIELDS.has(sourceField)) {
-        if (!sourceValue) setComboFieldSource(state.combos[row], sourceField, '');
-        else setComboFieldSource(state.combos[row], sourceField, 'user');
-      } else {
-        setComboFieldSource(state.combos[row], sourceField, 'user');
-      }
-      if (raw.trim()) {
-        state.combos[row]._manual = false;
-        ensureComboAuthoredVersion(state.combos[row]);
-        syncAuthoredVersionInput(row);
-      }
-    }
     }
     if (el.dataset.field === 'command') {
       if (shouldSyncDerivedForRow || state.combos[row]._derivedDirty === true) {
@@ -24627,7 +25752,7 @@
       persist();
       if (el.dataset.field === 'command') {
         window.setTimeout(() => {
-          const group = state.groups[row];
+          const group = getVisibleGroupForCombo(row);
           const combo = state.combos[row];
           if (group && combo) {
             renderFrameMeterVisual(group, combo, { force: true, defer: false });
@@ -25077,15 +26202,13 @@
     return changed;
   }
 
-  function applyFilters() {
+  function buildFilterContext() {
     const search = (state.filters.search || '').toLowerCase();
     const fieldQuery = (state.filters.fieldQuery || '').toLowerCase();
     const fieldFilters = state.filters.fieldFields || [];
     const headerFilterField = resolveHeaderOperationField(state.filters.headerField || '');
     const headerFilterQuery = String(state.filters.headerQuery || '').toLowerCase();
     const headerFilterValuesRaw = Array.isArray(state.filters.headerValues) ? state.filters.headerValues : [];
-    // For command/buttons fields, pre-canonicalize filter values so they match
-    // combo.command after applyStateToTable canonicalizes it in-place.
     const headerFilterValues = (headerFilterField === 'command' || headerFilterField === 'buttons')
       ? headerFilterValuesRaw.map((v) => canonicalizeCommandForStorage(normalizeDisplayCommandInput(String(v == null ? '' : v), { applyUnknownRules: false })))
       : headerFilterValuesRaw;
@@ -25132,6 +26255,258 @@
       || safeJumpFilters.length
       || Object.keys(rangeFilters).length,
     );
+
+    const commandQueryVariants = Array.from(new Set([
+      fieldQuery,
+      canonicalizeCommandForStorage(fieldQuery).toLowerCase(),
+      localizeCommandForDisplay(canonicalizeCommandForStorage(fieldQuery), 'en').toLowerCase(),
+    ].filter(Boolean)));
+
+    const getFirstCommandPart = (command) =>
+      String(command || '')
+        .split(/\s*(?:>>|>)\s*/)
+        .map((part) => part.trim())
+        .find(Boolean) || '';
+
+    const commandFieldMatches = (commandRaw) => {
+      const rawCommand = String(commandRaw || '');
+      if (!rawCommand || !commandQueryVariants.length) return false;
+      const canonical = canonicalizeCommandForStorage(rawCommand);
+      const localizedEn = localizeCommandForDisplay(canonical, 'en');
+      const scope = new Set(commandScopeFilters);
+      const useFirstHit = scope.has('first_hit');
+      const useAny = scope.size === 0 || scope.has('any');
+      const haystacks = [];
+
+      if (useAny) {
+        haystacks.push(rawCommand.toLowerCase(), canonical.toLowerCase(), localizedEn.toLowerCase());
+      }
+      if (useFirstHit) {
+        const first = getFirstCommandPart(canonical);
+        if (first) {
+          haystacks.push(first.toLowerCase(), localizeCommandForDisplay(first, 'en').toLowerCase());
+        }
+      }
+      return commandQueryVariants.some((query) => haystacks.some((hay) => hay.includes(query)));
+    };
+
+    const toNumber = (value) => {
+      const raw = String(value == null ? '' : value).replace(/,/g, '').trim();
+      if (!raw) return null;
+      const num = Number(raw);
+      return Number.isFinite(num) ? num : null;
+    };
+
+    return {
+      search,
+      fieldQuery,
+      fieldFilters,
+      headerFilterField,
+      headerFilterQuery,
+      headerFilterValues,
+      hasHeaderValueFilter,
+      headerNumericFilter,
+      headerNumericField,
+      hasHeaderNumericFilter,
+      commandScopeFilters,
+      modeFilters,
+      positionFilters,
+      distanceFilters,
+      counterFilters,
+      boFilters,
+      vsFilters,
+      interruptFilters,
+      saFilters,
+      specialFilters,
+      versionFilters,
+      safeJumpFilters,
+      rangeFilters,
+      searchExclude,
+      activeMode,
+      hasComplexFilters,
+      commandFieldMatches,
+      toNumber,
+    };
+  }
+
+  function comboMatchesFilters(combo, ctx) {
+    if (!ctx) return true;
+    if (!ctx.hasComplexFilters) {
+      return matchesComboMode(combo, ctx.activeMode);
+    }
+
+    let visible = true;
+    if (ctx.search) {
+      const hay = Object.entries(combo)
+        .filter(([key]) => !ctx.searchExclude.has(key))
+        .map(([, v]) => (Array.isArray(v) ? v.join(',') : v))
+        .join(' ')
+        .toLowerCase();
+      visible = hay.includes(ctx.search);
+    }
+    if (visible && ctx.fieldQuery) {
+      const fieldMap = {
+        command: ['command'],
+        notes: ['combo_notes'],
+        oki: ['oki'],
+      };
+      if (ctx.fieldFilters.length) {
+        const fields = ctx.fieldFilters.flatMap((key) => fieldMap[key] || []);
+        visible = fields.some((field) => {
+          if (field === 'command') return ctx.commandFieldMatches(combo.command);
+          const value = combo[field];
+          const text = Array.isArray(value) ? value.join(',') : String(value || '');
+          return text.toLowerCase().includes(ctx.fieldQuery);
+        });
+      } else {
+        const hay = Object.keys(combo)
+          .filter((key) => !ctx.searchExclude.has(key))
+          .map((field) => {
+            if (field === 'command') {
+              return [
+                String(combo.command || ''),
+                canonicalizeCommandForStorage(combo.command || ''),
+                localizeCommandForDisplay(combo.command || '', 'en'),
+              ].join(' ');
+            }
+            const value = combo[field];
+            return Array.isArray(value) ? value.join(',') : value;
+          })
+          .join(' ')
+          .toLowerCase();
+        visible = hay.includes(ctx.fieldQuery) || ctx.commandFieldMatches(combo.command);
+      }
+    }
+    if (visible && ctx.hasHeaderValueFilter) {
+      const value = getHeaderFilterRawValue(combo, ctx.headerFilterField);
+      visible = headerFilterValueMatches(value, ctx.headerFilterValues);
+    }
+    if (visible && ctx.hasHeaderNumericFilter) {
+      visible = comboMatchesHeaderNumericFilter(combo, ctx.headerNumericField, ctx.headerNumericFilter);
+    }
+    if (visible && ctx.headerFilterField && ctx.headerFilterQuery) {
+      visible = matchesHeaderTextFilter(combo, ctx.headerFilterField, ctx.headerFilterQuery);
+    }
+    if (visible && !matchesComboMode(combo, ctx.activeMode)) {
+      visible = false;
+    }
+    if (visible && ctx.modeFilters.length) {
+      const mode = getComboModeForMatch(combo);
+      const matched = ctx.modeFilters.some((filter) => {
+        const value = String(filter || '').trim().toLowerCase();
+        if (!value) return false;
+        if (mode === '両方') return ['both', 'classic', 'modern'].includes(value);
+        if (!mode) return false;
+        return mode === value;
+      });
+      visible = matched;
+    }
+    if (visible && ctx.positionFilters.length) {
+      const pos = String(combo.position || '').trim();
+      visible = ctx.positionFilters.includes(pos);
+    }
+    if (visible && ctx.distanceFilters.length) {
+      const distance = String(combo.distance || '').trim();
+      visible = ctx.distanceFilters.includes(distance);
+    }
+    if (visible && ctx.counterFilters.length) {
+      const counter = String(combo.counter_type || '').trim();
+      visible = ctx.counterFilters.includes(counter);
+    }
+    if (visible && ctx.boFilters.length) {
+      const bo = String(combo.bo_state || '').trim();
+      visible = ctx.boFilters.includes(bo);
+    }
+    if (visible && ctx.vsFilters.length) {
+      const vs = normalizeVsCharacterValue(combo.vs_character);
+      const normalizedFilters = ctx.vsFilters.map((value) => normalizeVsCharacterValue(value));
+      visible = normalizedFilters.includes(vs);
+    }
+    if (visible && ctx.interruptFilters.length) {
+      const interrupt = String(combo.interrupt || '').trim();
+      visible = ctx.interruptFilters.includes(interrupt);
+    }
+    if (visible && ctx.safeJumpFilters.length) {
+      const safeJump = String(combo.safe_jump || '').trim();
+      visible = ctx.safeJumpFilters.includes(safeJump);
+    }
+    if (visible && ctx.saFilters.length) {
+      visible = comboMatchesSaFilter(combo, ctx.saFilters);
+    }
+    if (visible && ctx.specialFilters.length) {
+      const special = String(combo.special_condition || '').trim();
+      visible = ctx.specialFilters.some((value) => special.includes(value));
+    }
+    if (visible && ctx.versionFilters.length) {
+      const version = String(combo.game_version || '').trim();
+      visible = ctx.versionFilters.includes(version);
+    }
+    if (visible && Object.keys(ctx.rangeFilters).length) {
+      visible = Object.entries(ctx.rangeFilters).every(([field, range]) => {
+        const value = ctx.toNumber(combo[field]);
+        if (value == null) return false;
+        if (range.exact !== '' && Number(range.exact) !== value) return false;
+        if (range.min !== '' && value < Number(range.min)) return false;
+        if (range.max !== '' && value > Number(range.max)) return false;
+        return true;
+      });
+    }
+
+    return visible;
+  }
+
+  function applyFilters() {
+    const ctx = buildFilterContext();
+    if (isVirtualScrollEnabled()) {
+      const view = [];
+      const total = getComboCount();
+      for (let i = 0; i < total; i += 1) {
+        const combo = state.combos[i] || defaultCombo();
+        if (comboMatchesFilters(combo, ctx)) view.push(i);
+      }
+      state.viewIndexes = view;
+      state.virtual.viewCount = view.length;
+      state.virtual.viewIndexByCombo = new Map(view.map((idx, i) => [idx, i]));
+      if (!Array.isArray(state.virtual.rowHeights)) state.virtual.rowHeights = [];
+      if (state.virtual.rowHeights.length < total) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        while (state.virtual.rowHeights.length < total) state.virtual.rowHeights.push(fill);
+      } else if (state.virtual.rowHeights.length > total) {
+        state.virtual.rowHeights.length = total;
+      }
+      state.virtual.needsPrefixRebuild = true;
+      updateVirtualPrefixSums();
+      renderVirtualWindow({ force: true });
+      requestTreeRebuild();
+      return;
+    }
+
+    const search = ctx.search;
+    const fieldQuery = ctx.fieldQuery;
+    const fieldFilters = ctx.fieldFilters;
+    const headerFilterField = ctx.headerFilterField;
+    const headerFilterQuery = ctx.headerFilterQuery;
+    const headerFilterValues = ctx.headerFilterValues;
+    const hasHeaderValueFilter = ctx.hasHeaderValueFilter;
+    const headerNumericFilter = ctx.headerNumericFilter;
+    const headerNumericField = ctx.headerNumericField;
+    const hasHeaderNumericFilter = ctx.hasHeaderNumericFilter;
+    const commandScopeFilters = ctx.commandScopeFilters;
+    const modeFilters = ctx.modeFilters;
+    const positionFilters = ctx.positionFilters;
+    const distanceFilters = ctx.distanceFilters;
+    const counterFilters = ctx.counterFilters;
+    const boFilters = ctx.boFilters;
+    const vsFilters = ctx.vsFilters;
+    const interruptFilters = ctx.interruptFilters;
+    const saFilters = ctx.saFilters;
+    const specialFilters = ctx.specialFilters;
+    const versionFilters = ctx.versionFilters;
+    const safeJumpFilters = ctx.safeJumpFilters;
+    const rangeFilters = ctx.rangeFilters;
+    const searchExclude = ctx.searchExclude;
+    const activeMode = ctx.activeMode;
+    const hasComplexFilters = ctx.hasComplexFilters;
 
     // Fast path for the common startup case (no text/range/value filters).
     // This avoids building large concatenated haystacks for every combo row.
@@ -25332,6 +26707,317 @@
     ) {
       void loadMoreComboRows(Math.min(LOAD_MORE_CHUNK, totalCombos - loadedGroups));
     }
+    requestTreeRebuild();
+  }
+
+  function getTableColSpan() {
+    if (!ui.table) return 1;
+    const headerRow = ui.table.querySelector('tr');
+    if (!headerRow) return 1;
+    return Array.from(headerRow.children).reduce(
+      (sum, cell) => sum + Number(cell.getAttribute('colspan') || 1),
+      0,
+    );
+  }
+
+  function ensureVirtualSpacers() {
+    if (!ui.table) return;
+    if (state.virtual.topSpacer && state.virtual.bottomSpacer) return;
+    const colSpan = getTableColSpan();
+    const makeSpacer = (cls) => {
+      const row = document.createElement('tr');
+      row.className = `combo-virtual-spacer ${cls}`;
+      const cell = document.createElement('td');
+      cell.colSpan = colSpan;
+      cell.style.padding = '0';
+      cell.style.border = '0';
+      cell.style.height = '0px';
+      row.appendChild(cell);
+      return row;
+    };
+    const topSpacer = makeSpacer('combo-virtual-spacer-top');
+    const bottomSpacer = makeSpacer('combo-virtual-spacer-bottom');
+    const rows = Array.from(ui.table.querySelectorAll('tr'));
+    const headerRows = rows.filter((row) => row.querySelector('th'));
+    const insertAfter = headerRows.length ? headerRows[headerRows.length - 1] : rows[0];
+    if (insertAfter && insertAfter.parentNode) {
+      insertAfter.parentNode.insertBefore(topSpacer, insertAfter.nextSibling);
+    } else {
+      ui.table.appendChild(topSpacer);
+    }
+    ui.table.appendChild(bottomSpacer);
+    state.virtual.topSpacer = topSpacer;
+    state.virtual.bottomSpacer = bottomSpacer;
+  }
+
+  function setSpacerHeight(spacer, height) {
+    if (!spacer || !spacer.firstElementChild) return;
+    const h = Math.max(0, Number(height) || 0);
+    spacer.firstElementChild.style.height = `${h}px`;
+  }
+
+  function appendVirtualPoolGroup() {
+    if (!ui.table || !state.groups.length) return null;
+    const fallbackOrder = ['frame_meter', 'command', 'buttons', 'notes'];
+    let template = null;
+    for (let i = state.groups.length - 1; i >= 0; i -= 1) {
+      const group = state.groups[i];
+      if (
+        group
+        && group.rows
+        && group.rows.frame_meter
+        && group.rows.command
+        && group.rows.buttons
+        && group.rows.notes
+      ) {
+        template = group;
+        break;
+      }
+    }
+    if (!template) return null;
+    const sourceRows = fallbackOrder.map((key) => template.rows[key]).filter(Boolean);
+    if (sourceRows.length !== fallbackOrder.length) return null;
+    const clonedRows = sourceRows.map((row) => row.cloneNode(true));
+
+    clonedRows.forEach((row) => {
+      row.classList.remove(
+        'selected',
+        'combo-group-even',
+        'combo-group-odd',
+        'combo-group-start',
+        'combo-group-end',
+        'combo-row-command',
+        'combo-row-buttons',
+        'combo-row-notes',
+        'combo-row-frame',
+        'combo-group-empty',
+      );
+      row.querySelectorAll('input, select, textarea').forEach((el) => el.remove());
+      row.querySelectorAll('.cmd-input').forEach((el) => {
+        el.textContent = '';
+        el.innerHTML = '';
+      });
+      row.querySelectorAll('.btn-token').forEach((el) => el.remove());
+    });
+
+    const beforeNode = state.virtual.bottomSpacer || null;
+    const targetBody = (beforeNode && beforeNode.parentNode)
+      ? beforeNode.parentNode
+      : ((ui.table.tBodies && ui.table.tBodies.length) ? ui.table.tBodies[0] : ui.table);
+    const insertBeforeNode = (beforeNode && beforeNode.parentNode === targetBody) ? beforeNode : null;
+    clonedRows.forEach((row) => targetBody.insertBefore(row, insertBeforeNode));
+
+    const group = {
+      index: -1,
+      rows: {},
+      inputs: {},
+      rowList: clonedRows,
+    };
+    clonedRows.forEach((row, rowIdx) => {
+      let label = (row.dataset.rowLabel || '').trim();
+      if (!label) label = fallbackOrder[rowIdx % fallbackOrder.length] || '';
+      row.dataset.rowLabel = label;
+      if (label && !group.rows[label]) group.rows[label] = row;
+    });
+    clonedRows.forEach((row, rowIdx) => {
+      const rowLabel = (row.dataset.rowLabel || fallbackOrder[rowIdx % fallbackOrder.length] || '');
+      row.dataset.rowLabel = rowLabel || '';
+      row.classList.add('combo-group-row');
+      if (rowLabel === 'frame_meter') row.classList.add('combo-group-start', 'combo-row-frame');
+      if (rowLabel === 'command') row.classList.add('combo-row-command');
+      if (rowLabel === 'buttons') row.classList.add('combo-row-buttons');
+      if (rowLabel === 'notes') row.classList.add('combo-row-notes');
+      if (rowIdx === clonedRows.length - 1) row.classList.add('combo-group-end');
+      if (rowLabel === 'frame_meter') ensureFrameMeterLabelBreak(row, 0);
+    });
+
+    state.groups.push(group);
+    buildCommandRow(group);
+    buildButtonsRow(group);
+    buildNotesRow(group);
+    buildFrameRow(group);
+    return state.groups.length - 1;
+  }
+
+  function ensureVirtualPoolSize(targetCount) {
+    const target = Math.max(VIRTUAL_MIN_POOL, Math.min(VIRTUAL_MAX_POOL, Number(targetCount) || 0));
+    while (state.groups.length < target) {
+      const idx = appendVirtualPoolGroup();
+      if (idx == null) break;
+    }
+    while (state.groups.length > target) {
+      const group = state.groups.pop();
+      if (!group || !Array.isArray(group.rowList)) continue;
+      group.rowList.forEach((row) => {
+        if (row && row.parentNode) row.parentNode.removeChild(row);
+      });
+    }
+    state.virtual.poolSize = state.groups.length;
+  }
+
+  function getVirtualPoolTarget() {
+    const scroll = qs('comboTableScroll');
+    const viewHeight = scroll ? Math.max(0, Number(scroll.clientHeight) || 0) : 600;
+    const avg = Math.max(24, Number(state.virtual.avgHeight) || 72);
+    const base = Math.ceil(viewHeight / avg);
+    return Math.min(VIRTUAL_MAX_POOL, Math.max(VIRTUAL_MIN_POOL, base + (VIRTUAL_OVERSCAN * 2)));
+  }
+
+  function updateVirtualPrefixSums() {
+    if (!isVirtualScrollEnabled()) return;
+    if (!state.virtual.needsPrefixRebuild) return;
+    const view = getViewIndexes();
+    const avg = Math.max(24, Number(state.virtual.avgHeight) || 72);
+    const prefix = new Array(view.length + 1);
+    prefix[0] = 0;
+    for (let i = 0; i < view.length; i += 1) {
+      const comboIndex = view[i];
+      const raw = Number(state.virtual.rowHeights[comboIndex]) || avg;
+      const height = Math.max(56, Math.min(260, raw));
+      prefix[i + 1] = prefix[i] + height;
+    }
+    state.virtual.prefixSums = prefix;
+    state.virtual.needsPrefixRebuild = false;
+  }
+
+  function findViewIndexForOffset(offset) {
+    const prefix = state.virtual.prefixSums || [];
+    const total = prefix.length ? prefix[prefix.length - 1] : 0;
+    const target = Math.max(0, Math.min(Number(offset) || 0, total));
+    let low = 0;
+    let high = Math.max(0, prefix.length - 1);
+    while (low < high) {
+      const mid = Math.floor((low + high) / 2);
+      if (prefix[mid] <= target) {
+        if (prefix[mid + 1] > target) return mid;
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+    return Math.max(0, Math.min(low, prefix.length - 2));
+  }
+
+  function updateVirtualSpacerHeights(start, end) {
+    updateVirtualPrefixSums();
+    const prefix = state.virtual.prefixSums || [];
+    const viewCount = getViewIndexes().length;
+    const totalHeight = prefix.length ? prefix[prefix.length - 1] : 0;
+    const top = prefix[start] || 0;
+    const bottom = totalHeight - (prefix[end] || 0);
+    setSpacerHeight(state.virtual.topSpacer, top);
+    setSpacerHeight(state.virtual.bottomSpacer, bottom);
+    state.virtual.viewCount = viewCount;
+  }
+
+  function renderVirtualWindow(options = {}) {
+    if (!isVirtualScrollEnabled()) return;
+    ensureVirtualSpacers();
+    const view = getViewIndexes();
+    const viewCount = view.length;
+    const scroll = qs('comboTableScroll');
+    const scrollTop = scroll ? Math.max(0, Number(scroll.scrollTop) || 0) : 0;
+    const poolTarget = getVirtualPoolTarget();
+    ensureVirtualPoolSize(poolTarget);
+    updateVirtualPrefixSums();
+    const poolSize = state.groups.length;
+    const maxStart = Math.max(0, viewCount - poolSize);
+    const anchorIndex = findViewIndexForOffset(scrollTop);
+    let start = Math.max(0, Math.min(maxStart, anchorIndex - VIRTUAL_OVERSCAN));
+    if (viewCount <= poolSize) start = 0;
+    const end = Math.min(viewCount, start + poolSize);
+    const windowUnchanged = (!options.force && start === state.virtual.windowStart && state.virtual.lastViewCount === viewCount);
+    if (windowUnchanged) {
+      updateVirtualSpacerHeights(start, end);
+      return;
+    }
+    if (!windowUnchanged) {
+      state.virtual.windowStart = start;
+      state.virtual.lastViewCount = viewCount;
+      for (let i = 0; i < poolSize; i += 1) {
+        const group = state.groups[i];
+        const viewIndex = start + i;
+        if (!group || !Array.isArray(group.rowList)) continue;
+        if (viewIndex >= viewCount) {
+          group.index = -1;
+          group.rowList.forEach((row) => {
+            row.style.display = 'none';
+            row.classList.remove('combo-pool-first');
+          });
+          continue;
+        }
+        const comboIndex = view[viewIndex];
+        group.index = comboIndex;
+        group.rowList.forEach((row) => { row.style.display = ''; });
+        const isPoolFirst = i === 0;
+        const isEven = viewIndex % 2 === 0;
+        group.rowList.forEach((row, rowIdx) => {
+          row.classList.toggle('combo-pool-first', isPoolFirst);
+          row.classList.toggle('combo-group-even', isEven);
+          row.classList.toggle('combo-group-odd', !isEven);
+          if (rowIdx === group.rowList.length - 1) {
+            row.classList.add('combo-group-end');
+          }
+        });
+      }
+      applyStateToTable({ rangeStart: 0, rangeEnd: poolSize, finalize: true });
+      // applyStateToTable may reset row classes; enforce first rendered group marker after finalize.
+      for (let i = 0; i < poolSize; i += 1) {
+        const group = state.groups[i];
+        if (!group || !Array.isArray(group.rowList)) continue;
+        const isPoolFirst = i === 0 && group.index != null && group.index >= 0;
+        group.rowList.forEach((row) => {
+          row.classList.toggle('combo-pool-first', isPoolFirst);
+        });
+      }
+    }
+
+    let measuredTotal = 0;
+    let measuredCount = 0;
+    let heightChanged = false;
+    for (let i = 0; i < poolSize; i += 1) {
+      const group = state.groups[i];
+      if (!group || group.index == null || group.index < 0) continue;
+      let height = 0;
+      group.rowList.forEach((row) => {
+        const rect = row.getBoundingClientRect();
+        height += rect && rect.height ? rect.height : 0;
+      });
+      if (height > 0) {
+        const clamped = Math.max(56, Math.min(260, height));
+        const prev = Number(state.virtual.rowHeights[group.index]) || 0;
+        if (Math.abs(prev - clamped) > 0.5) {
+          state.virtual.rowHeights[group.index] = clamped;
+          heightChanged = true;
+        }
+        measuredTotal += clamped;
+        measuredCount += 1;
+      }
+    }
+    if (measuredCount) {
+      state.virtual.avgHeight = measuredTotal / measuredCount;
+    }
+    if (heightChanged) {
+      state.virtual.needsPrefixRebuild = true;
+      updateVirtualPrefixSums();
+    }
+    updateVirtualSpacerHeights(start, end);
+    refreshSelectedGroupStyles();
+    normalizeTagRowHeightFromFirstVisible();
+  }
+
+  function bindVirtualScroll() {
+    if (!isVirtualScrollEnabled()) return;
+    const scroll = qs('comboTableScroll');
+    if (!scroll || state.virtual.scrollBound) return;
+    state.virtual.scrollBound = true;
+    scroll.addEventListener('scroll', () => {
+      if (state.virtual.scrollRaf != null) return;
+      state.virtual.scrollRaf = window.requestAnimationFrame(() => {
+        state.virtual.scrollRaf = null;
+        renderVirtualWindow();
+      });
+    }, { passive: true });
   }
 
   function setControlMode(mode) {
@@ -25342,7 +27028,11 @@
     const modeAutofilled = applyCurrentControlModeToBlankRows(state.controlMode);
     if (sampleChanged) {
       persist();
-      applyStateToTable({ rangeStart: 0, rangeEnd: 1 });
+      if (isVirtualScrollEnabled()) {
+        renderVirtualWindow({ force: true });
+      } else {
+        applyStateToTable({ rangeStart: 0, rangeEnd: 1 });
+      }
     }
     if (modeAutofilled && !sampleChanged) {
       persist();
@@ -25351,6 +27041,8 @@
     if (ui.comboView) ui.comboView.setAttribute('data-control', state.controlMode);
     if (ui.tabClassic) ui.tabClassic.classList.toggle('active', state.controlMode === 'classic');
     if (ui.tabModern) ui.tabModern.classList.toggle('active', state.controlMode === 'modern');
+    if (ui.tabClassicTree) ui.tabClassicTree.classList.toggle('active', state.controlMode === 'classic');
+    if (ui.tabModernTree) ui.tabModernTree.classList.toggle('active', state.controlMode === 'modern');
     applyUiButtonLayout();
     applyKeymapToButtons();
     const modal = qs('comboKeymapModal');
@@ -25360,16 +27052,16 @@
     const selectedIndex = Number(state.selectedGroup);
     if (Number.isFinite(selectedIndex) && selectedIndex >= 0) {
       refreshCommandWarning(selectedIndex);
-    } else if (state.groups.length) {
+    } else if (getComboCount()) {
       refreshCommandWarning(0);
     }
-    if (state.groups.length <= WARNING_SWEEP_THRESHOLD) {
+    if (getPerfRowCount() <= WARNING_SWEEP_THRESHOLD) {
       queueCommandWarningSweep();
     }
     if (
       state.autoInputEnabled !== false
       && modeChanged
-      && state.groups.length <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS
+      && getPerfRowCount() <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS
     ) {
       refreshDerivedDamageForAllRows();
     }
@@ -25401,6 +27093,16 @@
     if (!scroll || scroll.dataset.dragInit === 'true') return;
     if (typeof window.initDragScroll === 'function') {
       window.initDragScroll('#comboTableScroll');
+    }
+    scroll.style.cursor = 'grab';
+    scroll.dataset.dragInit = 'true';
+  }
+
+  function initTreeDragScroll() {
+    const scroll = qs('treeViewScroll');
+    if (!scroll || scroll.dataset.dragInit === 'true') return;
+    if (typeof window.initDragScroll === 'function') {
+      window.initDragScroll('#treeViewScroll');
     }
     scroll.style.cursor = 'grab';
     scroll.dataset.dragInit = 'true';
@@ -26196,12 +27898,39 @@
   function appendToken(token, opts = {}) {
     if (!token) return;
     let target = state.activeCell;
+    const detailsCmd = qs('comboDetailsCommandEdit');
+    if (
+      document.activeElement === detailsCmd
+      && detailsCmd
+      && detailsCmd.classList
+      && detailsCmd.classList.contains('cmd-input')
+    ) {
+      target = detailsCmd;
+    }
     if (!target || target.dataset.field !== 'command') {
       const firstGroup = state.groups && state.groups[0];
       target = firstGroup && firstGroup.inputs ? firstGroup.inputs.command : null;
     }
     if (!target || target.dataset.field !== 'command') return;
     const insertText = hotkeyToCommandText(token);
+    if (
+      target.id === 'comboDetailsCommandEdit'
+      && typeof buildModalCommandHighlightHtml === 'function'
+    ) {
+      const raw = String(target.textContent || '') + insertText;
+      target.innerHTML = buildModalCommandHighlightHtml(raw);
+      target.focus();
+      const range = document.createRange();
+      range.selectNodeContents(target);
+      range.collapse(false);
+      const sel = window.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
     insertCommandText(target, insertText, opts);
     target.focus();
   }
@@ -26295,7 +28024,7 @@
 
   function syncCommandButtons(row, sourceField) {
     if (state.syncing) return;
-    const group = state.groups[row];
+    const group = getVisibleGroupForCombo(row);
     if (!group) return;
     const combo = state.combos[row] || defaultCombo();
     state.syncing = true;
@@ -26404,7 +28133,9 @@
       target.textContent = '';
       return;
     }
-    const cachedHtml = getCachedButtonHtml(rawValue);
+    // Avoid stale cached plain-text fallback for Any/ANY tokens.
+    const disableCache = /(?:^|\s|>|\+|-|,|\/)ANY(?:\s|$|>|\+|-|,|\/)/i.test(rawValue);
+    const cachedHtml = disableCache ? '' : getCachedButtonHtml(rawValue);
     if (cachedHtml) {
       target.innerHTML = cachedHtml;
       applyButtonFieldIconSizeOverrides(target);
@@ -26422,7 +28153,7 @@
       if (node) fragment.appendChild(node);
     });
     target.appendChild(fragment);
-    if (tokens.length) cacheButtonHtml(rawValue, target.innerHTML);
+    if (tokens.length && !disableCache) cacheButtonHtml(rawValue, target.innerHTML);
     applyButtonFieldIconSizeOverrides(target);
   }
 
@@ -26931,6 +28662,8 @@
     'or': 'assets/images/icons/key-or.png',
     '投げ': 'assets/images/icons/icon_throw.png',
     'Any': 'assets/images/icons/key-all.png',
+    'ANY': 'assets/images/icons/key-all.png',
+    'any': 'assets/images/icons/key-all.png',
     'LP': 'assets/images/icons/icon_punch_l.png',
     'MP': 'assets/images/icons/icon_punch_m.png',
     'HP': 'assets/images/icons/icon_punch_h.png',
@@ -27017,9 +28750,19 @@
   }
 
   function handleKeymapInput(ev) {
-    const target = state.activeCell;
+    const detailsCmd = qs('comboDetailsCommandEdit');
+    const activeEl = document.activeElement;
+    let target = state.activeCell;
+    if (
+      activeEl === detailsCmd
+      && detailsCmd
+      && detailsCmd.classList
+      && detailsCmd.classList.contains('cmd-input')
+    ) {
+      target = detailsCmd;
+    }
     if (!target || target.dataset.field !== 'command') return;
-    if (!document.activeElement || document.activeElement !== target) return;
+    if (!activeEl || activeEl !== target) return;
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     const token = keyEventToToken(ev);
     if (!token) return;
@@ -27170,24 +28913,57 @@
     return true;
   }
 
+  async function withVirtualDisabledForExport(task) {
+    if (!isVirtualScrollEnabled()) return task();
+    const scroll = qs('comboTableScroll');
+    const prevScrollTop = scroll ? scroll.scrollTop : 0;
+    const prevVirtualEnabled = state.virtual.enabled;
+    try {
+      state.virtual.enabled = false;
+      remapLoadedGroupIndices();
+      resetRenderLimitForCurrentData({ keepCurrent: false });
+      ensureGroupCount(state.combos.length);
+      applyStateToTable({
+        skipHeavyVisuals: true,
+        skipDerivedCalc: true,
+        skipFrameMeterRender: true,
+      });
+      updateEmptyGroups();
+      applyFilters();
+      return await task();
+    } finally {
+      state.virtual.enabled = prevVirtualEnabled;
+      state.virtual.needsPrefixRebuild = true;
+      state.virtual.enabled = false;
+      trimGroupCount(getVirtualPoolTarget());
+      state.virtual.enabled = prevVirtualEnabled;
+      ensureVirtualSpacers();
+      ensureVirtualPoolSize(getVirtualPoolTarget());
+      applyFilters();
+      renderVirtualWindow({ force: true });
+      if (scroll) scroll.scrollTop = prevScrollTop;
+    }
+  }
+
   async function exportCombosHtml(options = {}) {
     if (!ui.table) return false;
     if (options.scope === 'all') {
       return exportAllCharactersHtml(options);
     }
-    const allowedRows = getAllowedRowSet(state.combos, options.mode);
-    const table = buildExportTable({
-      forXlsx: false,
-      includeHidden: options.includeHidden,
-      allowedRows,
-    });
-    applyInlineStylesFromSource(table, ui.table, { includeHidden: options.includeHidden });
-    await inlineExportImages(table);
-    normalizeExportTableLayout(table);
-    const currentSlug = resolveCharacterSlug(state.currentCharacter) || state.currentCharacter || '';
-    const currentLabel = getCharacterLabel(currentSlug);
-    const safeLabel = escapeHtml(currentLabel || currentSlug || 'Combo List');
-    const html = `<!doctype html>
+    return withVirtualDisabledForExport(async () => {
+      const allowedRows = getAllowedRowSet(state.combos, options.mode);
+      const table = buildExportTable({
+        forXlsx: false,
+        includeHidden: options.includeHidden,
+        allowedRows,
+      });
+      applyInlineStylesFromSource(table, ui.table, { includeHidden: options.includeHidden });
+      await inlineExportImages(table);
+      normalizeExportTableLayout(table);
+      const currentSlug = resolveCharacterSlug(state.currentCharacter) || state.currentCharacter || '';
+      const currentLabel = getCharacterLabel(currentSlug);
+      const safeLabel = escapeHtml(currentLabel || currentSlug || 'Combo List');
+      const html = `<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -27225,50 +29001,56 @@
 ${table.outerHTML}
 </body>
 </html>`;
-    downloadFile(buildExportFilename('combo_list', 'html'), 'text/html', html);
-    return true;
+      downloadFile(buildExportFilename('combo_list', 'html'), 'text/html', html);
+      return true;
+    });
   }
 
   async function exportAllCharactersHtml(options = {}) {
-    try {
-      await ensureVendorLoaded({ zip: true });
-    } catch { }
-    if (!window.JSZip) {
-      window.alert(comboMsg('export_jszip_missing'));
-      return false;
-    }
-    const slugs = getAllCharacterSlugs();
-    if (!slugs.length) {
-      window.alert(comboMsg('export_character_missing'));
-      return false;
-    }
-    const prevCombos = state.combos;
-    const prevCharacter = state.currentCharacter;
-    const prevSelected = state.selectedGroup;
-    const pages = [];
-    try {
-      for (const slug of slugs) {
-        const combos = filterCombosByMode(loadCombosForCharacter(slug), options.mode);
-        if (!combos.length) continue;
-        state.currentCharacter = slug;
-        state.combos = combos;
-        ensureGroupCount(combos.length);
-        applyStateToTable();
-        updateEmptyGroups();
-        applyFilters();
-        const table = buildExportTable({
-          forXlsx: false,
-          includeHidden: options.includeHidden,
-          allowedRows: null,
-        });
-        applyInlineStylesFromSource(table, ui.table, { includeHidden: options.includeHidden });
-        // eslint-disable-next-line no-await-in-loop
-        await inlineExportImages(table);
-        normalizeExportTableLayout(table);
-        const label = getCharacterLabel(slug);
-        const safeLabel = label || slug;
-        const fileName = buildExportFilename('combo_list', 'html', slug);
-        const html = `<!doctype html>
+    return withVirtualDisabledForExport(async () => {
+      try {
+        await ensureVendorLoaded({ zip: true });
+      } catch { }
+      if (!window.JSZip) {
+        window.alert(comboMsg('export_jszip_missing'));
+        return false;
+      }
+      const slugs = getAllCharacterSlugs();
+      if (!slugs.length) {
+        window.alert(comboMsg('export_character_missing'));
+        return false;
+      }
+      const prevCombos = state.combos;
+      const prevCharacter = state.currentCharacter;
+      const prevSelected = state.selectedGroup;
+      const pages = [];
+      try {
+        for (const slug of slugs) {
+          const combos = filterCombosByMode(loadCombosForCharacter(slug), options.mode);
+          if (!combos.length) continue;
+          state.currentCharacter = slug;
+          state.combos = combos;
+          ensureGroupCount(combos.length);
+          applyStateToTable({
+            skipHeavyVisuals: true,
+            skipDerivedCalc: true,
+            skipFrameMeterRender: true,
+          });
+          updateEmptyGroups();
+          applyFilters();
+          const table = buildExportTable({
+            forXlsx: false,
+            includeHidden: options.includeHidden,
+            allowedRows: null,
+          });
+          applyInlineStylesFromSource(table, ui.table, { includeHidden: options.includeHidden });
+          // eslint-disable-next-line no-await-in-loop
+          await inlineExportImages(table);
+          normalizeExportTableLayout(table);
+          const label = getCharacterLabel(slug);
+          const safeLabel = label || slug;
+          const fileName = buildExportFilename('combo_list', 'html', slug);
+          const html = `<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -27307,36 +29089,41 @@ ${table.outerHTML}
 ${table.outerHTML}
 </body>
 </html>`;
-        pages.push({ slug, label: safeLabel, fileName, html });
+          pages.push({ slug, label: safeLabel, fileName, html });
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
+        throw err;
+      } finally {
+        state.combos = prevCombos;
+        state.currentCharacter = prevCharacter;
+        applyStateToTable({
+          skipHeavyVisuals: true,
+          skipDerivedCalc: true,
+          skipFrameMeterRender: true,
+        });
+        updateEmptyGroups();
+        applyFilters();
+        if (Number.isFinite(prevSelected)) setSelectedGroup(prevSelected, { scroll: false });
       }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-      throw err;
-    } finally {
-      state.combos = prevCombos;
-      state.currentCharacter = prevCharacter;
-      applyStateToTable();
-      updateEmptyGroups();
-      applyFilters();
-      if (Number.isFinite(prevSelected)) setSelectedGroup(prevSelected, { scroll: false });
-    }
-    if (!pages.length) {
-      window.alert(comboMsg('export_no_combos'));
-      return false;
-    }
-    if (pages.length === 1) {
-      const page = pages[0];
-      downloadFile(page.fileName, 'text/html', page.html);
+      if (!pages.length) {
+        window.alert(comboMsg('export_no_combos'));
+        return false;
+      }
+      if (pages.length === 1) {
+        const page = pages[0];
+        downloadFile(page.fileName, 'text/html', page.html);
+        return true;
+      }
+      const zip = new window.JSZip();
+      pages.forEach((page) => {
+        zip.file(page.fileName, page.html);
+      });
+      const blob = await zip.generateAsync({ type: 'blob' });
+      downloadFile(buildExportFilename('combo_list', 'zip', 'all'), 'application/zip', blob);
       return true;
-    }
-    const zip = new window.JSZip();
-    pages.forEach((page) => {
-      zip.file(page.fileName, page.html);
     });
-    const blob = await zip.generateAsync({ type: 'blob' });
-    downloadFile(buildExportFilename('combo_list', 'zip', 'all'), 'application/zip', blob);
-    return true;
   }
 
   async function exportCombosXlsx(options = {}) {
@@ -27351,74 +29138,86 @@ ${table.outerHTML}
     if (options.scope === 'all') {
       return exportAllCharactersXlsx(options);
     }
-    const workbook = new window.ExcelJS.Workbook();
-    const allowedRows = getAllowedRowSet(state.combos, options.mode);
-    const currentSlug = resolveCharacterSlug(state.currentCharacter) || state.currentCharacter || '';
-    const currentLabel = getCharacterLabel(currentSlug) || currentSlug || 'Combo List';
-    const sheetName = sanitizeSheetName(currentLabel || 'Combo List');
-    await addWorksheetFromTable(workbook, ui.table, sheetName, {
-      includeHidden: options.includeHidden,
-      allowedRows,
-    });
+    return withVirtualDisabledForExport(async () => {
+      const workbook = new window.ExcelJS.Workbook();
+      const allowedRows = getAllowedRowSet(state.combos, options.mode);
+      const currentSlug = resolveCharacterSlug(state.currentCharacter) || state.currentCharacter || '';
+      const currentLabel = getCharacterLabel(currentSlug) || currentSlug || 'Combo List';
+      const sheetName = sanitizeSheetName(currentLabel || 'Combo List');
+      await addWorksheetFromTable(workbook, ui.table, sheetName, {
+        includeHidden: options.includeHidden,
+        allowedRows,
+      });
 
-    const output = await workbook.xlsx.writeBuffer();
-    downloadFile(
-      buildExportFilename('combo_list', 'xlsx'),
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      output,
-    );
-    return true;
+      const output = await workbook.xlsx.writeBuffer();
+      downloadFile(
+        buildExportFilename('combo_list', 'xlsx'),
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        output,
+      );
+      return true;
+    });
   }
 
   async function exportAllCharactersXlsx(options = {}) {
-    const slugs = getAllCharacterSlugs();
-    if (!slugs.length) {
-      window.alert(comboMsg('export_character_missing'));
-      return false;
-    }
-    const workbook = new window.ExcelJS.Workbook();
-    const prevCombos = state.combos;
-    const prevCharacter = state.currentCharacter;
-    const prevSelected = state.selectedGroup;
-    let sheetCount = 0;
-    try {
-      for (const slug of slugs) {
-        const combos = filterCombosByMode(loadCombosForCharacter(slug), options.mode);
-        if (!combos.length) continue;
-        state.currentCharacter = slug;
-        state.combos = combos;
-        ensureGroupCount(combos.length);
-        applyStateToTable();
+    return withVirtualDisabledForExport(async () => {
+      const slugs = getAllCharacterSlugs();
+      if (!slugs.length) {
+        window.alert(comboMsg('export_character_missing'));
+        return false;
+      }
+      const workbook = new window.ExcelJS.Workbook();
+      const prevCombos = state.combos;
+      const prevCharacter = state.currentCharacter;
+      const prevSelected = state.selectedGroup;
+      let sheetCount = 0;
+      try {
+        for (const slug of slugs) {
+          const combos = filterCombosByMode(loadCombosForCharacter(slug), options.mode);
+          if (!combos.length) continue;
+          state.currentCharacter = slug;
+          state.combos = combos;
+          ensureGroupCount(combos.length);
+          applyStateToTable({
+            skipHeavyVisuals: true,
+            skipDerivedCalc: true,
+            skipFrameMeterRender: true,
+          });
+          updateEmptyGroups();
+          applyFilters();
+          const label = getCharacterLabel(slug);
+          const sheetName = sanitizeSheetName(label || slug || `Sheet${sheetCount + 1}`);
+          sheetCount += 1;
+          // eslint-disable-next-line no-await-in-loop
+          await addWorksheetFromTable(workbook, ui.table, sheetName, {
+            includeHidden: options.includeHidden,
+            allowedRows: null,
+          });
+        }
+      } finally {
+        state.combos = prevCombos;
+        state.currentCharacter = prevCharacter;
+        applyStateToTable({
+          skipHeavyVisuals: true,
+          skipDerivedCalc: true,
+          skipFrameMeterRender: true,
+        });
         updateEmptyGroups();
         applyFilters();
-        const label = getCharacterLabel(slug);
-        const sheetName = sanitizeSheetName(label || slug || `Sheet${sheetCount + 1}`);
-        sheetCount += 1;
-        // eslint-disable-next-line no-await-in-loop
-        await addWorksheetFromTable(workbook, ui.table, sheetName, {
-          includeHidden: options.includeHidden,
-          allowedRows: null,
-        });
+        if (Number.isFinite(prevSelected)) setSelectedGroup(prevSelected, { scroll: false });
       }
-    } finally {
-      state.combos = prevCombos;
-      state.currentCharacter = prevCharacter;
-      applyStateToTable();
-      updateEmptyGroups();
-      applyFilters();
-      if (Number.isFinite(prevSelected)) setSelectedGroup(prevSelected, { scroll: false });
-    }
-    if (!sheetCount) {
-      window.alert(comboMsg('export_no_combos'));
-      return false;
-    }
-    const output = await workbook.xlsx.writeBuffer();
-    downloadFile(
-      buildExportFilename('combo_list', 'xlsx', 'all'),
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      output,
-    );
-    return true;
+      if (!sheetCount) {
+        window.alert(comboMsg('export_no_combos'));
+        return false;
+      }
+      const output = await workbook.xlsx.writeBuffer();
+      downloadFile(
+        buildExportFilename('combo_list', 'xlsx', 'all'),
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        output,
+      );
+      return true;
+    });
   }
 
   async function addWorksheetFromTable(workbook, table, sheetName, options = {}) {
@@ -27525,6 +29324,7 @@ ${table.outerHTML}
       });
     }
 
+    table.querySelectorAll('tr.combo-virtual-spacer').forEach((row) => row.remove());
     table.querySelectorAll('.combo-group-empty').forEach((row) => row.remove());
     if (includeHidden) {
       table.querySelectorAll('.combo-hidden-col').forEach((cell) => {
@@ -28497,7 +30297,7 @@ ${table.outerHTML}
           </tr>
           <tr class="combo-xlsx-map-layout-section split">
             <th colspan="5">${sectionLabel('ダメージ', 'Damage')}</th>
-            <th colspan="3">${sectionLabel('ダメージ(毒)', 'Damage (Poison)')}</th>
+            <th colspan="3">${sectionLabel('ダメージ(CA)', 'Damage (CA)')}</th>
             <th class="empty"></th>
           </tr>
           <tr>
@@ -28506,20 +30306,20 @@ ${table.outerHTML}
             ${buildLayoutCell('damage_normal')}
             ${buildLayoutCell('damage_counter')}
             ${buildLayoutCell('damage_punish')}
-            ${buildLayoutCell('damage_poison_normal')}
-            ${buildLayoutCell('damage_poison_counter')}
-            ${buildLayoutCell('damage_poison_punish')}
+            ${buildLayoutCell('damage_normal_ca')}
+            ${buildLayoutCell('damage_counter_ca')}
+            ${buildLayoutCell('damage_punish_ca')}
             ${buildLayoutCell(null)}
           </tr>
           <tr class="combo-xlsx-map-layout-section split">
-            <th colspan="3">${sectionLabel('ダメージ(CA)', 'Damage (CA)')}</th>
+            <th colspan="3">${sectionLabel('ダメージ(毒)', 'Damage (Poison)')}</th>
             <th colspan="3">${sectionLabel('ダメージ(毒/CA)', 'Damage (Poison/CA)')}</th>
             <th class="empty" colspan="3"></th>
           </tr>
           <tr>
-            ${buildLayoutCell('damage_normal_ca')}
-            ${buildLayoutCell('damage_counter_ca')}
-            ${buildLayoutCell('damage_punish_ca')}
+            ${buildLayoutCell('damage_poison_normal')}
+            ${buildLayoutCell('damage_poison_counter')}
+            ${buildLayoutCell('damage_poison_punish')}
             ${buildLayoutCell('damage_poison_normal_ca')}
             ${buildLayoutCell('damage_poison_counter_ca')}
             ${buildLayoutCell('damage_poison_punish_ca')}
@@ -28963,6 +30763,11 @@ ${table.outerHTML}
     await withImportApplyLoading(async () => {
       resetHydrationState();
       state.combos = sanitized;
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        state.virtual.rowHeights = new Array(state.combos.length).fill(fill);
+        state.virtual.needsPrefixRebuild = true;
+      }
       resetRenderLimitForCurrentData({ keepCurrent: false });
       const renderTarget = getRenderTargetCount();
       trimGroupCount(renderTarget);
@@ -28971,7 +30776,7 @@ ${table.outerHTML}
       } else {
         ensureGroupCount(renderTarget);
       }
-      if (state.combos.length < state.groups.length) {
+      if (!isVirtualScrollEnabled() && state.combos.length < state.groups.length) {
         const missing = state.groups.length - state.combos.length;
         for (let i = 0; i < missing; i += 1) {
           state.combos.push(defaultCombo());
@@ -29013,6 +30818,14 @@ ${table.outerHTML}
         current.pop();
       }
       state.combos = current.concat(next);
+      if (isVirtualScrollEnabled()) {
+        const fill = Number(state.virtual.avgHeight) || 72;
+        if (!Array.isArray(state.virtual.rowHeights)) state.virtual.rowHeights = [];
+        while (state.virtual.rowHeights.length < state.combos.length) {
+          state.virtual.rowHeights.push(fill);
+        }
+        state.virtual.needsPrefixRebuild = true;
+      }
       resetRenderLimitForCurrentData();
       const renderTarget = getRenderTargetCount();
       trimGroupCount(renderTarget);
@@ -30235,7 +32048,7 @@ ${table.outerHTML}
   function syncTagsChipsForRow(rowIndex) {
     const row = Number(rowIndex);
     if (!Number.isFinite(row) || row < 0) return;
-    const group = state.groups[row];
+    const group = getVisibleGroupForCombo(row);
     const combo = state.combos[row];
     if (!group || !group.tagsChips || !combo) return;
     const raw = String(combo.tags || '');
@@ -30818,7 +32631,7 @@ ${table.outerHTML}
       applyStateToTable();
     }
     syncAkiPoisonVariantColumns();
-    if (state.autoInputEnabled !== false && state.groups.length <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS) {
+    if (state.autoInputEnabled !== false && getPerfRowCount() <= DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS) {
       refreshDerivedDamageForAllRows();
     }
     refreshSpecialConditionTableInputs(getComboLang());
@@ -30827,7 +32640,1991 @@ ${table.outerHTML}
     applyFilters();
     updateLoadMoreControl();
     setSelectedGroup(0);
+    treeTokenCache.clear();
+    requestTreeRebuild();
   }
+
+  // ── COMBO TREE VIEW ──────────────────────────────────────────────────────────
+
+  const treeTokenCache = new Map(); // combo._id → string[]
+  let treeRebuildTimer = null;
+  let treeRebuildRafId = null;
+  const comboTreeState = { expandedNodes: new Set() };
+  const TREE_NODE_ID_SEP = '\u241E';
+  const TREE_RAIL_MODE_KEY = 'lm_tree_rail_mode_v1';
+  const treeRailState = { mode: 'drive', lastRoot: null, lastPairs: [] };
+  const treeDriveStepResolveCache = new Map();
+  const TREE_DRIVE_STEP_CACHE_MAX = 4000;
+  const treeDetailState = { hidden: false, comboIndex: -1 };
+  const TREE_DETAIL_FIELDS = [...FIELD_ORDER];
+  const TREE_DETAIL_EDITABLE_FIELDS = ['command', 'tags', 'combo_notes', 'oki', 'extra_notes', 'combo_url'];
+  const TREE_PILL_FILTER_FIELD_MAP = {
+    distance: 'distance',
+    position: 'position',
+    counter: 'counter',
+    bo: 'bo',
+    special: 'special',
+  };
+  const TREE_DETAIL_SECTIONS = [
+    { key: 'conditions', fields: ['control_mode', 'distance', 'position', 'counter_type', 'bo_state', 'drive_req', 'sa_req', 'vs_character', 'special_condition'] },
+    { key: 'damage', fields: ['damage_jp', 'damage_bo_guard', 'damage_normal', 'damage_counter', 'damage_punish', 'damage_normal_ca', 'damage_counter_ca', 'damage_punish_ca', 'damage_poison_normal', 'damage_poison_counter', 'damage_poison_punish', 'damage_poison_normal_ca', 'damage_poison_counter_ca', 'damage_poison_punish_ca'] },
+    { key: 'drive', fields: ['d_guard', 'd_normal', 'd_pc', 'drive_delta', 'drive_delta_opponent', 'drive_efficiency'] },
+    { key: 'sa', fields: ['sa_delta', 'sa_delta_opponent'] },
+    { key: 'other', fields: ['carry_distance', 'end_distance', 'frame_adv', 'opponent_state', 'safe_jump', 'side_switch', 'interrupt', 'oki'] },
+  ];
+  let treeFlowRenderOptions = {};
+  let treePillFilterOutsideHandler = null;
+  let treeNodeMenuOutsideHandler = null;
+  let treeNodeContextNodeId = '';
+  let treeThemeObserver = null;
+  let treeBootRenderScheduled = false;
+
+  function getTreeRailStoredMode() {
+    try {
+      const v = localStorage.getItem(TREE_RAIL_MODE_KEY);
+      if (v === 'damage' || v === 'drive') return v;
+    } catch (_) { }
+    return 'drive';
+  }
+
+  function setTreeRailStoredMode(mode) {
+    try { localStorage.setItem(TREE_RAIL_MODE_KEY, mode); } catch (_) { }
+  }
+
+  function getTreeNodeById(root, nodeId) {
+    if (!root || !nodeId) return null;
+    const stack = [root];
+    while (stack.length) {
+      const n = stack.pop();
+      if (!n) continue;
+      if (String(n.id || '') === String(nodeId)) return n;
+      if (Array.isArray(n.children) && n.children.length) {
+        for (let i = n.children.length - 1; i >= 0; i -= 1) stack.push(n.children[i]);
+      }
+    }
+    return null;
+  }
+
+  function expandTreeSubtree(node) {
+    if (!node) return;
+    comboTreeState.expandedNodes.add(node.id);
+    if (Array.isArray(node.children) && node.children.length) {
+      node.children.forEach((child) => expandTreeSubtree(child));
+    }
+  }
+
+  function collapseTreeSubtree(node) {
+    if (!node) return;
+    comboTreeState.expandedNodes.delete(node.id);
+    if (Array.isArray(node.children) && node.children.length) {
+      node.children.forEach((child) => collapseTreeSubtree(child));
+    }
+  }
+
+  function collectDescendantComboIndexes(node, out = []) {
+    if (!node || !Array.isArray(node.children) || !node.children.length) return out;
+    node.children.forEach((child) => {
+      if (Array.isArray(child.comboGlobalIndexes) && child.comboGlobalIndexes.length) {
+        child.comboGlobalIndexes.forEach((idx) => {
+          if (Number.isFinite(Number(idx))) out.push(Number(idx));
+        });
+      }
+      collectDescendantComboIndexes(child, out);
+    });
+    return out;
+  }
+
+  function createComboFromTreeNodePath(node) {
+    if (!node || !node.id) return;
+    const tokens = String(node.id)
+      .split(TREE_NODE_ID_SEP)
+      .map((t) => String(t || '').trim())
+      .filter(Boolean);
+    if (!tokens.length) return;
+    const combo = defaultCombo();
+    combo.command = tokens.join(' > ');
+    combo.control_mode = String(state.controlMode || combo.control_mode || 'modern').toLowerCase();
+    combo._manual = true;
+    setComboFieldSource(combo, 'command', 'user');
+    const inserted = insertComboAt(state.combos.length, combo, { scrollToRow: false });
+    if (Number.isFinite(inserted) && inserted >= 0) {
+      setSelectedGroup(inserted, { scroll: false });
+      setTreeDetailSelectedCombo(inserted);
+    }
+    doRebuildTree();
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const cmd = qs('comboDetailsCommandEdit');
+        if (!cmd) return;
+        cmd.focus();
+        const sel = window.getSelection();
+        if (!sel) return;
+        const range = document.createRange();
+        range.selectNodeContents(cmd);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+    });
+  }
+
+  function deleteTreeNodeChildrenCombos(node) {
+    if (!node) return;
+    const indexes = Array.from(new Set(collectDescendantComboIndexes(node, [])))
+      .filter((idx) => Number.isFinite(idx) && idx >= 0 && idx < state.combos.length)
+      .sort((a, b) => a - b);
+    if (!indexes.length) return;
+    const lang = getComboLang();
+    const msg = lang === 'en'
+      ? `Delete ${indexes.length} child combos under this node?`
+      : `このノード配下の子コンボ ${indexes.length} 件を削除しますか？`;
+    if (!window.confirm(msg)) return;
+    pushUndoHistory('delete-combo');
+    const restoreScroll = preserveTableScrollPosition();
+    indexes.forEach((idx) => {
+      state.combos[idx] = defaultCombo();
+      if (idx === 0 && shouldUseSampleComboForFirstRow()) {
+        setSampleSuppressedForMode(state.combos[idx], state.controlMode, true);
+      }
+    });
+    persist();
+    if (isVirtualScrollEnabled()) {
+      applyFilters();
+      renderVirtualWindow({ force: true });
+    } else {
+      const min = indexes[0];
+      const max = indexes[indexes.length - 1];
+      applyStateToTable({
+        rangeStart: min,
+        rangeEnd: max + 1,
+        skipHeavyVisuals: true,
+        skipFrameMeterRender: true,
+      });
+      updateEmptyGroups();
+      if (hasActiveComplexComboFilters()) applyFilters();
+      else {
+        applyVisibilityForGroupRange(min, max + 1);
+        queueLoadMoreVisibleClassRefresh();
+      }
+    }
+    restoreScroll();
+    doRebuildTree();
+  }
+
+  function closeTreeNodeContextMenu() {
+    const menu = qs('treeNodeContextMenu');
+    if (menu) {
+      menu.classList.add('hidden');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.style.visibility = '';
+    }
+    treeNodeContextNodeId = '';
+    if (treeNodeMenuOutsideHandler) {
+      document.removeEventListener('mousedown', treeNodeMenuOutsideHandler, true);
+      treeNodeMenuOutsideHandler = null;
+    }
+  }
+
+  function ensureTreeNodeContextMenu() {
+    let menu = qs('treeNodeContextMenu');
+    if (menu) return menu;
+    menu = document.createElement('div');
+    menu.id = 'treeNodeContextMenu';
+    menu.className = 'combo-row-context-menu tree-node-context-menu hidden';
+    menu.setAttribute('role', 'menu');
+    menu.setAttribute('aria-hidden', 'true');
+    menu.innerHTML = `
+      <button type="button" class="combo-row-context-item" role="menuitem" data-action="expand-subtree"></button>
+      <button type="button" class="combo-row-context-item" role="menuitem" data-action="collapse-subtree"></button>
+      <div class="combo-row-context-sep"></div>
+      <button type="button" class="combo-row-context-item" role="menuitem" data-action="add-from-node"></button>
+      <button type="button" class="combo-row-context-item" role="menuitem" data-action="delete-children"></button>
+    `;
+    document.body.appendChild(menu);
+    menu.addEventListener('click', (ev) => {
+      const item = ev.target && ev.target.closest ? ev.target.closest('.combo-row-context-item[data-action]') : null;
+      if (!item || item.disabled) return;
+      const action = String(item.dataset.action || '');
+      const root = treeRailState.lastRoot;
+      const node = getTreeNodeById(root, treeNodeContextNodeId);
+      if (!node) {
+        closeTreeNodeContextMenu();
+        return;
+      }
+      if (action === 'expand-subtree') {
+        expandTreeSubtree(node);
+        doRebuildTree();
+      } else if (action === 'collapse-subtree') {
+        collapseTreeSubtree(node);
+        doRebuildTree();
+      } else if (action === 'add-from-node') {
+        createComboFromTreeNodePath(node);
+      } else if (action === 'delete-children') {
+        deleteTreeNodeChildrenCombos(node);
+      }
+      closeTreeNodeContextMenu();
+    });
+    return menu;
+  }
+
+  function openTreeNodeContextMenu(anchorEl, node) {
+    if (!anchorEl || !node) return;
+    const menu = ensureTreeNodeContextMenu();
+    const lang = getComboLang();
+    const hasChildren = !!(Array.isArray(node.children) && node.children.length);
+    const expandBtn = menu.querySelector('[data-action="expand-subtree"]');
+    const collapseBtn = menu.querySelector('[data-action="collapse-subtree"]');
+    const addBtn = menu.querySelector('[data-action="add-from-node"]');
+    const delBtn = menu.querySelector('[data-action="delete-children"]');
+    if (expandBtn) {
+      expandBtn.textContent = lang === 'en' ? 'Expand subtree' : 'このノード配下を展開';
+      expandBtn.disabled = !hasChildren;
+    }
+    if (collapseBtn) {
+      collapseBtn.textContent = lang === 'en' ? 'Collapse subtree' : 'このノード配下を折りたたみ';
+      collapseBtn.disabled = !hasChildren;
+    }
+    if (addBtn) {
+      addBtn.textContent = lang === 'en' ? 'Add combo from this path' : 'この経路でコンボを追加';
+      addBtn.disabled = false;
+    }
+    if (delBtn) {
+      delBtn.textContent = lang === 'en' ? 'Delete child combos' : '子コンボを削除';
+      delBtn.disabled = !hasChildren;
+    }
+    treeNodeContextNodeId = String(node.id || '');
+    menu.style.left = '0px';
+    menu.style.top = '0px';
+    menu.classList.remove('hidden');
+    menu.setAttribute('aria-hidden', 'false');
+    menu.style.visibility = 'hidden';
+    const rect = menu.getBoundingClientRect();
+    const anchorRect = anchorEl.getBoundingClientRect();
+    const vw = window.innerWidth || document.documentElement.clientWidth || 1280;
+    const vh = window.innerHeight || document.documentElement.clientHeight || 720;
+    let x = anchorRect.left;
+    let y = anchorRect.bottom + 4;
+    x = Math.max(6, Math.min(x, vw - rect.width - 6));
+    y = Math.max(6, Math.min(y, vh - rect.height - 6));
+    menu.style.left = `${Math.round(x)}px`;
+    menu.style.top = `${Math.round(y)}px`;
+    menu.style.visibility = '';
+    if (treeNodeMenuOutsideHandler) {
+      document.removeEventListener('mousedown', treeNodeMenuOutsideHandler, true);
+      treeNodeMenuOutsideHandler = null;
+    }
+    treeNodeMenuOutsideHandler = (ev) => {
+      const m = qs('treeNodeContextMenu');
+      if (!m || m.classList.contains('hidden')) return;
+      if (m.contains(ev.target)) return;
+      if (anchorEl.contains(ev.target)) return;
+      closeTreeNodeContextMenu();
+    };
+    document.addEventListener('mousedown', treeNodeMenuOutsideHandler, true);
+  }
+
+  function getTreePillFilterOptions(key) {
+    const lang = getComboLang();
+    if (key === 'distance') {
+      return [
+        { value: '-', label: '-' },
+        { value: '密着', label: comboValueLabel('close', '密着', lang) || '密着' },
+        { value: '先端', label: comboValueLabel('tip', '先端', lang) || '先端' },
+      ];
+    }
+    if (key === 'position') {
+      return [
+        { value: '地上', label: comboValueLabel('ground', '地上', lang) || '地上' },
+        { value: '空中', label: comboValueLabel('air', '空中', lang) || '空中' },
+        { value: '壁', label: comboValueLabel('wall', '壁', lang) || '壁' },
+        { value: '逆壁', label: comboValueLabel('reverse_wall', '逆壁', lang) || '逆壁' },
+        { value: '壁付近', label: comboValueLabel('near_wall', '壁付近', lang) || '壁付近' },
+        { value: '端端', label: comboValueLabel('far_wall', '端端', lang) || '端端' },
+      ];
+    }
+    if (key === 'counter') {
+      return [
+        { value: 'C', label: 'C' },
+        { value: 'PC', label: 'PC' },
+      ];
+    }
+    if (key === 'bo') {
+      return [
+        { value: 'BO', label: 'BO' },
+        { value: 'スタン', label: comboValueLabel('stun', 'スタン', lang) || 'スタン' },
+      ];
+    }
+    if (key === 'special') {
+      const options = getSpecialConditionOptions(lang)
+        .filter((opt) => String(opt && opt.value ? opt.value : '').trim())
+        .map((opt) => ({ value: String(opt.value), label: String(opt.label || opt.value) }));
+      return options;
+    }
+    return [];
+  }
+
+  function refreshTreePillFilterButtons() {
+    const pills = Array.from(document.querySelectorAll('#treeView .tree-chart-pill[data-tree-filter]'));
+    pills.forEach((pill) => {
+      const key = String(pill.dataset.treeFilter || '').trim();
+      const stateKey = TREE_PILL_FILTER_FIELD_MAP[key];
+      const selected = stateKey && Array.isArray(state.filters[stateKey]) ? state.filters[stateKey] : [];
+      const count = selected.length;
+      pill.classList.toggle('is-active', count > 0);
+      pill.title = count > 0
+        ? `${pill.textContent || ''} (${count})`
+        : `${pill.textContent || ''}`;
+    });
+  }
+
+  function renderTreeInlineFilterGroups() {
+    const host = qs('treeInlineFilterGroups');
+    if (!host) return;
+    const defs = [
+      { key: 'distance', label: comboT('filter.distance') || 'Distance' },
+      { key: 'position', label: comboT('filter.position') || 'Position' },
+      { key: 'counter', label: comboT('filter.counter') || 'Counter' },
+      { key: 'bo', label: comboT('filter.bo') || 'BO/Stun' },
+      { key: 'special', label: comboT('filter.special') || 'Special Conditions' },
+    ];
+    host.innerHTML = defs.map((def) => {
+      const stateKey = TREE_PILL_FILTER_FIELD_MAP[def.key];
+      const selected = new Set(Array.isArray(state.filters[stateKey]) ? state.filters[stateKey].map((v) => String(v)) : []);
+      const options = getTreePillFilterOptions(def.key);
+      const items = options.map((opt) => {
+        const value = String(opt.value || '');
+        const checked = selected.has(value) ? 'checked' : '';
+        return `<label class="tree-inline-filter-item"><input type="checkbox" data-tree-inline-filter="${escapeHtml(def.key)}" value="${escapeHtml(value)}" ${checked}><span>${escapeHtml(String(opt.label || value))}</span></label>`;
+      }).join('');
+      return `<div class="tree-inline-filter-group"><div class="tree-inline-filter-title">${escapeHtml(def.label)}</div><div class="tree-inline-filter-list">${items}</div></div>`;
+    }).join('');
+    host.querySelectorAll('input[data-tree-inline-filter]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const key = String(input.getAttribute('data-tree-inline-filter') || '').trim();
+        const stateKey = TREE_PILL_FILTER_FIELD_MAP[key];
+        if (!stateKey) return;
+        const values = Array.from(host.querySelectorAll(`input[data-tree-inline-filter="${key}"]:checked`))
+          .map((el) => String(el.value || '').trim())
+          .filter(Boolean);
+        state.filters[stateKey] = values;
+        applyFilters();
+        refreshTreePillFilterButtons();
+      });
+    });
+  }
+
+  function closeTreePillFilterPanel() {
+    const panel = qs('treePillFilterPanel');
+    if (panel) {
+      panel.classList.add('hidden');
+      panel.style.display = 'none';
+    }
+    if (treePillFilterOutsideHandler) {
+      document.removeEventListener('mousedown', treePillFilterOutsideHandler, true);
+      treePillFilterOutsideHandler = null;
+    }
+  }
+
+  function ensureTreePillFilterPanel() {
+    let panel = qs('treePillFilterPanel');
+    if (panel) return panel;
+    panel = document.createElement('div');
+    panel.id = 'treePillFilterPanel';
+    panel.className = 'tree-pill-filter-panel hidden';
+    panel.innerHTML = `
+      <div class="tree-pill-filter-head" id="treePillFilterHead"></div>
+      <div class="tree-pill-filter-body" id="treePillFilterBody"></div>
+      <div class="tree-pill-filter-actions">
+        <button type="button" class="tree-pill-filter-btn" data-action="clear">${escapeHtml(comboT('filter.clear') || 'Clear')}</button>
+        <button type="button" class="tree-pill-filter-btn" data-action="apply">${escapeHtml(comboT('filter.apply') || 'Apply')}</button>
+      </div>
+    `;
+    document.body.appendChild(panel);
+    panel.style.display = 'none';
+    panel.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const btn = ev.target && ev.target.closest ? ev.target.closest('.tree-pill-filter-btn[data-action]') : null;
+      if (!btn) return;
+      const action = String(btn.dataset.action || '');
+      const key = String(panel.dataset.filterKey || '');
+      const stateKey = TREE_PILL_FILTER_FIELD_MAP[key];
+      if (!stateKey) return;
+      if (action === 'clear') {
+        state.filters[stateKey] = [];
+        applyFilters();
+        refreshTreePillFilterButtons();
+        closeTreePillFilterPanel();
+        return;
+      }
+      if (action === 'apply') {
+        const selected = Array.from(panel.querySelectorAll('input[name="treePillFilterValue"]:checked'))
+          .map((input) => String(input.value || '').trim())
+          .filter(Boolean);
+        state.filters[stateKey] = selected;
+        applyFilters();
+        refreshTreePillFilterButtons();
+        closeTreePillFilterPanel();
+      }
+    });
+    return panel;
+  }
+
+  function openTreePillFilterPanel(anchorEl, key) {
+    const stateKey = TREE_PILL_FILTER_FIELD_MAP[key];
+    if (!stateKey || !anchorEl) return;
+    const panel = ensureTreePillFilterPanel();
+    const head = panel.querySelector('#treePillFilterHead');
+    const body = panel.querySelector('#treePillFilterBody');
+    if (!head || !body) return;
+    const options = getTreePillFilterOptions(key);
+    const selected = new Set(Array.isArray(state.filters[stateKey]) ? state.filters[stateKey].map((v) => String(v)) : []);
+    head.textContent = String(anchorEl.textContent || '').trim();
+    body.innerHTML = options.length
+      ? options.map((opt) => {
+        const value = String(opt.value || '');
+        const label = String(opt.label || value);
+        const checked = selected.has(value) ? 'checked' : '';
+        return `<label class="tree-pill-filter-item"><input type="checkbox" name="treePillFilterValue" value="${escapeHtml(value)}" ${checked}><span>${escapeHtml(label)}</span></label>`;
+      }).join('')
+      : `<div class="tree-pill-filter-item">${escapeHtml(comboT('filter.no_options') || 'No options')}</div>`;
+    panel.dataset.filterKey = key;
+    panel.classList.remove('hidden');
+    panel.style.display = 'flex';
+    panel.style.left = '0px';
+    panel.style.top = '0px';
+    const rect = anchorEl.getBoundingClientRect();
+    const panelRect = panel.getBoundingClientRect();
+    const vw = window.innerWidth || document.documentElement.clientWidth || 1280;
+    const vh = window.innerHeight || document.documentElement.clientHeight || 720;
+    const left = Math.max(8, Math.min(rect.left, vw - panelRect.width - 8));
+    const top = Math.max(8, Math.min(rect.bottom + 6, vh - panelRect.height - 8));
+    panel.style.left = `${left}px`;
+    panel.style.top = `${top}px`;
+    if (treePillFilterOutsideHandler) {
+      document.removeEventListener('mousedown', treePillFilterOutsideHandler, true);
+      treePillFilterOutsideHandler = null;
+    }
+    treePillFilterOutsideHandler = (ev) => {
+      if (!panel || panel.classList.contains('hidden')) return;
+      if (panel.contains(ev.target)) return;
+      if (anchorEl.contains(ev.target)) return;
+      closeTreePillFilterPanel();
+    };
+    document.addEventListener('mousedown', treePillFilterOutsideHandler, true);
+  }
+
+  function getTreeCalcContextForDrive() {
+    if (!comboCalcIndexData || typeof comboCalcIndexData !== 'object') return null;
+    const character = getComboCalcCharacterSlug();
+    if (!character) return null;
+    const mode = canonicalControlMode(state.controlMode || 'classic') || 'classic';
+    const tokenMap = comboCalcIndexData.characters
+      && comboCalcIndexData.characters[character]
+      && comboCalcIndexData.characters[character][mode];
+    if (!tokenMap || typeof tokenMap !== 'object') return null;
+    return { tokenMap, character, mode };
+  }
+
+  /** Resolve one tree-node label to a calc row (same booleans as drive-gauge timeline; no prev-chain context). */
+  function resolveTreeLabelToDriveStep(rawLabel) {
+    const raw = String(rawLabel || '').trim();
+    if (!raw) return null;
+    const ctx = getTreeCalcContextForDrive();
+    if (!ctx) return null;
+    const cacheKey = `${ctx.character}\u241E${ctx.mode}\u241E${raw}`;
+    if (treeDriveStepResolveCache.has(cacheKey)) return treeDriveStepResolveCache.get(cacheKey);
+    const steps = commandToCalcStepTokens(raw);
+    const stepToken = steps.length ? steps[0] : raw;
+    if (!stepToken) {
+      treeDriveStepResolveCache.set(cacheKey, null);
+      return null;
+    }
+    const entry = resolveCalcStepEntry(stepToken, ctx.tokenMap, {
+      preferSa3: true,
+      characterSlug: ctx.character,
+      mode: ctx.mode,
+    });
+    const payload = entry ? { entry, stepToken, raw } : null;
+    if (treeDriveStepResolveCache.size >= TREE_DRIVE_STEP_CACHE_MAX) treeDriveStepResolveCache.clear();
+    treeDriveStepResolveCache.set(cacheKey, payload);
+    return payload;
+  }
+
+  /** Integer tiers for tree drive rail (CR=3, OD=2, DR/DI=1). */
+  function treeDriveRailCostFromCalc(entry, stepToken) {
+    if (!entry) return 0;
+    const isCDR = isDriveRushCancelStepToken(stepToken);
+    const isDR = !isCDR && isDriveRushEntry(entry, stepToken);
+    const isDI = isFrameMeterDriveImpactEntry(entry, { stepToken });
+    const isOD = !isDI && !isDR && !isCDR
+      && isCalcOdEntry(entry) && getCalcEntryActionClass(entry) === 'special';
+    if (isCDR) return 3;
+    if (isOD) return 2;
+    if (isDR || isDI) return 1;
+    return 0;
+  }
+
+  function matchSaFlavorForTreeToken(tokenText) {
+    const raw = String(tokenText || '');
+    if (!raw) return '';
+    for (let i = 0; i < SA_FILTER_DEFINITIONS.length; i += 1) {
+      const def = SA_FILTER_DEFINITIONS[i];
+      const pats = SA_COMMAND_PATTERNS[def.value];
+      if (!pats) continue;
+      for (let j = 0; j < pats.length; j += 1) {
+        if (pats[j].test(raw)) return def.value;
+      }
+    }
+    return '';
+  }
+
+  function classifyTreeBoxDriveBorder(label) {
+    const raw = String(label || '');
+    const k = normalizeCalcTokenKey(raw);
+    if (k === 'CR') return 'cr';
+    if (k === 'DR') return 'dr';
+    const saNum = k.match(/^SA([123])$/);
+    if (saNum) return `sa${saNum[1]}`;
+
+    const resolved = resolveTreeLabelToDriveStep(raw);
+    if (resolved && resolved.entry) {
+      const { entry, stepToken } = resolved;
+      const superLevel = getCalcEntrySuperLevel(entry);
+      if (isCalcCaEntry(entry) || superLevel === 3) return 'sa3';
+      if (superLevel === 2) return 'sa2';
+      if (superLevel === 1) return 'sa1';
+
+      const isCDR = isDriveRushCancelStepToken(stepToken);
+      const isDR = !isCDR && isDriveRushEntry(entry, stepToken);
+      const isDI = isFrameMeterDriveImpactEntry(entry, { stepToken });
+      const isOD = !isDI && !isDR && !isCDR
+        && isCalcOdEntry(entry) && getCalcEntryActionClass(entry) === 'special';
+
+      if (isCDR) return 'cr';
+      if (isDR) return 'dr';
+      if (isDI || isOD) return 'od';
+    }
+
+    const flav = matchSaFlavorForTreeToken(raw);
+    if (flav) return flav.replace(/_/g, '-');
+    return '';
+  }
+
+  /** Per-step drive spend for tree rail (calc-backed; CR/DR literal tokens when DB missing). */
+  function estimateSingleTokenDriveCost(rawToken) {
+    const raw = String(rawToken || '');
+    const k = normalizeCalcTokenKey(raw);
+    if (k === 'CR') return 3;
+    if (k === 'DR') return 1;
+
+    const resolved = resolveTreeLabelToDriveStep(raw);
+    if (resolved && resolved.entry) {
+      return treeDriveRailCostFromCalc(resolved.entry, resolved.stepToken);
+    }
+    return 0;
+  }
+
+  function estimateDriveSpentFromTokens(tokens) {
+    if (!Array.isArray(tokens)) return 0;
+    let sum = 0;
+    tokens.forEach((t) => { sum += estimateSingleTokenDriveCost(t); });
+    return sum;
+  }
+
+  function getComboDamageRailMax(combo) {
+    if (!combo || typeof combo !== 'object') return 0;
+    const fields = ['damage_normal', 'damage_counter', 'damage_normal_ca', 'damage_counter_ca'];
+    let max = 0;
+    fields.forEach((f) => {
+      const n = parseNumericText(combo[f]);
+      if (n != null && n > max) max = n;
+    });
+    return max;
+  }
+
+  function syncTreeRailModeButtons() {
+    const d = qs('treeRailModeDrive');
+    const g = qs('treeRailModeDamage');
+    if (d) {
+      d.classList.remove('active');
+      d.classList.toggle('is-active', treeRailState.mode === 'drive');
+    }
+    if (g) {
+      g.classList.remove('active');
+      g.classList.toggle('is-active', treeRailState.mode === 'damage');
+    }
+  }
+
+  function setTreeRailMode(mode) {
+    if (mode !== 'damage' && mode !== 'drive') return;
+    treeRailState.mode = mode;
+    setTreeRailStoredMode(mode);
+    syncTreeRailModeButtons();
+    updateTreeScaleColumnTitle();
+    doRebuildTree();
+  }
+
+  function updateTreeScaleColumnTitle() {
+    const el = qs('treeScaleColTitle');
+    if (!el) return;
+    const isEn = getComboLang() === 'en';
+    el.textContent = treeRailState.mode === 'drive'
+      ? (isEn ? 'D Gauge' : 'Dゲージ')
+      : (isEn ? 'Damage' : 'ダメージ');
+  }
+
+  function isTreeNodeFlowExpanded(node, opt = treeFlowRenderOptions) {
+    if (opt.expandAll === true) return true;
+    if (opt.collapseAll === true) return false;
+    return comboTreeState.expandedNodes.has(node.id);
+  }
+
+  function gatherNodeComboIndexes(node, out = []) {
+    if (!node) return out;
+    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.length) {
+      node.comboGlobalIndexes.forEach((idx) => {
+        if (Number.isFinite(Number(idx))) out.push(Number(idx));
+      });
+    }
+    if (Array.isArray(node.children) && node.children.length) {
+      node.children.forEach((child) => gatherNodeComboIndexes(child, out));
+    }
+    return out;
+  }
+
+  function getTreeRepresentativeComboIndex(node) {
+    const indexes = gatherNodeComboIndexes(node, []);
+    if (!indexes.length) return -1;
+    indexes.sort((a, b) => a - b);
+    return indexes[0];
+  }
+
+  function setTreeDetailSelectedCombo(index) {
+    const n = Number.isFinite(Number(index)) ? Number(index) : -1;
+    treeDetailState.comboIndex = n;
+    if (n >= 0) state.selectedGroup = n;
+    else state.selectedGroup = -1;
+    syncTreeSelectionHighlight();
+    renderTreeDetailPane();
+  }
+
+  function treeDetailLabelForField(field, lang) {
+    if (field === 'tags') return lang === 'en' ? 'Tags' : 'タグ';
+    if (field === 'extra_notes') return lang === 'en' ? 'Extra Notes' : '追加メモ';
+    if (field === 'combo_url') return 'URL';
+    const labelEntry = XLSX_FIELD_LABELS[field];
+    if (!labelEntry) return field;
+    return String((labelEntry[lang] != null ? labelEntry[lang] : labelEntry.en) || field);
+  }
+
+  function treeDetailSectionTitle(sectionKey, lang) {
+    if (sectionKey === 'conditions') return lang === 'en' ? 'Conditions' : '条件';
+    if (sectionKey === 'damage') return lang === 'en' ? 'Damage' : 'ダメージ';
+    if (sectionKey === 'drive') return lang === 'en' ? 'D Gauge' : 'Dゲージ';
+    if (sectionKey === 'sa') return lang === 'en' ? 'SA Gauge' : 'SAゲージ';
+    return lang === 'en' ? 'Other' : 'その他';
+  }
+
+  function normalizeTreeDetailValue(combo, field) {
+    const raw = combo && combo[field];
+    const text = raw == null ? '' : String(raw).trim();
+    if (!text) return '-';
+    return text;
+  }
+
+  function getTreeDetailVideoThumbnail(url) {
+    const raw = String(url || '').trim();
+    if (!raw) return '';
+    try {
+      const u = new URL(raw);
+      const host = String(u.hostname || '').toLowerCase();
+      if (host.includes('youtube.com')) {
+        const id = u.searchParams.get('v');
+        if (id) return `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
+      }
+      if (host.includes('youtu.be')) {
+        const id = String(u.pathname || '').replace(/^\//, '').trim();
+        if (id) return `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
+      }
+    } catch (_) { }
+    return '';
+  }
+
+  function readTreeDetailEditableValues() {
+    const values = {};
+    const commandInput = qs('treeDetailCommandInput');
+    const tagsInput = qs('treeDetailTagsInput');
+    const notesInput = qs('treeDetailNotesInput');
+    const okiInput = qs('treeDetailOkiInput');
+    const extraInput = qs('treeDetailExtraNotesInput');
+    const urlInput = qs('treeDetailUrlInput');
+    values.command = commandInput ? String(commandInput.value || '').trim() : '';
+    values.tags = tagsInput ? String(tagsInput.value || '').trim() : '';
+    values.combo_notes = notesInput ? String(notesInput.value || '').trim() : '';
+    values.oki = okiInput ? String(okiInput.value || '').trim() : '';
+    values.extra_notes = extraInput ? String(extraInput.value || '').trim() : '';
+    values.combo_url = urlInput ? String(urlInput.value || '').trim() : '';
+    document.querySelectorAll('#treeDetailGrid .tree-detail-value-input[data-field]').forEach((input) => {
+      if (!input || !input.dataset) return;
+      const field = String(input.dataset.field || '').trim();
+      if (!field) return;
+      values[field] = String(input.value || '').trim();
+    });
+    return values;
+  }
+
+  function saveTreeDetailPaneEdits() {
+    const idx = Number(treeDetailState.comboIndex);
+    if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
+    const combo = state.combos[idx];
+    if (!combo || typeof combo !== 'object') return;
+    const values = readTreeDetailEditableValues();
+    const prevCommand = String(combo.command || '').trim();
+    const prevTags = String(combo.tags || '').trim();
+    const prevNotes = String(combo.combo_notes || '').trim();
+    const prevOki = String(combo.oki || '').trim();
+    const prevExtra = String(combo.extra_notes || '').trim();
+    const prevUrl = String(combo.combo_url || '').trim();
+    const prevByField = {};
+    FIELD_ORDER.forEach((field) => {
+      prevByField[field] = String(combo[field] == null ? '' : combo[field]).trim();
+    });
+
+    combo.command = values.command;
+    combo.tags = values.tags;
+    combo.combo_notes = values.combo_notes;
+    combo.oki = values.oki;
+    combo.extra_notes = values.extra_notes;
+    combo.combo_url = values.combo_url;
+
+    TREE_DETAIL_EDITABLE_FIELDS.forEach((field) => {
+      if (field === 'tags') setComboFieldSource(combo, field, values[field] ? 'user' : '');
+      else if (field !== 'command') setComboFieldSource(combo, field, values[field] ? 'user' : '');
+    });
+
+    if (values.command !== prevCommand) {
+      setComboFieldSource(combo, 'command', values.command ? 'user' : '');
+      setComboFieldSource(combo, 'frame_meter', '');
+    }
+    if (values.tags !== prevTags) setComboFieldSource(combo, 'tags', values.tags ? 'user' : '');
+    if (values.combo_notes !== prevNotes) setComboFieldSource(combo, 'combo_notes', values.combo_notes ? 'user' : '');
+    if (values.oki !== prevOki) setComboFieldSource(combo, 'oki', values.oki ? 'user' : '');
+    if (values.extra_notes !== prevExtra) setComboFieldSource(combo, 'extra_notes', values.extra_notes ? 'user' : '');
+    if (values.combo_url !== prevUrl) setComboFieldSource(combo, 'combo_url', values.combo_url ? 'user' : '');
+    FIELD_ORDER.forEach((field) => {
+      if (!Object.prototype.hasOwnProperty.call(values, field)) return;
+      const next = String(values[field] || '').trim();
+      combo[field] = next;
+      if (next !== prevByField[field]) setComboFieldSource(combo, field, next ? 'user' : '');
+    });
+
+    combo._derivedDirty = true;
+    syncDerivedComboFieldsForRow(idx, { forceSync: true, forceDamage: true, renderFrameMeter: false });
+    persist();
+    if (isVirtualScrollEnabled()) renderVirtualWindow({ force: true });
+    else {
+      applyStateToTable({
+        rangeStart: idx,
+        rangeEnd: idx + 1,
+        skipFrameMeterRender: true,
+      });
+    }
+    doRebuildTree();
+    setTreeDetailSelectedCombo(idx);
+  }
+
+  function deleteTreeDetailSelectedCombo() {
+    const idx = Number(treeDetailState.comboIndex);
+    if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
+    if (!window.confirm(comboMsg('context_delete_confirm'))) return;
+    deleteComboAtIndex(idx);
+    doRebuildTree();
+    setTreeDetailSelectedCombo(idx);
+  }
+
+  function renderTreeDetailPane() {
+    const pane = qs('treeDetailPane');
+    const headTextEl = qs('treeDetailHeadText');
+    const openModalBtn = qs('treeDetailOpenModalBtn');
+    const emptyEl = qs('treeDetailEmpty');
+    const modalHost = qs('treeDetailModalHost');
+    if (!pane || !emptyEl || !modalHost) return;
+    const activeLang = getComboLang();
+    if (headTextEl) headTextEl.textContent = activeLang === 'en' ? 'Selected Combo' : '選択中コンボ';
+    if (openModalBtn) {
+      openModalBtn.textContent = comboT('ui.context_frame_meter_details', activeLang) || (activeLang === 'en' ? 'Combo Details' : 'コンボ詳細');
+      openModalBtn.title = comboT('ui.context_frame_meter_details', activeLang) || (activeLang === 'en' ? 'Combo Details' : 'コンボ詳細');
+    }
+    emptyEl.textContent = activeLang === 'en' ? 'Select a branch to show details.' : '枝を選択すると詳細を表示します。';
+    pane.classList.toggle('is-hidden', !!treeDetailState.hidden);
+    if (treeDetailState.hidden) return;
+    const idx = Number(treeDetailState.comboIndex);
+    const combo = Number.isFinite(idx) && idx >= 0 ? state.combos[idx] : null;
+    if (!combo) {
+      emptyEl.hidden = false;
+      if (openModalBtn) openModalBtn.disabled = true;
+      if (modalHost) modalHost.style.display = 'none';
+      const overlay = qs('frameMeterOverlay');
+      if (overlay && overlay.classList.contains('tree-docked')) overlay.classList.add('hidden');
+      return;
+    }
+    emptyEl.hidden = true;
+    if (openModalBtn) openModalBtn.disabled = false;
+    // Reuse combo detail modal as the right pane in tree view.
+    if (modalHost) modalHost.style.display = 'flex';
+    openFrameMeterDetailsModal(idx, { treeDocked: true, returnFocusEl: null });
+    return;
+
+    /* Legacy custom tree detail pane (kept for fallback only). */
+    const gridEl = qs('treeDetailGrid');
+    if (gridEl) gridEl.innerHTML = '';
+    const commandInput = qs('treeDetailCommandInput');
+    const tagsInput = qs('treeDetailTagsInput');
+    const notesInput = qs('treeDetailNotesInput');
+    const okiInput = qs('treeDetailOkiInput');
+    const extraInput = qs('treeDetailExtraNotesInput');
+    const urlInput = qs('treeDetailUrlInput');
+    if (commandInput) commandInput.value = String(combo.command || '');
+    if (tagsInput) tagsInput.value = String(combo.tags || '');
+    if (notesInput) notesInput.value = String(combo.combo_notes || '');
+    if (okiInput) okiInput.value = String(combo.oki || '');
+    if (extraInput) extraInput.value = String(combo.extra_notes || '');
+    if (urlInput) urlInput.value = String(combo.combo_url || '');
+    const mediaEl = qs('treeDetailMedia');
+    const urlLinkEl = qs('treeDetailUrlLink');
+    const thumbEl = qs('treeDetailVideoThumb');
+    const comboUrl = String(combo.combo_url || '').trim();
+    if (mediaEl) mediaEl.hidden = !comboUrl;
+    if (urlLinkEl) {
+      urlLinkEl.href = comboUrl || '#';
+      urlLinkEl.textContent = comboUrl
+        ? (getComboLang() === 'en' ? 'Open URL' : 'URLを開く')
+        : (getComboLang() === 'en' ? 'Open URL' : 'URLを開く');
+    }
+    if (thumbEl) {
+      const thumb = getTreeDetailVideoThumbnail(comboUrl);
+      if (thumb) {
+        thumb.src = thumb;
+        thumb.hidden = false;
+        thumb.onclick = () => {
+          if (!comboUrl) return;
+          window.open(comboUrl, '_blank', 'noopener,noreferrer');
+        };
+      } else {
+        thumb.removeAttribute('src');
+        thumb.hidden = true;
+        thumb.onclick = null;
+      }
+    }
+    const btnEl = qs('treeDetailButtons');
+    if (btnEl) {
+      const canonicalButtons = String(combo.buttons || '').trim() || String(combo.command || '').trim();
+      const iconsOnly = canonicalButtons ? renderNotationIconsOnlyFromCanonical(canonicalButtons, getComboLang()) : '';
+      btnEl.innerHTML = iconsOnly || escapeHtml(canonicalButtons || '-');
+    }
+    if (!gridEl) return;
+    const lang = getComboLang();
+    {
+      const summaryEl = document.createElement('div');
+      summaryEl.className = 'tree-detail-section';
+      const titleEl = document.createElement('div');
+      titleEl.className = 'tree-detail-section-title';
+      titleEl.textContent = lang === 'en' ? 'Combo Summary' : 'コンボ概要';
+      summaryEl.appendChild(titleEl);
+      const summaryRows = [
+        ['damage_normal', getComboEffectiveDamage(combo)],
+        ['d_normal', getComboEffectiveDriveDamage(combo)],
+        ['drive_delta', combo.drive_delta],
+        ['drive_efficiency', combo.drive_efficiency],
+        ['sa_delta', combo.sa_delta],
+        ['carry_distance', combo.carry_distance],
+        ['frame_adv', combo.frame_adv],
+      ];
+      summaryRows.forEach(([field, rawValue]) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'tree-detail-row';
+        const labelEl = document.createElement('div');
+        labelEl.className = 'tree-detail-label';
+        labelEl.textContent = treeDetailLabelForField(field, lang);
+        const valueEl = document.createElement('div');
+        valueEl.className = 'tree-detail-value';
+        valueEl.textContent = (rawValue == null || String(rawValue).trim() === '') ? '-' : String(rawValue);
+        rowEl.appendChild(labelEl);
+        rowEl.appendChild(valueEl);
+        summaryEl.appendChild(rowEl);
+      });
+      gridEl.appendChild(summaryEl);
+    }
+    TREE_DETAIL_SECTIONS.forEach((section) => {
+      const secEl = document.createElement('div');
+      secEl.className = 'tree-detail-section';
+      const titleEl = document.createElement('div');
+      titleEl.className = 'tree-detail-section-title';
+      titleEl.textContent = treeDetailSectionTitle(section.key, lang);
+      secEl.appendChild(titleEl);
+      section.fields.forEach((field) => {
+        if (REMOVED_COMBO_FIELDS.includes(field)) return;
+        if (!TREE_DETAIL_FIELDS.includes(field)) return;
+        const rowEl = document.createElement('div');
+        rowEl.className = 'tree-detail-row';
+        const labelEl = document.createElement('div');
+        labelEl.className = 'tree-detail-label';
+        labelEl.textContent = treeDetailLabelForField(field, lang);
+        const valueEl = document.createElement('div');
+        const valueInput = document.createElement('input');
+        valueInput.className = 'tree-detail-value-input';
+        valueInput.type = 'text';
+        valueInput.dataset.field = field;
+        valueInput.value = String(combo[field] == null ? '' : combo[field]);
+        valueEl.className = 'tree-detail-value';
+        valueEl.appendChild(valueInput);
+        rowEl.appendChild(labelEl);
+        rowEl.appendChild(valueEl);
+        secEl.appendChild(rowEl);
+      });
+      gridEl.appendChild(secEl);
+    });
+    {
+      const miscEl = document.createElement('div');
+      miscEl.className = 'tree-detail-section';
+      const titleEl = document.createElement('div');
+      titleEl.className = 'tree-detail-section-title';
+      titleEl.textContent = lang === 'en' ? 'Text Fields' : 'テキスト項目';
+      miscEl.appendChild(titleEl);
+      ['tags', 'combo_notes', 'extra_notes', 'combo_url'].forEach((field) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'tree-detail-row';
+        const labelEl = document.createElement('div');
+        labelEl.className = 'tree-detail-label';
+        labelEl.textContent = treeDetailLabelForField(field, lang);
+        const valueEl = document.createElement('div');
+        const valueInput = document.createElement('input');
+        valueInput.className = 'tree-detail-value-input';
+        valueInput.type = 'text';
+        valueInput.dataset.field = field;
+        valueInput.value = String(combo[field] == null ? '' : combo[field]);
+        valueEl.className = 'tree-detail-value';
+        valueEl.appendChild(valueInput);
+        rowEl.appendChild(labelEl);
+        rowEl.appendChild(valueEl);
+        miscEl.appendChild(rowEl);
+      });
+      gridEl.appendChild(miscEl);
+    }
+  }
+
+  /** Damage axis: tiers from damage_normal only (0-based k = floor(d/1000)). */
+  function comboDamageNormalTier(combo) {
+    if (!combo || typeof combo !== 'object') return 0;
+    const n = parseNumericText(combo.damage_normal);
+    if (n == null || n < 0) return 0;
+    return Math.floor(n / 1000);
+  }
+
+  /** Per-node min/max normal-damage tier over descendant leaves (not counter/CA totals). */
+  function computeFlowLeafDamageTiers(node) {
+    let tMin = Infinity;
+    let tMax = -1;
+    if (node.comboGlobalIndexes && node._combos && node.comboGlobalIndexes.length) {
+      node.comboGlobalIndexes.forEach((_, i) => {
+        const tier = comboDamageNormalTier(node._combos[i]);
+        tMin = Math.min(tMin, tier);
+        tMax = Math.max(tMax, tier);
+      });
+    }
+    if (node.children && node.children.length) {
+      node.children.forEach((ch) => {
+        computeFlowLeafDamageTiers(ch);
+        tMin = Math.min(tMin, ch._flowTierMin);
+        tMax = Math.max(tMax, ch._flowTierMax);
+      });
+    }
+    if (!Number.isFinite(tMin)) tMin = 0;
+    if (tMax < 0) tMax = tMin;
+    node._flowTierMin = tMin;
+    node._flowTierMax = tMax;
+    return { min: tMin, max: tMax };
+  }
+
+  function collectVisibleFlowNodesBand(topNode) {
+    const out = [];
+    function dfs(n, parent, relDepth) {
+      out.push({ node: n, parent, relDepth });
+      if (!isTreeNodeFlowExpanded(n)) return;
+      if (!n.children || !n.children.length) return;
+      n.children.forEach((ch) => dfs(ch, n, relDepth + 1));
+    }
+    dfs(topNode, null, 0);
+    return out;
+  }
+
+  function buildCumDriveForBand(topNode) {
+    const map = new Map();
+    const starterCost = Math.max(0, estimateDriveSpentFromTokens([topNode.label]));
+    map.set(topNode.id, starterCost);
+    function walk(n) {
+      const base = map.get(n.id);
+      if (base == null) return;
+      if (!isTreeNodeFlowExpanded(n)) return;
+      if (!n.children || !n.children.length) return;
+      n.children.forEach((ch) => {
+        map.set(ch.id, base + estimateDriveSpentFromTokens([ch.label]));
+        walk(ch);
+      });
+    }
+    walk(topNode);
+    return map;
+  }
+
+  const TREE_FLOW_COL_W = 300;
+  const TREE_FLOW_TOP_PAD = 20;
+  const TREE_FLOW_STAGGER_X = 0;
+  const TREE_FLOW_ROW_PAIR_MIN = 76;
+  const TREE_FLOW_SLOT_STACK_GAP = 22;
+  const TREE_FLOW_SLOT_TOP_INSET = 12;
+
+  function stackFlowRowSlotsVertically(rowEl, pair) {
+    const slots = [...rowEl.querySelectorAll('.tree-flow-slot')];
+    slots.sort((a, b) => {
+      const la = parseFloat(String(a.style.left || '0')) || 0;
+      const lb = parseFloat(String(b.style.left || '0')) || 0;
+      if (la !== lb) return la - lb;
+      const ia = Math.max(0, Number(a.dataset.incomingDepth || 0));
+      const ib = Math.max(0, Number(b.dataset.incomingDepth || 0));
+      if (ia !== ib) return ib - ia;
+      const pa = Number(a.dataset.parentOrder || Number.MAX_SAFE_INTEGER);
+      const pb = Number(b.dataset.parentOrder || Number.MAX_SAFE_INTEGER);
+      if (pa !== pb) return pa - pb;
+      const sa = Number(a.dataset.sequence || 0);
+      const sb = Number(b.dataset.sequence || 0);
+      if (sa !== sb) return sa - sb;
+      return String(a.dataset.nodeId || '').localeCompare(String(b.dataset.nodeId || ''));
+    });
+    let y = TREE_FLOW_SLOT_TOP_INSET;
+    slots.forEach((slot) => {
+      slot.style.top = `${y}px`;
+      y += slot.offsetHeight + TREE_FLOW_SLOT_STACK_GAP;
+    });
+    pair.style.minHeight = `${Math.max(TREE_FLOW_ROW_PAIR_MIN, Math.ceil(y + TREE_FLOW_SLOT_STACK_GAP))}px`;
+  }
+
+  function buildFlowBranchBox(node, options = {}) {
+    const collapseAll = options.collapseAll === true;
+    const expandAll = options.expandAll === true;
+
+    const boxEl = document.createElement('div');
+    boxEl.className = 'htree-box tree-flow-box';
+    boxEl.dataset.nodeId = String(node.id || '');
+    boxEl.tabIndex = 0;
+    boxEl.setAttribute('role', 'button');
+
+    const iconEl = document.createElement('span');
+    iconEl.className = 'htree-box-icons cmd-input';
+    iconEl.dataset.field = 'buttons';
+    const normalizedLabel = normalizeTreeButtonInput(node.label);
+    renderButtonsInput(iconEl, normalizedLabel);
+    boxEl.appendChild(iconEl);
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'htree-box-label';
+    labelEl.textContent = node.label;
+    boxEl.appendChild(labelEl);
+
+    const countEl = document.createElement('span');
+    countEl.className = 'htree-box-count';
+    countEl.textContent = String(countNodeCombos(node));
+    boxEl.appendChild(countEl);
+    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.length > 0) {
+      const storeMark = document.createElement('span');
+      storeMark.className = 'htree-box-store-mark';
+      storeMark.title = getComboLang() === 'en' ? 'Node has saved combos' : 'このノードにコンボが保存されています';
+      storeMark.setAttribute('aria-label', storeMark.title);
+      storeMark.textContent = '●';
+      boxEl.appendChild(storeMark);
+    }
+
+    const driveBorder = classifyTreeBoxDriveBorder(node.label);
+    if (driveBorder) boxEl.classList.add(`htree-box--${driveBorder}`);
+
+    const hasChildren = Array.isArray(node.children) && node.children.length > 0;
+    boxEl.addEventListener('contextmenu', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      openTreeNodeContextMenu(boxEl, node);
+    });
+    if (hasChildren) {
+      const isExpanded = expandAll || (!collapseAll && isTreeNodeFlowExpanded(node, options));
+      boxEl.dataset.expanded = isExpanded ? '1' : '0';
+      if (!isExpanded) boxEl.classList.add('htree-collapsed');
+
+      const toggle = (ev) => {
+        if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation();
+        const expanded = boxEl.dataset.expanded === '1';
+        const next = !expanded;
+        boxEl.dataset.expanded = next ? '1' : '0';
+        boxEl.classList.toggle('htree-collapsed', !next);
+        if (next) comboTreeState.expandedNodes.add(node.id);
+        else comboTreeState.expandedNodes.delete(node.id);
+        doRebuildTree();
+      };
+      boxEl.addEventListener('click', toggle);
+      boxEl.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle(ev); }
+      });
+    } else {
+      const pickOnly = (ev) => {
+        if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation();
+        const repIdx = getTreeRepresentativeComboIndex(node);
+        if (repIdx >= 0) setTreeDetailSelectedCombo(repIdx);
+      };
+      boxEl.addEventListener('click', pickOnly);
+      boxEl.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pickOnly(ev); }
+      });
+    }
+
+    return boxEl;
+  }
+
+  function renderMockupComboTree(root, targetEl, options = {}) {
+    if (!targetEl) return;
+    treeFlowRenderOptions = options || {};
+    targetEl.className = 'htree-root htree-root--mockup';
+    while (targetEl.firstChild) targetEl.removeChild(targetEl.firstChild);
+    updateTreeScaleColumnTitle();
+    if (!root || !root.children.length) {
+      const empty = document.createElement('div');
+      empty.className = 'htree-empty';
+      empty.textContent = getComboLang() === 'en' ? 'No combos to display' : '表示するコンボがありません';
+      targetEl.appendChild(empty);
+      return;
+    }
+
+    root.children.forEach((topNode) => {
+      computeFlowLeafDamageTiers(topNode);
+      const entries = collectVisibleFlowNodesBand(topNode);
+      const cumDrive = buildCumDriveForBand(topNode);
+
+      let driveMin = Infinity;
+      let driveMax = -1;
+      let damageMin = Infinity;
+      let damageMax = -1;
+      entries.forEach((e) => {
+        const c = Number(cumDrive.get(e.node.id));
+        if (Number.isFinite(c)) {
+          driveMin = Math.min(driveMin, c);
+          driveMax = Math.max(driveMax, c);
+        }
+      });
+      if (!Number.isFinite(driveMin)) driveMin = 0;
+      if (driveMax < driveMin) driveMax = driveMin;
+
+      entries.forEach((e) => {
+        const n = e.node;
+        if (treeRailState.mode === 'drive') {
+          e.row = Math.max(0, Math.floor(Number(cumDrive.get(n.id)) || 0));
+          e.visualRow = e.row - driveMin;
+        } else {
+          e.row = Math.max(0, Number(n._flowTierMin) || 0);
+          damageMin = Math.min(damageMin, e.row);
+          damageMax = Math.max(damageMax, e.row);
+          e.visualRow = e.row;
+        }
+      });
+      if (treeRailState.mode === 'damage') {
+        entries.forEach((e) => {
+          e.visualRow = e.row - damageMin;
+        });
+      }
+
+      if (!Number.isFinite(damageMin)) damageMin = 0;
+      if (damageMax < damageMin) damageMax = damageMin;
+      const orderedVisualRows = treeRailState.mode === 'drive'
+        ? Array.from({ length: Math.max(1, driveMax - driveMin + 1) }, (_, i) => i)
+        : Array.from({ length: Math.max(1, damageMax - damageMin + 1) }, (_, i) => i);
+
+      const band = document.createElement('div');
+      band.className = 'tree-starter-band';
+
+      let maxRelDepth = 0;
+      entries.forEach((e) => { if (e.relDepth > maxRelDepth) maxRelDepth = e.relDepth; });
+      const colMinW = `${TREE_FLOW_TOP_PAD + (maxRelDepth + 2) * TREE_FLOW_COL_W + 280}px`;
+
+      const mainCol = document.createElement('div');
+      mainCol.className = 'tree-band-main-col';
+      mainCol.style.minWidth = colMinW;
+
+      const svgHost = document.createElement('div');
+      svgHost.className = 'tree-flow-canvas-host';
+      svgHost.style.minWidth = colMinW;
+      svgHost.appendChild(mainCol);
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('tree-flow-svg');
+
+      const idToWrap = new Map();
+      const entryIndexMap = new Map();
+      entries.forEach((entry, idx) => {
+        entryIndexMap.set(entry.node.id, idx);
+      });
+
+      const buildLeafStackEl = (n) => {
+        const stack = document.createElement('div');
+        stack.className = 'tree-flow-leaf-stack';
+        const driveGroups = new Map();
+        n.comboGlobalIndexes.forEach((gIdx, i) => {
+          const combo = n._combos[i];
+          const key = getTreeDriveReqKey(combo);
+          if (!driveGroups.has(key)) driveGroups.set(key, []);
+          driveGroups.get(key).push({ combo, index: gIdx });
+        });
+        const sortedKeys = Array.from(driveGroups.keys()).sort((a, b) => {
+          const na = parseNumericText(a);
+          const nb = parseNumericText(b);
+          if (na == null && nb == null) return String(a).localeCompare(String(b));
+          if (na == null) return 1;
+          if (nb == null) return -1;
+          return na - nb;
+        });
+        sortedKeys.forEach((key) => {
+          const items = driveGroups.get(key) || [];
+          items.forEach(({ combo, index }) => {
+            stack.appendChild(buildHTreeLeafEl(combo, index));
+          });
+        });
+        return stack;
+      };
+
+      orderedVisualRows.forEach((vr) => {
+        const pair = document.createElement('div');
+        pair.className = 'tree-band-row-pair';
+
+        const tickSide = document.createElement('div');
+        tickSide.className = 'tree-band-tick-side';
+        const tick = document.createElement('span');
+        tick.className = 'tree-band-tick';
+        tick.textContent = treeRailState.mode === 'drive'
+          ? String(driveMin + vr)
+          : String((damageMin + vr) * 1000);
+        tickSide.appendChild(tick);
+
+        const rowEl = document.createElement('div');
+        rowEl.className = 'tree-flow-row';
+        rowEl.dataset.visualRow = String(vr);
+
+        const rowEntries = entries.filter((e) => e.visualRow === vr);
+        rowEntries.forEach((e, idx) => {
+          const slot = document.createElement('div');
+          slot.className = 'tree-flow-slot';
+          slot.dataset.nodeId = e.node.id;
+          slot.dataset.sequence = String(idx);
+          slot.dataset.parentOrder = e.parent ? String(entryIndexMap.get(e.parent.id) ?? Number.MAX_SAFE_INTEGER) : '-1';
+          if (e.parent && Number.isFinite(e.parent.visualRow)) {
+            slot.dataset.incomingDepth = String(Math.max(0, Number(vr) - Number(e.parent.visualRow)));
+          } else {
+            slot.dataset.incomingDepth = '0';
+          }
+          slot.style.left = `${TREE_FLOW_TOP_PAD + e.relDepth * TREE_FLOW_COL_W}px`;
+          slot.appendChild(buildFlowBranchBox(e.node, options));
+          rowEl.appendChild(slot);
+          idToWrap.set(e.node.id, slot);
+        });
+
+        pair.appendChild(tickSide);
+        pair.appendChild(rowEl);
+        mainCol.appendChild(pair);
+      });
+
+      const anchorBox = (slot) => {
+        const b = slot.querySelector('.htree-box');
+        return b || slot;
+      };
+
+      const drawEdges = () => {
+        const cRect = svgHost.getBoundingClientRect();
+        if (!cRect.width || !cRect.height) return;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        const layoutW = Math.max(Math.ceil(cRect.width), Math.ceil(svgHost.scrollWidth || 0));
+        const layoutH = Math.max(Math.ceil(cRect.height), Math.ceil(svgHost.scrollHeight || 0));
+        svg.setAttribute('width', String(layoutW));
+        svg.setAttribute('height', String(layoutH));
+        svg.setAttribute('viewBox', `0 0 ${layoutW} ${layoutH}`);
+        const addPath = (d) => {
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', d);
+          path.classList.add('tree-flow-edge');
+          path.setAttribute('stroke-linecap', 'round');
+          path.setAttribute('stroke-linejoin', 'round');
+          path.setAttribute('fill', 'none');
+          svg.appendChild(path);
+        };
+        const edgesByParent = new Map();
+        const parentGeom = new Map();
+        const parentDepth = new Map();
+        entries.forEach((entry) => {
+          if (!entry.parent) return;
+          const key = String(entry.parent.id || '');
+          if (!edgesByParent.has(key)) edgesByParent.set(key, []);
+          edgesByParent.get(key).push(entry);
+          if (!parentDepth.has(key)) parentDepth.set(key, Math.max(0, Number(entry.parent.relDepth) || 0));
+        });
+        edgesByParent.forEach((children, parentId) => {
+          const parentWrap = idToWrap.get(parentId);
+          if (!parentWrap) return;
+          const pr = anchorBox(parentWrap).getBoundingClientRect();
+          parentGeom.set(parentId, {
+            x: pr.right - cRect.left + 2,
+            y: pr.top - cRect.top + pr.height / 2,
+          });
+        });
+        const orderedParents = [...parentGeom.entries()]
+          .sort((a, b) => {
+            if (a[1].x !== b[1].x) return a[1].x - b[1].x;
+            return a[1].y - b[1].y;
+          })
+          .map(([id]) => id);
+        const parentOrder = new Map();
+        orderedParents.forEach((id, i) => parentOrder.set(id, i));
+        const depthBuckets = new Map();
+        orderedParents.forEach((id) => {
+          const d = parentDepth.get(id) || 0;
+          if (!depthBuckets.has(d)) depthBuckets.set(d, []);
+          depthBuckets.get(d).push(id);
+        });
+        const depthLocalOrder = new Map();
+        depthBuckets.forEach((ids) => {
+          ids.forEach((id, i) => depthLocalOrder.set(id, i));
+        });
+
+        edgesByParent.forEach((children, parentId) => {
+          if (!children || !children.length) return;
+          const geom = parentGeom.get(parentId);
+          if (!geom) return;
+          const x1 = geom.x;
+          const y1 = geom.y;
+          const pLocal = Number(depthLocalOrder.get(parentId) || 0);
+          const sorted = children
+            .map((entry) => {
+              const childWrap = idToWrap.get(entry.node.id);
+              if (!childWrap) return null;
+              const childRect = anchorBox(childWrap).getBoundingClientRect();
+              return {
+                // Stop connector before the box edge so it stays visible with store markers
+                // and never runs under the child mask.
+                x2: childRect.left - cRect.left - 12,
+                y2: childRect.top - cRect.top + childRect.height / 2,
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.y2 - b.y2);
+          const n = sorted.length;
+          if (!n) return;
+          // Place the vertical lane at the midpoint of the gap, offset per parent so
+          // siblings of different parents get clearly distinct vertical buses.
+          // 6 lanes, 6 px apart → ±15 px around midpoint; stays within 48 px clear zone
+          // (COL_W 300 − max-box 220 − two 16 px masks = 48 px).
+          const minX2 = Math.min(...sorted.map((s) => s.x2));
+          const midGap = (x1 + minX2) / 2;
+          const laneOffset = ((pLocal % 6) - 2.5) * 6; // −15, −9, −3, +3, +9, +15 px
+          const laneX = Math.max(x1 + 8, Math.min((minX2 - 10 - ((pLocal % 4) * 3)), minX2 - 4));
+          if (!Number.isFinite(laneX)) return;
+          if (n === 1) {
+            // Single child: one elbow — no need for a separate bus.
+            const { x2, y2 } = sorted[0];
+            if (!Number.isFinite(x2) || !Number.isFinite(y2)) return;
+            addPath(`M ${x1.toFixed(1)} ${y1.toFixed(1)} L ${laneX.toFixed(1)} ${y1.toFixed(1)} L ${laneX.toFixed(1)} ${y2.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+          } else {
+            // Multiple children: T-bar — one spine from parent to last child,
+            // then one horizontal arm per child.  Replaces N overlapping elbows.
+            const yBot = sorted[n - 1].y2;
+            addPath(`M ${x1.toFixed(1)} ${y1.toFixed(1)} L ${laneX.toFixed(1)} ${y1.toFixed(1)} L ${laneX.toFixed(1)} ${yBot.toFixed(1)}`);
+            sorted.forEach(({ x2, y2 }) => {
+              if (!Number.isFinite(x2) || !Number.isFinite(y2)) return;
+              addPath(`M ${laneX.toFixed(1)} ${y2.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+            });
+          }
+        });
+
+        // Hard mask under each node to prevent connector bleed-through under long boxes.
+        // Use the actual rendered background color (not only a theme flag) so light-mode
+        // toggles and custom palettes cannot leave stale dark masks behind.
+        const resolveMaskFillColor = () => {
+          const isTransparent = (v) => {
+            const s = String(v || '').trim().toLowerCase();
+            return !s || s === 'transparent' || s === 'rgba(0, 0, 0, 0)';
+          };
+          const pick = (el) => {
+            if (!el || typeof window.getComputedStyle !== 'function') return '';
+            const bg = window.getComputedStyle(el).backgroundColor;
+            return isTransparent(bg) ? '' : bg;
+          };
+          return (
+            pick(svgHost)
+            || pick(band)
+            || pick(targetEl)
+            || pick(document.getElementById('treeView'))
+            || pick(document.body)
+            || '#0f0f0f'
+          );
+        };
+        const resolvedMaskFill = resolveMaskFillColor();
+        // Keep masks tight to the box so branch lines beside the box stay visible,
+        // especially after store-marker width changes.
+        const maskPadLeft = 4;
+        const maskPadRight = 0;
+        const maskPadY = 4;
+        idToWrap.forEach((slot) => {
+          const box = anchorBox(slot);
+          if (!box) return;
+          const r = box.getBoundingClientRect();
+          const x = r.left - cRect.left - maskPadLeft;
+          const y = r.top - cRect.top - maskPadY;
+          const w = r.width + maskPadLeft + maskPadRight;
+          const h = r.height + (maskPadY * 2);
+          if (!(w > 0 && h > 0)) return;
+          const mask = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          mask.setAttribute('x', String(x));
+          mask.setAttribute('y', String(y));
+          mask.setAttribute('width', String(w));
+          mask.setAttribute('height', String(h));
+          mask.setAttribute('rx', '8');
+          mask.setAttribute('ry', '8');
+          mask.setAttribute('fill', resolvedMaskFill);
+          svg.appendChild(mask);
+        });
+      };
+
+      svgHost.appendChild(svg);
+      band.appendChild(svgHost);
+      targetEl.appendChild(band);
+
+      const measureBandHeight = () => {
+        const pairs = [...svgHost.querySelectorAll('.tree-band-row-pair')];
+        pairs.forEach((pair) => {
+          const rowEl = pair.querySelector('.tree-flow-row');
+          if (!rowEl) return;
+          stackFlowRowSlotsVertically(rowEl, pair);
+        });
+        // Force synchronous reflow so offsetHeight is stable for the second pass.
+        void svgHost.offsetHeight;
+        pairs.forEach((pair) => {
+          const rowEl = pair.querySelector('.tree-flow-row');
+          if (!rowEl) return;
+          stackFlowRowSlotsVertically(rowEl, pair);
+        });
+        // Force reflow again so getBoundingClientRect in drawEdges reads post-layout positions.
+        void svgHost.offsetHeight;
+        drawEdges();
+      };
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          measureBandHeight();
+          window.setTimeout(measureBandHeight, 120);
+        });
+      });
+    });
+  }
+
+  function syncTreeSelectionHighlight() {
+    if (!isComboTreeViewActive()) return;
+    const root = qs('treeViewRoot');
+    if (!root) return;
+    root.querySelectorAll('.htree-leaf.is-active').forEach((el) => el.classList.remove('is-active'));
+    root.querySelectorAll('.htree-box.tree-flow-box').forEach((box) => {
+      box.classList.remove('tree-flow-box-path', 'tree-flow-box-selected');
+    });
+    const idx = Number(state.selectedGroup);
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const combo = state.combos[idx];
+    const tokens = combo ? getTreeComboStepTokens(combo) : [];
+    if (tokens.length) {
+      const boxes = root.querySelectorAll('.htree-box.tree-flow-box[data-node-id]');
+      let acc = '';
+      tokens.forEach((token, depth) => {
+        acc += (depth === 0 ? '' : TREE_NODE_ID_SEP) + token;
+        const pathKey = acc;
+        const isLast = depth === tokens.length - 1;
+        boxes.forEach((box) => {
+          if (String(box.dataset.nodeId || '') !== pathKey) return;
+          box.classList.add('tree-flow-box-path');
+          if (isLast) box.classList.add('tree-flow-box-selected');
+        });
+      });
+    }
+    const target = root.querySelector(`.htree-leaf[data-combo-idx="${idx}"]`);
+    if (target) target.classList.add('is-active');
+  }
+
+  function getTreeComboStepTokens(combo) {
+    if (!combo) return [];
+    const id = combo._id;
+    if (id) {
+      const cached = treeTokenCache.get(id);
+      if (cached) return cached;
+    }
+    const tokens = commandToCalcStepTokens(combo.command || '');
+    if (id) treeTokenCache.set(id, tokens);
+    return tokens;
+  }
+
+  function getTreeFilteredPairs() {
+    const combos = Array.isArray(state.combos) ? state.combos : [];
+    const ctx = buildFilterContext();
+    const pairs = [];
+    for (let i = 0; i < combos.length; i += 1) {
+      const combo = combos[i] || defaultCombo();
+      if (!combo) continue;
+      if (comboMatchesFilters(combo, ctx)) {
+        pairs.push({ combo, globalIndex: i });
+      }
+    }
+    return pairs;
+  }
+
+  function buildComboTree(pairs) {
+    const root = { id: '__root__', label: '', children: [], comboGlobalIndexes: [], _combos: [] };
+    const nodeMap = new Map();
+    pairs.forEach(({ combo, globalIndex }) => {
+      const tokens = getTreeComboStepTokens(combo);
+      if (!tokens.length) return;
+      let parent = root;
+      let pathKey = '';
+      tokens.forEach((token, depth) => {
+        pathKey += (depth === 0 ? '' : TREE_NODE_ID_SEP) + token;
+        let node = nodeMap.get(pathKey);
+        if (!node) {
+          node = { id: pathKey, label: token, depth, children: [], comboGlobalIndexes: [], _combos: [] };
+          nodeMap.set(pathKey, node);
+          parent.children.push(node);
+        }
+        parent = node;
+      });
+      parent.comboGlobalIndexes.push(globalIndex);
+      parent._combos.push(combo);
+    });
+    return root;
+  }
+
+  function countNodeCombos(node) {
+    let n = node.comboGlobalIndexes.length;
+    node.children.forEach((c) => { n += countNodeCombos(c); });
+    return n;
+  }
+
+  function getComboTreeMetricsSummary(combo) {
+    const parts = [];
+    const dmg = String(combo.damage_normal || combo.damage_counter || '').trim();
+    const drive = String(combo.drive_delta || '').trim();
+    const sa = String(combo.sa_delta || '').trim();
+    if (dmg) parts.push(dmg);
+    if (drive) parts.push(`D:${drive}`);
+    if (sa) parts.push(`SA:${sa}`);
+    return parts.join(' ');
+  }
+
+  function getTreeDriveReqKey(combo) {
+    const raw = String(combo && combo.drive_req != null ? combo.drive_req : '').trim();
+    return raw || '-';
+  }
+
+  function formatTreeDriveReqLabel(key) {
+    const lang = getComboLang();
+    if (!key || key === '-') return lang === 'en' ? 'D: -' : 'D: -';
+    return lang === 'en' ? `D: ${key}` : `D: ${key}`;
+  }
+
+  function normalizeTreeButtonInput(value) {
+    const normalized = normalizeDisplayCommandInput(String(value || ''), { applyUnknownRules: false });
+    return normalized
+      .replace(/JUMP(?=(?:LP|MP|HP|LK|MK|HK|P|K|L|M|H|SP|AUTO|ANY))/gi, 'JUMP ')
+      .replace(/ANYANY/gi, 'ANY ANY')
+      .replace(/(\d)(AUTO)/g, '$1 $2')
+      .replace(/(\d)([A-Z])/g, '$1 $2')
+      .replace(/AUTO([A-Z])/g, 'AUTO $1')
+      .replace(/([A-Z])(\d)/g, '$1 $2')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // Navigate to combo list and select the given index
+  function treeSelectCombo(globalIndex) {
+    if (typeof window.setMainView === 'function') window.setMainView('combos');
+    window.setTimeout(() => setSelectedGroup(globalIndex, { scroll: true }), 0);
+  }
+
+  // Build a horizontal tree leaf card
+  function buildHTreeLeafEl(combo, globalIndex) {
+    const el = document.createElement('div');
+    el.className = 'htree-leaf';
+    el.dataset.comboIdx = String(globalIndex);
+    if (Number(state.selectedGroup) === globalIndex) el.classList.add('is-active');
+    el.tabIndex = 0;
+    el.setAttribute('role', 'button');
+    el.title = combo.command || '';
+
+    const inner = document.createElement('div');
+    inner.className = 'htree-leaf-inner';
+
+    const buttonsEl = document.createElement('div');
+    buttonsEl.className = 'htree-leaf-buttons cmd-input';
+    buttonsEl.dataset.field = 'buttons';
+    const buttonSource = combo.buttons || combo.command || '';
+    const normalizedButtons = normalizeTreeButtonInput(buttonSource);
+    renderButtonsInput(buttonsEl, normalizedButtons);
+    inner.appendChild(buttonsEl);
+
+    const cmdEl = document.createElement('div');
+    cmdEl.className = 'htree-leaf-cmd';
+    cmdEl.textContent = combo.command || '(empty)';
+    inner.appendChild(cmdEl);
+
+    const meta = getComboTreeMetricsSummary(combo);
+    if (meta) {
+      const metaEl = document.createElement('div');
+      metaEl.className = 'htree-leaf-meta';
+      metaEl.textContent = meta;
+      inner.appendChild(metaEl);
+    }
+    el.appendChild(inner);
+
+    const activate = () => {
+      if (isComboTreeViewActive()) setTreeDetailSelectedCombo(globalIndex);
+      else treeSelectCombo(globalIndex);
+    };
+    el.addEventListener('click', activate);
+    el.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); activate(); }
+    });
+    return el;
+  }
+
+  // Build a horizontal branch node (box + children to the right)
+  function buildHTreeNodeEl(node, options = {}) {
+    const collapseAll = options.collapseAll === true;
+    const expandAll = options.expandAll === true;
+
+    const branchEl = document.createElement('div');
+    branchEl.className = 'htree-branch';
+    branchEl.dataset.nodeId = node.id;
+    if (node.depth === 0) branchEl.classList.add('htree-top');
+
+    // The node box (clickable to expand/collapse children)
+    const boxWrap = document.createElement('div');
+    boxWrap.className = 'htree-box-wrap';
+
+    const boxEl = document.createElement('div');
+    boxEl.className = 'htree-box';
+    boxEl.tabIndex = 0;
+    boxEl.setAttribute('role', 'button');
+
+    const iconEl = document.createElement('span');
+    iconEl.className = 'htree-box-icons cmd-input';
+    iconEl.dataset.field = 'buttons';
+    const normalizedLabel = normalizeTreeButtonInput(node.label);
+    renderButtonsInput(iconEl, normalizedLabel);
+    boxEl.appendChild(iconEl);
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'htree-box-label';
+    labelEl.textContent = node.label;
+    boxEl.appendChild(labelEl);
+
+    const countEl = document.createElement('span');
+    countEl.className = 'htree-box-count';
+    countEl.textContent = String(countNodeCombos(node));
+    boxEl.appendChild(countEl);
+
+    const driveBorder = classifyTreeBoxDriveBorder(node.label);
+    if (driveBorder) boxEl.classList.add(`htree-box--${driveBorder}`);
+    boxEl.addEventListener('contextmenu', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      openTreeNodeContextMenu(boxEl, node);
+    });
+
+    boxWrap.appendChild(boxEl);
+    branchEl.appendChild(boxWrap);
+
+    // Children container (leaves + sub-branches)
+    const hasChildren = node.children.length > 0 || node.comboGlobalIndexes.length > 0;
+    if (hasChildren) {
+      const childrenEl = document.createElement('div');
+      childrenEl.className = 'htree-children';
+
+      const isExpanded = expandAll || (!collapseAll && comboTreeState.expandedNodes.has(node.id));
+      childrenEl.dataset.expanded = isExpanded ? '1' : '0';
+      if (!isExpanded) childrenEl.classList.add('htree-collapsed');
+
+      boxEl.dataset.expanded = isExpanded ? '1' : '0';
+      if (!isExpanded) boxEl.classList.add('htree-collapsed');
+
+      // Leaf combos at this node (grouped by drive gauge requirement)
+      if (node.comboGlobalIndexes.length) {
+        const driveGroups = new Map();
+        node.comboGlobalIndexes.forEach((gIdx, i) => {
+          const combo = node._combos[i];
+          const key = getTreeDriveReqKey(combo);
+          if (!driveGroups.has(key)) driveGroups.set(key, []);
+          driveGroups.get(key).push({ combo, index: gIdx });
+        });
+        const sortedKeys = Array.from(driveGroups.keys()).sort((a, b) => {
+          const na = parseNumericText(a);
+          const nb = parseNumericText(b);
+          if (na == null && nb == null) return String(a).localeCompare(String(b));
+          if (na == null) return 1;
+          if (nb == null) return -1;
+          return na - nb;
+        });
+        sortedKeys.forEach((key) => {
+          const items = driveGroups.get(key) || [];
+          const sep = document.createElement('div');
+          sep.className = 'htree-leaf-sep';
+          const sepLabel = document.createElement('span');
+          sepLabel.className = 'htree-leaf-sep-label';
+          sepLabel.textContent = formatTreeDriveReqLabel(key);
+          const sepCount = document.createElement('span');
+          sepCount.className = 'htree-leaf-sep-count';
+          sepCount.textContent = String(items.length);
+          sep.appendChild(sepLabel);
+          sep.appendChild(sepCount);
+          childrenEl.appendChild(sep);
+          items.forEach(({ combo, index }) => {
+            const leafEl = buildHTreeLeafEl(combo, index);
+            childrenEl.appendChild(leafEl);
+          });
+        });
+      }
+
+      // Sub-branches
+      node.children.forEach((child) => {
+        childrenEl.appendChild(buildHTreeNodeEl(child, options));
+      });
+
+      branchEl.appendChild(childrenEl);
+
+      // Toggle expand/collapse
+      const collapseDescendantState = (subNode) => {
+        if (!subNode || !Array.isArray(subNode.children)) return;
+        subNode.children.forEach((childNode) => {
+          comboTreeState.expandedNodes.delete(childNode.id);
+          collapseDescendantState(childNode);
+        });
+      };
+
+      const collapseDescendantDom = (rootEl) => {
+        if (!rootEl || !rootEl.querySelectorAll) return;
+        rootEl.querySelectorAll('.htree-children').forEach((childEl) => {
+          childEl.dataset.expanded = '0';
+          childEl.classList.add('htree-collapsed');
+        });
+        rootEl.querySelectorAll('.htree-box').forEach((childBoxEl) => {
+          childBoxEl.dataset.expanded = '0';
+          childBoxEl.classList.add('htree-collapsed');
+        });
+      };
+
+      const toggle = () => {
+        const expanded = childrenEl.dataset.expanded === '1';
+        const next = !expanded;
+        childrenEl.dataset.expanded = next ? '1' : '0';
+        boxEl.dataset.expanded = next ? '1' : '0';
+        childrenEl.classList.toggle('htree-collapsed', !next);
+        boxEl.classList.toggle('htree-collapsed', !next);
+        if (next) comboTreeState.expandedNodes.add(node.id);
+        else {
+          comboTreeState.expandedNodes.delete(node.id);
+          collapseDescendantState(node);
+          collapseDescendantDom(childrenEl);
+        }
+      };
+      boxEl.addEventListener('click', toggle);
+      boxEl.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle(); }
+      });
+    }
+
+    return branchEl;
+  }
+
+  function renderHComboTree(root, targetEl, options = {}) {
+    renderMockupComboTree(root, targetEl, options);
+  }
+
+  function doRebuildTree(options = {}) {
+    treeRebuildTimer = null;
+    treeRebuildRafId = null;
+    treeDriveStepResolveCache.clear();
+    const targetEl = qs('treeViewRoot');
+    if (!targetEl) return;
+    const pairs = getTreeFilteredPairs();
+    const root = buildComboTree(pairs);
+    closeTreeNodeContextMenu();
+    treeRailState.lastRoot = root;
+    treeRailState.lastPairs = pairs;
+    renderMockupComboTree(root, targetEl, options);
+    syncTreeSelectionHighlight();
+    renderTreeDetailPane();
+    renderTreeInlineFilterGroups();
+    refreshTreePillFilterButtons();
+    // Update count badge
+    const countEl = qs('treeViewCount');
+    if (countEl) {
+      const total = pairs.length;
+      countEl.textContent = total
+        ? (getComboLang() === 'en' ? `${total} combos` : `${total} コンボ`)
+        : '';
+    }
+  }
+
+  function requestTreeRebuild() {
+    if (!isComboTreeViewActive()) return;
+    if (treeRebuildRafId != null || treeRebuildTimer != null) return;
+    if (typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function') {
+      treeRebuildRafId = window.requestIdleCallback(() => doRebuildTree(), { timeout: 500 });
+    } else {
+      treeRebuildTimer = window.setTimeout(() => doRebuildTree(), 80);
+    }
+  }
+
+  function bindTreeThemeObserver() {
+    if (treeThemeObserver || typeof MutationObserver === 'undefined' || !document.body) return;
+    const isTreeViewVisible = () => {
+      const treeView = qs('treeView');
+      if (!treeView) return false;
+      if (treeView.classList && treeView.classList.contains('active')) return true;
+      const style = window.getComputedStyle ? window.getComputedStyle(treeView) : null;
+      return !!(style && style.display !== 'none' && style.visibility !== 'hidden');
+    };
+    treeThemeObserver = new MutationObserver((mutations) => {
+      let themeChanged = false;
+      for (const m of mutations) {
+        if (
+          m
+          && m.type === 'attributes'
+          && (m.attributeName === 'data-theme' || m.attributeName === 'class')
+        ) {
+          themeChanged = true;
+          break;
+        }
+      }
+      if (!themeChanged) return;
+      if (isTreeViewVisible()) {
+        window.requestAnimationFrame(() => {
+          doRebuildTree();
+        });
+      }
+    });
+    treeThemeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+  }
+
+  function initComboTreePanel() {
+    treeRailState.mode = getTreeRailStoredMode();
+    treeDetailState.comboIndex = -1;
+    syncTreeRailModeButtons();
+    updateTreeScaleColumnTitle();
+    const railDriveBtn = qs('treeRailModeDrive');
+    const railDamageBtn = qs('treeRailModeDamage');
+    if (railDriveBtn) railDriveBtn.addEventListener('click', () => setTreeRailMode('drive'));
+    if (railDamageBtn) railDamageBtn.addEventListener('click', () => setTreeRailMode('damage'));
+
+    const refreshBtn = qs('treeViewRefreshBtn');
+    const expandAllBtn = qs('treeViewExpandAllBtn');
+    const collapseAllBtn = qs('treeViewCollapseAllBtn');
+    const detailToggleBtn = qs('treeDetailToggleBtn');
+    const detailSaveBtn = qs('treeDetailSaveBtn');
+    const detailDeleteBtn = qs('treeDetailDeleteBtn');
+    const detailOpenModalBtn = qs('treeDetailOpenModalBtn');
+    const treeFilterPills = Array.from(document.querySelectorAll('#treeView .tree-chart-pill[data-tree-filter]'));
+    if (refreshBtn) refreshBtn.addEventListener('click', () => doRebuildTree());
+    if (expandAllBtn) expandAllBtn.addEventListener('click', () => {
+      comboTreeState.expandedNodes.clear();
+      doRebuildTree({ expandAll: true });
+    });
+    if (collapseAllBtn) collapseAllBtn.addEventListener('click', () => {
+      comboTreeState.expandedNodes.clear();
+      doRebuildTree({ collapseAll: true });
+    });
+    if (detailToggleBtn) detailToggleBtn.addEventListener('click', () => {
+      treeDetailState.hidden = !treeDetailState.hidden;
+      renderTreeDetailPane();
+    });
+    if (detailSaveBtn) detailSaveBtn.addEventListener('click', saveTreeDetailPaneEdits);
+    if (detailDeleteBtn) detailDeleteBtn.addEventListener('click', deleteTreeDetailSelectedCombo);
+    if (detailOpenModalBtn) detailOpenModalBtn.addEventListener('click', () => {
+      const idx = Number(treeDetailState.comboIndex);
+      if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
+      openFrameMeterDetailsModal(idx, { forceStandalone: true, returnFocusEl: detailOpenModalBtn });
+    });
+    treeFilterPills.forEach((pill) => {
+      pill.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      });
+    });
+
+    ['treeDetailCommandInput', 'treeDetailTagsInput', 'treeDetailNotesInput', 'treeDetailOkiInput', 'treeDetailExtraNotesInput', 'treeDetailUrlInput'].forEach((id) => {
+      const input = qs(id);
+      if (!input) return;
+      input.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') {
+          ev.preventDefault();
+          saveTreeDetailPaneEdits();
+        }
+      });
+    });
+    const detailGrid = qs('treeDetailGrid');
+    if (detailGrid) {
+      detailGrid.addEventListener('keydown', (ev) => {
+        if (!ev || ev.key !== 'Enter') return;
+        const target = ev.target;
+        if (!target || !target.classList || !target.classList.contains('tree-detail-value-input')) return;
+        ev.preventDefault();
+        saveTreeDetailPaneEdits();
+      });
+    }
+    renderTreeDetailPane();
+    renderTreeInlineFilterGroups();
+    refreshTreePillFilterButtons();
+    initTreeDragScroll();
+    const hoistTreeColheadToStickyHost = () => {
+      const host = qs('treeStickyStripHost');
+      const colhead = document.querySelector('#treeView .tree-mockup-colhead');
+      if (!host || !colhead) return;
+      if (colhead.parentElement !== host) host.appendChild(colhead);
+    };
+    hoistTreeColheadToStickyHost();
+    bindTreeThemeObserver();
+    // Tree init runs before state hydration. Force a retrying first render so
+    // refresh/load on tree view does not stay blank until tab-switch.
+    const scheduleTreeBootRender = () => {
+      if (treeBootRenderScheduled) return;
+      treeBootRenderScheduled = true;
+      const maxAttempts = 30;
+      let attempts = 0;
+      const tick = () => {
+        attempts += 1;
+        const hasData = Array.isArray(state.combos) && state.combos.length > 0;
+        const treeRoot = qs('treeViewRoot');
+        if (hasData && treeRoot) {
+          doRebuildTree();
+          treeBootRenderScheduled = false;
+          return;
+        }
+        if (attempts >= maxAttempts) {
+          treeBootRenderScheduled = false;
+          return;
+        }
+        window.setTimeout(tick, 100);
+      };
+      window.setTimeout(tick, 0);
+    };
+    scheduleTreeBootRender();
+    window.rebuildComboTree = () => doRebuildTree();
+    window.selectComboByIndex = (idx) => setSelectedGroup(idx, { scroll: true });
+  }
+
+  // ── END COMBO TREE VIEW ──────────────────────────────────────────────────────
 
   window.switchComboCharacter = (slug) => {
     const resolved = resolveCharacterSlug(slug) || '';
