@@ -182,3 +182,25 @@ body[data-theme="light"] #treeView .tree-sticky-strip-host .tree-strip-inline > 
 body[data-theme="light"] #treeView .tree-left-column {
   background: #efefef;
 }
+
+/* Guide trigger: same chrome as portrait / Classic–Modern; bottom-right of that strip */
+#treeView .combo-tree-topstrip .tree-tutorial-trigger {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  top: auto;
+  transform: none;
+  z-index: 8;
+  margin: 0;
+}
+
+body[data-theme="light"] #treeView .combo-tree-topstrip .tree-tutorial-trigger {
+  border-color: #b0b0b0;
+  background: #e4e4e4;
+  color: #333;
+}
+
+body[data-theme="light"] #treeView .combo-tree-topstrip .tree-tutorial-trigger:hover {
+  border-color: #f97306;
+  color: #111;
+}

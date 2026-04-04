@@ -256,6 +256,9 @@
         sa: 'SA',
         version: 'Ver.',
         oki: '重ね',
+        clear: 'クリア',
+        apply: '適用',
+        no_options: '該当なし',
       },
       ui: {
         quick_input: 'クイック入力',
@@ -283,7 +286,7 @@
         compare_clear: 'リストをクリア',
         compare_title: 'コンボ比較',
         compare_close: '閉じる',
-        compare_rank_hint: '数値列の順位は、現在のフィルターで表示中のコンボ全体での順位です（1が最も有利）。',
+        compare_col_remove: '比較から外す',
         context_header_hide: '列を非表示',
         context_header_show: '列を表示',
         context_sort_asc: '昇順で並び替え',
@@ -480,6 +483,22 @@
         keymap_reassigned: 'キー {key} を {from} から {to} に移動しました。',
         multi_apply: '適用',
         multi_clear: 'クリア',
+        tree_rail_aria: 'ツリーのレール表示（Dゲージ / ダメージ）',
+        tree_rail_drive: 'Dゲージ',
+        tree_rail_damage: 'ダメージ',
+        tree_refresh: '再読み込み',
+        tree_expand_all: 'すべて展開',
+        tree_collapse_all: 'すべて折りたたみ',
+        tree_detail_head: '選択中コンボ',
+        tree_detail_empty: '枝を選択すると詳細を表示します。',
+        tree_detail_not_in_tree: 'このコンボは現在のツリーに表示されていません（フィルター、空のコマンド、ツリーが解釈できない表記など）。',
+        tree_open_url: 'URLを開く',
+        tree_video_thumb_alt: '動画サムネイル',
+        tree_ctx_expand: 'このノード配下を展開',
+        tree_ctx_collapse: 'このノード配下を折りたたみ',
+        tree_ctx_add_path: 'この経路でコンボを追加',
+        tree_ctx_delete_children: '子コンボを削除',
+        tree_char_alt: 'キャラクター',
         frame_version_prefix: 'データVer',
         game_version_prefix: 'ゲームVer',
       },
@@ -691,6 +710,8 @@
         compare_full: '比較リストは最大4件までです。',
         compare_need_two: '比較表示には2件以上のコンボが必要です。',
         compare_none_valid: '有効なコンボがないため比較を表示できません。',
+        tree_combo_count: '{n} コンボ',
+        tree_delete_children_confirm: 'このノード配下の子コンボ {n} 件を削除しますか？',
         save_status_saved: '保存済み',
         save_status_unsaved: '● 未保存',
         save_status_recovered: '● 復旧データ',
@@ -739,6 +760,9 @@
         sa: 'SA',
         version: 'Ver.',
         oki: 'Meaty',
+        clear: 'Clear',
+        apply: 'Apply',
+        no_options: 'No options',
       },
       ui: {
         quick_input: 'Quick Input',
@@ -766,7 +790,7 @@
         compare_clear: 'Clear list',
         compare_title: 'Compare combos',
         compare_close: 'Close',
-        compare_rank_hint: 'Numeric ranks are within the current filtered list (1 = best for that metric).',
+        compare_col_remove: 'Remove from compare',
         context_header_hide: 'Hide Column',
         context_header_show: 'Show Columns',
         context_sort_asc: 'Sort Ascending',
@@ -963,6 +987,22 @@
         keymap_reassigned: 'Moved {key} from {from} to {to}.',
         multi_apply: 'Apply',
         multi_clear: 'Clear',
+        tree_rail_aria: 'Tree rail scale (D Gauge / Damage)',
+        tree_rail_drive: 'D Gauge',
+        tree_rail_damage: 'Damage',
+        tree_refresh: 'Refresh',
+        tree_expand_all: 'Expand All',
+        tree_collapse_all: 'Collapse All',
+        tree_detail_head: 'Selected Combo',
+        tree_detail_empty: 'Select a branch to show details.',
+        tree_detail_not_in_tree: 'This combo is not on the current tree (filters, empty command, or notation the tree cannot parse).',
+        tree_open_url: 'Open URL',
+        tree_video_thumb_alt: 'Video thumbnail',
+        tree_ctx_expand: 'Expand subtree',
+        tree_ctx_collapse: 'Collapse subtree',
+        tree_ctx_add_path: 'Add combo from this path',
+        tree_ctx_delete_children: 'Delete child combos',
+        tree_char_alt: 'Character',
         frame_version_prefix: 'Data Ver',
         game_version_prefix: 'Game Ver',
       },
@@ -1174,6 +1214,8 @@
         compare_full: 'Compare list is full (max 4).',
         compare_need_two: 'Add at least two combos to compare.',
         compare_none_valid: 'No valid combos to compare.',
+        tree_combo_count: '{n} combos',
+        tree_delete_children_confirm: 'Delete {n} child combos under this node?',
         save_status_saved: 'Saved',
         save_status_unsaved: '● Unsaved',
         save_status_recovered: '● Recovered Draft',
@@ -3167,8 +3209,8 @@
     { action: 'delete-rows', labelKey: 'context_delete_rows', group: 'edit' },
     { action: 'clear-rows', labelKey: 'context_clear_rows', group: 'edit' },
     { action: 'frame-meter-details', labelKey: 'context_frame_meter_details', group: 'view' },
-    { action: 'add-to-compare', labelKey: 'context_add_to_compare', group: 'view' },
     { action: 'open-in-tree', labelKey: 'context_open_in_tree', group: 'view' },
+    { action: 'add-to-compare', labelKey: 'context_add_to_compare', group: 'compare' },
   ];
   const HEADER_CONTEXT_MENU_ITEMS = [
     { action: 'sort-asc', labelKey: 'context_sort_asc' },
@@ -3328,6 +3370,7 @@
     },
     comboClipboard: null,
     compareComboIds: [],
+    treeViewPlacedRowCount: 0,
     historyApplying: false,
     undoStack: [],
     redoStack: [],
@@ -3640,10 +3683,21 @@
 
   function refreshCompareTrayUi() {
     const lang = getComboLang();
+    const dock = qs('comboCompareDock');
     const label = qs('comboCompareTrayLabel');
     const openBtn = qs('comboCompareOpenBtn');
     const clearBtn = qs('comboCompareClearBtn');
     const n = Array.isArray(state.compareComboIds) ? state.compareComboIds.length : 0;
+    const hideCompareDockForView = document.body && document.body.getAttribute('data-view') === 'frame';
+    if (dock) {
+      if (n > 0 && !hideCompareDockForView) {
+        dock.removeAttribute('hidden');
+        dock.setAttribute('aria-hidden', 'false');
+      } else {
+        dock.setAttribute('hidden', '');
+        dock.setAttribute('aria-hidden', 'true');
+      }
+    }
     const tmpl = comboT('ui.compare_tray_label', lang) || 'Compare ({n}/{max})';
     if (label) {
       label.textContent = tmpl.replace('{n}', String(n)).replace('{max}', String(COMBO_COMPARE_MAX));
@@ -3697,7 +3751,7 @@
     if (overlay && !overlay.classList.contains('hidden')) {
       renderComboCompareModalTable();
       const host = qs('comboCompareTableHost');
-      if (!host || !host.querySelector('.combo-compare-table')) {
+      if (!host || !host.querySelector('.combo-compare-layout-table')) {
         closeComboCompareModal();
       }
     }
@@ -3714,13 +3768,15 @@
     }
   }
 
-  function computeCompareGlobalRankMapForField(field) {
+  function computeCompareRankMapAmongIndices(field, comboIndices) {
     if (!NUMERIC_FIELDS.has(field)) return null;
-    const view = getViewIndexes();
+    const rows = Array.isArray(comboIndices) ? comboIndices : [];
     const items = [];
-    view.forEach((comboIdx) => {
-      const combo = state.combos[comboIdx];
-      if (combo) items.push({ idx: comboIdx, combo });
+    rows.forEach((comboIdx) => {
+      const idx = Number(comboIdx);
+      if (!Number.isFinite(idx) || idx < 0) return;
+      const combo = state.combos[idx];
+      if (combo) items.push({ idx, combo });
     });
     if (!items.length) return new Map();
     const higherBetter = !COMPARE_RANK_LOWER_IS_BETTER.has(field);
@@ -3747,9 +3803,49 @@
 
   function getCompareTableFieldLabel(field, lang) {
     const active = lang || getComboLang();
+    if (field === 'command') return active === 'en' ? 'Command' : 'コマンド';
+    if (field === 'buttons') return active === 'en' ? 'Buttons' : 'ボタン';
+    if (field === 'tags') return active === 'en' ? 'Tags' : 'タグ';
+    if (field === 'combo_notes') return active === 'en' ? 'Notes' : 'メモ';
+    if (field === 'game_version') return active === 'en' ? 'Game Version' : 'ゲームVer';
     const entry = XLSX_FIELD_LABELS[field];
     if (entry) return String((active === 'en' ? entry.en : entry.jp) || entry.en || field);
     return field;
+  }
+
+  function buildCompareModalSectionPlan(lang) {
+    const h = (filterKey, en, jp) => comboT(`filter.${filterKey}`, lang) || (lang === 'en' ? en : jp);
+    const allowed = new Set(COMBO_COMPARE_TABLE_FIELDS);
+    const sections = [
+      { fields: ['command', 'buttons', 'combo_notes', 'tags'] },
+      { title: h('range_group_conditions', 'Conditions', '条件'), fields: ['control_mode', 'distance', 'position', 'counter_type', 'bo_state', 'drive_req', 'sa_req', 'vs_character', 'special_condition'] },
+      { title: h('range_group_damage', 'Damage', 'ダメージ'), fields: ['damage_jp', 'damage_bo_guard', 'damage_normal', 'damage_counter', 'damage_punish'] },
+      { title: h('range_group_damage_ca', 'CA Damage', 'CAダメージ'), fields: ['damage_normal_ca', 'damage_counter_ca', 'damage_punish_ca'] },
+      { title: h('range_group_damage_poison', 'Damage (Poison)', 'ダメージ(毒)'), fields: ['damage_poison_normal', 'damage_poison_counter', 'damage_poison_punish'] },
+      { title: h('range_group_damage_poison_ca', 'Damage (Poison/CA)', 'ダメージ(毒/CA)'), fields: ['damage_poison_normal_ca', 'damage_poison_counter_ca', 'damage_poison_punish_ca'] },
+      { title: h('range_group_d_gauge', 'D Gauge', 'Dゲージ'), fields: ['d_guard', 'd_normal', 'd_pc', 'drive_delta', 'drive_delta_opponent', 'drive_efficiency'] },
+      { title: h('range_group_sa_gauge', 'SA Gauge', 'SAゲージ'), fields: ['sa_delta', 'sa_delta_opponent'] },
+      { title: h('range_group_other', 'Other', 'その他'), fields: ['carry_distance', 'end_distance', 'frame_adv', 'opponent_state', 'safe_jump', 'side_switch', 'interrupt', 'oki', 'game_version'] },
+    ];
+    return sections
+      .map((sec) => ({
+        title: sec.title,
+        fields: sec.fields.filter((f) => allowed.has(f)),
+      }))
+      .filter((sec) => sec.fields.length);
+  }
+
+  function formatCompareLayoutFieldValue(field, combo, lang) {
+    const active = lang || getComboLang();
+    if (field === 'control_mode') {
+      const c = canonicalControlMode(String(combo && combo.control_mode != null ? combo.control_mode : ''));
+      if (!c) return '-';
+      if (c === '両方') return comboValueLabel('both', '両方', active);
+      if (c === 'classic') return comboValueLabel('classic', 'Classic', active);
+      if (c === 'modern') return comboValueLabel('modern', 'Modern', active);
+      return String(combo.control_mode || '').trim() || '-';
+    }
+    return null;
   }
 
   function formatCompareTableCell(field, combo, lang) {
@@ -3759,12 +3855,58 @@
     if (field === 'combo_notes') return String(combo.combo_notes || '').trim() || '-';
     if (field === 'tags') return String(combo.tags || '').trim() || '-';
     if (field === 'game_version') return String(combo.game_version || '').trim() || '-';
+    const layout = formatCompareLayoutFieldValue(field, combo, active);
+    if (layout != null) return layout;
     return formatMaybeNumberText(combo[field]);
+  }
+
+  function compareModalCellDisplayHtml(field, combo, lang) {
+    const active = lang || getComboLang();
+    if (field === 'command') {
+      const t = formatCommandForDisplay(String(combo.command || ''), active) || '-';
+      return escapeHtml(t);
+    }
+    if (field === 'buttons') {
+      const raw = String(combo.buttons || '').trim() || String(combo.command || '').trim();
+      if (!raw) return escapeHtml('-');
+      const canonical = canonicalizeCommandForStorage(raw);
+      const html = renderNotationIconsOnlyFromCanonical(canonical, active);
+      if (html) return html;
+      return escapeHtml(formatCommandForDisplay(canonical, active) || '-');
+    }
+    if (field === 'tags') {
+      const raw = String(combo.tags || '').trim();
+      const html = renderTagChipsHtml(raw, active);
+      return html || escapeHtml('-');
+    }
+    return escapeHtml(formatCompareTableCell(field, combo, lang));
+  }
+
+  function compareModalValueCellClass(field) {
+    if (field === 'buttons' || field === 'tags') return 'combo-compare-readonly-val combo-compare-readonly-val--rich';
+    const base = 'combo-compare-readonly-val';
+    if (NUMERIC_FIELDS.has(field)) return `${base} combo-compare-readonly-val--numeric`;
+    return base;
+  }
+
+  function syncCompareOverlayCommandFontSize() {
+    const overlay = qs('comboCompareOverlay');
+    const comboView = qs('comboView');
+    if (!overlay) return;
+    if (comboView) {
+      const raw = getComputedStyle(comboView).getPropertyValue('--command-font-size').trim();
+      if (raw) {
+        overlay.style.setProperty('--command-font-size', raw);
+        return;
+      }
+    }
+    overlay.style.removeProperty('--command-font-size');
   }
 
   function renderComboCompareModalTable() {
     const host = qs('comboCompareTableHost');
     if (!host) return;
+    syncCompareOverlayCommandFontSize();
     const lang = getComboLang();
     normalizeStoredCompareComboIds();
     const ids = state.compareComboIds.slice(0, COMBO_COMPARE_MAX);
@@ -3773,48 +3915,73 @@
       host.innerHTML = '';
       return;
     }
+    const colspan = 1 + indices.length;
     const rankMaps = new Map();
     COMBO_COMPARE_TABLE_FIELDS.forEach((field) => {
       if (NUMERIC_FIELDS.has(field)) {
-        rankMaps.set(field, computeCompareGlobalRankMapForField(field));
+        rankMaps.set(field, computeCompareRankMapAmongIndices(field, indices));
       }
     });
     const esc = (s) => escapeHtml(String(s == null ? '' : s));
-    let header = '<tr><th class="combo-compare-corner"></th>';
-    indices.forEach((idx) => {
-      const combo = state.combos[idx];
-      const snippet = formatCompareTableCell('command', combo, lang);
-      const short = snippet.length > 56 ? `${snippet.slice(0, 54)}…` : snippet;
-      const id = esc(String(combo._id || ''));
-      header += `<th class="combo-compare-colhead"><div class="combo-compare-head-snippet">${esc(short)}</div><button type="button" class="combo-compare-remove" data-compare-remove="${id}" title="${esc(comboT('ui.compare_close', lang) || 'Remove')}">×</button></th>`;
-    });
-    header += '</tr>';
+    const removeTitle = esc(comboT('ui.compare_col_remove', lang) || comboT('ui.compare_close', lang) || 'Remove');
+    const colgroup = `<colgroup><col class="combo-compare-col-rowhead" />${indices.map(() => '<col class="combo-compare-col-combo" />').join('')}</colgroup>`;
     let body = '';
-    COMBO_COMPARE_TABLE_FIELDS.forEach((field) => {
-      const label = esc(getCompareTableFieldLabel(field, lang));
-      body += `<tr><th class="combo-compare-rowhead" scope="row">${label}</th>`;
-      const rm = rankMaps.get(field);
-      indices.forEach((idx) => {
-        const combo = state.combos[idx];
-        const display = esc(formatCompareTableCell(field, combo, lang));
-        const rk = rm ? rm.get(idx) : null;
-        const rankHtml = rk
-          ? `<span class="combo-compare-rank" title="">#${rk.rank} / ${rk.total}</span>`
-          : '';
-        body += `<td class="combo-compare-cell"><div class="combo-compare-val">${display}</div>${rankHtml}</td>`;
+    let compareFieldRowIndex = 0;
+    const sections = buildCompareModalSectionPlan(lang);
+    sections.forEach((sec) => {
+      if (sec.title) {
+        body += `<tr class="combo-details-layout-section split combo-compare-section"><th colspan="${colspan}">${esc(sec.title)}</th></tr>`;
+      }
+      sec.fields.forEach((field) => {
+        const label = esc(getCompareTableFieldLabel(field, lang));
+        const rm = rankMaps.get(field);
+        const parityClass = compareFieldRowIndex % 2 === 0
+          ? 'combo-compare-field-row--even'
+          : 'combo-compare-field-row--odd';
+        compareFieldRowIndex += 1;
+        body += `<tr class="combo-compare-field-row ${parityClass}">
+          <th class="combo-details-layout-cell combo-compare-field-label" scope="row">
+            <div class="combo-details-layout-cell-inner">
+              <span class="combo-details-layout-label">${label}</span>
+            </div>
+          </th>`;
+        indices.forEach((idx) => {
+          const combo = state.combos[idx];
+          const display = compareModalCellDisplayHtml(field, combo, lang);
+          const valClass = compareModalValueCellClass(field);
+          const rk = rm ? rm.get(idx) : null;
+          const rankLine = rk
+            ? `<span class="combo-details-layout-label combo-compare-rank-line">#${rk.rank} / ${rk.total}</span>`
+            : '<span class="combo-details-layout-label combo-compare-rank-line combo-compare-rank-line--empty">&nbsp;</span>';
+          const id = esc(String(combo._id || ''));
+          const removeBtn = field === 'command'
+            ? `<button type="button" class="combo-compare-remove" data-compare-remove="${id}" title="${removeTitle}">×</button>`
+            : '';
+          const innerCls = field === 'command'
+            ? 'combo-details-layout-cell-inner combo-compare-value-inner--has-remove'
+            : 'combo-details-layout-cell-inner';
+          const tdCls = field === 'command'
+            ? 'combo-details-layout-cell combo-compare-value-cell combo-compare-value-cell--has-remove'
+            : 'combo-details-layout-cell combo-compare-value-cell';
+          body += `<td class="${tdCls}">
+            <div class="${innerCls}">
+              ${removeBtn}
+              ${rankLine}
+              <div class="${valClass}">${display}</div>
+            </div>
+          </td>`;
+        });
+        body += '</tr>';
       });
-      body += '</tr>';
     });
-    host.innerHTML = `<table class="combo-compare-table" role="grid">${header}${body}</table>`;
+    host.innerHTML = `<table class="combo-details-layout-table combo-range-layout-table combo-compare-layout-table" role="grid">${colgroup}${body}</table>`;
   }
 
   function refreshComboCompareModalChrome() {
     const lang = getComboLang();
     const title = qs('comboCompareTitle');
-    const hint = qs('comboCompareRankHint');
     const closeBtn = qs('comboCompareCloseBtn');
     if (title) title.textContent = comboT('ui.compare_title', lang) || 'Compare';
-    if (hint) hint.textContent = comboT('ui.compare_rank_hint', lang) || '';
     if (closeBtn) {
       closeBtn.setAttribute('aria-label', comboT('ui.compare_close', lang) || 'Close');
     }
@@ -3867,7 +4034,8 @@
     }
     if (overlay) {
       overlay.addEventListener('click', (ev) => {
-        if (ev.target === overlay) closeComboCompareModal();
+        if (ev.target.closest('.combo-compare-panel')) return;
+        closeComboCompareModal();
       });
     }
     if (host) {
@@ -7335,6 +7503,43 @@
     });
   }
 
+  function applyComboTreePageLabels(lang) {
+    const active = lang || getComboLang();
+    const orderToggle = document.querySelector('#treeView .tree-order-toggle');
+    if (orderToggle) {
+      orderToggle.setAttribute('aria-label', comboT('ui.tree_rail_aria', active) || '');
+    }
+    const railDrive = qs('treeRailModeDrive');
+    const railDamage = qs('treeRailModeDamage');
+    if (railDrive) railDrive.textContent = comboT('ui.tree_rail_drive', active) || railDrive.textContent;
+    if (railDamage) railDamage.textContent = comboT('ui.tree_rail_damage', active) || railDamage.textContent;
+    const treeRefresh = qs('treeViewRefreshBtn');
+    const treeExpandAll = qs('treeViewExpandAllBtn');
+    const treeCollapseAll = qs('treeViewCollapseAllBtn');
+    if (treeRefresh) treeRefresh.textContent = comboT('ui.tree_refresh', active) || treeRefresh.textContent;
+    if (treeExpandAll) treeExpandAll.textContent = comboT('ui.tree_expand_all', active) || treeExpandAll.textContent;
+    if (treeCollapseAll) treeCollapseAll.textContent = comboT('ui.tree_collapse_all', active) || treeCollapseAll.textContent;
+    const countEl = qs('treeViewCount');
+    if (countEl) {
+      const total = Number(state.treeViewPlacedRowCount) || 0;
+      countEl.textContent = total ? comboMsg('tree_combo_count', { n: total }, active) : '';
+    }
+    const treeCharImg = qs('treeCharImg');
+    if (treeCharImg) treeCharImg.alt = comboT('ui.tree_char_alt', active) || treeCharImg.alt || '';
+    const treeThumb = qs('treeDetailVideoThumb');
+    if (treeThumb) treeThumb.alt = comboT('ui.tree_video_thumb_alt', active) || '';
+    const pillPanel = qs('treePillFilterPopover');
+    if (pillPanel) {
+      const clearBtn = pillPanel.querySelector('.tree-pill-filter-btn[data-action="clear"]');
+      const applyBtn = pillPanel.querySelector('.tree-pill-filter-btn[data-action="apply"]');
+      if (clearBtn) clearBtn.textContent = comboT('filter.clear', active) || clearBtn.textContent;
+      if (applyBtn) applyBtn.textContent = comboT('filter.apply', active) || applyBtn.textContent;
+    }
+    renderTreeInlineFilterGroups();
+    refreshTreePillFilterButtons();
+    renderTreeDetailPane();
+  }
+
   function applyComboUiLabels(lang) {
     const active = lang || getComboLang();
     const quickLabel = qs('comboQuickInputLabel');
@@ -7564,6 +7769,7 @@
     }
 
     applyComboDetailsLabels(active);
+    applyComboTreePageLabels(active);
   }
 
   function applySampleComboLocalization(lang) {
@@ -33374,9 +33580,10 @@ ${table.outerHTML}
       .sort((a, b) => a - b);
     if (!indexes.length) return;
     const lang = getComboLang();
-    const msg = lang === 'en'
-      ? `Delete ${indexes.length} child combos under this node?`
-      : `このノード配下の子コンボ ${indexes.length} 件を削除しますか？`;
+    const msg = comboMsg('tree_delete_children_confirm', { n: indexes.length }, lang)
+      || (lang === 'en'
+        ? `Delete ${indexes.length} child combos under this node?`
+        : `このノード配下の子コンボ ${indexes.length} 件を削除しますか？`);
     if (!window.confirm(msg)) return;
     pushUndoHistory('delete-combo');
     const restoreScroll = preserveTableScrollPosition();
@@ -33427,7 +33634,8 @@ ${table.outerHTML}
 
   function ensureTreeNodeContextMenu() {
     let menu = qs('treeNodeContextMenu');
-    const needsMarkup = !menu || !menu.querySelector('[data-action="add-combo-compare"]');
+    const needsMarkup = !menu
+      || !menu.querySelector('[data-action="add-combo-compare"].tree-ctx-compare-last');
     if (!menu) {
       menu = document.createElement('div');
       menu.id = 'treeNodeContextMenu';
@@ -33441,13 +33649,13 @@ ${table.outerHTML}
       menu.setAttribute('role', 'menu');
       menu.setAttribute('aria-hidden', 'true');
       menu.innerHTML = `
-      <button type="button" class="combo-row-context-item tree-ctx-leaf-compare hidden" role="menuitem" data-action="add-combo-compare"></button>
-      <div class="combo-row-context-sep tree-ctx-leaf-compare-sep hidden" role="separator"></div>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="expand-subtree"></button>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="collapse-subtree"></button>
       <div class="combo-row-context-sep"></div>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="add-from-node"></button>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="delete-children"></button>
+      <div class="combo-row-context-sep tree-ctx-leaf-compare-sep hidden" role="separator"></div>
+      <button type="button" class="combo-row-context-item tree-ctx-leaf-compare tree-ctx-compare-last hidden" role="menuitem" data-action="add-combo-compare"></button>
     `;
     }
     if (!menu.dataset.lmTreeCtxClickBound) {
@@ -33507,19 +33715,19 @@ ${table.outerHTML}
     const addBtn = menu.querySelector('[data-action="add-from-node"]');
     const delBtn = menu.querySelector('[data-action="delete-children"]');
     if (expandBtn) {
-      expandBtn.textContent = lang === 'en' ? 'Expand subtree' : 'このノード配下を展開';
+      expandBtn.textContent = comboT('ui.tree_ctx_expand', lang) || (lang === 'en' ? 'Expand subtree' : 'このノード配下を展開');
       expandBtn.disabled = !hasChildren;
     }
     if (collapseBtn) {
-      collapseBtn.textContent = lang === 'en' ? 'Collapse subtree' : 'このノード配下を折りたたみ';
+      collapseBtn.textContent = comboT('ui.tree_ctx_collapse', lang) || (lang === 'en' ? 'Collapse subtree' : 'このノード配下を折りたたみ');
       collapseBtn.disabled = !hasChildren;
     }
     if (addBtn) {
-      addBtn.textContent = lang === 'en' ? 'Add combo from this path' : 'この経路でコンボを追加';
+      addBtn.textContent = comboT('ui.tree_ctx_add_path', lang) || (lang === 'en' ? 'Add combo from this path' : 'この経路でコンボを追加');
       addBtn.disabled = false;
     }
     if (delBtn) {
-      delBtn.textContent = lang === 'en' ? 'Delete child combos' : '子コンボを削除';
+      delBtn.textContent = comboT('ui.tree_ctx_delete_children', lang) || (lang === 'en' ? 'Delete child combos' : '子コンボを削除');
       delBtn.disabled = !hasChildren;
     }
     treeNodeContextNodeId = String(node.id || '');
@@ -33952,20 +34160,22 @@ ${table.outerHTML}
   }
 
   function treeDetailLabelForField(field, lang) {
-    if (field === 'tags') return lang === 'en' ? 'Tags' : 'タグ';
-    if (field === 'extra_notes') return lang === 'en' ? 'Extra Notes' : '追加メモ';
-    if (field === 'combo_url') return 'URL';
+    const active = lang || getComboLang();
+    if (field === 'tags') return comboT('ui.combo_details_tags', active) || (active === 'en' ? 'Tags' : 'タグ');
+    if (field === 'extra_notes') return comboT('ui.combo_details_extra_notes', active) || (active === 'en' ? 'Extra Notes' : '追加メモ');
+    if (field === 'combo_url') return comboT('ui.combo_details_url', active) || 'URL';
     const labelEntry = XLSX_FIELD_LABELS[field];
     if (!labelEntry) return field;
-    return String((labelEntry[lang] != null ? labelEntry[lang] : labelEntry.en) || field);
+    return String((labelEntry[active] != null ? labelEntry[active] : labelEntry.en) || field);
   }
 
   function treeDetailSectionTitle(sectionKey, lang) {
-    if (sectionKey === 'conditions') return lang === 'en' ? 'Conditions' : '条件';
-    if (sectionKey === 'damage') return lang === 'en' ? 'Damage' : 'ダメージ';
-    if (sectionKey === 'drive') return lang === 'en' ? 'D Gauge' : 'Dゲージ';
-    if (sectionKey === 'sa') return lang === 'en' ? 'SA Gauge' : 'SAゲージ';
-    return lang === 'en' ? 'Other' : 'その他';
+    const active = lang || getComboLang();
+    if (sectionKey === 'conditions') return comboT('filter.range_group_conditions', active) || (active === 'en' ? 'Conditions' : '条件');
+    if (sectionKey === 'damage') return comboT('filter.range_group_damage', active) || (active === 'en' ? 'Damage' : 'ダメージ');
+    if (sectionKey === 'drive') return comboT('filter.range_group_d_gauge', active) || (active === 'en' ? 'D Gauge' : 'Dゲージ');
+    if (sectionKey === 'sa') return comboT('filter.range_group_sa_gauge', active) || (active === 'en' ? 'SA Gauge' : 'SAゲージ');
+    return comboT('filter.range_group_other', active) || (active === 'en' ? 'Other' : 'その他');
   }
 
   function normalizeTreeDetailValue(combo, field) {
@@ -34094,12 +34304,12 @@ ${table.outerHTML}
     if (!pane || !emptyEl || !modalHost) return;
     const onTreePage = document.body && document.body.getAttribute('data-view') === 'tree';
     const activeLang = getComboLang();
-    if (headTextEl) headTextEl.textContent = activeLang === 'en' ? 'Selected Combo' : '選択中コンボ';
+    if (headTextEl) headTextEl.textContent = comboT('ui.tree_detail_head', activeLang) || (activeLang === 'en' ? 'Selected Combo' : '選択中コンボ');
     if (openModalBtn) {
       openModalBtn.textContent = comboT('ui.context_frame_meter_details', activeLang) || (activeLang === 'en' ? 'Combo Details' : 'コンボ詳細');
       openModalBtn.title = comboT('ui.context_frame_meter_details', activeLang) || (activeLang === 'en' ? 'Combo Details' : 'コンボ詳細');
     }
-    emptyEl.textContent = activeLang === 'en' ? 'Select a branch to show details.' : '枝を選択すると詳細を表示します。';
+    emptyEl.textContent = comboT('ui.tree_detail_empty', activeLang) || (activeLang === 'en' ? 'Select a branch to show details.' : '枝を選択すると詳細を表示します。');
     const idx = Number(treeDetailState.comboIndex);
     const combo = Number.isFinite(idx) && idx >= 0 ? state.combos[idx] : null;
     if (!combo) {
@@ -34114,9 +34324,10 @@ ${table.outerHTML}
     if (!onTreePage) return;
     if (!comboIndexPlacedInCurrentTree(idx)) {
       treeDetailState.pendingReturnFocusEl = null;
-      emptyEl.textContent = activeLang === 'en'
-        ? 'This combo is not on the current tree (filters, empty command, or notation the tree cannot parse).'
-        : 'このコンボは現在のツリーに表示されていません（フィルター、空のコマンド、ツリーが解釈できない表記など）。';
+      emptyEl.textContent = comboT('ui.tree_detail_not_in_tree', activeLang)
+        || (activeLang === 'en'
+          ? 'This combo is not on the current tree (filters, empty command, or notation the tree cannot parse).'
+          : 'このコンボは現在のツリーに表示されていません（フィルター、空のコマンド、ツリーが解釈できない表記など）。');
       emptyEl.hidden = false;
       if (openModalBtn) openModalBtn.disabled = true;
       if (modalHost) modalHost.style.display = 'none';
@@ -34159,8 +34370,8 @@ ${table.outerHTML}
     if (urlLinkEl) {
       urlLinkEl.href = comboUrl || '#';
       urlLinkEl.textContent = comboUrl
-        ? (getComboLang() === 'en' ? 'Open URL' : 'URLを開く')
-        : (getComboLang() === 'en' ? 'Open URL' : 'URLを開く');
+        ? (comboT('ui.tree_open_url', getComboLang()) || (getComboLang() === 'en' ? 'Open URL' : 'URLを開く'))
+        : (comboT('ui.tree_open_url', getComboLang()) || (getComboLang() === 'en' ? 'Open URL' : 'URLを開く'));
     }
     if (thumbEl) {
       const thumb = getTreeDetailVideoThumbnail(comboUrl);
@@ -35339,11 +35550,11 @@ ${table.outerHTML}
     refreshTreePillFilterButtons();
     // Badge: rows with a non-empty tree token path (excludes blank template rows). Counted in buildComboTree — no extra tree walk or re-parse.
     const countEl = qs('treeViewCount');
+    const total = Number(treePlacedRowCount) || 0;
+    state.treeViewPlacedRowCount = total;
     if (countEl) {
-      const total = Number(treePlacedRowCount) || 0;
-      countEl.textContent = total
-        ? (getComboLang() === 'en' ? `${total} combos` : `${total} コンボ`)
-        : '';
+      const lang = getComboLang();
+      countEl.textContent = total ? comboMsg('tree_combo_count', { n: total }, lang) : '';
     }
   }
 
@@ -35397,6 +35608,12 @@ ${table.outerHTML}
       const before = document.body && document.body.getAttribute('data-view');
       const ret = origSetMainView.apply(this, arguments);
       const after = document.body && document.body.getAttribute('data-view');
+      if (after === 'frame') {
+        closeComboCompareModal();
+      }
+      if (before !== after) {
+        refreshCompareTrayUi();
+      }
       if (before === 'tree' && after !== 'tree') {
         const pendingIdx = Number(treeDetailState.comboIndex);
         treeDetailState.comboIndex = -1;

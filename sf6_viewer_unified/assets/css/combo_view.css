@@ -2266,96 +2266,112 @@
 /* Override tag palette with a more distinct 16-color HSL wheel (chips + modal + picker). */
 #comboView .combo-tag-chip.tagmod-0,
 #frameMeterOverlay .combo-tag-chip.tagmod-0,
+#comboCompareOverlay .combo-tag-chip.tagmod-0,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 {
     background: linear-gradient(135deg, hsla(200, 90%, 55%, 0.38), hsla(220, 90%, 55%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-1,
 #frameMeterOverlay .combo-tag-chip.tagmod-1,
+#comboCompareOverlay .combo-tag-chip.tagmod-1,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 {
     background: linear-gradient(135deg, hsla(165, 90%, 48%, 0.38), hsla(185, 90%, 48%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-2,
 #frameMeterOverlay .combo-tag-chip.tagmod-2,
+#comboCompareOverlay .combo-tag-chip.tagmod-2,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 {
     background: linear-gradient(135deg, hsla(135, 90%, 50%, 0.38), hsla(155, 90%, 50%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-3,
 #frameMeterOverlay .combo-tag-chip.tagmod-3,
+#comboCompareOverlay .combo-tag-chip.tagmod-3,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 {
     background: linear-gradient(135deg, hsla(105, 90%, 48%, 0.38), hsla(125, 90%, 48%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-4,
 #frameMeterOverlay .combo-tag-chip.tagmod-4,
+#comboCompareOverlay .combo-tag-chip.tagmod-4,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 {
     background: linear-gradient(135deg, hsla(75, 95%, 50%, 0.38), hsla(95, 95%, 50%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-5,
 #frameMeterOverlay .combo-tag-chip.tagmod-5,
+#comboCompareOverlay .combo-tag-chip.tagmod-5,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 {
     background: linear-gradient(135deg, hsla(50, 95%, 52%, 0.38), hsla(70, 95%, 52%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-6,
 #frameMeterOverlay .combo-tag-chip.tagmod-6,
+#comboCompareOverlay .combo-tag-chip.tagmod-6,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 {
     background: linear-gradient(135deg, hsla(28, 95%, 55%, 0.38), hsla(48, 95%, 55%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-7,
 #frameMeterOverlay .combo-tag-chip.tagmod-7,
+#comboCompareOverlay .combo-tag-chip.tagmod-7,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 {
     background: linear-gradient(135deg, hsla(10, 95%, 55%, 0.38), hsla(30, 95%, 55%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-8,
 #frameMeterOverlay .combo-tag-chip.tagmod-8,
+#comboCompareOverlay .combo-tag-chip.tagmod-8,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 {
     background: linear-gradient(135deg, hsla(350, 95%, 58%, 0.38), hsla(10, 95%, 58%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-9,
 #frameMeterOverlay .combo-tag-chip.tagmod-9,
+#comboCompareOverlay .combo-tag-chip.tagmod-9,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 {
     background: linear-gradient(135deg, hsla(330, 95%, 58%, 0.38), hsla(350, 95%, 58%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-10,
 #frameMeterOverlay .combo-tag-chip.tagmod-10,
+#comboCompareOverlay .combo-tag-chip.tagmod-10,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 {
     background: linear-gradient(135deg, hsla(305, 90%, 58%, 0.38), hsla(325, 90%, 58%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-11,
 #frameMeterOverlay .combo-tag-chip.tagmod-11,
+#comboCompareOverlay .combo-tag-chip.tagmod-11,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 {
     background: linear-gradient(135deg, hsla(280, 90%, 60%, 0.38), hsla(300, 90%, 60%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-12,
 #frameMeterOverlay .combo-tag-chip.tagmod-12,
+#comboCompareOverlay .combo-tag-chip.tagmod-12,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 {
     background: linear-gradient(135deg, hsla(255, 90%, 60%, 0.38), hsla(275, 90%, 60%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-13,
 #frameMeterOverlay .combo-tag-chip.tagmod-13,
+#comboCompareOverlay .combo-tag-chip.tagmod-13,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 {
     background: linear-gradient(135deg, hsla(230, 90%, 58%, 0.38), hsla(250, 90%, 58%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-14,
 #frameMeterOverlay .combo-tag-chip.tagmod-14,
+#comboCompareOverlay .combo-tag-chip.tagmod-14,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 {
     background: linear-gradient(135deg, hsla(210, 90%, 56%, 0.38), hsla(230, 90%, 56%, 0.22));
 }
 
 #comboView .combo-tag-chip.tagmod-15,
 #frameMeterOverlay .combo-tag-chip.tagmod-15,
+#comboCompareOverlay .combo-tag-chip.tagmod-15,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 {
     background: linear-gradient(135deg, hsla(190, 90%, 52%, 0.38), hsla(210, 90%, 52%, 0.22));
 }
@@ -17448,6 +17464,7 @@ body[data-theme="light"] #comboView #comboTableHeader .combo-sticky-col.combo-se
 /* Dark mode: slightly stronger saturation/opacity for chips */
 body[data-theme="dark"] #comboView .combo-tag-chip,
 body[data-theme="dark"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="dark"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="dark"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
     filter: saturate(1.12) brightness(1.04);
 }
@@ -17455,6 +17472,7 @@ body[data-theme="dark"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 /* Light mode: dark text + stronger border for contrast */
 body[data-theme="light"] #comboView .combo-tag-chip,
 body[data-theme="light"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="light"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
     color: #111827 !important;
     border: 1px solid rgba(17, 24, 39, 0.28) !important;
@@ -17464,13 +17482,15 @@ body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 }
 
 body[data-theme="light"] #comboView .combo-tag-chip-del,
-body[data-theme="light"] #frameMeterOverlay .combo-tag-chip-del {
+body[data-theme="light"] #frameMeterOverlay .combo-tag-chip-del,
+body[data-theme="light"] #comboCompareOverlay .combo-tag-chip-del {
     color: rgba(17, 24, 39, 0.72) !important;
 }
 
 /* Final: tag readability + contrast rebalance (both themes) */
 #comboView .combo-tag-chip,
 #frameMeterOverlay .combo-tag-chip,
+#comboCompareOverlay .combo-tag-chip,
 .combo-multi-body.combo-tag-picker .combo-tag-opt {
     border-width: 1px !important;
     border-style: solid !important;
@@ -17481,6 +17501,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-tag-chip-del {
 
 body[data-theme="dark"] #comboView .combo-tag-chip,
 body[data-theme="dark"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="dark"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="dark"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
     color: #f8fafc !important;
     border-color: rgba(255, 255, 255, 0.30) !important;
@@ -17490,6 +17511,7 @@ body[data-theme="dark"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 
 body[data-theme="light"] #comboView .combo-tag-chip,
 body[data-theme="light"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="light"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
     color: #0f172a !important;
     border-color: rgba(15, 23, 42, 0.38) !important;
@@ -17499,6 +17521,7 @@ body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 
 body[data-theme="light"] #comboView .combo-tag-chip-del,
 body[data-theme="light"] #frameMeterOverlay .combo-tag-chip-del,
+body[data-theme="light"] #comboCompareOverlay .combo-tag-chip-del,
 body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt .combo-tag-chip-del {
     color: rgba(15, 23, 42, 0.78) !important;
 }
@@ -17506,15 +17529,18 @@ body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt .comb
 /* Keep tag chip background colors consistent across dark/light modes. */
 #comboView .combo-tag-chip,
 #frameMeterOverlay .combo-tag-chip,
+#comboCompareOverlay .combo-tag-chip,
 .combo-multi-body.combo-tag-picker .combo-tag-opt {
     filter: none !important;
 }
 
 body[data-theme="dark"] #comboView .combo-tag-chip,
 body[data-theme="dark"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="dark"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="dark"] .combo-multi-body.combo-tag-picker .combo-tag-opt,
 body[data-theme="light"] #comboView .combo-tag-chip,
 body[data-theme="light"] #frameMeterOverlay .combo-tag-chip,
+body[data-theme="light"] #comboCompareOverlay .combo-tag-chip,
 body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
     filter: none !important;
 }
@@ -17573,51 +17599,67 @@ body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 /* Simple flat palette, shared across table/modal/picker */
 #comboView .combo-tag-chip.tagmod-0,
 #frameMeterOverlay .combo-tag-chip.tagmod-0,
+#comboCompareOverlay .combo-tag-chip.tagmod-0,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 { background-color: #3d6fb1 !important; }
 #comboView .combo-tag-chip.tagmod-1,
 #frameMeterOverlay .combo-tag-chip.tagmod-1,
+#comboCompareOverlay .combo-tag-chip.tagmod-1,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 { background-color: #2f8f66 !important; }
 #comboView .combo-tag-chip.tagmod-2,
 #frameMeterOverlay .combo-tag-chip.tagmod-2,
+#comboCompareOverlay .combo-tag-chip.tagmod-2,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 { background-color: #ad4f4f !important; }
 #comboView .combo-tag-chip.tagmod-3,
 #frameMeterOverlay .combo-tag-chip.tagmod-3,
+#comboCompareOverlay .combo-tag-chip.tagmod-3,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 { background-color: #b08b3f !important; }
 #comboView .combo-tag-chip.tagmod-4,
 #frameMeterOverlay .combo-tag-chip.tagmod-4,
+#comboCompareOverlay .combo-tag-chip.tagmod-4,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 { background-color: #7161b1 !important; }
 #comboView .combo-tag-chip.tagmod-5,
 #frameMeterOverlay .combo-tag-chip.tagmod-5,
+#comboCompareOverlay .combo-tag-chip.tagmod-5,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 { background-color: #2f7e84 !important; }
 #comboView .combo-tag-chip.tagmod-6,
 #frameMeterOverlay .combo-tag-chip.tagmod-6,
+#comboCompareOverlay .combo-tag-chip.tagmod-6,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 { background-color: #b36a3f !important; }
 #comboView .combo-tag-chip.tagmod-7,
 #frameMeterOverlay .combo-tag-chip.tagmod-7,
+#comboCompareOverlay .combo-tag-chip.tagmod-7,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 { background-color: #4d86c1 !important; }
 #comboView .combo-tag-chip.tagmod-8,
 #frameMeterOverlay .combo-tag-chip.tagmod-8,
+#comboCompareOverlay .combo-tag-chip.tagmod-8,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 { background-color: #389d91 !important; }
 #comboView .combo-tag-chip.tagmod-9,
 #frameMeterOverlay .combo-tag-chip.tagmod-9,
+#comboCompareOverlay .combo-tag-chip.tagmod-9,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 { background-color: #9a5faa !important; }
 #comboView .combo-tag-chip.tagmod-10,
 #frameMeterOverlay .combo-tag-chip.tagmod-10,
+#comboCompareOverlay .combo-tag-chip.tagmod-10,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 { background-color: #b3507a !important; }
 #comboView .combo-tag-chip.tagmod-11,
 #frameMeterOverlay .combo-tag-chip.tagmod-11,
+#comboCompareOverlay .combo-tag-chip.tagmod-11,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 { background-color: #8ca63c !important; }
 #comboView .combo-tag-chip.tagmod-12,
 #frameMeterOverlay .combo-tag-chip.tagmod-12,
+#comboCompareOverlay .combo-tag-chip.tagmod-12,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 { background-color: #5870b5 !important; }
 #comboView .combo-tag-chip.tagmod-13,
 #frameMeterOverlay .combo-tag-chip.tagmod-13,
+#comboCompareOverlay .combo-tag-chip.tagmod-13,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 { background-color: #4c9363 !important; }
 #comboView .combo-tag-chip.tagmod-14,
 #frameMeterOverlay .combo-tag-chip.tagmod-14,
+#comboCompareOverlay .combo-tag-chip.tagmod-14,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 { background-color: #a17644 !important; }
 #comboView .combo-tag-chip.tagmod-15,
 #frameMeterOverlay .combo-tag-chip.tagmod-15,
+#comboCompareOverlay .combo-tag-chip.tagmod-15,
 .combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 { background-color: #4f96a6 !important; }
 
 /* ======================================================================== */
@@ -18061,24 +18103,91 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-auto-toggles .combo-p
     background: var(--accent) !important;
 }
 
-/* Combo compare (up to 4, main table fields only) */
-#comboRowToggles .combo-compare-tray {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
+/* Combo compare dock (floating; not part of row-visibility toggles) */
+.combo-compare-dock {
+    position: fixed;
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(var(--site-footer-height, 24px) + 10px);
+    z-index: 11000;
+    max-width: min(420px, calc(100vw - 24px));
+    padding: 8px 14px;
+    border-radius: 12px;
+    background: var(--bg-table);
+    border: 1px solid var(--border-mid);
+    color: var(--text-main);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+    pointer-events: auto;
 }
 
-body[data-theme="light"] #comboRowToggles .combo-compare-tray {
-    border-left-color: rgba(0, 0, 0, 0.12);
+.combo-compare-dock[hidden] {
+    display: none !important;
+}
+
+/* Combo compare is for combo list / tree; hide on frame data tab */
+body[data-view="frame"] #comboCompareDock {
+    display: none !important;
+}
+
+/*
+ * Combo list: tray uses .combo-compare-dock (viewport bottom-right).
+ * Tree view: same bottom-right *within the chart column* — inset from the viewport edge by the
+ * detail pane width so the tray does not sit on top of #treeView .tree-detail-pane (380px).
+ * This is not “far left”; it is still the trailing edge of the tree canvas area.
+ */
+body[data-view="tree"] .combo-compare-dock {
+    right: calc(380px + max(12px, env(safe-area-inset-right, 0px)));
+}
+
+body[data-theme="light"] .combo-compare-dock {
+    background: #ffffff;
+    border-color: #d5d5d5;
+    color: #111;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.combo-compare-dock .combo-action-btn {
+    background: #151515;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 10px;
+    height: 22px;
+}
+
+.combo-compare-dock .combo-action-btn:hover {
+    border-color: var(--accent);
+}
+
+body[data-theme="light"] .combo-compare-dock .combo-action-btn {
+    background: #e4e4e4;
+    color: #111;
+    border-color: #bcbcbc;
+}
+
+body[data-theme="light"] .combo-compare-dock .combo-action-btn:hover {
+    border-color: var(--accent);
+}
+
+.combo-compare-dock .combo-compare-tray {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 .combo-compare-tray-label {
     font-size: 11px;
-    color: var(--text-dim, #aaa);
+    color: var(--text-dim);
     white-space: nowrap;
+}
+
+body[data-theme="light"] .combo-compare-tray-label {
+    color: #4b5563;
 }
 
 .combo-compare-open-btn:disabled,
@@ -18086,193 +18195,381 @@ body[data-theme="light"] #comboRowToggles .combo-compare-tray {
     opacity: 0.45;
 }
 
-.combo-compare-overlay {
-    position: fixed;
-    inset: 0;
+/* Compare modal: same shell as .modal-overlay + .modal-panel (onboarding, etc.) */
+#comboCompareOverlay.combo-compare-modal-overlay {
     z-index: 12000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 12px;
-    background: rgba(0, 0, 0, 0.55);
+    /* Default matches #comboView; JS copies computed --command-font-size when rendering */
+    --command-font-size: 13px;
 }
 
-.combo-compare-overlay.hidden {
-    display: none;
-}
-
-.combo-compare-dialog {
+.combo-compare-panel.modal-panel {
     width: min(96vw, 1200px);
+    max-width: min(96vw, 1200px);
     max-height: min(88vh, 900px);
     display: flex;
     flex-direction: column;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 10px;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+    align-items: stretch;
+    text-align: left;
+    box-sizing: border-box;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
-body[data-theme="light"] .combo-compare-dialog {
-    background: #f6f6f6;
-    border-color: #c8c8c8;
-}
-
-.combo-compare-dialog-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 14px;
-    border-bottom: 1px solid #2c2c2c;
-}
-
-body[data-theme="light"] .combo-compare-dialog-head {
-    border-bottom-color: #ccc;
-}
-
-.combo-compare-title {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.combo-compare-close {
-    border: none;
-    background: transparent;
-    color: inherit;
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-}
-
-.combo-compare-close:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.combo-compare-rank-hint {
-    margin: 0;
-    padding: 8px 14px 0;
-    font-size: 11px;
-    color: var(--text-dim, #999);
-    line-height: 1.35;
+.combo-compare-panel.modal-panel .modal-title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-right: 28px;
+    padding-left: 28px;
+    box-sizing: border-box;
 }
 
 .combo-compare-scroll {
-    overflow: auto;
-    padding: 10px 12px 14px;
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 0;
+    overflow: auto;
+    overflow-x: auto;
+    padding: 4px 2px 8px 0;
+    margin-right: -4px;
+    scrollbar-width: thin;
+    scrollbar-color: #6a6a6a rgba(255, 255, 255, 0.06);
 }
 
-.combo-compare-table {
-    width: max-content;
-    min-width: 100%;
+#comboCompareOverlay .combo-compare-scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+#comboCompareOverlay .combo-compare-scroll::-webkit-scrollbar-thumb {
+    background: #6a6a6a;
+    border-radius: 10px;
+}
+
+#comboCompareOverlay .combo-compare-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-scroll {
+    scrollbar-color: #b0b0b0 #dedede;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-scroll::-webkit-scrollbar-thumb {
+    background: #b0b0b0;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-scroll::-webkit-scrollbar-track {
+    background: #dedede;
+}
+
+/* Compare modal: borders/zebra align with #comboView #Table1 (#343434 dark; #d6d6d6 light) */
+#comboCompareOverlay #comboCompareTableHost:has(.combo-compare-layout-table) {
+    border: 1px solid #343434;
+    border-radius: 6px;
+    overflow: visible;
+}
+
+#comboCompareOverlay .combo-compare-layout-table {
+    width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    table-layout: fixed;
+    min-width: 0;
+    border: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    /* Match command / route text: #comboView --command-font-size (see .cmd-input[data-field="command"]) */
+    font-size: var(--command-font-size, 13px);
+    line-height: 1.1;
 }
 
-.combo-compare-corner {
-    width: 160px;
-    min-width: 140px;
+/* Zebra: match #comboView #Table1 (.combo-group-even / .combo-group-odd) */
+#comboCompareOverlay tr.combo-compare-field-row--even td,
+#comboCompareOverlay tr.combo-compare-field-row--even th {
+    background: #151515;
+}
+
+#comboCompareOverlay tr.combo-compare-field-row--odd td,
+#comboCompareOverlay tr.combo-compare-field-row--odd th {
+    background: #0b0b0b;
+}
+
+#comboCompareOverlay tr.combo-compare-field-row--even .combo-compare-field-label {
+    background: #151515;
+}
+
+#comboCompareOverlay tr.combo-compare-field-row--odd .combo-compare-field-label {
+    background: #0b0b0b;
+}
+
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--even td,
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--even th {
+    background: #f1f1f1;
+}
+
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--odd td,
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--odd th {
+    background: #dddddd;
+}
+
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--even .combo-compare-field-label {
+    background: #f1f1f1;
+}
+
+body[data-theme="light"] #comboCompareOverlay tr.combo-compare-field-row--odd .combo-compare-field-label {
+    background: #dddddd;
+}
+
+#comboCompareOverlay col.combo-compare-col-rowhead {
+    width: 220px;
+    max-width: 220px;
+}
+
+#comboCompareOverlay col.combo-compare-col-combo {
+    width: auto;
+}
+
+#comboCompareOverlay .combo-compare-layout-table td,
+#comboCompareOverlay .combo-compare-layout-table th {
+    border-bottom: 1px solid #343434;
+    border-right: 1px solid #343434;
+    padding: 0;
+    vertical-align: top;
+    font-size: var(--command-font-size, 13px);
+    line-height: 1.1;
+}
+
+#comboCompareOverlay .combo-compare-layout-table td:last-child,
+#comboCompareOverlay .combo-compare-layout-table th:last-child {
+    border-right: 1px solid #343434;
+}
+
+/* Row header / “category” column: center next to tall value cells */
+#comboCompareOverlay .combo-compare-layout-table th.combo-compare-field-label {
+    vertical-align: middle;
+}
+
+#comboCompareOverlay .combo-compare-layout-table .combo-details-layout-section th {
+    padding: 5px 8px 5px 10px;
+    text-align: left;
+    font-size: inherit;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #f3f4f6;
+    background: #2a2a2a;
+    border-top: 1px solid #343434;
+    border-left: 3px solid var(--accent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+#comboCompareOverlay .combo-details-layout-cell-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3px;
+    padding: 4px 6px;
+    text-align: center;
+}
+
+#comboCompareOverlay .combo-compare-field-label .combo-details-layout-cell-inner {
+    text-align: left;
+    max-width: 100%;
+}
+
+#comboCompareOverlay .combo-compare-field-label .combo-details-layout-label {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+#comboCompareOverlay .combo-details-layout-label {
+    font-size: inherit;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+#comboCompareOverlay .combo-compare-rank-line {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: 0.02em;
+}
+
+/* Light: .combo-details-layout-label alone would paint ranks gray; keep accent for #/total */
+body[data-theme="light"] #comboCompareOverlay .combo-details-layout-label.combo-compare-rank-line:not(.combo-compare-rank-line--empty) {
+    color: var(--accent);
+}
+
+#comboCompareOverlay .combo-compare-rank-line--empty {
+    visibility: hidden;
+    min-height: 1em;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    color: var(--text-main);
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--numeric {
+    font-variant-numeric: tabular-nums;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich {
+    font-family: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+/* Button tokens: overlay is outside #comboView — replicate icon row + screen-reader text hide */
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token:last-child {
+    margin-right: 0;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token[data-token="Hold2"] img,
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token[data-token="Hold3"] img {
+    width: auto;
+    height: 18px;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich .btn-token-text {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#comboCompareOverlay .combo-compare-readonly-val--rich .combo-tag-chip-del {
+    display: none !important;
+}
+
+/* Tag chips: layout only (selector kept ≤1 class after #id so .tagmod-* gradients win) */
+#comboCompareOverlay .combo-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    line-height: 1.4;
+    border: none;
+    user-select: none;
+    white-space: nowrap;
+    position: relative;
+    pointer-events: none;
+}
+
+#comboCompareOverlay .combo-compare-field-label {
     position: sticky;
     left: 0;
     z-index: 2;
-    background: #1a1a1a;
-    border-bottom: 1px solid #333;
+    width: 220px;
+    max-width: 220px;
+    min-width: 220px;
+    box-sizing: border-box;
+    background: #121212;
+    border-right: 1px solid #343434 !important;
 }
 
-body[data-theme="light"] .combo-compare-corner {
-    background: #f6f6f6;
+#comboCompareOverlay .combo-compare-value-inner--has-remove {
+    position: relative;
+    padding-top: 22px;
 }
 
-.combo-compare-rowhead {
-    text-align: left;
-    font-weight: 600;
-    padding: 8px 10px;
-    border-bottom: 1px solid #333;
-    border-right: 1px solid #2a2a2a;
-    position: sticky;
-    left: 0;
-    z-index: 1;
-    background: #161616;
-    white-space: nowrap;
-}
-
-body[data-theme="light"] .combo-compare-rowhead {
-    background: #ececec;
-    border-bottom-color: #bbb;
-    border-right-color: #ccc;
-}
-
-.combo-compare-colhead {
-    vertical-align: top;
-    padding: 8px 10px;
-    border-bottom: 1px solid #333;
-    border-left: 1px solid #2a2a2a;
-    min-width: 160px;
-    max-width: 240px;
-    background: #1f1f1f;
-}
-
-body[data-theme="light"] .combo-compare-colhead {
-    border-bottom-color: #bbb;
-    border-left-color: #ccc;
-    background: #eaeaea;
-}
-
-.combo-compare-head-snippet {
-    font-family: ui-monospace, monospace;
-    font-size: 11px;
-    line-height: 1.35;
-    word-break: break-word;
-    margin-bottom: 6px;
-}
-
-.combo-compare-remove {
-    float: right;
-    border: 1px solid #444;
-    background: #2a2a2a;
+#comboCompareOverlay .combo-compare-remove {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border: 1px solid #3a3a3a;
+    background: #1b1b1b;
     color: #ddd;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
     line-height: 1;
-    padding: 2px 8px;
+    padding: 2px 7px;
+    z-index: 1;
 }
 
-body[data-theme="light"] .combo-compare-remove {
-    border-color: #aaa;
-    background: #ddd;
-    color: #222;
+#comboCompareOverlay .combo-compare-remove:hover {
+    border-color: var(--accent);
+    color: #fff;
 }
 
-.combo-compare-cell {
-    vertical-align: top;
-    padding: 8px 10px;
-    border-bottom: 1px solid #2a2a2a;
-    border-left: 1px solid #2a2a2a;
-    max-width: 280px;
+body[data-theme="light"] #comboCompareOverlay #comboCompareTableHost:has(.combo-compare-layout-table) {
+    border-color: #dcdcdc;
 }
 
-body[data-theme="light"] .combo-compare-cell {
-    border-color: #ccc;
+body[data-theme="light"] #comboCompareOverlay .combo-compare-layout-table td,
+body[data-theme="light"] #comboCompareOverlay .combo-compare-layout-table th {
+    border-bottom-color: #d6d6d6;
+    border-right-color: #d6d6d6;
 }
 
-.combo-compare-val {
-    word-break: break-word;
-    line-height: 1.35;
-    font-family: ui-monospace, monospace;
-    font-size: 11px;
+body[data-theme="light"] #comboCompareOverlay .combo-compare-layout-table .combo-details-layout-section th {
+    color: #111827;
+    background: #ececec;
+    border-top-color: #d6d6d6;
+    border-left: 3px solid var(--accent);
+    font-weight: 700;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
-.combo-compare-rank {
-    display: inline-block;
-    margin-top: 6px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--accent, #6cf);
-    opacity: 0.95;
+body[data-theme="light"] #comboCompareOverlay .combo-compare-field-label {
+    border-right-color: #d6d6d6 !important;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-details-layout-label {
+    color: #6b7280;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-field-label .combo-details-layout-label {
+    color: #111827;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-readonly-val {
+    color: #111;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-remove {
+    border-color: #c4c4c4;
+    background: #e5e7eb;
+    color: #374151;
+}
+
+body[data-theme="light"] #comboCompareOverlay .combo-compare-remove:hover {
+    border-color: var(--accent);
+    color: #111;
 }

@@ -50,7 +50,7 @@ window.addEventListener('load', () => {
 let loadDataRequestId = 0;
 const headerTemplateHTMLByLang = new Map();
 const frameMovesCache = new Map();
-const APP_VERSION_FALLBACK = '1.0.2';
+const APP_VERSION_FALLBACK = '1.0.5';
 const APP_VERSION = getCurrentAppVersion();
 const TUTORIAL_FIRST_RUN_KEY = 'lm_tutorial_seen_v1';
 const TUTORIAL_AUTOMATION_UPDATE_SEEN_KEY = 'lm_tutorial_automation_seen_v1';
@@ -61,7 +61,6 @@ const COMBO_DETAILS_TUTORIAL_FLOW_KEY = 'combo-details';
 const LANGUAGE_PREF_KEY = 'lm_lang_pref_v1';
 const I18NEXT_LANGUAGE_KEY = 'i18nextLng';
 const LAST_SEEN_VERSION_KEY = 'lm_last_seen_version';
-const UPDATES_DATA_PATH = 'assets/data/updates.json';
 const UPDATES_TEXT_PATH = 'assets/data/updates.txt';
 const WELCOME_MAX_ITEMS = 20;
 const DEFAULT_FRAME_DATA_VERSION = '2025.12.16';
@@ -177,7 +176,7 @@ const TUTORIAL_FLOW_SLIDES = {
       imageIndex: 2,
       title: { jp: '行編集の基本', en: 'Row Editing Basics' },
       text: {
-        jp: 'Commandを編集するとボタン表示が自動更新されます。Notesには始動条件や補足を残せます。',
+        jp: 'コマンドを編集するとボタン表示が自動更新されます。備考には始動条件や補足を残せます。',
         en: 'Editing Command updates button icons automatically. Use Notes for setup details.',
       },
     },
@@ -219,6 +218,14 @@ const TUTORIAL_FLOW_SLIDES = {
       text: {
         jp: '行をダブルクリックまたは右クリックのコンテキストメニューから、フレームメーターや統計を確認できる詳細表示を開けます。',
         en: 'Double-click a row or use right-click menu to open Combo Details with frame meter and stats.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-3_jp.png',
+      title: { jp: 'コンボ比較とコンボツリー', en: 'Compare & Combo Tree' },
+      text: {
+        jp: 'コンテキストメニューから「比較に追加」をクリックすると、画面下のトレイに最大4件まで溜めて比較画面を開けます（最大4件。2件以上が必要）。また、ツリーで開くからコンボツリー画面に移動できます。',
+        en: 'Click Add to compare in the context menu to save a combo you want to compare (up to four combos; open Compare with two or more). You can also jump to the combo tree screen by clicking Open in Tree.',
       },
     },
 
@@ -532,6 +539,40 @@ const TUTORIAL_FLOW_SLIDES = {
       text: {
         jp: '保存後はCommand欄で実入力テストを行い、操作感と誤入力率を確認します。',
         en: 'After saving, run live input tests in Command cells to validate feel and accuracy.',
+      },
+    },
+  ],
+  'combo-tree': [
+    {
+      image: 'assets/images/help/help-12_jp.png',
+      title: { jp: 'コンボツリー画面', en: 'Combo Tree View' },
+      text: {
+        jp: '選択中キャラ・操作モードのコンボが分岐チャートで表示されます。コンボ表と同じデータを共有します。',
+        en: 'The branching combo chart of currently character and mode will be displayed. It shares the same data as the combo list.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-12_jp.png',
+      title: { jp: 'フィルターと縦軸', en: 'Filters and Rail' },
+      text: {
+        jp: '上部のチェックボックスで距離・位置などを絞り込み、Dゲージ／ダメージで縦軸を切り替ることができます。',
+        en: 'Use checkboxes in the upper section to narrow routes, and switch between D Gauge and Damage to change the vertical axis.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-12_jp.png',
+      title: { jp: '操作と右クリック', en: 'Selection and Context Menu' },
+      text: {
+        jp: 'パーツをクリックすると枝が展開します。パーツを右クリックで比較に追加、配下の展開／折りたたみ、その経路からコンボの追加、枝の削除が使えます。',
+        en: 'Click nodes to expand the tree. Right-click a node to Add to compare, expand/collapse subtree, add combo that node, or delete its children.',
+      },
+    },
+    {
+      image: 'assets/images/help/help-12_jp.png',
+      title: { jp: '詳細とコンボ詳細', en: 'Pane and Combo Details' },
+      text: {
+        jp: 'そのパーツで終わるコンボ（パーツの右側に青色の点があるもの）があれば、右ペインに情報が表示されます。右ペインでコンボリストと同様に編集することも可能です。',
+        en: 'Information about the combo will be displayed in the right pane if there is a combo ending in that node (Nodes with a blue dot on the right). You can edit items in the right pane just like in the combo list.',
       },
     },
   ],
@@ -1474,6 +1515,7 @@ const I18N_CORE = {
     'frame.compare_apply': '適用',
     'frame.compare_clear': '解除',
     'frame.empty': 'キャラクターと操作方法を選んでフレームデータを表示します。',
+    'combo.tree_view': 'ツリー',
     'combo.search.placeholder': '検索',
     'combo.search': '検索',
     'combo.advanced': '詳細検索',
@@ -1526,11 +1568,16 @@ const I18N_CORE = {
     'help.tab.roadmap': '今後の予定',
     'help.group.frame': 'フレームデータ',
     'help.group.combo': 'コンボリスト',
+    'help.group.tree': 'コンボツリー',
     'help.group.analysis': '分析機能（予定）',
     'help.howto.heading': '機能別ワークフロー',
     'help.howto.frame_compare': 'フレームデータ比較',
     'help.howto.combo_entry': 'コンボ入力',
     'help.howto.combo_details': 'コンボ詳細',
+    'help.howto.combo_compare': 'コンボ比較',
+    'help.howto.combo_compare_full': 'コンボ比較',
+    'help.howto.combo_tree': 'コンボツリー',
+    'help.howto.combo_tree_full': 'コンボツリー',
     'help.howto.table_control': '表操作',
     'help.howto.shortcuts': 'ショートカット',
     'help.howto.search': '検索 / フィルター',
@@ -1641,6 +1688,7 @@ const I18N_CORE = {
     'frame.compare_apply': 'Apply',
     'frame.compare_clear': 'Clear',
     'frame.empty': 'Select a character and control type to load frame data.',
+    'combo.tree_view': 'Tree',
     'combo.search.placeholder': 'Search',
     'combo.search': 'Search',
     'combo.advanced': 'Advanced Search',
@@ -1693,11 +1741,16 @@ const I18N_CORE = {
     'help.tab.roadmap': "What's Next",
     'help.group.frame': 'Frame Data',
     'help.group.combo': 'Combo List',
+    'help.group.tree': 'Combo Tree',
     'help.group.analysis': 'Analysis (Planned)',
     'help.howto.heading': 'Function-Based Workflows',
     'help.howto.frame_compare': 'Frame Data Compare',
     'help.howto.combo_entry': 'Combo Entry',
     'help.howto.combo_details': 'Combo Details',
+    'help.howto.combo_compare': 'Combo Compare',
+    'help.howto.combo_compare_full': 'Combo Compare',
+    'help.howto.combo_tree': 'Combo Tree',
+    'help.howto.combo_tree_full': 'Combo Tree',
     'help.howto.table_control': 'Table Control',
     'help.howto.search': 'Search / Filter',
     'help.howto.import': 'Importing',
@@ -2724,22 +2777,16 @@ async function ensureUpdatesDataLoaded() {
         return updatesDataCache;
       }
     } catch (err) {
-      console.warn('updates.txt load failed. Falling back to updates.json.', err);
+      console.warn('updates.txt load failed.', err);
     }
 
-    try {
-      const rawJson = await loadJsonResource(UPDATES_DATA_PATH);
-      updatesDataCache = normalizeUpdatesPayload(rawJson);
-      return updatesDataCache;
-    } catch (err) {
-      console.warn('Failed to load updates data. Falling back to minimal payload.', err);
-      updatesDataCache = normalizeUpdatesPayload({
-        current_version: APP_VERSION,
-        updates: [],
-        roadmap: { jp: [], en: [] },
-      });
-      return updatesDataCache;
-    }
+    console.warn('Failed to load updates data. Falling back to minimal payload.');
+    updatesDataCache = normalizeUpdatesPayload({
+      current_version: APP_VERSION,
+      updates: [],
+      roadmap: { jp: [], en: [] },
+    });
+    return updatesDataCache;
   })();
 
   return updatesDataPromise;
@@ -4157,6 +4204,7 @@ const TUTORIAL_FLOW_IMAGE_PREFIXES = {
   'frame-view': ['6'],
   'import-notation': ['8'],
   'notation-manager': ['8'],
+  'combo-tree': ['3'],
 };
 
 function getTutorialFlowImageKeys(flowKey) {

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/combo_tree.css" />
 </head>
 
-<body data-theme="dark" data-lang="jp" data-version="1.0.4">
+<body data-theme="dark" data-lang="jp" data-version="1.0.5">
     <header id="mainHeader" class="site-header">
         <div class="site-header-inner">
             <div class="site-brand">
@@ -624,11 +624,6 @@
                     </label>
                     <button type="button" id="toggleAllRowsBtn" class="combo-action-btn"
                         data-i18n="combo.rows.all">ALL</button>
-                    <span id="comboCompareTray" class="combo-compare-tray" aria-live="polite">
-                        <span id="comboCompareTrayLabel" class="combo-compare-tray-label">Compare (0/4)</span>
-                        <button type="button" id="comboCompareOpenBtn" class="combo-action-btn combo-compare-open-btn" disabled>Compare</button>
-                        <button type="button" id="comboCompareClearBtn" class="combo-action-btn combo-compare-clear-btn" disabled>Clear</button>
-                    </span>
                     <button type="button" class="tutorial-flow-trigger tutorial-flow-trigger-inline"
                         data-tutorial-flow="input-section" aria-label="Input section guide"
                         title="Input section guide">?</button>
@@ -2793,18 +2788,6 @@
                         </td>
                     </tr>
                 </table>
-                <div id="comboCompareOverlay" class="combo-compare-overlay hidden" aria-hidden="true">
-                    <div class="combo-compare-dialog" role="dialog" aria-modal="true" aria-labelledby="comboCompareTitle">
-                        <div class="combo-compare-dialog-head">
-                            <h2 id="comboCompareTitle" class="combo-compare-title">Compare combos</h2>
-                            <button type="button" id="comboCompareCloseBtn" class="combo-compare-close" aria-label="Close">&times;</button>
-                        </div>
-                        <p class="combo-compare-rank-hint" id="comboCompareRankHint"></p>
-                        <div class="combo-compare-scroll">
-                            <div id="comboCompareTableHost"></div>
-                        </div>
-                    </div>
-                </div>
             </section>
             <section class="site-view" data-view="tree" id="treeView" aria-hidden="true">
                 <div class="tree-main-layout">
@@ -2824,6 +2807,10 @@
                                     </li>
                                 </ul>
                             </div>
+                            <button type="button"
+                                class="tutorial-flow-trigger tutorial-flow-trigger-inline tree-tutorial-trigger"
+                                data-tutorial-flow="combo-tree" aria-label="Combo Tree guide"
+                                title="Combo Tree guide">?</button>
                         </div>
                         <div id="treePillFilterPanel" class="tree-inline-filters-host">
                             <div id="treeInlineFilterGroups" class="tree-inline-filter-groups"></div>
@@ -2891,10 +2878,27 @@
         <footer class="site-footer">
             <p>Unofficial reference built for lab work. All assets &copy; CAPCOM CO., LTD.</p>
             <div class="site-footer-meta">
-                <span id="footerAppVersionText">Tool Ver.: 1.0.4</span>
+                <span id="footerAppVersionText">Tool Ver.: 1.0.5</span>
                 <span id="footerGameVersionText">Game Ver.: 2025.03.17</span>
             </div>
         </footer>
+        <div id="comboCompareDock" class="combo-compare-dock" hidden aria-hidden="true" aria-label="Compare list">
+            <span id="comboCompareTray" class="combo-compare-tray" aria-live="polite">
+                <span id="comboCompareTrayLabel" class="combo-compare-tray-label">Compare (0/4)</span>
+                <button type="button" id="comboCompareOpenBtn" class="combo-action-btn combo-compare-open-btn" disabled>Compare</button>
+                <button type="button" id="comboCompareClearBtn" class="combo-action-btn combo-compare-clear-btn" disabled>Clear</button>
+            </span>
+        </div>
+        <div id="comboCompareOverlay" class="modal-overlay combo-compare-modal-overlay hidden" aria-hidden="true">
+            <div class="overlay-bg modal-backdrop" aria-hidden="true"></div>
+            <div class="modal-panel combo-compare-panel" role="dialog" aria-modal="true" aria-labelledby="comboCompareTitle">
+                <button type="button" id="comboCompareCloseBtn" class="modal-close" aria-label="Close">&times;</button>
+                <h2 id="comboCompareTitle" class="modal-title">Compare combos</h2>
+                <div class="combo-compare-scroll">
+                    <div id="comboCompareTableHost"></div>
+                </div>
+            </div>
+        </div>
         <section class="site-view" data-view="help" id="helpView" aria-hidden="true">
             <div class="help-view-shell">
                 <div class="help-hero">
@@ -2919,6 +2923,8 @@
                             Data</button>
                         <button type="button" data-help-target="help-feature-combo" data-i18n="help.group.combo">Combo
                             List</button>
+                        <button type="button" data-help-target="help-feature-tree" data-i18n="help.group.tree">Combo
+                            Tree</button>
                         <button type="button" data-help-target="help-feature-analysis" data-i18n="help.group.analysis">
                             Analysis (Planned)</button>
                     </nav>
@@ -2973,6 +2979,18 @@
                             <li>Quick search for broad text/value lookup.</li>
                             <li>Advanced Search for field-scoped and range-based filtering.</li>
                         </ul>
+                        <h3>Compare combos</h3>
+                        <ul class="help-list-tight">
+                            <li>Right-click one or more selected rows and choose <b>Add to compare</b> to queue combos in
+                                the compare tray at the bottom of the page.</li>
+                            <li>The tray shows <b>Compare (n/4)</b>. You can queue up to four combos at once.</li>
+                            <li>Click <b>Compare</b> to open a side-by-side modal: command, buttons, notes, tags, game
+                                version, and the main combo fields are shown in one table.</li>
+                            <li>Use <b>Remove from compare</b> on a column header to drop one combo, or <b>Clear
+                                    list</b> to empty the tray.</li>
+                            <li>You need at least <b>two</b> combos in the tray before <b>Compare</b> is enabled.</li>
+                            <li>The compare tray is hidden while viewing <b>Frame Data</b>.</li>
+                        </ul>
                         <h3>Input / Device Support</h3>
                         <ul class="help-list-tight">
                             <li>Manual command entry, quick-input icons, and customizable hotkeys.</li>
@@ -2990,16 +3008,51 @@
                             <li>Automatically change command and buttons based on the selected control mode.</li>
                         </ul>
                     </section>
+                    <p class="help-view-heading" data-i18n="help.group.tree">Combo Tree</p>
+                    <section id="help-feature-tree" class="help-subcard">
+                        <h3>Overview</h3>
+                        <ul class="help-list-tight">
+                            <li>The combo tree visualizes routes for the <b>current character</b> and <b>Classic /
+                                    Modern</b> combo list as a branching chart.</li>
+                            <li>Branches follow your command notation; ordering along the vertical rail can follow
+                                <b>D Gauge</b> requirements or <b>Damage</b> totals.</li>
+                        </ul>
+                        <h3>Layout and controls</h3>
+                        <ul class="help-list-tight">
+                            <li>The portrait selector and <b>Classic / Modern</b> tabs match the combo list (same saved
+                                data).</li>
+                            <li><b>D Gauge</b> / <b>Damage</b> switches how the vertical rail sorts branches.</li>
+                            <li><b>Refresh</b> rebuilds the tree from the current (filtered) combo rows.</li>
+                            <li><b>Expand All</b> / <b>Collapse All</b> open or close every subtree; the counter shows
+                                how many combos are placed in the chart.</li>
+                        </ul>
+                        <h3>Filters</h3>
+                        <ul class="help-list-tight">
+                            <li>Pill chips open filters for <b>Distance</b>, <b>Position</b>, <b>Counter</b>, <b>BO/Stun</b>,
+                                and <b>Special Conditions</b>; the inline filter groups under the header use the same
+                                filter state.</li>
+                            <li>Choose values, then <b>Apply</b> (or <b>Clear</b>) so only matching combos are included
+                                when the tree is built.</li>
+                        </ul>
+                        <h3>Tree interaction</h3>
+                        <ul class="help-list-tight">
+                            <li>Click a branch box or a combo leaf to select it; the <b>right-hand detail pane</b> shows
+                                fields for that combo.</li>
+                            <li>Click empty space in the tree scroll area to clear the selection.</li>
+                            <li>Right-click a branch or leaf for <b>Add to compare</b>, <b>Expand subtree</b> / <b>Collapse
+                                    subtree</b>, <b>Add combo from this path</b>, and <b>Delete child combos</b> (when
+                                applicable).</li>
+                        </ul>
+                        <h3>Detail pane</h3>
+                        <ul class="help-list-tight">
+                            <li><b>Combo Details</b> opens the same full modal as on the combo list (frame meter, stats,
+                                media, etc.).</li>
+                            <li><b>Auto Input</b> and <b>Overwrite</b> follow the combo list beta automation behavior
+                                when editing from the tree.</li>
+                        </ul>
+                    </section>
                     <p class="help-view-heading" data-i18n="help.group.analysis">Analysis (Planned)</p>
                     <section id="help-feature-analysis" class="help-subcard">
-                        <h3>Combo Comparison</h3>
-                        <ul class="help-list-tight">
-                            <li>Function to compare selected combos.</li>
-                        </ul>
-                        <h3>Combo Tree</h3>
-                        <ul class="help-list-tight">
-                            <li>Function to visualize combos in a tree structure.</li>
-                        </ul>
                         <h3>Report</h3>
                         <ul class="help-list-tight">
                             <li>Report on various metrics based on entered combos.</li>
@@ -3015,6 +3068,10 @@
                             data-i18n="help.howto.combo_entry">Combo Entry</button>
                         <button type="button" data-help-target="help-howto-combo-details"
                             data-i18n="help.howto.combo_details">Combo Details</button>
+                        <button type="button" data-help-target="help-howto-combo-compare"
+                            data-i18n="help.howto.combo_compare">Combo Compare</button>
+                        <button type="button" data-help-target="help-howto-combo-tree"
+                            data-i18n="help.howto.combo_tree">Combo Tree</button>
                         <button type="button" data-help-target="help-howto-table-control"
                             data-i18n="help.howto.table_control">Table Control</button>
                         <button type="button" data-help-target="help-howto-shortcuts"
@@ -3127,6 +3184,70 @@
                                     <li>Review routes with frame meter and button icons in one view.</li>
                                     <li>Compare same starter and same D gauge averages and top combos without leaving
                                         the popup.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="help-howto-combo-compare" class="help-subcard">
+                        <h3 data-i18n="help.howto.combo_compare_full">Combo Compare</h3>
+                        <div class="help-grid">
+                            <div>
+                                <h3 data-i18n="help.common.what_it_does">What It Does</h3>
+                                <ul class="help-list-tight">
+                                    <li>Opens a side-by-side modal comparing two to four combos from the current
+                                        character and control mode.</li>
+                                    <li>Lists command, notes, tags, version, and the main numeric fields in one table for
+                                        quick scanning.</li>
+                                </ul>
+                                <h3 data-i18n="help.common.how_to_do">How To Do It</h3>
+                                <ol class="help-steps">
+                                    <li>Select one or more rows, right-click, and choose <b>Add to compare</b>.</li>
+                                    <li>Watch the bottom tray for <b>Compare (n/4)</b>; add up to four combos total.</li>
+                                    <li>Click <b>Compare</b> when at least two combos are queued to open the modal.</li>
+                                    <li>Use <b>Remove from compare</b> on a column header or <b>Clear list</b> to reset the
+                                        tray.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h3 data-i18n="help.common.specific_uses">Specific Uses</h3>
+                                <ul class="help-list-tight">
+                                    <li>Compare damage and resource costs across similar starters.</li>
+                                    <li>Review multiple route notes without switching rows in the main table.</li>
+                                    <li>The compare tray is unavailable on the <b>Frame Data</b> tab.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="help-howto-combo-tree" class="help-subcard">
+                        <h3 data-i18n="help.howto.combo_tree_full">Combo Tree</h3>
+                        <div class="help-grid">
+                            <div>
+                                <h3 data-i18n="help.common.what_it_does">What It Does</h3>
+                                <ul class="help-list-tight">
+                                    <li>Builds a branching chart from the current combo list for the selected character
+                                        and Classic or Modern mode.</li>
+                                    <li>Reuses the same filters as the combo list and shows a detail pane for the
+                                        selected branch or combo.</li>
+                                </ul>
+                                <h3 data-i18n="help.common.how_to_do">How To Do It</h3>
+                                <ol class="help-steps">
+                                    <li>Click <b>COMBO TREE</b> in the site header to open the tree view.</li>
+                                    <li>Choose character and Classic or Modern; optional: use pill filters and inline
+                                        filter groups, then <b>Apply</b>.</li>
+                                    <li>Switch <b>D Gauge</b> or <b>Damage</b> to change vertical ordering; use
+                                        <b>Refresh</b> after edits, <b>Expand All</b> / <b>Collapse All</b> for
+                                        navigation.</li>
+                                    <li>Click a branch or leaf to load the right pane; right-click for <b>Add to
+                                            compare</b>, subtree actions, <b>Add combo from this path</b>, or <b>Delete
+                                            child combos</b> when applicable.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h3 data-i18n="help.common.specific_uses">Specific Uses</h3>
+                                <ul class="help-list-tight">
+                                    <li>Scan extensions from a starter and spot higher-damage branches.</li>
+                                    <li>Edit fields in the detail pane or open <b>Combo Details</b> for the full modal.
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -4309,18 +4430,30 @@
         <script src="assets/js/combos.js" charset="utf-8" defer></script>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
+                const THEME_STORAGE_KEY = "lm_site_theme";
                 const themeToggle = document.getElementById("themeToggle");
-                const applyTheme = (isLight) => {
+                const applyTheme = (isLight, persist) => {
                     document.body.setAttribute("data-theme", isLight ? "light" : "dark");
                     if (themeToggle) {
                         themeToggle.checked = !!isLight;
                     }
+                    if (persist) {
+                        try {
+                            localStorage.setItem(THEME_STORAGE_KEY, isLight ? "light" : "dark");
+                        } catch (e) { /* ignore */ }
+                    }
                 };
                 if (themeToggle) {
+                    let initialLight = document.body.getAttribute("data-theme") === "light";
+                    try {
+                        const stored = localStorage.getItem(THEME_STORAGE_KEY);
+                        if (stored === "light") initialLight = true;
+                        else if (stored === "dark") initialLight = false;
+                    } catch (e) { /* ignore */ }
+                    applyTheme(initialLight, false);
                     themeToggle.addEventListener("change", (ev) => {
-                        applyTheme(ev.target.checked);
+                        applyTheme(ev.target.checked, true);
                     });
-                    applyTheme(document.body.getAttribute("data-theme") === "light");
                 }
             });
         </script>

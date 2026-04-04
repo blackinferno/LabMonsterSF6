@@ -50,10 +50,8 @@ body {
     overflow: hidden;
 }
 
-/* Reserve space for fixed .site-footer; otherwise flex children can grow into the footer band. */
 .site-wrapper {
-    height: calc(100vh - var(--site-header-height) - var(--site-footer-height));
-    min-height: 0;
+    height: calc(100vh - var(--site-header-height));
     display: flex;
     flex-direction: column;
 }
@@ -3190,8 +3188,7 @@ body {
     flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
-    height: 100%;
-    max-height: 100%;
+    height: calc(100vh - var(--site-header-height) - var(--site-footer-height));
     overflow: hidden;
 }
 
