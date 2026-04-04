@@ -2524,7 +2524,10 @@ function maybeShowComboDetailsUpdateTutorial() {
 }
 
 function normalizeMainView(value) {
-  return String(value || '').toLowerCase() === 'frame' ? 'frame' : 'combos';
+  const v = String(value || '').toLowerCase();
+  if (v === 'frame') return 'frame';
+  if (v === 'tree') return 'tree';
+  return 'combos';
 }
 
 function loadPersistedMainView() {
@@ -4640,10 +4643,9 @@ function initCharacterSelect() {
       const activeView = String(document.body.getAttribute('data-view') || '').toLowerCase();
       if (activeView === 'frame') {
         if (window.switchCharacter) window.switchCharacter(slug, jp, en);
-      } else if (activeView === 'combos') {
+      } else if (activeView === 'combos' || activeView === 'tree') {
         if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
       } else {
-        // Fallback: keep previous behavior outside the primary views.
         if (window.switchCharacter) window.switchCharacter(slug, jp, en);
         if (window.switchComboCharacter) window.switchComboCharacter(slug, jp, en);
       }
@@ -5147,10 +5149,7 @@ function initMainTabs() {
     if (helpBtn) helpBtn.classList.toggle('active', nextView === 'help');
     if (infoBtn) infoBtn.classList.toggle('active', nextView === 'info');
     body.setAttribute('data-view', nextView);
-    if (nextView === 'tree' && typeof window.rebuildComboTree === 'function') {
-      window.requestAnimationFrame(() => window.rebuildComboTree());
-    }
-    if (nextView === 'frame' || nextView === 'combos') {
+    if (nextView === 'frame' || nextView === 'combos' || nextView === 'tree') {
       savePersistedMainView(nextView);
     }
     if (nextView === 'help') {
@@ -5171,12 +5170,16 @@ function initMainTabs() {
     updateFrameScrollHeight();
   };
 
+  // Expose before tab/history bindings so handlers always call the current
+  // window.setMainView (combos.js may wrap it for tree lifecycle).
+  window.setMainView = setView;
+
   const navigateViewHistory = (direction) => {
     const step = Number(direction) < 0 ? -1 : 1;
     const nextIndex = viewHistoryIndex + step;
     if (nextIndex < 0 || nextIndex >= viewHistory.length) return false;
     viewHistoryIndex = nextIndex;
-    setView(viewHistory[nextIndex], { skipHistory: true, force: true });
+    window.setMainView(viewHistory[nextIndex], { skipHistory: true, force: true });
     return true;
   };
 
@@ -5212,21 +5215,20 @@ function initMainTabs() {
   const onKey = (ev, viewKey) => {
     if (ev.key === 'Enter' || ev.key === ' ') {
       ev.preventDefault();
-      setView(viewKey);
+      window.setMainView(viewKey);
     }
   };
 
   tabs.forEach((tab) => {
     const viewKey = tab.dataset.viewTab;
-    tab.addEventListener('click', () => setView(viewKey));
+    tab.addEventListener('click', () => window.setMainView(viewKey));
     tab.addEventListener('keydown', (ev) => onKey(ev, viewKey));
   });
 
-  window.setMainView = setView;
   window.navigateMainViewHistory = navigateViewHistory;
 
   // Restore last primary view (Frame Data / Combo List)
-  setView(loadPersistedMainView(), { replaceHistory: true, force: true });
+  window.setMainView(loadPersistedMainView(), { replaceHistory: true, force: true });
 }
 
 window.getCurrentFrameDataVersion = () => currentFrameDataVersion || DEFAULT_FRAME_DATA_VERSION;

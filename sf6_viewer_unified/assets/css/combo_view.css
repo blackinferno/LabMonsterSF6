@@ -2657,16 +2657,16 @@
 }
 
 #frameMeterOverlay .combo-details-buttons-icons .btn-token img {
-    /* Main table uses 18px; modal should be 1.5x. */
-    width: 27px;
-    height: 27px;
+    /* Modal icons: 75% of prior 27px (was 1.5× table 18px). */
+    width: calc(27px * 0.75);
+    height: calc(27px * 0.75);
     object-fit: contain;
 }
 
 #frameMeterOverlay .combo-details-buttons-icons .btn-token[data-token="Hold2"] img,
 #frameMeterOverlay .combo-details-buttons-icons .btn-token[data-token="Hold3"] img {
     width: auto;
-    height: 27px;
+    height: calc(27px * 0.75);
 }
 
 #frameMeterOverlay .combo-details-buttons-icons .btn-token-text {
@@ -2692,7 +2692,7 @@
     display: block;
     width: 100%;
     font-family: inherit;
-    font-size: 12px;
+    font-size: calc(12px * 0.75);
     color: #f1f5f9;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -2708,8 +2708,7 @@
     padding: 0;
     outline: none;
     font-family: inherit;
-    font-size: 18px;
-    /* 1.5x */
+    font-size: calc(18px * 0.75);
     color: #f1f5f9;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -3237,8 +3236,8 @@
     border-top: 0 !important;
 }
 
-#frameMeterOverlay .combo-details-layout-table tr>td:nth-last-child(2):not(.combo-details-layout-empty),
-#frameMeterOverlay .combo-details-layout-table tr>th:nth-last-child(2):not(.empty) {
+#frameMeterOverlay .combo-details-layout-table tr > td:nth-last-child(2):not(.combo-details-layout-empty),
+#frameMeterOverlay .combo-details-layout-table tr > th:nth-last-child(2):not(.empty) {
     border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -7948,6 +7947,11 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 
 #treeView {
     position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
     --tree-col-starter: 0px;
     --tree-col-scale: 60px;
     --tree-box-halo: #0f0f0f;
@@ -7957,10 +7961,16 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 #treeView.active {
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
     gap: 0;
     min-height: 0;
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    box-sizing: border-box;
     overflow: hidden;
-    padding: 12px var(--page-pad) 24px;
+    /* Match #comboView.active: no horizontal inset so tree aligns to combo table edges */
+    padding: 0;
 }
 
 #treeView .tree-view-shell {
@@ -7968,8 +7978,9 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    width: calc(100% + 2 * var(--page-pad));
-    margin: 0 calc(-1 * var(--page-pad));
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
     padding-top: 108px;
     background: transparent;
 }
@@ -8167,6 +8178,49 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
+/* Inline condition filters — flat band under controls (matches pre-card layout). */
+#treeView .tree-inline-filters-host {
+    position: relative;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 6px 0 0;
+    /* Align filter band with combo list table inset (left: 5px) */
+    padding: 4px 5px 8px;
+    border: none;
+    border-top: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+/* Full-viewport-width separator above condition checkboxes (not clipped by column padding). */
+#treeView .tree-inline-filters-host::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    top: 0;
+    height: 1px;
+    background: #2a2a2a;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#treeView .tree-inline-filters-host .tree-inline-filter-groups {
+    padding: 2px 0 0;
+    position: relative;
+    z-index: 1;
+}
+
+body[data-theme="light"] #treeView .tree-inline-filters-host {
+    background: transparent;
+}
+
+body[data-theme="light"] #treeView .tree-inline-filters-host::before {
+    background: #cfcfcf;
+}
+
 .tree-pill-filter-panel.hidden {
     display: none;
 }
@@ -8262,6 +8316,7 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 #treeView .tree-order-btn.is-active {
     background: #2a2a2a;
     color: #fafafa;
+    box-shadow: inset 0 -2px 0 0 var(--accent);
 }
 
 #treeView .tree-view-head {
@@ -8276,20 +8331,39 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     z-index: 4;
 }
 
-#treeView .tree-char-btn {
+/* Match combo list: #wb_Image1 + #comboControlTabs at left:5px / 105px (same as #comboView). */
+#treeView .combo-tree-topstrip {
     position: relative;
+    flex-shrink: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+    min-height: 103px;
+    overflow: visible;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 2px 0 0;
+    z-index: 6;
+}
+
+#treeView .tree-char-btn,
+#treeView .combo-tree-char-btn {
+    position: absolute;
+    left: 5px;
+    top: 2px;
     width: 92px;
-    height: 100px;
+    height: 101px;
     cursor: pointer;
 }
 
-#treeView .tree-char-btn img {
+#treeView .tree-char-btn img,
+#treeView .combo-tree-char-btn img {
     display: block;
     width: 92px;
     height: 100px;
 }
 
-#treeView .tree-char-btn .combo-portrait-caret {
+#treeView .tree-char-btn .combo-portrait-caret,
+#treeView .combo-tree-char-btn .combo-portrait-caret {
     position: absolute;
     right: 21px;
     bottom: 4px;
@@ -8300,7 +8374,8 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     pointer-events: none;
 }
 
-#treeView .tree-char-btn .combo-portrait-caret::before {
+#treeView .tree-char-btn .combo-portrait-caret::before,
+#treeView .combo-tree-char-btn .combo-portrait-caret::before {
     content: "\25BC";
     font-size: 12px;
     line-height: 1;
@@ -8312,12 +8387,16 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     gap: 8px;
     padding: 0;
     margin: 0;
-    transform: translateY(-2px);
     position: absolute;
     left: 105px;
     top: 103px;
     transform: translateY(-100%);
     z-index: 4;
+}
+
+#treeView .tree-control-tabs img {
+    opacity: 1;
+    filter: none;
 }
 
 #treeView .tree-control-tabs .combo-auto-input-toggles {
@@ -8545,7 +8624,7 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 #treeView .tree-view-scroll {
     flex: 1;
     overflow: auto;
-    padding: 0 0 40px;
+    padding: 0 0 40px 5px;
     width: 100%;
     cursor: grab;
     scrollbar-width: thin;
@@ -8572,18 +8651,22 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 
 #treeView .tree-main-layout {
     display: flex;
-    flex: 1;
+    flex-direction: column;
+    flex: 1 1 auto;
     min-height: 0;
+    overflow: hidden;
+    min-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
     gap: 0;
 }
 
-#treeView .tree-main-layout>.tree-view-scroll {
-    min-width: 0;
-}
-
+/* Narrower than the old 440px experiment, wider than 330px so dual toggles aren’t clipped (JP/EN). */
 #treeView .tree-detail-pane {
-    width: 330px;
-    min-width: 330px;
+    flex: 0 0 380px;
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px;
     border-left: 1px solid #2a2a2a;
     background: #101010;
     padding: 10px;
@@ -8591,22 +8674,8 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     display: flex;
     flex-direction: column;
     min-height: 0;
-    scrollbar-width: thin;
-    scrollbar-color: #6a6a6a rgba(255, 255, 255, 0.06);
-}
-
-#treeView .tree-detail-pane::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-#treeView .tree-detail-pane::-webkit-scrollbar-thumb {
-    background: #6a6a6a;
-    border-radius: 10px;
-}
-
-#treeView .tree-detail-pane::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.06);
+    align-self: stretch;
+    box-sizing: border-box;
 }
 
 #treeView .tree-detail-pane.is-hidden {
@@ -8626,17 +8695,21 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     margin-bottom: 8px;
 }
 
-#treeView .tree-detail-open-modal-btn {
+#treeView .tree-detail-head .header-help-btn {
     flex-shrink: 0;
-    padding: 2px 8px;
-    min-height: 22px;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    text-transform: none;
+    white-space: nowrap;
 }
 
-#treeView .tree-detail-empty {
+#treeView .tree-detail-head .header-help-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#treeView .tree-detail-empty,
+#treeView #treeDetailEmpty {
     font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
     color: #8f8f8f;
 }
 
@@ -8644,10 +8717,24 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     display: none;
     flex: 1 1 auto;
     min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+/* Docked modal supersedes legacy inline editors; keep them out of layout. */
+#treeView .tree-detail-pane #treeAutoInputToggleWrap,
+#treeView .tree-detail-pane #treeDetailButtons,
+#treeView .tree-detail-pane #treeDetailGrid,
+#treeView .tree-detail-pane #treeDetailMedia {
+    display: none !important;
 }
 
 #treeView .tree-detail-head,
-#treeView .tree-detail-empty {
+#treeView .tree-detail-empty,
+#treeView #treeDetailEmpty {
     flex-shrink: 0;
 }
 
@@ -8657,12 +8744,12 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     background: transparent;
     z-index: 1;
     width: 100%;
-    height: 100%;
+    flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    justify-content: stretch;
+    justify-content: flex-start;
     overflow: hidden;
 }
 
@@ -8674,8 +8761,9 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     width: 100%;
     max-width: none;
     max-height: none;
-    height: 100%;
+    height: auto;
     min-height: 0;
+    min-width: 0;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -8689,12 +8777,61 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 
 #treeView #frameMeterOverlay.tree-docked .combo-details-scroll {
     max-height: none;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     flex: 1 1 auto;
     min-height: 0;
+    min-width: 0;
     padding-bottom: 6px;
     scrollbar-width: thin;
     scrollbar-color: #6a6a6a rgba(255, 255, 255, 0.06);
+}
+
+/* Right pane: one row, intrinsic-width pills (do not stretch to fill pane). */
+#treeView #frameMeterOverlay.tree-docked #comboDetailsAutoToggleWrap.combo-details-auto-toggles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+}
+
+#treeView #frameMeterOverlay.tree-docked #comboDetailsAutoToggleWrap .combo-poison-toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    width: auto;
+    max-width: none;
+    box-sizing: border-box;
+    padding: 3px 5px 3px 4px;
+}
+
+#treeView #frameMeterOverlay.tree-docked #comboDetailsAutoToggleWrap .combo-poison-toggle-label {
+    flex: 0 1 auto;
+    white-space: nowrap;
+    font-size: 10px;
+}
+
+#treeView #frameMeterOverlay.tree-docked #comboDetailsAutoToggleWrap .combo-poison-toggle-group.lang-toggle {
+    flex-shrink: 0;
+    height: 20px;
+    padding: 1px;
+    gap: 1px;
+}
+
+#treeView #frameMeterOverlay.tree-docked #comboDetailsAutoToggleWrap .combo-poison-toggle-btn {
+    min-width: 28px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 9px;
 }
 
 #treeView #frameMeterOverlay.tree-docked .combo-details-scroll::-webkit-scrollbar {
@@ -8712,7 +8849,10 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 #treeView #frameMeterOverlay.tree-docked .combo-details-layout-table {
-    min-width: 700px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 #treeView #frameMeterOverlay.tree-docked #comboDetailsHelpBtn,
@@ -8744,6 +8884,10 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 /* Tree right pane: match combo list table sizing (not modal enlarged sizing). */
+#treeView #frameMeterOverlay.tree-docked .combo-details-command {
+    font-size: var(--command-font-size, 12px);
+}
+
 #treeView #frameMeterOverlay.tree-docked .combo-details-command-edit {
     font-size: var(--command-font-size, 12px);
     line-height: 1.2;
@@ -8835,19 +8979,19 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 
 /* Tree right pane only: hide statistics block. */
 #treeView #frameMeterOverlay.tree-docked .combo-details-stats,
-#treeView #frameMeterOverlay.tree-docked .combo-details-allfields+.combo-details-sep {
+#treeView #frameMeterOverlay.tree-docked .combo-details-allfields + .combo-details-sep {
     display: none;
 }
 
-/* Tree right pane: keep actions visible at pane bottom. */
+/* Tree right pane: actions row stays below scroll area (flex, not outer pane scroll). */
 #treeView #frameMeterOverlay.tree-docked .combo-details-actions {
-    position: sticky;
-    bottom: 0;
-    z-index: 3;
+    flex-shrink: 0;
     margin-top: 0;
-    padding-top: 8px;
+    padding: 8px 0 4px;
     border-top: 1px solid #2a2a2a;
     background: #101010;
+    position: relative;
+    z-index: 3;
 }
 
 #treeView .tree-detail-body {
@@ -9205,12 +9349,12 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     min-width: 100%;
 }
 
-.htree-root>.htree-branch.htree-top {
+.htree-root > .htree-branch.htree-top {
     padding-top: 10px;
     border-top: 1px solid #1f1f1f;
 }
 
-.htree-root>.htree-branch.htree-top:first-child {
+.htree-root > .htree-branch.htree-top:first-child {
     padding-top: 0;
     border-top: 0;
 }
@@ -9258,8 +9402,8 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 /* Hide connector when children hidden */
-.htree-branch:has(> .htree-box-wrap > .htree-box.htree-collapsed)>.htree-box-wrap::after,
-.htree-branch:not(:has(.htree-children))>.htree-box-wrap::after {
+.htree-branch:has(> .htree-box-wrap > .htree-box.htree-collapsed) > .htree-box-wrap::after,
+.htree-branch:not(:has(.htree-children)) > .htree-box-wrap::after {
     display: none;
 }
 
@@ -9316,6 +9460,10 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
     border-color: #e8c040;
 }
 
+#treeView .htree-box.htree-box--di {
+    border-color: #b26bff;
+}
+
 #treeView .htree-box.htree-box--sa1 {
     /* Distinct from drive OD yellow and CR light blue */
     border-color: #db2777;
@@ -9350,6 +9498,7 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 #treeView .htree-box.htree-box--cr:hover,
 #treeView .htree-box.htree-box--dr:hover,
 #treeView .htree-box.htree-box--od:hover,
+#treeView .htree-box.htree-box--di:hover,
 #treeView .htree-box.htree-box--sa1:hover,
 #treeView .htree-box.htree-box--sa2:hover,
 #treeView .htree-box.htree-box--sa3:hover,
@@ -9432,8 +9581,8 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 /* Each item in children gets a horizontal arm */
-.htree-children>.htree-branch,
-.htree-children>.htree-leaf {
+.htree-children > .htree-branch,
+.htree-children > .htree-leaf {
     position: relative;
     margin-left: 0;
     padding-left: 14px;
@@ -9441,8 +9590,8 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 /* Horizontal arm from vertical sibling line → branch/leaf */
-.htree-children>.htree-branch::before,
-.htree-children>.htree-leaf::before {
+.htree-children > .htree-branch::before,
+.htree-children > .htree-leaf::before {
     content: '';
     position: absolute;
     left: -14px;
@@ -9455,7 +9604,7 @@ body[data-theme="light"] .combo-xlsx-map-modal .combo-xlsx-map-target-panel {
 }
 
 /* First child: vertical line starts at center, not top */
-.htree-children> :first-child {
+.htree-children > :first-child {
     margin-top: 0;
 }
 
@@ -9586,6 +9735,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -9704,7 +9855,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -9789,8 +9941,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -9824,7 +9976,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -9878,7 +10031,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -10087,6 +10240,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -10205,7 +10360,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -10290,8 +10446,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -10325,7 +10481,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -10379,7 +10536,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -10588,6 +10745,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -10686,7 +10845,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -10771,8 +10931,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -10806,7 +10966,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -10860,7 +11021,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -11069,6 +11230,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -11167,7 +11330,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -11252,8 +11416,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -11287,7 +11451,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -11341,7 +11506,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -11550,6 +11715,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -11648,7 +11815,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -11730,8 +11898,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -11765,7 +11933,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -11819,7 +11988,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -12028,6 +12197,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -12126,7 +12297,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -12208,8 +12380,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -12243,7 +12415,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -12297,7 +12470,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -12506,6 +12679,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -12604,7 +12779,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -12686,8 +12862,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -12721,7 +12897,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -12775,7 +12952,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -12984,6 +13161,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -13082,7 +13261,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -13164,8 +13344,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -13199,7 +13379,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -13253,7 +13434,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -13462,6 +13643,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -13560,7 +13743,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -13642,8 +13826,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -13677,7 +13861,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -13731,7 +13916,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -13940,6 +14125,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -14038,7 +14225,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -14120,8 +14308,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -14155,7 +14343,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -14209,7 +14398,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -14418,6 +14607,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -14516,7 +14707,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -14598,8 +14790,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -14633,7 +14825,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -14687,7 +14880,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -14875,6 +15068,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -14973,7 +15168,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -15055,8 +15251,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -15090,7 +15286,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -15144,7 +15341,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -15332,6 +15529,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -15430,7 +15629,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -15512,8 +15712,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -15547,7 +15747,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -15601,7 +15802,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -15787,6 +15988,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -15885,7 +16088,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -15967,8 +16171,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -16002,7 +16206,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -16056,7 +16261,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -16216,6 +16421,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -16314,7 +16521,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -16396,8 +16604,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -16431,7 +16639,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -16485,7 +16694,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -16647,6 +16856,8 @@ body[data-theme="light"] #treeView {
 
 body[data-theme="light"] #treeView .tree-view-shell,
 body[data-theme="light"] #treeView .tree-main-layout,
+body[data-theme="light"] #treeView .tree-page-chrome,
+body[data-theme="light"] #treeView .tree-body-split,
 body[data-theme="light"] #treeView .tree-view-scroll,
 body[data-theme="light"] #treeView .tree-mockup-wrap,
 body[data-theme="light"] #treeView .tree-band-main-col {
@@ -16776,7 +16987,8 @@ body[data-theme="light"] #treeView .tree-detail-pane::-webkit-scrollbar-track {
 }
 
 body[data-theme="light"] #treeView .tree-detail-head,
-body[data-theme="light"] #treeView .tree-detail-empty {
+body[data-theme="light"] #treeView .tree-detail-empty,
+body[data-theme="light"] #treeView #treeDetailEmpty {
     color: #333;
 }
 
@@ -16873,8 +17085,8 @@ body[data-theme="light"] .htree-children {
     border-color: rgba(86, 86, 86, 0.6);
 }
 
-body[data-theme="light"] .htree-children>.htree-branch::before,
-body[data-theme="light"] .htree-children>.htree-leaf::before {
+body[data-theme="light"] .htree-children > .htree-branch::before,
+body[data-theme="light"] .htree-children > .htree-leaf::before {
     background: rgba(86, 86, 86, 0.6);
 }
 
@@ -16916,7 +17128,8 @@ body[data-theme="light"] #treeView .tree-inline-filter-item span {
     color: #202020;
 }
 
-body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret {
+body[data-theme="light"] #treeView .tree-char-btn .combo-portrait-caret,
+body[data-theme="light"] #treeView .combo-tree-char-btn .combo-portrait-caret {
     color: #111;
     text-shadow: none;
 }
@@ -16970,7 +17183,7 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-layout-table th {
 
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-section th,
 body[data-theme="light"] #frameMeterOverlay .combo-details-layout-compact-section-title,
-body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid>div.combo-details-allfields-section {
+body[data-theme="light"] #frameMeterOverlay .combo-details-allfields-grid > div.combo-details-allfields-section {
     background: #eeeeee;
     color: #222;
     border-color: #d0d0d0;
@@ -17360,99 +17573,52 @@ body[data-theme="light"] .combo-multi-body.combo-tag-picker .combo-tag-opt {
 /* Simple flat palette, shared across table/modal/picker */
 #comboView .combo-tag-chip.tagmod-0,
 #frameMeterOverlay .combo-tag-chip.tagmod-0,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 {
-    background-color: #3d6fb1 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-0 { background-color: #3d6fb1 !important; }
 #comboView .combo-tag-chip.tagmod-1,
 #frameMeterOverlay .combo-tag-chip.tagmod-1,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 {
-    background-color: #2f8f66 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-1 { background-color: #2f8f66 !important; }
 #comboView .combo-tag-chip.tagmod-2,
 #frameMeterOverlay .combo-tag-chip.tagmod-2,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 {
-    background-color: #ad4f4f !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-2 { background-color: #ad4f4f !important; }
 #comboView .combo-tag-chip.tagmod-3,
 #frameMeterOverlay .combo-tag-chip.tagmod-3,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 {
-    background-color: #b08b3f !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-3 { background-color: #b08b3f !important; }
 #comboView .combo-tag-chip.tagmod-4,
 #frameMeterOverlay .combo-tag-chip.tagmod-4,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 {
-    background-color: #7161b1 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-4 { background-color: #7161b1 !important; }
 #comboView .combo-tag-chip.tagmod-5,
 #frameMeterOverlay .combo-tag-chip.tagmod-5,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 {
-    background-color: #2f7e84 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-5 { background-color: #2f7e84 !important; }
 #comboView .combo-tag-chip.tagmod-6,
 #frameMeterOverlay .combo-tag-chip.tagmod-6,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 {
-    background-color: #b36a3f !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-6 { background-color: #b36a3f !important; }
 #comboView .combo-tag-chip.tagmod-7,
 #frameMeterOverlay .combo-tag-chip.tagmod-7,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 {
-    background-color: #4d86c1 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-7 { background-color: #4d86c1 !important; }
 #comboView .combo-tag-chip.tagmod-8,
 #frameMeterOverlay .combo-tag-chip.tagmod-8,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 {
-    background-color: #389d91 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-8 { background-color: #389d91 !important; }
 #comboView .combo-tag-chip.tagmod-9,
 #frameMeterOverlay .combo-tag-chip.tagmod-9,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 {
-    background-color: #9a5faa !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-9 { background-color: #9a5faa !important; }
 #comboView .combo-tag-chip.tagmod-10,
 #frameMeterOverlay .combo-tag-chip.tagmod-10,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 {
-    background-color: #b3507a !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-10 { background-color: #b3507a !important; }
 #comboView .combo-tag-chip.tagmod-11,
 #frameMeterOverlay .combo-tag-chip.tagmod-11,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 {
-    background-color: #8ca63c !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-11 { background-color: #8ca63c !important; }
 #comboView .combo-tag-chip.tagmod-12,
 #frameMeterOverlay .combo-tag-chip.tagmod-12,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 {
-    background-color: #5870b5 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-12 { background-color: #5870b5 !important; }
 #comboView .combo-tag-chip.tagmod-13,
 #frameMeterOverlay .combo-tag-chip.tagmod-13,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 {
-    background-color: #4c9363 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-13 { background-color: #4c9363 !important; }
 #comboView .combo-tag-chip.tagmod-14,
 #frameMeterOverlay .combo-tag-chip.tagmod-14,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 {
-    background-color: #a17644 !important;
-}
-
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-14 { background-color: #a17644 !important; }
 #comboView .combo-tag-chip.tagmod-15,
 #frameMeterOverlay .combo-tag-chip.tagmod-15,
-.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 {
-    background-color: #4f96a6 !important;
-}
+.combo-multi-body.combo-tag-picker .combo-tag-opt.tagmod-15 { background-color: #4f96a6 !important; }
 
 /* ======================================================================== */
 /* Combo Details Modal/Tree Pane final light-mode + delete contrast fixes    */
@@ -17506,8 +17672,8 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-stats-row:nth-of-type
     background: #f7f7f7 !important;
 }
 
-body[data-theme="light"] #frameMeterOverlay .combo-details-stats-row>div,
-body[data-theme="light"] #frameMeterOverlay .combo-details-stats-head>div {
+body[data-theme="light"] #frameMeterOverlay .combo-details-stats-row > div,
+body[data-theme="light"] #frameMeterOverlay .combo-details-stats-head > div {
     color: #1f1f1f !important;
     border-left-color: #d5d5d5 !important;
 }

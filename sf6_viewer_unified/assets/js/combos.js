@@ -3381,11 +3381,11 @@
   const WARNING_SWEEP_MAX_PER_TICK = 48;
   const WARNING_SWEEP_HARD_CAP_ROWS = 220;
   const FAST_BOOT_THRESHOLD = 320;
-  const FAST_BOOT_ROWS = 48;
+  const FAST_BOOT_ROWS = 36;
   const BACKGROUND_HYDRATE_STEP = 64;
   const BACKGROUND_GROUP_BUILD_CHUNK = 16;
   const BACKGROUND_APPLY_CHUNK = 12;
-  const LOAD_MORE_CHUNK = 48;
+  const LOAD_MORE_CHUNK = 36;
   const AUTO_BACKGROUND_LOAD_MORE = true;
   // Performance tuning baseline (validated on large combo datasets):
   // - Keep auto-load incremental near viewport bottom (never hydrate full on scroll).
@@ -3393,8 +3393,9 @@
   // - Keep per-tick visible hydration low to avoid long main-thread stalls.
   const STICKY_BODY_DISABLE_THRESHOLD = 120;
   const DERIVED_AUTO_REFRESH_MAX_LOADED_ROWS = 220;
-  // Render frame meter for all loaded rows.
-  // Keep lite mode enabled to reduce per-row paint cost.
+  /** When false, combo table frame-meter cells stay empty; full meter is built only in Combo Details (#frameMeterModalVisual). */
+  const FRAME_METER_RENDER_IN_TABLE_ROWS = false;
+  // If table rendering is enabled: when true, only the active row gets a live strip (saves DOM when many rows load).
   const FRAME_METER_ACTIVE_ROW_ONLY = false;
   const FRAME_METER_QUEUE_BUDGET_MS = 4;
   const FRAME_METER_QUEUE_MAX_PER_TICK = 4;
@@ -7010,6 +7011,7 @@
       tip_top_combo_spent: 'combo_details_tip_top_combo_spent',
     };
     document.querySelectorAll('[data-combo-details-label]').forEach((el) => {
+      if (el.id === 'comboDetailsTags') return;
       const key = String(el.dataset.comboDetailsLabel || '');
       const mapKey = labelMap[key] || key;
       const text = comboT(`ui.${mapKey}`, active);
@@ -7408,34 +7410,22 @@
     return !!resolveCharacterSlug(state.currentCharacter || getCharacterSlugFromUi());
   }
 
-  /** True when a persisted row counts as "real data" for the given Classic/Modern tab (not the other mode). */
-  function storedComboRowMatchesControlMode(combo, mode) {
-    const active = getEffectiveControlModeForSample(mode);
-    if (active !== 'classic' && active !== 'modern') return true;
-    if (!combo || typeof combo !== 'object') return false;
-    const rowMode = getComboModeForMatch(combo);
-    if (rowMode === '両方') return true;
-    if (rowMode === active) return true;
-    if (rowMode === 'classic' || rowMode === 'modern') return false;
-    const explicit = canonicalControlMode(combo.control_mode || '');
-    if (explicit === '両方') return true;
-    if (explicit === active) return true;
-    if (explicit === 'classic' || explicit === 'modern') return false;
-    return true;
-  }
-
-  function hasStoredComboDataForMode(slug, mode) {
+  function hasStoredComboData(slug) {
     try {
       const raw = localStorage.getItem(getStorageKey(slug));
       const parsed = parseStoredCombos(raw);
       if (!parsed || !Array.isArray(parsed.combos)) return false;
+      const activeMode = canonicalControlMode(state.controlMode || '');
       return parsed.combos.some((combo) => {
         if (!combo || typeof combo !== 'object') return false;
-        const fields = ['command', 'buttons', 'combo_notes', 'frame_meter', 'game_version', ...FIELD_ORDER];
-        const has = combo._manual
-          || fields.some((field) => String(combo[field] || '').trim().length > 0);
-        if (!has) return false;
-        return storedComboRowMatchesControlMode(combo, mode);
+        if (isSampleLikeCombo(combo, { ignoreManual: true })) return false;
+        if (activeMode) {
+          const comboMode = canonicalControlMode(combo.control_mode || '');
+          if (comboMode && comboMode !== activeMode) return false;
+        }
+        if (combo._manual) return true;
+        const fields = ['command', 'buttons', 'combo_notes', 'frame_meter', ...FIELD_ORDER];
+        return fields.some((field) => String(combo[field] || '').trim().length > 0);
       });
     } catch {
       return false;
@@ -7445,8 +7435,7 @@
   function shouldUseSampleComboForFirstRow() {
     if (!hasSelectedCharacterForCombos()) return false;
     const slug = state.currentCharacter || getCharacterSlugFromUi();
-    const mode = getEffectiveControlModeForSample(state.controlMode);
-    if (!hasStoredComboDataForMode(slug, mode)) return true;
+    if (!hasStoredComboData(slug)) return true;
     return false;
   }
 
@@ -7499,8 +7488,7 @@
 
   function isSampleSuppressedForMode(combo, mode = '') {
     const slug = state.currentCharacter || getCharacterSlugFromUi();
-    const eff = getEffectiveControlModeForSample(mode);
-    if (!hasStoredComboDataForMode(slug, eff)) return false;
+    if (!hasStoredComboData(slug)) return false;
     const persisted = getSampleSuppressedFlag(mode, slug);
     if (!combo || typeof combo !== 'object') return persisted;
     const raw = normalizeSampleSuppressionState(combo._sample_disabled, mode);
@@ -7526,6 +7514,20 @@
     if (suppressed) setSampleSuppressedGlobalFlag(true);
   }
 
+  function removeTailSamplesForMode(mode) {
+    const targetMode = canonicalControlMode(mode || '');
+    let changed = false;
+    while (state.combos.length > 1) {
+      const last = state.combos[state.combos.length - 1];
+      if (!last || !isSampleLikeCombo(last, { ignoreManual: true })) break;
+      const cMode = canonicalControlMode(last.control_mode || '');
+      if (targetMode && cMode !== targetMode) break;
+      state.combos.pop();
+      changed = true;
+    }
+    return changed;
+  }
+
   function syncFirstRowSampleForCurrentMode() {
     if (!Array.isArray(state.combos) || !state.combos.length) return false;
     const first = state.combos[0] || defaultCombo();
@@ -7533,31 +7535,48 @@
     const suppressedFlags = normalizeSampleSuppressionState(first._sample_disabled, activeMode);
     const sampleSuppressed = isSampleSuppressedForMode(first, state.controlMode);
     if (!shouldUseSampleComboForFirstRow()) {
+      let changed = removeTailSamplesForMode(activeMode);
       if (isDefaultSampleCombo(first)) {
         state.combos[0] = defaultCombo();
         return true;
       }
-      return false;
+      return changed;
     }
     if (sampleSuppressed && isBlankComboRowForSample(first)) return false;
-    const firstRowMode = getComboModeForMatch(first);
-    const firstRowIsOnlyOtherMode = (activeMode === 'modern' && firstRowMode === 'classic')
-      || (activeMode === 'classic' && firstRowMode === 'modern');
     const shouldReplace = isBlankComboRowForSample(first)
       || isDefaultSampleCombo(first)
-      || isSampleLikeCombo(first, { ignoreManual: true })
-      || firstRowIsOnlyOtherMode;
-    if (!shouldReplace) return false;
-    const sample = defaultCombo(true);
-    if (activeMode === 'classic' || activeMode === 'modern') {
-      suppressedFlags[activeMode] = false;
+      || isSampleLikeCombo(first, { ignoreManual: true });
+    if (shouldReplace) {
+      removeTailSamplesForMode(activeMode);
+      const sample = defaultCombo(true);
+      if (activeMode === 'classic' || activeMode === 'modern') {
+        suppressedFlags[activeMode] = false;
+      }
+      state.combos[0] = {
+        ...defaultCombo(),
+        ...sample,
+        _sample_disabled: compactSampleSuppressionState(suppressedFlags),
+      };
+      return true;
     }
-    state.combos[0] = {
-      ...defaultCombo(),
-      ...sample,
-      _sample_disabled: compactSampleSuppressionState(suppressedFlags),
-    };
-    return true;
+    const firstMode = canonicalControlMode(first.control_mode || '');
+    if (firstMode && firstMode !== activeMode && !sampleSuppressed) {
+      const alreadyExists = state.combos.some((c, idx) =>
+        idx > 0
+        && c
+        && isSampleLikeCombo(c, { ignoreManual: true })
+        && canonicalControlMode(c.control_mode || '') === activeMode
+      );
+      if (!alreadyExists) {
+        const sample = defaultCombo(true);
+        state.combos.push({
+          ...defaultCombo(),
+          ...sample,
+        });
+        return true;
+      }
+    }
+    return false;
   }
 
   function ensureComboAuthoredVersion(combo) {
@@ -8240,8 +8259,7 @@
       if (descriptors.length) return descriptors;
     }
 
-    // Split glued modern auto steps (e.g. "2AUTO SP", "2AutoMK") so the digit+AUTO+attack
-    // merge runs the same as >-separated commands after spacing normalization.
+    // Split glued modern auto steps (e.g. "2AUTO SP", "2AutoMK") so digit+AUTO+attack matches calc (2AutoSP / 2AUTOSP).
     const rawTokens = source.split(/\s+/).map((v) => String(v || '').trim()).filter(Boolean)
       .flatMap((t) => {
         const s = String(t || '').trim();
@@ -8292,6 +8310,7 @@
         && /^auto$/i.test(next)
         && isAttackToken(rawTokens[i + 2] || '')
       ) {
+        // e.g. "2 auto SP" → 2AutoSP (avoid digit+attack wrongly eating "auto" as an attack token)
         combined = `${current}Auto${rawTokens[i + 2]}`;
         i += 3;
         const next2 = rawTokens[i] || '';
@@ -8333,9 +8352,7 @@
   }
 
   function getComboCalcCharacterSlug() {
-    const resolved = resolveCharacterSlug(
-      state.currentCharacter || getCharacterSlugFromUi() || '',
-    );
+    const resolved = resolveCharacterSlug(getCharacterSlugFromUi() || state.currentCharacter || '');
     return String(resolved || '').trim();
   }
 
@@ -8650,6 +8667,38 @@
       .replace(/\s+/g, '');
     if (/(?:^|_)EX(?:$|[_(])/.test(source)) return true;
     return false;
+  }
+
+  /**
+   * Command tokens that actually spend OD gauge (parallel to literal CR / DR step tokens):
+   * double-button motions (PP/KK, modern ANYANY) and numpad+Auto+SP modern OD specials.
+   */
+  function treeStepTokenImpliesOdDriveSpend(stepToken) {
+    const k = normalizeCalcTokenKey(stepToken);
+    if (!k) return false;
+    if (/^[1-9]AUTOSP$/.test(k)) return true;
+    if (/(?:PP|KK|ANYANY)$/.test(k)) return true;
+    return false;
+  }
+
+  /** OD classification for a resolved calc row when the command step token is known (tree rail, frame meter). */
+  function isCalcOdEntryForStep(entry, stepToken) {
+    if (!entry || typeof entry !== 'object') return false;
+    if (!treeStepTokenImpliesOdDriveSpend(stepToken)) return false;
+    if (isCalcOdEntry(entry)) return true;
+    if (getCalcEntryActionClass(entry) !== 'special') return false;
+    if (!/^[1-9]AUTOSP$/.test(normalizeCalcTokenKey(stepToken))) return false;
+    const source = String(entry.mmdk_source_key || entry.mmdk_action_name || '')
+      .toUpperCase()
+      .replace(/\s+/g, '');
+    if (!/^SPA_/.test(source)) return false;
+    const guard = Number(entry.drive_loss_guard);
+    const punish = Number(entry.drive_loss_punish);
+    const worst = Math.min(
+      Number.isFinite(guard) ? guard : 0,
+      Number.isFinite(punish) ? punish : 0,
+    );
+    return worst <= -3000;
   }
 
   function canCancelIntoNextStep(entry, nextEntry, options = {}) {
@@ -13247,9 +13296,9 @@
 
   const frameMeterEntryStateCache = new WeakMap();
   const FRAME_METER_HTML_CACHE = new Map();
-  const FRAME_METER_HTML_CACHE_LIMIT = 360;
+  const FRAME_METER_HTML_CACHE_LIMIT = 160;
   const FRAME_METER_ROW_HTML_CACHE = new Map();
-  const FRAME_METER_ROW_HTML_CACHE_LIMIT = 1200;
+  const FRAME_METER_ROW_HTML_CACHE_LIMIT = 400;
   const frameMeterRenderQueue = new Set();
   let frameMeterRenderQueueRaf = null;
   let frameMeterVisibilityObserver = null;
@@ -13744,7 +13793,7 @@
         if (!(entry.isIntersecting || entry.intersectionRatio > 0)) return;
         const row = Number(host.dataset && host.dataset.row ? host.dataset.row : NaN);
         if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) return;
-        if (FRAME_METER_ACTIVE_ROW_ONLY) {
+        if (FRAME_METER_RENDER_IN_TABLE_ROWS && FRAME_METER_ACTIVE_ROW_ONLY) {
           const selected = Number(state.selectedGroup);
           if (!Number.isFinite(selected) || selected < 0 || row !== selected) {
             if (frameMeterVisibilityObserver) {
@@ -13780,6 +13829,7 @@
 
   function observeFrameMeterVisibility(host) {
     if (!host) return;
+    if (!FRAME_METER_RENDER_IN_TABLE_ROWS) return;
     if (FRAME_METER_ACTIVE_ROW_ONLY) {
       const selected = Number(state.selectedGroup);
       const row = Number(host.dataset && host.dataset.row ? host.dataset.row : NaN);
@@ -13802,6 +13852,10 @@
 
   function flushFrameMeterRenderQueue(forceAll = false) {
     if (FRAME_METER_DISABLED) {
+      frameMeterRenderQueue.clear();
+      return;
+    }
+    if (!FRAME_METER_RENDER_IN_TABLE_ROWS) {
       frameMeterRenderQueue.clear();
       return;
     }
@@ -13875,6 +13929,7 @@
   function queueFrameMeterVisual(host, rowIndex = null) {
     if (!host) return;
     if (FRAME_METER_DISABLED) return;
+    if (!FRAME_METER_RENDER_IN_TABLE_ROWS) return;
     if (host.dataset) {
       if (Number.isFinite(Number(rowIndex)) && Number(rowIndex) >= 0) {
         host.dataset.row = String(Number(rowIndex));
@@ -13917,7 +13972,7 @@
   }
 
   function scheduleActiveFrameMeterRender(rowIndex) {
-    if (FRAME_METER_DISABLED) return;
+    if (FRAME_METER_DISABLED || !FRAME_METER_RENDER_IN_TABLE_ROWS) return;
     const row = Number(rowIndex);
     if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) return;
     cancelActiveFrameMeterRender();
@@ -13941,6 +13996,7 @@
 
   function shouldRenderFrameMeterForRow(rowIndex, options = {}) {
     if (FRAME_METER_DISABLED) return false;
+    if (!FRAME_METER_RENDER_IN_TABLE_ROWS) return false;
     if (options && (options.force === true || options.forceAll === true)) return true;
     if (!FRAME_METER_ACTIVE_ROW_ONLY) return true;
     const selected = Number(state.selectedGroup);
@@ -14095,6 +14151,7 @@
   }
 
   function clearFrameMeterHtmlCacheIfActiveOnly() {
+    if (!FRAME_METER_RENDER_IN_TABLE_ROWS) return;
     if (!FRAME_METER_ACTIVE_ROW_ONLY) return;
     if (FRAME_METER_HTML_CACHE.size > 0) {
       FRAME_METER_HTML_CACHE.clear();
@@ -15191,8 +15248,57 @@
   const DRIVE_UNIT_LOSS_SA2 = 10000;
   const DRIVE_UNIT_LOSS_SA3 = 15000;
   const DRIVE_UNIT_LOSS_CA = 20000;
+  /** Opponent drive loss on DI hit (normal hit, not PC) — SF6systems.md: 1 bar. */
+  const DRIVE_UNIT_OPPONENT_LOSS_DI_HIT = 10000;
   const BURNOUT_CHIP_RATE = 0.25;
   const BURNOUT_BLOCK_ADV_BONUS = 4;
+
+  /**
+   * Opponent drive regen only on timeline frames where they are not in our combo hitstun
+   * (merged [firstActiveFrameAbs, recoveryEndFrameAbs] per damaging step), after the same
+   * global delay as self regen. Replaces flat (totalFrames - delay) * rate which ignored hitstun.
+   */
+  function computeOpponentTimelineRegen(resolvedSteps, totalFrames, regenRate, delayFrames) {
+    if (!Array.isArray(resolvedSteps) || !resolvedSteps.length) return 0;
+    const T = Math.max(0, Math.floor(Number(totalFrames) || 0));
+    if (T <= 0 || regenRate <= 0) return 0;
+    const delay = Math.max(0, Math.floor(Number(delayFrames) || 0));
+    const intervals = [];
+    for (const step of resolvedSteps) {
+      if (!step || !step.entry) continue;
+      const entry = step.entry;
+      const isHitStep = (Number(entry.mmdk_damage_sum) || 0) > 0 || stepDealsDamage(entry);
+      if (!isHitStep) continue;
+      const startRaw = Number(step.firstActiveFrameAbs);
+      const endRaw = Number(step.recoveryEndFrameAbs);
+      if (!Number.isFinite(startRaw) || !Number.isFinite(endRaw)) continue;
+      const start = Math.max(1, Math.floor(startRaw));
+      const end = Math.max(start, Math.floor(endRaw));
+      intervals.push({ start, end });
+    }
+    intervals.sort((a, b) => a.start - b.start);
+    const merged = [];
+    for (const iv of intervals) {
+      if (!merged.length) {
+        merged.push({ start: iv.start, end: iv.end });
+        continue;
+      }
+      const last = merged[merged.length - 1];
+      if (iv.start <= last.end + 1) {
+        last.end = Math.max(last.end, iv.end);
+      } else {
+        merged.push({ start: iv.start, end: iv.end });
+      }
+    }
+    const inHurt = (f) => merged.some((m) => f >= m.start && f <= m.end);
+    let regen = 0;
+    for (let f = 1; f <= T; f += 1) {
+      if (f <= delay) continue;
+      if (inHurt(f)) continue;
+      regen += regenRate;
+    }
+    return regen;
+  }
 
   function computeDriveGaugeTotalsFromCommand(combo, options = {}) {
     const blank = {
@@ -15220,7 +15326,6 @@
     let guardLoss = 0;
     let normalLoss = 0;
     let pcLoss = 0;
-    let superLoss = 0;
     let guardGapReached = false;
     let boChipDamage = 0;
     let boChipGapReached = false;
@@ -15237,20 +15342,26 @@
 
     const counterType = normalizeCounterTypeForCalc(combo.counter_type || '');
     let pcApplied = false;
+    /** Counter-hit only: summed opponent drive for drive_delta_opponent (generic hits use min guard/punish). */
+    let counterOpponentDeltaLoss = 0;
     for (let i = 0; i < resolvedSteps.length; i += 1) {
       const step = resolvedSteps[i];
       const entry = step.entry;
       if (!entry) continue;
       const driveGain = Number(entry.drive_gain) || 0;
-      const driveGuard = Number(entry.drive_loss_guard) || 0;
-      const drivePunish = Number(entry.drive_loss_punish) || 0;
+      const dgNum = Number(entry.drive_loss_guard);
+      const dpNum = Number(entry.drive_loss_punish);
+      const driveGuard = Number.isFinite(dgNum) ? dgNum : 0;
+      const drivePunish = Number.isFinite(dpNum) ? dpNum : 0;
+      const gFin = Number.isFinite(dgNum);
+      const pFin = Number.isFinite(dpNum);
       const saGainVal = Number(entry.sa_gain) || 0;
       const saGainTgtVal = Number(entry.mmdk_sa_gain_tgt_sum) || 0;
       const isCDR = isDriveRushCancelStepToken(step.stepToken);
       const isDR = !isCDR && isDriveRushEntry(entry, step.stepToken);
       const isDI = isFrameMeterDriveImpactEntry(entry, { stepToken: step.stepToken });
       const isOD = !isDI && !isDR && !isCDR
-        && isCalcOdEntry(entry) && getCalcEntryActionClass(entry) === 'special';
+        && isCalcOdEntryForStep(entry, step.stepToken) && getCalcEntryActionClass(entry) === 'special';
 
       let stepCost = 0;
       if (isCDR) stepCost = DRIVE_UNIT_COST_CDR;
@@ -15295,27 +15406,62 @@
         if (onBlockNum != null && onBlockNum + BURNOUT_BLOCK_ADV_BONUS <= 0) boChipGapReached = true;
       }
 
-      if (isDI) {
-        normalLoss -= DRIVE_UNIT_COST_DI;
-      }
-
-      const stepDamage = Number(entry.mmdk_damage_sum ?? entry.damage ?? 0) || 0;
-      const isHitStep = stepDamage > 0;
-      if (counterType === 'PC') {
-        if (!pcApplied && drivePunish && isHitStep) {
+      const isHitStep = (Number(entry.mmdk_damage_sum) || 0) > 0 || stepDealsDamage(entry);
+      if (!pcApplied && isHitStep) {
+        if (isDI) {
           pcLoss += drivePunish;
-          pcApplied = true;
+        } else if (superLevel > 0) {
+          if (isCalcCaEntry(entry)) pcLoss -= DRIVE_UNIT_LOSS_CA;
+          else if (superLevel === 3) pcLoss -= DRIVE_UNIT_LOSS_SA3;
+          else if (superLevel === 2) pcLoss -= DRIVE_UNIT_LOSS_SA2;
+          else if (superLevel === 1) pcLoss -= DRIVE_UNIT_LOSS_SA1;
+        } else {
+          pcLoss += drivePunish;
         }
-      } else {
-        pcLoss += drivePunish;
+        pcApplied = true;
+      } else if (pcApplied) {
+        if (isDI) {
+          pcLoss += drivePunish;
+        } else if (superLevel > 0) {
+          if (isCalcCaEntry(entry)) pcLoss -= DRIVE_UNIT_LOSS_CA;
+          else if (superLevel === 3) pcLoss -= DRIVE_UNIT_LOSS_SA3;
+          else if (superLevel === 2) pcLoss -= DRIVE_UNIT_LOSS_SA2;
+          else if (superLevel === 1) pcLoss -= DRIVE_UNIT_LOSS_SA1;
+        }
       }
 
-      if (superLevel > 0) {
-        if (isCalcCaEntry(entry)) superLoss -= DRIVE_UNIT_LOSS_CA;
-        else if (superLevel === 3) superLoss -= DRIVE_UNIT_LOSS_SA3;
-        else if (superLevel === 2) superLoss -= DRIVE_UNIT_LOSS_SA2;
-        else if (superLevel === 1) superLoss -= DRIVE_UNIT_LOSS_SA1;
+      // Normal-hit opponent drive: only DI and SA/CA (not generic normals).
+      if (isHitStep) {
+        if (isDI) {
+          if (drivePunish !== 0) normalLoss += drivePunish;
+          else normalLoss -= DRIVE_UNIT_OPPONENT_LOSS_DI_HIT;
+        } else if (superLevel > 0) {
+          if (isCalcCaEntry(entry)) normalLoss -= DRIVE_UNIT_LOSS_CA;
+          else if (superLevel === 3) normalLoss -= DRIVE_UNIT_LOSS_SA3;
+          else if (superLevel === 2) normalLoss -= DRIVE_UNIT_LOSS_SA2;
+          else if (superLevel === 1) normalLoss -= DRIVE_UNIT_LOSS_SA1;
+        }
       }
+
+      // drive_delta_opponent: normal = same as d_normal (DI/SA only, no generic route chip). Counter = sum generics + DI/SA.
+      if (counterType === 'C' && isHitStep) {
+        if (isDI) {
+          if (drivePunish !== 0) counterOpponentDeltaLoss += drivePunish;
+          else counterOpponentDeltaLoss -= DRIVE_UNIT_OPPONENT_LOSS_DI_HIT;
+        } else if (superLevel > 0) {
+          if (isCalcCaEntry(entry)) counterOpponentDeltaLoss -= DRIVE_UNIT_LOSS_CA;
+          else if (superLevel === 3) counterOpponentDeltaLoss -= DRIVE_UNIT_LOSS_SA3;
+          else if (superLevel === 2) counterOpponentDeltaLoss -= DRIVE_UNIT_LOSS_SA2;
+          else if (superLevel === 1) counterOpponentDeltaLoss -= DRIVE_UNIT_LOSS_SA1;
+        } else {
+          let chip = 0;
+          if (gFin && pFin) chip = Math.min(dgNum, dpNum);
+          else if (pFin) chip = dpNum;
+          else if (gFin) chip = dgNum;
+          if (chip !== 0) counterOpponentDeltaLoss += chip;
+        }
+      }
+
     }
 
     // Minimum drive requirement: simulate forward, find highest deficit at any cost step.
@@ -15386,12 +15532,18 @@
     const regenFrames = Math.max(0, (totalTimelineFrames || 0) - DRIVE_UNIT_REGEN_DELAY_FRAMES);
     const selfRegen = regenFrames * regenRate;
     const selfDelta = selfGain - selfCost + selfRegen;
-    const opponentRegen = regenFrames * regenRate;
-    let opponentLoss = 0;
-    if (counterType === 'PC') opponentLoss += pcLoss;
-    else opponentLoss += normalLoss;
-    opponentLoss += superLoss;
-    const opponentDelta = opponentLoss + opponentRegen;
+    const opponentRegen = computeOpponentTimelineRegen(
+      resolvedSteps,
+      totalTimelineFrames || 0,
+      regenRate,
+      DRIVE_UNIT_REGEN_DELAY_FRAMES,
+    );
+    const opponentLossForDelta = counterType === 'PC'
+      ? pcLoss
+      : counterType === 'C'
+        ? counterOpponentDeltaLoss
+        : normalLoss;
+    const opponentDelta = opponentLossForDelta + opponentRegen;
 
     const hasDriveCost = reqSteps.some((s) => s.cost > 0);
     const hasSaCost = saReqSteps.some((s) => s.cost > 0);
@@ -15415,7 +15567,7 @@
       guardLoss: fmtBars(guardLoss),
       normalLoss: normalLoss !== 0 ? fmtBars(normalLoss) : '-',
       pcLoss: fmtBars(pcLoss),
-      opponentDelta: fmtBars(opponentDelta),
+      opponentDelta: opponentDelta === 0 ? '-' : fmtBars(opponentDelta),
       driveReq: driveReqFmt,
       saDelta: fmtBars(saDelta),
       saDeltaOpponent: fmtBars(saGainTgt),
@@ -15704,7 +15856,7 @@
       input.value = combo[field] || '';
       updateDerivedFieldSourceVisual(input, combo, field);
     });
-    if (options && options.renderFrameMeter) {
+    if (options && options.renderFrameMeter && FRAME_METER_RENDER_IN_TABLE_ROWS) {
       renderFrameMeterVisual(group, combo, {});
     }
   }
@@ -15783,8 +15935,17 @@
       const changed = needsSync ? syncDerivedComboFields(combo, nextOptions) : false;
       applyAutoTagsForRow(row);
       if (changed) scheduleTopTagRefresh();
+      refreshOpenComboDetailsModalAfterDerivedSync(row, changed);
       const group = getVisibleGroupForCombo(row);
-      if (!group) return changed;
+      if (!group) {
+        logSlowPath(
+          'row-derived-sync',
+          perfStart,
+          10,
+          '(row=' + row + ', changed=' + (changed ? 1 : 0) + ', needsSync=' + (needsSync ? 1 : 0) + ', dom=no-group)',
+        );
+        return changed;
+      }
       const shouldRenderFrameMeter = !(options && options.renderFrameMeter === false)
         && (changed || hostNeedsFrameMeterRender(group, combo));
       const deferDomWrites = !!(options && options.deferDomWrites === true);
@@ -17216,8 +17377,10 @@
           group.frameMeterVisual.dataset.frameMeterRenderedKey = '';
           delete group.frameMeterVisual.dataset.frameMeterPendingKey;
         }
-      } else {
+      } else if (FRAME_METER_RENDER_IN_TABLE_ROWS) {
         queueFrameMeterVisual(group.frameMeterVisual, group.index);
+      } else if (group && group.frameMeterVisual) {
+        clearFrameMeterVisualHost(group.frameMeterVisual);
       }
       if (!scheduleWarningSweep && !disableWarningRefresh && !state.importLoading) refreshCommandWarning(group.index);
     }
@@ -17315,7 +17478,11 @@
       const combo = state.combos[group.index] || defaultCombo();
       const buttonsInput = group.inputs && group.inputs.buttons ? group.inputs.buttons : null;
       if (buttonsInput) renderButtonsInput(buttonsInput, combo.buttons || '');
-      renderFrameMeterVisual(group, combo, { defer: true });
+      if (FRAME_METER_RENDER_IN_TABLE_ROWS) {
+        renderFrameMeterVisual(group, combo, { defer: true });
+      } else if (group.frameMeterVisual) {
+        clearFrameMeterVisualHost(group.frameMeterVisual);
+      }
       processed += 1;
       const now = (typeof performance !== 'undefined' && performance.now)
         ? performance.now()
@@ -17993,7 +18160,7 @@
   }
 
   function hydrateVisibleFrameMeters() {
-    if (FRAME_METER_DISABLED) return;
+    if (FRAME_METER_DISABLED || !FRAME_METER_RENDER_IN_TABLE_ROWS) return;
     const container = qs('comboTableScroll') || ui.comboView;
     if (!container || !state.groups || !state.groups.length) return;
     const margin = Math.max(0, Number(VISIBLE_FRAME_METER_HYDRATE_MARGIN_PX) || 0);
@@ -18025,7 +18192,7 @@
     const requestFrameMeterQueueFlush = () => {
       scheduleVisualHydrationOrdered();
       if (state.rowVisibility && state.rowVisibility.frame === false) return;
-      if (FRAME_METER_ACTIVE_ROW_ONLY) return;
+      if (!FRAME_METER_RENDER_IN_TABLE_ROWS || FRAME_METER_ACTIVE_ROW_ONLY) return;
       if (!frameMeterRenderQueue || frameMeterRenderQueue.size <= 0) return;
       scheduleFrameMeterRenderQueue();
     };
@@ -18485,7 +18652,7 @@
           ...(derivedRefreshOptions || {}),
           renderFrameMeter: false,
         });
-        if (changed) {
+        if (changed && FRAME_METER_RENDER_IN_TABLE_ROWS) {
           const combo = state.combos[row];
           if (group && combo) renderFrameMeterVisual(group, combo, { defer: true });
         }
@@ -18494,6 +18661,7 @@
         if (combo && typeof combo === 'object') {
           changed = syncDerivedComboFields(combo, derivedRefreshOptions || {});
         }
+        refreshOpenComboDetailsModalAfterDerivedSync(row, changed);
       }
       if (changed) derivedRefreshHadChanges = true;
       processed += 1;
@@ -18563,6 +18731,10 @@
   }
 
   function updateAutoInputToggleUi(lang) {
+    const langActive = lang || getComboLang();
+    const isEnabled = state.autoInputEnabled !== false;
+    const overwriteEnabled = state.autoInputOverwriteManual === true;
+
     const wrap = qs('autoInputToggleWrap');
     const toggleOn = qs('toggleAutoInputOn');
     const toggleOff = qs('toggleAutoInputOff');
@@ -18570,35 +18742,34 @@
     const overwriteToggleOn = qs('toggleAutoInputOverwriteOn');
     const overwriteToggleOff = qs('toggleAutoInputOverwriteOff');
     const overwriteLabel = qs('toggleAutoInputOverwriteLabel');
-    if (!wrap || (!toggleOn && !toggleOff)) return;
-    wrap.style.display = '';
-    const isEnabled = state.autoInputEnabled !== false;
-    const overwriteEnabled = state.autoInputOverwriteManual === true;
-    if (toggleOn) {
-      toggleOn.classList.toggle('active', isEnabled);
-      toggleOn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
-    }
-    if (toggleOff) {
-      toggleOff.classList.toggle('active', !isEnabled);
-      toggleOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
-    }
-    if (label) label.textContent = comboT('ui.auto_input_toggle', lang || getComboLang()) || label.textContent || 'Auto Input';
-    if (overwriteToggleOn) {
-      overwriteToggleOn.classList.toggle('active', overwriteEnabled);
-      overwriteToggleOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
-      overwriteToggleOn.disabled = !isEnabled;
-      overwriteToggleOn.classList.toggle('is-disabled', !isEnabled);
-    }
-    if (overwriteToggleOff) {
-      overwriteToggleOff.classList.toggle('active', !overwriteEnabled);
-      overwriteToggleOff.setAttribute('aria-pressed', !overwriteEnabled ? 'true' : 'false');
-      overwriteToggleOff.disabled = !isEnabled;
-      overwriteToggleOff.classList.toggle('is-disabled', !isEnabled);
-    }
-    if (overwriteLabel) {
-      overwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', lang || getComboLang())
-        || overwriteLabel.textContent
-        || 'Overwrite';
+    if (wrap && (toggleOn || toggleOff)) {
+      wrap.style.display = '';
+      if (toggleOn) {
+        toggleOn.classList.toggle('active', isEnabled);
+        toggleOn.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      }
+      if (toggleOff) {
+        toggleOff.classList.toggle('active', !isEnabled);
+        toggleOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
+      }
+      if (label) label.textContent = comboT('ui.auto_input_toggle', langActive) || label.textContent || 'Auto Input';
+      if (overwriteToggleOn) {
+        overwriteToggleOn.classList.toggle('active', overwriteEnabled);
+        overwriteToggleOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
+        overwriteToggleOn.disabled = !isEnabled;
+        overwriteToggleOn.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (overwriteToggleOff) {
+        overwriteToggleOff.classList.toggle('active', !overwriteEnabled);
+        overwriteToggleOff.setAttribute('aria-pressed', !overwriteEnabled ? 'true' : 'false');
+        overwriteToggleOff.disabled = !isEnabled;
+        overwriteToggleOff.classList.toggle('is-disabled', !isEnabled);
+      }
+      if (overwriteLabel) {
+        overwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', langActive)
+          || overwriteLabel.textContent
+          || 'Overwrite';
+      }
     }
 
     const modalWrap = qs('comboDetailsAutoToggleWrap');
@@ -18618,7 +18789,7 @@
         modalOff.classList.toggle('active', !isEnabled);
         modalOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
       }
-      if (modalLabel) modalLabel.textContent = comboT('ui.auto_input_toggle', lang || getComboLang()) || modalLabel.textContent || 'Auto Input';
+      if (modalLabel) modalLabel.textContent = comboT('ui.auto_input_toggle', langActive) || modalLabel.textContent || 'Auto Input';
       if (modalOverwriteOn) {
         modalOverwriteOn.classList.toggle('active', overwriteEnabled);
         modalOverwriteOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
@@ -18632,7 +18803,7 @@
         modalOverwriteOff.classList.toggle('is-disabled', !isEnabled);
       }
       if (modalOverwriteLabel) {
-        modalOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', lang || getComboLang())
+        modalOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', langActive)
           || modalOverwriteLabel.textContent
           || 'Overwrite';
       }
@@ -18655,7 +18826,7 @@
         treeOff.classList.toggle('active', !isEnabled);
         treeOff.setAttribute('aria-pressed', !isEnabled ? 'true' : 'false');
       }
-      if (treeLabel) treeLabel.textContent = comboT('ui.auto_input_toggle', lang || getComboLang()) || treeLabel.textContent || 'Auto Input';
+      if (treeLabel) treeLabel.textContent = comboT('ui.auto_input_toggle', langActive) || treeLabel.textContent || 'Auto Input';
       if (treeOverwriteOn) {
         treeOverwriteOn.classList.toggle('active', overwriteEnabled);
         treeOverwriteOn.setAttribute('aria-pressed', overwriteEnabled ? 'true' : 'false');
@@ -18669,7 +18840,7 @@
         treeOverwriteOff.classList.toggle('is-disabled', !isEnabled);
       }
       if (treeOverwriteLabel) {
-        treeOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', lang || getComboLang())
+        treeOverwriteLabel.textContent = comboT('ui.auto_input_overwrite_toggle', langActive)
           || treeOverwriteLabel.textContent
           || 'Overwrite';
       }
@@ -19220,6 +19391,7 @@
       renderVirtualWindow({ force: true });
       setSelectedGroup(idx, { scroll: false });
       restoreScroll();
+      if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
       return true;
     }
     applyStateToTable({
@@ -19237,6 +19409,7 @@
     }
     setSelectedGroup(idx, { scroll: false });
     restoreScroll();
+    if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
     return true;
   }
 
@@ -19334,20 +19507,6 @@
     updateComboGameVersionInfo(getComboLang());
     refreshSelectedGroupStyles(prevSelected, state.selectedRows);
     syncTreeSelectionHighlight();
-    if (
-      FRAME_METER_ACTIVE_ROW_ONLY
-      && Number.isFinite(prevActive)
-      && prevActive >= 0
-      && prevActive < getComboCount()
-      && prevActive !== nextActive
-      && !(state.rowVisibility && state.rowVisibility.frame === false)
-    ) {
-      const prevGroup = getVisibleGroupForCombo(prevActive);
-      const prevCombo = state.combos[prevActive];
-      if (prevGroup && prevCombo) {
-        renderFrameMeterVisual(prevGroup, prevCombo, { defer: false });
-      }
-    }
     if (nextActive >= 0 && !(state.rowVisibility && state.rowVisibility.frame === false)) {
       const group = getVisibleGroupForCombo(nextActive);
       const combo = state.combos[nextActive];
@@ -20079,17 +20238,8 @@
     btn.addEventListener('click', fn);
   }
 
-  function isComboTreeViewActive() {
-    const body = document.body;
-    if (!body) return false;
-    const key = String(body.getAttribute('data-view') || body.dataset.view || '').toLowerCase();
-    if (key === 'tree') return true;
-    const tv = qs('treeView');
-    return !!(tv && tv.classList && tv.classList.contains('active'));
-  }
-
   function openComboTreeFromDetailsModal() {
-    if (!isComboTreeViewActive()) {
+    if (!(document.body && document.body.dataset.view === 'tree')) {
       const next = (state.frameMeterModal && Number.isFinite(state.frameMeterModal.rowIndex))
         ? Number(state.frameMeterModal.rowIndex)
         : Number(state.selection.activeGroup);
@@ -20124,7 +20274,7 @@
     overlay.classList.add('tree-docked');
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
-    host.style.display = 'block';
+    host.style.display = 'flex';
     return true;
   }
 
@@ -20180,6 +20330,7 @@
   }
 
   function closeFrameMeterDetailsModal(options = {}) {
+    undockFrameMeterOverlayFromTreePane();
     const overlay = qs('frameMeterOverlay');
     if (overlay) {
       overlay.classList.add('hidden');
@@ -20342,19 +20493,14 @@
       cmdEdit.addEventListener('paste', () => window.setTimeout(rehighlightCommandEditor, 0));
       cmdEdit.addEventListener('focus', () => rehighlightCommandEditor());
     }
-
-    if (overlay.dataset.boundDetailsCmdFocus !== '1') {
-      overlay.dataset.boundDetailsCmdFocus = '1';
+    if (overlay.dataset.boundCmdActiveCell !== '1') {
+      overlay.dataset.boundCmdActiveCell = '1';
       overlay.addEventListener('focusin', (ev) => {
         const t = ev.target;
-        if (
-          t
-          && t.id === 'comboDetailsCommandEdit'
-          && t.classList
-          && t.classList.contains('cmd-input')
-        ) {
-          setActiveCell(t);
-        }
+        if (!t || t.id !== 'comboDetailsCommandEdit') return;
+        if (!t.classList || !t.classList.contains('cmd-input')) return;
+        if (t.dataset.field !== 'command') return;
+        setActiveCell(t);
       });
     }
 
@@ -20389,6 +20535,7 @@
       const inserted = duplicateComboFromIndex(idx);
       if (!Number.isFinite(inserted) || inserted < 0) return;
       openFrameMeterDetailsModal(inserted, { returnFocusEl: qs('comboDetailsBtnDuplicate') });
+      if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
     });
 
     bindFrameMeterModalButton('comboDetailsBtnDelete', () => {
@@ -20494,6 +20641,7 @@
       applyAutoTagsForRow(idx);
       // Refresh the modal view from current state (meter + stats + formatted command).
       renderComboDetailsModal(idx);
+      if (changed && document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
       showExportToast(comboMsg('save_status_saved') || 'Saved', false, { dim: false });
     });
   }
@@ -20999,6 +21147,28 @@
     return Number.isFinite(quant) ? quant : null;
   }
 
+  /** Numeric efficiency for stats only: respects cell value, else damage ÷ |drive_delta| when delta is negative (same effective damage as the Damage row). */
+  function getComboNumericDriveEfficiencyForStats(combo) {
+    if (!combo || typeof combo !== 'object') return null;
+    const fromCell = parseNumericText(combo.drive_efficiency);
+    if (fromCell != null) return fromCell;
+    const damage = getComboEffectiveDamage(combo);
+    const driveDelta = parseNumericText(combo.drive_delta);
+    if (damage == null || driveDelta == null) return null;
+    if (driveDelta >= 0) return null;
+    const eff = damage / Math.abs(driveDelta);
+    return Number.isFinite(eff) ? eff : null;
+  }
+
+  function getComboDriveEfficiencyDisplayForModal(combo) {
+    if (!combo || typeof combo !== 'object') return '-';
+    const cell = String(combo.drive_efficiency || '').trim();
+    if (cell) return formatMaybeNumberText(cell);
+    const derived = computeDriveEfficiencyValue(combo);
+    const s = derived == null ? '' : String(derived).trim();
+    return s || '-';
+  }
+
   function computeRankAmong(values, currentValue) {
     const sorted = Array.from(new Set(values.filter((v) => Number.isFinite(v)))).sort((a, b) => b - a);
     const idx = sorted.findIndex((v) => v === currentValue);
@@ -21029,8 +21199,7 @@
       const dmg = getComboEffectiveDamage(c);
       const driveDmg = getComboEffectiveDriveDamage(c);
       const driveDelta = parseNumericText(c.drive_delta);
-      const effRaw = parseNumericText(c.drive_efficiency);
-      const eff = effRaw != null ? effRaw : parseNumericText(computeDriveEfficiencyValue(c));
+      const eff = getComboNumericDriveEfficiencyForStats(c);
       const sa = parseNumericText(c.sa_delta);
       const carry = parseNumericText(c.carry_distance);
       const fa = parseNumericText(c.frame_adv);
@@ -21054,6 +21223,13 @@
     }).filter(Boolean);
   }
 
+  function metricValuesEqualForRank(a, b) {
+    if (a === b) return true;
+    if (!Number.isFinite(a) || !Number.isFinite(b)) return false;
+    const scale = Math.max(1, Math.abs(a), Math.abs(b));
+    return Math.abs(a - b) <= 1e-9 * scale;
+  }
+
   function computeGroupMetricStats(indexRows, currentRow, metricKey, options = {}) {
     const rows = Array.isArray(indexRows) ? indexRows : [];
     const metric = (r) => (r && r.m ? r.m[metricKey] : null);
@@ -21066,9 +21242,11 @@
     const vals = rows.map((r) => metric(r)).filter((v) => Number.isFinite(v));
     const avg = vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length) : null;
     const sorted = vals.slice().sort(cmp);
-    const rank = (currentVal != null && Number.isFinite(currentVal) && sorted.length)
-      ? (sorted.findIndex((v) => v === currentVal) + 1)
-      : null;
+    let rank = null;
+    if (currentVal != null && Number.isFinite(currentVal) && sorted.length) {
+      const rankIdx = sorted.findIndex((v) => metricValuesEqualForRank(v, currentVal));
+      if (rankIdx >= 0) rank = rankIdx + 1;
+    }
     const totalCount = Number.isFinite(Number(options.totalCount))
       ? Math.max(0, Number(options.totalCount))
       : rows.length;
@@ -21092,7 +21270,9 @@
     return {
       avgText: avg != null && Number.isFinite(avg) ? formatMaybeNumberText(avg) : '-',
       rankText: (rank != null && totalCount) ? formatRank(rank, totalCount) : '-',
-      topValText: topRow ? formatMaybeNumberText(metric(topRow)) : '-',
+      topValText: topRow && Number.isFinite(metric(topRow))
+        ? (formatMaybeNumberText(metric(topRow)) || '-')
+        : '-',
       topCmdText: topRow ? String(topRow.combo && topRow.combo.command ? topRow.combo.command : '').trim() || '-' : '-',
       topIndex: topRow && Number.isFinite(topRow.index) ? Number(topRow.index) : -1,
     };
@@ -21145,11 +21325,11 @@
     const starterStats = computeGroupMetricStats(starterRows, currentRow, 'dmg', { preferLower: false });
 
     const spentRows = spentKey != null ? rows.filter((r) => r.spent != null && r.spent === spentKey && r.condSpent === spentCondKey) : [];
-    const spentStats = computeGroupMetricStats(spentRows, currentRow, 'dmg', { preferLower: false });
     const spentStarterRows = (spentRows.length && starterKey) ? spentRows.filter((r) => r.starter === starterKey) : [];
-    const spentTopEff = (spentStarterRows.length)
-      ? computeGroupMetricStats(spentStarterRows, currentRow, 'eff', { preferLower: false })
-      : { topValText: '-', topCmdText: '-' };
+    // Same cohort as renderComboDetailsModal spent columns (spentFor(..., true)): starter ∩ D-gauge spent,
+    // not all combos with this spent value across every starter (avoids mismatched RANK totals vs rows below).
+    const spentCohortForDamage = spentStarterRows.length ? spentStarterRows : spentRows;
+    const spentStats = computeGroupMetricStats(spentCohortForDamage, currentRow, 'dmg', { preferLower: false });
 
     return {
       starter: {
@@ -21162,9 +21342,10 @@
       spent: {
         avg: spentStats.avgText,
         rankText: spentStats.rankText,
+        // "Top" under D gauge spent on the Damage row = top damage in that cohort (not top efficiency).
+        topSpentDamageVal: spentStats.topValText,
         topCommand: spentStats.topCmdText,
         topIndex: spentStats.topIndex,
-        topEff: spentTopEff.topValText,
       },
     };
   }
@@ -21288,9 +21469,7 @@
         ? options.treeDocked
         : !!actualDocked;
     const lang = getComboLang();
-    const rows = isTreeDocked
-      ? [...FIELD_ORDER, 'game_version']
-      : [...FIELD_ORDER.filter((f) => f !== 'oki'), 'game_version'];
+    const rows = [...FIELD_ORDER.filter((f) => f !== 'oki'), 'game_version'];
     const labelFor = (field) => {
       if (field === 'command') return lang === 'en' ? 'Command' : 'コマンド';
       if (field === 'buttons') return lang === 'en' ? 'Buttons' : 'ボタン';
@@ -21511,7 +21690,7 @@
       )}
           ${buildCompactSection(
         headerLabel('range_group_other', lang === 'en' ? 'Other' : 'その他'),
-        ['carry_distance', 'end_distance', 'frame_adv', 'opponent_state', 'safe_jump', 'side_switch', 'interrupt', 'oki', 'game_version'],
+        ['carry_distance', 'end_distance', 'frame_adv', 'opponent_state', 'safe_jump', 'side_switch', 'interrupt', 'game_version'],
       )}
         </div>
       `;
@@ -21618,79 +21797,13 @@
     return out;
   }
 
-  function renderComboDetailsModal(rowIndex, options = {}) {
-    const idx = Number(rowIndex);
-    if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
-    const combo = state.combos[idx];
-    if (!combo) return;
-
-    const { html, timeline } = buildFrameMeterDetailsHtml(combo);
-    const visualEl = qs('frameMeterModalVisual');
-    if (visualEl) visualEl.innerHTML = html;
-
-    const lang = getComboLang();
-    const btnIconsEl = qs('comboDetailsButtonsIcons');
-    if (btnIconsEl) {
-      const canonicalButtons = String(combo.buttons || '').trim() || String(combo.command || '').trim();
-      const iconsOnly = canonicalButtons ? renderNotationIconsOnlyFromCanonical(canonicalButtons, lang) : '';
-      btnIconsEl.innerHTML = iconsOnly || '-';
-    }
-    const tagsBar = qs('comboDetailsTags');
-    if (tagsBar) {
-      const rawTags = String(combo.tags || '').trim();
-      tagsBar.innerHTML = renderTagChipsHtml(rawTags, lang) || '';
-    }
-    const cmdEl = qs('comboDetailsCommandEdit');
-    if (cmdEl) {
-      const displayText = formatCommandForDisplay(String(combo.command || ''), lang);
-      cmdEl.innerHTML = buildModalCommandHighlightHtml(displayText);
-    }
-
-    const notesEl = qs('comboDetailsNotes');
-    if (notesEl) {
-      notesEl.dataset.row = String(idx);
-      notesEl.dataset.field = 'combo_notes';
-      notesEl.value = String(combo.combo_notes || '');
-    }
-    const okiEl = qs('comboDetailsOki');
-    if (okiEl) {
-      okiEl.dataset.row = String(idx);
-      okiEl.dataset.field = 'oki';
-      okiEl.value = String(combo.oki || '');
-    }
-    const extraEl = qs('comboDetailsExtraNotes');
-    if (extraEl) {
-      extraEl.dataset.row = String(idx);
-      extraEl.dataset.field = 'extra_notes';
-      extraEl.value = String(combo.extra_notes || '');
-    }
-    const urlEl = qs('comboDetailsUrl');
-    if (urlEl) {
-      urlEl.dataset.row = String(idx);
-      urlEl.dataset.field = 'combo_url';
-      urlEl.value = String(combo.combo_url || '');
-      urlEl.classList.add('combo-url-input');
-      urlEl.title = lang === 'en' ? 'Double-click to open URL' : 'ダブルクリックでURLを開く';
-    }
-    renderComboDetailsVideoEmbed(combo.combo_url || '');
-    const forcedStandalone = !!(state.frameMeterModal && state.frameMeterModal.forceStandalone === true);
-    const actualDocked = isComboDetailsTreeDocked();
-    const treeDocked = forcedStandalone
-      ? false
-      : (typeof options.treeDocked === 'boolean')
-        ? options.treeDocked
-        : !!actualDocked;
-    if (state.frameMeterModal) state.frameMeterModal.renderAsTreeDocked = !!treeDocked;
-    renderComboDetailsAllFields(combo, timeline, { treeDocked });
-    updateAutoInputToggleUi(lang);
-
-    // Per-row values.
+  function updateComboDetailsModalStatsAndMetrics(combo, timeline, lang) {
     const effectiveDamage = getComboEffectiveDamage(combo);
     setTextById('comboDetailsStatDamage', effectiveDamage != null ? formatEffectiveNumeric(effectiveDamage) : '-');
     const effDriveDamage = getComboEffectiveDriveDamage(combo);
     setTextById('comboDetailsStatDriveDamage', effDriveDamage != null ? formatEffectiveNumeric(effDriveDamage) : '-');
     setTextById('comboDetailsStatDriveDelta', formatMaybeNumberText(combo.drive_delta));
-    setTextById('comboDetailsStatDriveEff', formatMaybeNumberText(combo.drive_efficiency));
+    setTextById('comboDetailsStatDriveEff', getComboDriveEfficiencyDisplayForModal(combo));
     setTextById('comboDetailsStatSaGain', formatMaybeNumberText(String(combo.sa_delta || '').trim() || computeSaGainFromTimeline(timeline)));
     setTextById('comboDetailsStatCarry', formatMaybeNumberText(combo.carry_distance));
     setTextById('comboDetailsStatFrameAdv', formatMaybeNumberText(combo.frame_adv));
@@ -21702,10 +21815,9 @@
     setComboDetailsJumpLink('comboDetailsStatStarterTop', computed.starter.topCommand || '-', computed.starter.topIndex, lang);
     setTextById('comboDetailsStatDmgPerDrive', computed.spent.avg);
     setTextById('comboDetailsStatDriveRank', computed.spent.rankText);
-    setTextById('comboDetailsStatDriveTopEff', computed.spent.topEff || '-');
+    setTextById('comboDetailsStatDriveTopEff', computed.spent.topSpentDamageVal || '-');
     setComboDetailsJumpLink('comboDetailsStatDriveTop', computed.spent.topCommand || '-', computed.spent.topIndex, lang);
 
-    // Columns for rows below Damage.
     const indexRows = buildModalMetricIndex();
     const currentRow = indexRows.find((r) => r.combo === combo) || null;
     const starterKey = getComboStarterKey(combo);
@@ -21786,6 +21898,131 @@
     }, starterFor('fa'), spentFor('fa', {}, true), lang);
   }
 
+  function applyDerivedModalDetailsVisualSync(rowIndex) {
+    const row = Number(rowIndex);
+    if (!Number.isFinite(row) || row < 0) return;
+    if (!state.frameMeterModal || !state.frameMeterModal.open || state.frameMeterModal.rowIndex !== row) return;
+    const combo = state.combos[row];
+    if (!combo) return;
+    const root = qs('comboDetailsAllFields');
+    if (!root) return;
+    DERIVED_ROW_SYNC_FIELDS.forEach((field) => {
+      const input = root.querySelector('.combo-details-allfields-input[data-field="' + field + '"]');
+      if (!input || !('value' in input)) return;
+      input.value = combo[field] || '';
+      updateDerivedFieldSourceVisual(input, combo, field);
+    });
+  }
+
+  function refreshOpenComboDetailsModalAfterDerivedSync(rowIndex, dataChanged) {
+    const row = Number(rowIndex);
+    if (!Number.isFinite(row) || row < 0) return;
+    if (!state.frameMeterModal || !state.frameMeterModal.open || state.frameMeterModal.rowIndex !== row) return;
+    applyDerivedModalDetailsVisualSync(row);
+    if (!dataChanged) return;
+    const modalCmdActive = isCommandEditorActiveForRow(row);
+    if (modalCmdActive) {
+      const combo = state.combos[row];
+      if (!combo) return;
+      const lang = getComboLang();
+      const { html, timeline } = buildFrameMeterDetailsHtml(combo);
+      const visualEl = qs('frameMeterModalVisual');
+      if (visualEl) visualEl.innerHTML = html;
+      const btnIconsEl = qs('comboDetailsButtonsIcons');
+      if (btnIconsEl) {
+        const canonicalButtons = String(combo.buttons || '').trim() || String(combo.command || '').trim();
+        const iconsOnly = canonicalButtons ? renderNotationIconsOnlyFromCanonical(canonicalButtons, lang) : '';
+        btnIconsEl.innerHTML = iconsOnly || '-';
+      }
+      const tagsBar = qs('comboDetailsTags');
+      if (tagsBar) {
+        const rawTags = String(combo.tags || '').trim();
+        const tagHtml = renderTagChipsHtml(rawTags, lang) || '';
+        tagsBar.innerHTML = tagHtml;
+        tagsBar.toggleAttribute('hidden', !tagHtml);
+      }
+      renderComboDetailsVideoEmbed(combo.combo_url || '');
+      updateComboDetailsModalStatsAndMetrics(combo, timeline, lang);
+      updateAutoInputToggleUi(lang);
+      return;
+    }
+    renderComboDetailsModal(row, { treeDocked: isComboDetailsTreeDocked() });
+  }
+
+  function renderComboDetailsModal(rowIndex, options = {}) {
+    const idx = Number(rowIndex);
+    if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
+    const combo = state.combos[idx];
+    if (!combo) return;
+
+    const { html, timeline } = buildFrameMeterDetailsHtml(combo);
+    const visualEl = qs('frameMeterModalVisual');
+    if (visualEl) visualEl.innerHTML = html;
+
+    const lang = getComboLang();
+    const btnIconsEl = qs('comboDetailsButtonsIcons');
+    if (btnIconsEl) {
+      const canonicalButtons = String(combo.buttons || '').trim() || String(combo.command || '').trim();
+      const iconsOnly = canonicalButtons ? renderNotationIconsOnlyFromCanonical(canonicalButtons, lang) : '';
+      btnIconsEl.innerHTML = iconsOnly || '-';
+    }
+    const tagsBar = qs('comboDetailsTags');
+    if (tagsBar) {
+      const rawTags = String(combo.tags || '').trim();
+      const tagHtml = renderTagChipsHtml(rawTags, lang) || '';
+      tagsBar.innerHTML = tagHtml;
+      tagsBar.toggleAttribute('hidden', !tagHtml);
+    }
+    const cmdEl = qs('comboDetailsCommandEdit');
+    if (cmdEl) {
+      cmdEl.classList.add('cmd-input');
+      cmdEl.dataset.field = 'command';
+      cmdEl.dataset.row = String(idx);
+      const displayText = formatCommandForDisplay(String(combo.command || ''), lang);
+      cmdEl.innerHTML = buildModalCommandHighlightHtml(displayText);
+    }
+
+    const notesEl = qs('comboDetailsNotes');
+    if (notesEl) {
+      notesEl.dataset.row = String(idx);
+      notesEl.dataset.field = 'combo_notes';
+      notesEl.value = String(combo.combo_notes || '');
+    }
+    const okiEl = qs('comboDetailsOki');
+    if (okiEl) {
+      okiEl.dataset.row = String(idx);
+      okiEl.dataset.field = 'oki';
+      okiEl.value = String(combo.oki || '');
+    }
+    const extraEl = qs('comboDetailsExtraNotes');
+    if (extraEl) {
+      extraEl.dataset.row = String(idx);
+      extraEl.dataset.field = 'extra_notes';
+      extraEl.value = String(combo.extra_notes || '');
+    }
+    const urlEl = qs('comboDetailsUrl');
+    if (urlEl) {
+      urlEl.dataset.row = String(idx);
+      urlEl.dataset.field = 'combo_url';
+      urlEl.value = String(combo.combo_url || '');
+      urlEl.classList.add('combo-url-input');
+      urlEl.title = lang === 'en' ? 'Double-click to open URL' : 'ダブルクリックでURLを開く';
+    }
+    renderComboDetailsVideoEmbed(combo.combo_url || '');
+    const forcedStandalone = !!(state.frameMeterModal && state.frameMeterModal.forceStandalone === true);
+    const actualDocked = isComboDetailsTreeDocked();
+    const treeDocked = forcedStandalone
+      ? false
+      : (typeof options.treeDocked === 'boolean')
+        ? options.treeDocked
+        : !!actualDocked;
+    if (state.frameMeterModal) state.frameMeterModal.renderAsTreeDocked = !!treeDocked;
+    renderComboDetailsAllFields(combo, timeline, { treeDocked });
+    updateAutoInputToggleUi(lang);
+
+    updateComboDetailsModalStatsAndMetrics(combo, timeline, lang);
+  }
+
   function openFrameMeterDetailsModal(rowIndex, options = {}) {
     bindFrameMeterDetailsModal();
     const overlay = qs('frameMeterOverlay');
@@ -21796,6 +22033,28 @@
     if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
     const combo = state.combos[idx];
     if (!combo) return;
+
+    if (
+      dockInTree
+      && document.body
+      && document.body.getAttribute('data-view') === 'tree'
+      && !comboIndexPlacedInCurrentTree(idx)
+    ) {
+      return;
+    }
+
+    if (state.autoInputEnabled !== false) {
+      syncDerivedComboFieldsForRow(idx, {
+        forceDamage: true,
+        deferDomWrites: false,
+        renderFrameMeter: false,
+      });
+    } else if (combo._derivedDirty === true) {
+      syncDerivedComboFieldsForRow(idx, {
+        deferDomWrites: false,
+        renderFrameMeter: false,
+      });
+    }
 
     if (dockInTree) dockFrameMeterOverlayToTreePane();
     else undockFrameMeterOverlayFromTreePane();
@@ -22109,9 +22368,21 @@
         return;
       }
       closeRowContextMenu({ restoreFocus: false });
-      setTreeDetailSelectedCombo(rowIndex);
       if (typeof window.setMainView === 'function') window.setMainView('tree');
-      openFrameMeterDetailsModal(rowIndex, { treeDocked: true, returnFocusEl: focusTarget });
+      const idxOpen = rowIndex;
+      const afterTreeShown = () => {
+        doRebuildTree();
+        const tr = treeRailState.lastRoot;
+        const pathIds = tr ? findTreeNodeIdsPathToComboIndex(tr, idxOpen, []) : null;
+        if (pathIds && pathIds.length) {
+          pathIds.forEach((id) => {
+            if (id && id !== '__root__') comboTreeState.expandedNodes.add(id);
+          });
+        }
+        setTreeDetailSelectedCombo(idxOpen, { returnFocusEl: focusTarget });
+        doRebuildTree({ focusComboIndex: idxOpen });
+      };
+      window.requestAnimationFrame(() => window.requestAnimationFrame(afterTreeShown));
       return;
     }
 
@@ -23642,6 +23913,7 @@
     applyFilters();
     updateLoadMoreControl();
     setSelectedGroup(0);
+    if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
   }
 
   function renderRestoreModalList(modal) {
@@ -25528,8 +25800,9 @@
     const active = document.activeElement;
     if (!active || !active.classList || !active.classList.contains('cmd-input')) return false;
     if (String(active.dataset && active.dataset.field ? active.dataset.field : '') !== 'command') return false;
-    // Tree view docks the details modal in-page; when the overlay is hidden, the command editor
-    // must not block background hydration (e.g. frame data loading).
+    // Modal / tree-docked command editor uses .cmd-input for hotkeys; when the overlay is
+    // closed (display:none) it must not block background table hydration — focus can linger
+    // incorrectly in some browsers right after close.
     if (active.id === 'comboDetailsCommandEdit') {
       const overlay = qs('frameMeterOverlay');
       if (!overlay || overlay.classList.contains('hidden')) return false;
@@ -25645,15 +25918,8 @@
         ensureComboAuthoredVersion(state.combos[row]);
         syncAuthoredVersionInput(row);
       }
-      syncDerivedComboFieldsForRow(row, { forceSync: true, forceDamage: true, deferDomWrites: false, renderFrameMeter: true });
+      syncDerivedComboFieldsForRow(row, { forceSync: true, forceDamage: true, deferDomWrites: false, renderFrameMeter: false });
       persist();
-      window.setTimeout(() => {
-        const group = getVisibleGroupForCombo(row);
-        const combo = state.combos[row];
-        if (group && combo) {
-          renderFrameMeterVisual(group, combo, { force: true, defer: false });
-        }
-      }, 0);
       queueComboPostEditRefresh(row, 0, 'command');
       notifyNotationUnknown(unknownSet);
     }, 0);
@@ -25743,22 +26009,13 @@
           forceSync: true,
           forceDamage: true,
           deferDomWrites: false,
-          renderFrameMeter: true,
+          renderFrameMeter: false,
         });
         if (changed) didCommitChange = true;
       }
     }
     if (didCommitChange) {
       persist();
-      if (el.dataset.field === 'command') {
-        window.setTimeout(() => {
-          const group = getVisibleGroupForCombo(row);
-          const combo = state.combos[row];
-          if (group && combo) {
-            renderFrameMeterVisual(group, combo, { force: true, defer: false });
-          }
-        }, 0);
-      }
       queueComboPostEditRefresh(row, 0, el.dataset.field);
     }
   }
@@ -26455,8 +26712,12 @@
     return visible;
   }
 
+  let applyFiltersPrevHadComplex = null;
+
   function applyFilters() {
     const ctx = buildFilterContext();
+    const prevHadComplex = applyFiltersPrevHadComplex;
+    applyFiltersPrevHadComplex = ctx.hasComplexFilters;
     if (isVirtualScrollEnabled()) {
       const view = [];
       const total = getComboCount();
@@ -26520,10 +26781,14 @@
           group._filterVisible = visible;
           if (!hadState) visibilityChanged = true;
         }
-        if (setGroupRowDisplayVisibility(group, visible)) visibilityChanged = true;
-      });
-      if (visibilityChanged) refreshVisibleGroupRowClasses();
-      return;
+      if (setGroupRowDisplayVisibility(group, visible)) visibilityChanged = true;
+    });
+    if (visibilityChanged) refreshVisibleGroupRowClasses();
+    // Rebuild tree when list visibility changes, or when leaving complex filters (tree pair set
+    // can widen even if loaded rows' visibility is unchanged). Skip redundant rebuilds — scheduling
+    // doRebuildTree on every applyFilters stalls the tab and spikes memory on large sheets.
+    if (visibilityChanged || prevHadComplex === true) requestTreeRebuild();
+    return;
     }
 
     const toNumber = (value) => {
@@ -27031,7 +27296,9 @@
       if (isVirtualScrollEnabled()) {
         renderVirtualWindow({ force: true });
       } else {
-        applyStateToTable({ rangeStart: 0, rangeEnd: 1 });
+        ensureGroupCount(state.combos.length);
+        trimGroupCount(state.combos.length);
+        applyStateToTable();
       }
     }
     if (modeAutofilled && !sampleChanged) {
@@ -27067,6 +27334,7 @@
     }
     applyFilters();
     saveUiPrefs();
+    requestTreeRebuild();
   }
 
   function openCharSelect() {
@@ -27898,41 +28166,17 @@
   function appendToken(token, opts = {}) {
     if (!token) return;
     let target = state.activeCell;
-    const detailsCmd = qs('comboDetailsCommandEdit');
-    if (
-      document.activeElement === detailsCmd
-      && detailsCmd
-      && detailsCmd.classList
-      && detailsCmd.classList.contains('cmd-input')
-    ) {
-      target = detailsCmd;
-    }
     if (!target || target.dataset.field !== 'command') {
       const firstGroup = state.groups && state.groups[0];
       target = firstGroup && firstGroup.inputs ? firstGroup.inputs.command : null;
     }
     if (!target || target.dataset.field !== 'command') return;
     const insertText = hotkeyToCommandText(token);
-    if (
-      target.id === 'comboDetailsCommandEdit'
-      && typeof buildModalCommandHighlightHtml === 'function'
-    ) {
-      const raw = String(target.textContent || '') + insertText;
-      target.innerHTML = buildModalCommandHighlightHtml(raw);
-      target.focus();
-      const range = document.createRange();
-      range.selectNodeContents(target);
-      range.collapse(false);
-      const sel = window.getSelection();
-      if (sel) {
-        sel.removeAllRanges();
-        sel.addRange(range);
-      }
-      target.dispatchEvent(new Event('input', { bubbles: true }));
-      return;
-    }
     insertCommandText(target, insertText, opts);
     target.focus();
+    if (target.id === 'comboDetailsCommandEdit') {
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+    }
   }
 
   function insertCommandText(target, text, opts = {}) {
@@ -28750,19 +28994,13 @@
   }
 
   function handleKeymapInput(ev) {
-    const detailsCmd = qs('comboDetailsCommandEdit');
-    const activeEl = document.activeElement;
-    let target = state.activeCell;
-    if (
-      activeEl === detailsCmd
-      && detailsCmd
-      && detailsCmd.classList
-      && detailsCmd.classList.contains('cmd-input')
-    ) {
-      target = detailsCmd;
+    const focused = document.activeElement;
+    if (focused && focused.id === 'comboDetailsCommandEdit' && focused.dataset.field === 'command') {
+      if (state.activeCell !== focused) setActiveCell(focused);
     }
+    const target = state.activeCell;
     if (!target || target.dataset.field !== 'command') return;
-    if (!activeEl || activeEl !== target) return;
+    if (!focused || focused !== target) return;
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     const token = keyEventToToken(ev);
     if (!token) return;
@@ -32640,7 +32878,6 @@ ${table.outerHTML}
     applyFilters();
     updateLoadMoreControl();
     setSelectedGroup(0);
-    treeTokenCache.clear();
     requestTreeRebuild();
   }
 
@@ -32651,11 +32888,11 @@ ${table.outerHTML}
   let treeRebuildRafId = null;
   const comboTreeState = { expandedNodes: new Set() };
   const TREE_NODE_ID_SEP = '\u241E';
-  const TREE_RAIL_MODE_KEY = 'lm_tree_rail_mode_v1';
-  const treeRailState = { mode: 'drive', lastRoot: null, lastPairs: [] };
+  const TREE_DRIVE_STEP_CACHE_MAX = 6000;
   const treeDriveStepResolveCache = new Map();
-  const TREE_DRIVE_STEP_CACHE_MAX = 4000;
-  const treeDetailState = { hidden: false, comboIndex: -1 };
+  const TREE_RAIL_MODE_KEY = 'lm_tree_rail_mode_v1';
+  const treeRailState = { mode: 'drive', lastRoot: null };
+  const treeDetailState = { comboIndex: -1, selectedNodeId: '', pendingReturnFocusEl: null };
   const TREE_DETAIL_FIELDS = [...FIELD_ORDER];
   const TREE_DETAIL_EDITABLE_FIELDS = ['command', 'tags', 'combo_notes', 'oki', 'extra_notes', 'combo_url'];
   const TREE_PILL_FILTER_FIELD_MAP = {
@@ -32705,6 +32942,27 @@ ${table.outerHTML}
     return null;
   }
 
+  function findTreeNodeOwningComboIndex(node, idx) {
+    const want = Number(idx);
+    if (!node || !Number.isFinite(want)) return null;
+    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.some((g) => Number(g) === want)) {
+      return node;
+    }
+    const children = Array.isArray(node.children) ? node.children : [];
+    for (let i = 0; i < children.length; i += 1) {
+      const hit = findTreeNodeOwningComboIndex(children[i], want);
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  function comboIndexPlacedInCurrentTree(idx) {
+    const want = Number(idx);
+    const root = treeRailState.lastRoot;
+    if (!root || !Number.isFinite(want) || want < 0) return false;
+    return findTreeNodeOwningComboIndex(root, want) != null;
+  }
+
   function expandTreeSubtree(node) {
     if (!node) return;
     comboTreeState.expandedNodes.add(node.id);
@@ -32734,6 +32992,22 @@ ${table.outerHTML}
     return out;
   }
 
+  function focusComboDetailsCommandAtEnd() {
+    const cmdEl = qs('comboDetailsCommandEdit');
+    if (!cmdEl || typeof cmdEl.focus !== 'function') return;
+    cmdEl.focus({ preventScroll: true });
+    setActiveCell(cmdEl);
+    const sel = window.getSelection();
+    if (sel) {
+      const range = document.createRange();
+      range.selectNodeContents(cmdEl);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    cmdEl.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
   function createComboFromTreeNodePath(node) {
     if (!node || !node.id) return;
     const tokens = String(node.id)
@@ -32747,25 +33021,15 @@ ${table.outerHTML}
     combo._manual = true;
     setComboFieldSource(combo, 'command', 'user');
     const inserted = insertComboAt(state.combos.length, combo, { scrollToRow: false });
+    const onTreePage = document.body && document.body.getAttribute('data-view') === 'tree';
     if (Number.isFinite(inserted) && inserted >= 0) {
       setSelectedGroup(inserted, { scroll: false });
-      setTreeDetailSelectedCombo(inserted);
+      if (onTreePage) setTreeDetailSelectedCombo(inserted);
     }
     doRebuildTree();
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        const cmd = qs('comboDetailsCommandEdit');
-        if (!cmd) return;
-        cmd.focus();
-        const sel = window.getSelection();
-        if (!sel) return;
-        const range = document.createRange();
-        range.selectNodeContents(cmd);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
-      });
-    });
+    if (onTreePage && Number.isFinite(inserted) && inserted >= 0) {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(focusComboDetailsCommandAtEnd));
+    }
   }
 
   function deleteTreeNodeChildrenCombos(node) {
@@ -32827,43 +33091,53 @@ ${table.outerHTML}
 
   function ensureTreeNodeContextMenu() {
     let menu = qs('treeNodeContextMenu');
-    if (menu) return menu;
-    menu = document.createElement('div');
-    menu.id = 'treeNodeContextMenu';
-    menu.className = 'combo-row-context-menu tree-node-context-menu hidden';
-    menu.setAttribute('role', 'menu');
-    menu.setAttribute('aria-hidden', 'true');
-    menu.innerHTML = `
+    const needsMarkup = !menu || !menu.querySelector('[data-action="expand-subtree"]');
+    if (!menu) {
+      menu = document.createElement('div');
+      menu.id = 'treeNodeContextMenu';
+      document.body.appendChild(menu);
+    } else if (menu.parentNode !== document.body) {
+      document.body.appendChild(menu);
+    }
+    if (needsMarkup) {
+      menu.className = 'combo-row-context-menu tree-node-context-menu hidden';
+      menu.removeAttribute('hidden');
+      menu.setAttribute('role', 'menu');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.innerHTML = `
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="expand-subtree"></button>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="collapse-subtree"></button>
       <div class="combo-row-context-sep"></div>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="add-from-node"></button>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="delete-children"></button>
     `;
-    document.body.appendChild(menu);
-    menu.addEventListener('click', (ev) => {
-      const item = ev.target && ev.target.closest ? ev.target.closest('.combo-row-context-item[data-action]') : null;
-      if (!item || item.disabled) return;
-      const action = String(item.dataset.action || '');
-      const root = treeRailState.lastRoot;
-      const node = getTreeNodeById(root, treeNodeContextNodeId);
-      if (!node) {
+    }
+    if (!menu.dataset.lmTreeCtxClickBound) {
+      menu.dataset.lmTreeCtxClickBound = '1';
+      menu.addEventListener('click', (ev) => {
+        const item = ev.target && ev.target.closest ? ev.target.closest('.combo-row-context-item[data-action]') : null;
+        if (!item || item.disabled) return;
+        const action = String(item.dataset.action || '');
+        const root = treeRailState.lastRoot;
+        const node = getTreeNodeById(root, treeNodeContextNodeId);
+        if (!node) {
+          closeTreeNodeContextMenu();
+          return;
+        }
+        if (action === 'expand-subtree') {
+          expandTreeSubtree(node);
+          doRebuildTree();
+        } else if (action === 'collapse-subtree') {
+          collapseTreeSubtree(node);
+          doRebuildTree();
+        } else if (action === 'add-from-node') {
+          createComboFromTreeNodePath(node);
+        } else if (action === 'delete-children') {
+          deleteTreeNodeChildrenCombos(node);
+        }
         closeTreeNodeContextMenu();
-        return;
-      }
-      if (action === 'expand-subtree') {
-        expandTreeSubtree(node);
-        doRebuildTree();
-      } else if (action === 'collapse-subtree') {
-        collapseTreeSubtree(node);
-        doRebuildTree();
-      } else if (action === 'add-from-node') {
-        createComboFromTreeNodePath(node);
-      } else if (action === 'delete-children') {
-        deleteTreeNodeChildrenCombos(node);
-      }
-      closeTreeNodeContextMenu();
-    });
+      });
+    }
     return menu;
   }
 
@@ -32895,6 +33169,7 @@ ${table.outerHTML}
     treeNodeContextNodeId = String(node.id || '');
     menu.style.left = '0px';
     menu.style.top = '0px';
+    menu.removeAttribute('hidden');
     menu.classList.remove('hidden');
     menu.setAttribute('aria-hidden', 'false');
     menu.style.visibility = 'hidden';
@@ -33014,7 +33289,7 @@ ${table.outerHTML}
   }
 
   function closeTreePillFilterPanel() {
-    const panel = qs('treePillFilterPanel');
+    const panel = qs('treePillFilterPopover');
     if (panel) {
       panel.classList.add('hidden');
       panel.style.display = 'none';
@@ -33026,10 +33301,10 @@ ${table.outerHTML}
   }
 
   function ensureTreePillFilterPanel() {
-    let panel = qs('treePillFilterPanel');
+    let panel = qs('treePillFilterPopover');
     if (panel) return panel;
     panel = document.createElement('div');
-    panel.id = 'treePillFilterPanel';
+    panel.id = 'treePillFilterPopover';
     panel.className = 'tree-pill-filter-panel hidden';
     panel.innerHTML = `
       <div class="tree-pill-filter-head" id="treePillFilterHead"></div>
@@ -33125,7 +33400,7 @@ ${table.outerHTML}
     return { tokenMap, character, mode };
   }
 
-  /** Resolve one tree-node label to a calc row (same booleans as drive-gauge timeline; no prev-chain context). */
+  /** Resolve one tree-node label to a calc row (same path as drive-gauge timeline, no prev-chain context). */
   function resolveTreeLabelToDriveStep(rawLabel) {
     const raw = String(rawLabel || '').trim();
     if (!raw) return null;
@@ -33133,31 +33408,47 @@ ${table.outerHTML}
     if (!ctx) return null;
     const cacheKey = `${ctx.character}\u241E${ctx.mode}\u241E${raw}`;
     if (treeDriveStepResolveCache.has(cacheKey)) return treeDriveStepResolveCache.get(cacheKey);
+    // Labels are one tree step (e.g. 2AUTOSP). Prefer the same tokenization as combo commands
+    // so drive rail / spend stays in sync; fall back only when lookup fails.
     const steps = commandToCalcStepTokens(raw);
-    const stepToken = steps.length ? steps[0] : raw;
-    if (!stepToken) {
-      treeDriveStepResolveCache.set(cacheKey, null);
-      return null;
+    const fromTokenize = steps.length ? steps[0] : '';
+    const fromSegment = normalizeCommandSegmentForCalc(raw);
+    const fromKey = normalizeCalcTokenKey(raw);
+    const candidates = [];
+    if (fromTokenize) candidates.push(fromTokenize);
+    if (fromSegment && fromSegment !== fromTokenize) candidates.push(fromSegment);
+    if (fromKey && !candidates.includes(fromKey)) candidates.push(fromKey);
+    if (raw && !candidates.includes(raw)) candidates.push(raw);
+    let entry = null;
+    let stepToken = '';
+    for (let ci = 0; ci < candidates.length; ci += 1) {
+      const cand = candidates[ci];
+      if (!cand) continue;
+      const hit = resolveCalcStepEntry(cand, ctx.tokenMap, {
+        preferSa3: true,
+        characterSlug: ctx.character,
+        mode: ctx.mode,
+      });
+      if (hit) {
+        entry = hit;
+        stepToken = cand;
+        break;
+      }
     }
-    const entry = resolveCalcStepEntry(stepToken, ctx.tokenMap, {
-      preferSa3: true,
-      characterSlug: ctx.character,
-      mode: ctx.mode,
-    });
     const payload = entry ? { entry, stepToken, raw } : null;
     if (treeDriveStepResolveCache.size >= TREE_DRIVE_STEP_CACHE_MAX) treeDriveStepResolveCache.clear();
     treeDriveStepResolveCache.set(cacheKey, payload);
     return payload;
   }
 
-  /** Integer tiers for tree drive rail (CR=3, OD=2, DR/DI=1). */
+  /** Integer tiers for tree drive rail (same scale as legacy: CR=3, OD=2, DR/DI=1). */
   function treeDriveRailCostFromCalc(entry, stepToken) {
     if (!entry) return 0;
     const isCDR = isDriveRushCancelStepToken(stepToken);
     const isDR = !isCDR && isDriveRushEntry(entry, stepToken);
     const isDI = isFrameMeterDriveImpactEntry(entry, { stepToken });
     const isOD = !isDI && !isDR && !isCDR
-      && isCalcOdEntry(entry) && getCalcEntryActionClass(entry) === 'special';
+      && isCalcOdEntryForStep(entry, stepToken) && getCalcEntryActionClass(entry) === 'special';
     if (isCDR) return 3;
     if (isOD) return 2;
     if (isDR || isDI) return 1;
@@ -33181,8 +33472,10 @@ ${table.outerHTML}
   function classifyTreeBoxDriveBorder(label) {
     const raw = String(label || '');
     const k = normalizeCalcTokenKey(raw);
+    // Literal CR / DR / DI tokens (same fast path as before).
     if (k === 'CR') return 'cr';
     if (k === 'DR') return 'dr';
+    if (k === 'DI') return 'di';
     const saNum = k.match(/^SA([123])$/);
     if (saNum) return `sa${saNum[1]}`;
 
@@ -33198,11 +33491,12 @@ ${table.outerHTML}
       const isDR = !isCDR && isDriveRushEntry(entry, stepToken);
       const isDI = isFrameMeterDriveImpactEntry(entry, { stepToken });
       const isOD = !isDI && !isDR && !isCDR
-        && isCalcOdEntry(entry) && getCalcEntryActionClass(entry) === 'special';
+        && isCalcOdEntryForStep(entry, stepToken) && getCalcEntryActionClass(entry) === 'special';
 
       if (isCDR) return 'cr';
       if (isDR) return 'dr';
-      if (isDI || isOD) return 'od';
+      if (isDI) return 'di';
+      if (isOD) return 'od';
     }
 
     const flav = matchSaFlavorForTreeToken(raw);
@@ -33210,7 +33504,7 @@ ${table.outerHTML}
     return '';
   }
 
-  /** Per-step drive spend for tree rail (calc-backed; CR/DR literal tokens when DB missing). */
+  /** Per-step drive spend estimate for tree rail (calc-backed; CR/DR token fallback when DB missing). */
   function estimateSingleTokenDriveCost(rawToken) {
     const raw = String(rawToken || '');
     const k = normalizeCalcTokenKey(raw);
@@ -33245,14 +33539,8 @@ ${table.outerHTML}
   function syncTreeRailModeButtons() {
     const d = qs('treeRailModeDrive');
     const g = qs('treeRailModeDamage');
-    if (d) {
-      d.classList.remove('active');
-      d.classList.toggle('is-active', treeRailState.mode === 'drive');
-    }
-    if (g) {
-      g.classList.remove('active');
-      g.classList.toggle('is-active', treeRailState.mode === 'damage');
-    }
+    if (d) d.classList.toggle('is-active', treeRailState.mode === 'drive');
+    if (g) g.classList.toggle('is-active', treeRailState.mode === 'damage');
   }
 
   function setTreeRailMode(mode) {
@@ -33260,17 +33548,7 @@ ${table.outerHTML}
     treeRailState.mode = mode;
     setTreeRailStoredMode(mode);
     syncTreeRailModeButtons();
-    updateTreeScaleColumnTitle();
     doRebuildTree();
-  }
-
-  function updateTreeScaleColumnTitle() {
-    const el = qs('treeScaleColTitle');
-    if (!el) return;
-    const isEn = getComboLang() === 'en';
-    el.textContent = treeRailState.mode === 'drive'
-      ? (isEn ? 'D Gauge' : 'Dゲージ')
-      : (isEn ? 'Damage' : 'ダメージ');
   }
 
   function isTreeNodeFlowExpanded(node, opt = treeFlowRenderOptions) {
@@ -33279,33 +33557,42 @@ ${table.outerHTML}
     return comboTreeState.expandedNodes.has(node.id);
   }
 
-  function gatherNodeComboIndexes(node, out = []) {
-    if (!node) return out;
-    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.length) {
-      node.comboGlobalIndexes.forEach((idx) => {
-        if (Number.isFinite(Number(idx))) out.push(Number(idx));
-      });
-    }
-    if (Array.isArray(node.children) && node.children.length) {
-      node.children.forEach((child) => gatherNodeComboIndexes(child, out));
-    }
-    return out;
-  }
-
   function getTreeRepresentativeComboIndex(node) {
-    const indexes = gatherNodeComboIndexes(node, []);
-    if (!indexes.length) return -1;
-    indexes.sort((a, b) => a - b);
-    return indexes[0];
+    if (!node) return -1;
+    const terminal = treeNodeTerminalComboPairs(node);
+    if (terminal.length) {
+      const sorted = terminal.map((p) => p.gIdx).sort((a, b) => a - b);
+      return sorted[0];
+    }
+    const children = Array.isArray(node.children) ? node.children : [];
+    const fromChildren = [];
+    for (let i = 0; i < children.length; i += 1) {
+      const r = getTreeRepresentativeComboIndex(children[i]);
+      if (r >= 0) fromChildren.push(r);
+    }
+    if (!fromChildren.length) return -1;
+    fromChildren.sort((a, b) => a - b);
+    return fromChildren[0];
   }
 
-  function setTreeDetailSelectedCombo(index) {
-    const n = Number.isFinite(Number(index)) ? Number(index) : -1;
-    treeDetailState.comboIndex = n;
-    if (n >= 0) state.selectedGroup = n;
-    else state.selectedGroup = -1;
-    syncTreeSelectionHighlight();
+  function setTreeDetailSelectedCombo(index, options = {}) {
+    const n = Number(index);
+    const idx = Number.isFinite(n) && n >= 0 ? n : -1;
+    treeDetailState.comboIndex = idx;
+    if (options && options.returnFocusEl) treeDetailState.pendingReturnFocusEl = options.returnFocusEl;
+    else treeDetailState.pendingReturnFocusEl = null;
+    if (Object.prototype.hasOwnProperty.call(options, 'nodeId')) {
+      treeDetailState.selectedNodeId = options.nodeId ? String(options.nodeId) : '';
+    } else if (idx >= 0 && treeRailState.lastRoot) {
+      const p = findTreeNodeIdsPathToComboIndex(treeRailState.lastRoot, idx, []);
+      if (p && p.length) treeDetailState.selectedNodeId = p[p.length - 1];
+    } else if (idx < 0) {
+      treeDetailState.selectedNodeId = '';
+    }
     renderTreeDetailPane();
+    if (!isVirtualScrollEnabled() && idx >= 0 && idx >= state.groups.length) {
+      requestBottomJumpSelection(idx);
+    }
   }
 
   function treeDetailLabelForField(field, lang) {
@@ -33449,6 +33736,7 @@ ${table.outerHTML}
     const emptyEl = qs('treeDetailEmpty');
     const modalHost = qs('treeDetailModalHost');
     if (!pane || !emptyEl || !modalHost) return;
+    const onTreePage = document.body && document.body.getAttribute('data-view') === 'tree';
     const activeLang = getComboLang();
     if (headTextEl) headTextEl.textContent = activeLang === 'en' ? 'Selected Combo' : '選択中コンボ';
     if (openModalBtn) {
@@ -33456,23 +33744,40 @@ ${table.outerHTML}
       openModalBtn.title = comboT('ui.context_frame_meter_details', activeLang) || (activeLang === 'en' ? 'Combo Details' : 'コンボ詳細');
     }
     emptyEl.textContent = activeLang === 'en' ? 'Select a branch to show details.' : '枝を選択すると詳細を表示します。';
-    pane.classList.toggle('is-hidden', !!treeDetailState.hidden);
-    if (treeDetailState.hidden) return;
     const idx = Number(treeDetailState.comboIndex);
     const combo = Number.isFinite(idx) && idx >= 0 ? state.combos[idx] : null;
     if (!combo) {
+      treeDetailState.pendingReturnFocusEl = null;
       emptyEl.hidden = false;
       if (openModalBtn) openModalBtn.disabled = true;
       if (modalHost) modalHost.style.display = 'none';
-      const overlay = qs('frameMeterOverlay');
-      if (overlay && overlay.classList.contains('tree-docked')) overlay.classList.add('hidden');
+      if (onTreePage) closeFrameMeterDetailsModal({ restoreFocus: false });
+      if (onTreePage) syncTreeSelectionHighlight();
       return;
     }
+    if (!onTreePage) return;
+    if (!comboIndexPlacedInCurrentTree(idx)) {
+      treeDetailState.pendingReturnFocusEl = null;
+      emptyEl.textContent = activeLang === 'en'
+        ? 'This combo is not on the current tree (filters, empty command, or notation the tree cannot parse).'
+        : 'このコンボは現在のツリーに表示されていません（フィルター、空のコマンド、ツリーが解釈できない表記など）。';
+      emptyEl.hidden = false;
+      if (openModalBtn) openModalBtn.disabled = true;
+      if (modalHost) modalHost.style.display = 'none';
+      closeFrameMeterDetailsModal({ restoreFocus: false });
+      treeDetailState.comboIndex = -1;
+      treeDetailState.selectedNodeId = '';
+      syncTreeSelectionHighlight();
+      return;
+    }
+    const returnFocusEl = treeDetailState.pendingReturnFocusEl;
+    treeDetailState.pendingReturnFocusEl = null;
     emptyEl.hidden = true;
     if (openModalBtn) openModalBtn.disabled = false;
     // Reuse combo detail modal as the right pane in tree view.
     if (modalHost) modalHost.style.display = 'flex';
-    openFrameMeterDetailsModal(idx, { treeDocked: true, returnFocusEl: null });
+    openFrameMeterDetailsModal(idx, { treeDocked: true, returnFocusEl: returnFocusEl || null });
+    syncTreeSelectionHighlight();
     return;
 
     /* Legacy custom tree detail pane (kept for fallback only). */
@@ -33626,8 +33931,8 @@ ${table.outerHTML}
     let tMin = Infinity;
     let tMax = -1;
     if (node.comboGlobalIndexes && node._combos && node.comboGlobalIndexes.length) {
-      node.comboGlobalIndexes.forEach((_, i) => {
-        const tier = comboDamageNormalTier(node._combos[i]);
+      treeNodeTerminalComboPairs(node).forEach(({ combo }) => {
+        const tier = comboDamageNormalTier(combo);
         tMin = Math.min(tMin, tier);
         tMax = Math.max(tMax, tier);
       });
@@ -33734,7 +34039,7 @@ ${table.outerHTML}
     countEl.className = 'htree-box-count';
     countEl.textContent = String(countNodeCombos(node));
     boxEl.appendChild(countEl);
-    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.length > 0) {
+    if (treeNodeTerminalComboPairs(node).length > 0) {
       const storeMark = document.createElement('span');
       storeMark.className = 'htree-box-store-mark';
       storeMark.title = getComboLang() === 'en' ? 'Node has saved combos' : 'このノードにコンボが保存されています';
@@ -33747,11 +34052,6 @@ ${table.outerHTML}
     if (driveBorder) boxEl.classList.add(`htree-box--${driveBorder}`);
 
     const hasChildren = Array.isArray(node.children) && node.children.length > 0;
-    boxEl.addEventListener('contextmenu', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      openTreeNodeContextMenu(boxEl, node);
-    });
     if (hasChildren) {
       const isExpanded = expandAll || (!collapseAll && isTreeNodeFlowExpanded(node, options));
       boxEl.dataset.expanded = isExpanded ? '1' : '0';
@@ -33759,6 +34059,7 @@ ${table.outerHTML}
 
       const toggle = (ev) => {
         if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation();
+        setTreeDetailSelectedCombo(-1, { nodeId: node.id });
         const expanded = boxEl.dataset.expanded === '1';
         const next = !expanded;
         boxEl.dataset.expanded = next ? '1' : '0';
@@ -33776,6 +34077,7 @@ ${table.outerHTML}
         if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation();
         const repIdx = getTreeRepresentativeComboIndex(node);
         if (repIdx >= 0) setTreeDetailSelectedCombo(repIdx);
+        else setTreeDetailSelectedCombo(-1, { nodeId: node.id });
       };
       boxEl.addEventListener('click', pickOnly);
       boxEl.addEventListener('keydown', (ev) => {
@@ -33791,7 +34093,6 @@ ${table.outerHTML}
     treeFlowRenderOptions = options || {};
     targetEl.className = 'htree-root htree-root--mockup';
     while (targetEl.firstChild) targetEl.removeChild(targetEl.firstChild);
-    updateTreeScaleColumnTitle();
     if (!root || !root.children.length) {
       const empty = document.createElement('div');
       empty.className = 'htree-empty';
@@ -33872,8 +34173,7 @@ ${table.outerHTML}
         const stack = document.createElement('div');
         stack.className = 'tree-flow-leaf-stack';
         const driveGroups = new Map();
-        n.comboGlobalIndexes.forEach((gIdx, i) => {
-          const combo = n._combos[i];
+        treeNodeTerminalComboPairs(n).forEach(({ gIdx, combo }) => {
           const key = getTreeDriveReqKey(combo);
           if (!driveGroups.has(key)) driveGroups.set(key, []);
           driveGroups.get(key).push({ combo, index: gIdx });
@@ -34126,46 +34426,176 @@ ${table.outerHTML}
     });
   }
 
+  function findTreeNodeIdsPathToComboIndex(node, idx, ancestorIds) {
+    if (!node) return null;
+    const nextIds = node.id === '__root__' ? ancestorIds.slice() : ancestorIds.concat(node.id);
+    if (Array.isArray(node.comboGlobalIndexes) && node.comboGlobalIndexes.some((g) => Number(g) === Number(idx))) {
+      return nextIds;
+    }
+    const children = Array.isArray(node.children) ? node.children : [];
+    for (let i = 0; i < children.length; i += 1) {
+      const hit = findTreeNodeIdsPathToComboIndex(children[i], idx, nextIds);
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  function findTreeNodeIdsPathToNodeId(node, targetId, ancestorIds) {
+    if (!node || targetId == null || targetId === '') return null;
+    const want = String(targetId);
+    const nextIds = node.id === '__root__' ? ancestorIds.slice() : ancestorIds.concat(node.id);
+    if (node.id === want) return nextIds;
+    const children = Array.isArray(node.children) ? node.children : [];
+    for (let i = 0; i < children.length; i += 1) {
+      const hit = findTreeNodeIdsPathToNodeId(children[i], want, nextIds);
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  function forEachTreeFlowBoxByNodeId(rootEl, nodeId, fn) {
+    const want = String(nodeId || '');
+    if (!want || !rootEl || typeof fn !== 'function') return;
+    rootEl.querySelectorAll('.htree-box.tree-flow-box[data-node-id]').forEach((box) => {
+      if (String(box.dataset.nodeId || '') === want) fn(box);
+    });
+  }
+
+  /** Scroll the tree panel so the given combo row's node or leaf is visible (flow layout). */
+  function scrollTreeViewToComboIndex(globalIdx) {
+    const scrollEl = qs('treeViewScroll');
+    const rootEl = qs('treeViewRoot');
+    const idx = Number(globalIdx);
+    if (!scrollEl || !rootEl || !Number.isFinite(idx) || idx < 0) return;
+    let target = rootEl.querySelector(`.htree-leaf[data-combo-idx="${idx}"]`);
+    if (!target) {
+      const tr = treeRailState.lastRoot;
+      const pathIds = tr ? findTreeNodeIdsPathToComboIndex(tr, idx, []) : null;
+      const lastId = pathIds && pathIds.length ? pathIds[pathIds.length - 1] : '';
+      if (lastId) {
+        forEachTreeFlowBoxByNodeId(rootEl, lastId, (box) => { if (!target) target = box; });
+      }
+    }
+    if (!target) {
+      target = rootEl.querySelector('.htree-box.tree-flow-box-selected');
+    }
+    if (!target || typeof target.scrollIntoView !== 'function') return;
+    try {
+      target.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' });
+    } catch (_) {
+      target.scrollIntoView(true);
+    }
+  }
+
   function syncTreeSelectionHighlight() {
-    if (!isComboTreeViewActive()) return;
+    if (document.body && document.body.dataset.view !== 'tree') return;
     const root = qs('treeViewRoot');
     if (!root) return;
     root.querySelectorAll('.htree-leaf.is-active').forEach((el) => el.classList.remove('is-active'));
-    root.querySelectorAll('.htree-box.tree-flow-box').forEach((box) => {
-      box.classList.remove('tree-flow-box-path', 'tree-flow-box-selected');
-    });
-    const idx = Number(state.selectedGroup);
-    if (!Number.isFinite(idx) || idx < 0) return;
-    const combo = state.combos[idx];
-    const tokens = combo ? getTreeComboStepTokens(combo) : [];
-    if (tokens.length) {
-      const boxes = root.querySelectorAll('.htree-box.tree-flow-box[data-node-id]');
-      let acc = '';
-      tokens.forEach((token, depth) => {
-        acc += (depth === 0 ? '' : TREE_NODE_ID_SEP) + token;
-        const pathKey = acc;
-        const isLast = depth === tokens.length - 1;
-        boxes.forEach((box) => {
-          if (String(box.dataset.nodeId || '') !== pathKey) return;
-          box.classList.add('tree-flow-box-path');
-          if (isLast) box.classList.add('tree-flow-box-selected');
-        });
-      });
+    root.querySelectorAll('.htree-box.tree-flow-box-selected').forEach((el) => el.classList.remove('tree-flow-box-selected'));
+    root.querySelectorAll('.htree-box.tree-flow-box-path').forEach((el) => el.classList.remove('tree-flow-box-path'));
+    const idx = Number(treeDetailState.comboIndex);
+    const selNodeId = String(treeDetailState.selectedNodeId || '');
+    const treeRoot = treeRailState.lastRoot;
+    let pathIds = null;
+    if (Number.isFinite(idx) && idx >= 0 && treeRoot) {
+      pathIds = findTreeNodeIdsPathToComboIndex(treeRoot, idx, []);
     }
-    const target = root.querySelector(`.htree-leaf[data-combo-idx="${idx}"]`);
-    if (target) target.classList.add('is-active');
+    if ((!pathIds || !pathIds.length) && selNodeId && treeRoot) {
+      pathIds = findTreeNodeIdsPathToNodeId(treeRoot, selNodeId, []);
+    }
+    if (pathIds && pathIds.length) {
+      pathIds.slice(0, -1).forEach((nodeId) => {
+        forEachTreeFlowBoxByNodeId(root, nodeId, (box) => box.classList.add('tree-flow-box-path'));
+      });
+      const lastId = pathIds[pathIds.length - 1];
+      forEachTreeFlowBoxByNodeId(root, lastId, (box) => box.classList.add('tree-flow-box-selected'));
+    }
+    if (Number.isFinite(idx) && idx >= 0) {
+      root.querySelectorAll(`.htree-leaf[data-combo-idx="${idx}"]`).forEach((el) => el.classList.add('is-active'));
+    }
   }
 
   function getTreeComboStepTokens(combo) {
     if (!combo) return [];
+    const cmd = String(combo.command || '');
     const id = combo._id;
-    if (id) {
-      const cached = treeTokenCache.get(id);
+    const cacheKey = id ? `${id}\u241E${cmd}` : cmd;
+    if (cacheKey) {
+      const cached = treeTokenCache.get(cacheKey);
       if (cached) return cached;
     }
-    const tokens = commandToCalcStepTokens(combo.command || '');
-    if (id) treeTokenCache.set(id, tokens);
+    const tokens = commandToCalcStepTokens(cmd);
+    if (cacheKey) treeTokenCache.set(cacheKey, tokens);
     return tokens;
+  }
+
+  function treeNodeNormalizedPathId(node) {
+    if (!node || !node.id || node.id === '__root__') return '';
+    return String(node.id)
+      .split(TREE_NODE_ID_SEP)
+      .map((seg) => normalizeCalcTokenKey(String(seg || '')))
+      .filter(Boolean)
+      .join(TREE_NODE_ID_SEP);
+  }
+
+  function treeComboNormalizedTerminalPathKey(combo) {
+    const tokens = getTreeComboStepTokens(combo);
+    if (!Array.isArray(tokens) || !tokens.length) return '';
+    let pathKey = '';
+    tokens.forEach((token, depth) => {
+      const seg = normalizeCalcTokenKey(String(token || ''));
+      if (!seg) return;
+      pathKey += (depth === 0 ? '' : TREE_NODE_ID_SEP) + seg;
+    });
+    return pathKey;
+  }
+
+  /** Drop rows attached to a node when the command no longer ends exactly there. */
+  function scrubTreeNodeInvalidCombos(node) {
+    if (!node) return;
+    (node.children || []).forEach(scrubTreeNodeInvalidCombos);
+    if (node.id === '__root__') return;
+    const keys = node.comboGlobalIndexes || [];
+    const combos = node._combos || [];
+    const want = treeNodeNormalizedPathId(node);
+    const nk = [];
+    const nc = [];
+    const hasKids = (node.children || []).length > 0;
+    for (let i = 0; i < keys.length; i += 1) {
+      const g = Number(keys[i]);
+      const c = combos[i];
+      if (!Number.isFinite(g) || g < 0 || !c) continue;
+      if (treeComboNormalizedTerminalPathKey(c) !== want) continue;
+      if (
+        hasKids
+        && !String(want).includes(TREE_NODE_ID_SEP)
+        && /(?:>>|>|-)/.test(String(c.command || '').trim())
+      ) {
+        const toks = getTreeComboStepTokens(c);
+        if (toks.length === 1) continue;
+      }
+      nk.push(g);
+      nc.push(c);
+    }
+    node.comboGlobalIndexes = nk;
+    node._combos = nc;
+  }
+
+  /** Indexed rows on this node (each ends exactly here after scrub). */
+  function treeNodeTerminalComboPairs(node) {
+    if (!node || node.id === '__root__') return [];
+    const keys = node.comboGlobalIndexes || [];
+    const combos = node._combos || [];
+    const out = [];
+    for (let i = 0; i < keys.length; i += 1) {
+      const gIdx = Number(keys[i]);
+      const combo = combos[i]
+        || (Number.isFinite(gIdx) && gIdx >= 0 ? state.combos[gIdx] : null);
+      if (!Number.isFinite(gIdx) || gIdx < 0 || !combo) continue;
+      out.push({ gIdx, combo, i });
+    }
+    return out;
   }
 
   function getTreeFilteredPairs() {
@@ -34185,16 +34615,21 @@ ${table.outerHTML}
   function buildComboTree(pairs) {
     const root = { id: '__root__', label: '', children: [], comboGlobalIndexes: [], _combos: [] };
     const nodeMap = new Map();
+    let treePlacedRowCount = 0;
     pairs.forEach(({ combo, globalIndex }) => {
       const tokens = getTreeComboStepTokens(combo);
-      if (!tokens.length) return;
+      const normTokens = tokens
+        .map((t) => normalizeCalcTokenKey(String(t || '')))
+        .filter(Boolean);
+      if (!normTokens.length) return;
+      treePlacedRowCount += 1;
       let parent = root;
       let pathKey = '';
-      tokens.forEach((token, depth) => {
-        pathKey += (depth === 0 ? '' : TREE_NODE_ID_SEP) + token;
+      normTokens.forEach((seg, depth) => {
+        pathKey += (depth === 0 ? '' : TREE_NODE_ID_SEP) + seg;
         let node = nodeMap.get(pathKey);
         if (!node) {
-          node = { id: pathKey, label: token, depth, children: [], comboGlobalIndexes: [], _combos: [] };
+          node = { id: pathKey, label: seg, depth, children: [], comboGlobalIndexes: [], _combos: [] };
           nodeMap.set(pathKey, node);
           parent.children.push(node);
         }
@@ -34203,12 +34638,14 @@ ${table.outerHTML}
       parent.comboGlobalIndexes.push(globalIndex);
       parent._combos.push(combo);
     });
-    return root;
+    scrubTreeNodeInvalidCombos(root);
+    return { root, treePlacedRowCount };
   }
 
+  /** Subtree total: terminal combos on this node plus all deeper branches (same as historical tree badge). */
   function countNodeCombos(node) {
-    let n = node.comboGlobalIndexes.length;
-    node.children.forEach((c) => { n += countNodeCombos(c); });
+    let n = treeNodeTerminalComboPairs(node).length;
+    (node.children || []).forEach((c) => { n += countNodeCombos(c); });
     return n;
   }
 
@@ -34258,7 +34695,7 @@ ${table.outerHTML}
     const el = document.createElement('div');
     el.className = 'htree-leaf';
     el.dataset.comboIdx = String(globalIndex);
-    if (Number(state.selectedGroup) === globalIndex) el.classList.add('is-active');
+    if (Number(treeDetailState.comboIndex) === globalIndex) el.classList.add('is-active');
     el.tabIndex = 0;
     el.setAttribute('role', 'button');
     el.title = combo.command || '';
@@ -34288,13 +34725,17 @@ ${table.outerHTML}
     }
     el.appendChild(inner);
 
-    const activate = () => {
-      if (isComboTreeViewActive()) setTreeDetailSelectedCombo(globalIndex);
-      else treeSelectCombo(globalIndex);
+    const activate = (ev) => {
+      if (ev && typeof ev.stopPropagation === 'function') ev.stopPropagation();
+      if (document.body && document.body.getAttribute('data-view') === 'tree') {
+        setTreeDetailSelectedCombo(globalIndex);
+        return;
+      }
+      treeSelectCombo(globalIndex);
     };
     el.addEventListener('click', activate);
     el.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); activate(); }
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); activate(ev); }
     });
     return el;
   }
@@ -34337,17 +34778,13 @@ ${table.outerHTML}
 
     const driveBorder = classifyTreeBoxDriveBorder(node.label);
     if (driveBorder) boxEl.classList.add(`htree-box--${driveBorder}`);
-    boxEl.addEventListener('contextmenu', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      openTreeNodeContextMenu(boxEl, node);
-    });
 
     boxWrap.appendChild(boxEl);
     branchEl.appendChild(boxWrap);
 
     // Children container (leaves + sub-branches)
-    const hasChildren = node.children.length > 0 || node.comboGlobalIndexes.length > 0;
+    const terminalPairs = treeNodeTerminalComboPairs(node);
+    const hasChildren = node.children.length > 0 || terminalPairs.length > 0;
     if (hasChildren) {
       const childrenEl = document.createElement('div');
       childrenEl.className = 'htree-children';
@@ -34360,10 +34797,9 @@ ${table.outerHTML}
       if (!isExpanded) boxEl.classList.add('htree-collapsed');
 
       // Leaf combos at this node (grouped by drive gauge requirement)
-      if (node.comboGlobalIndexes.length) {
+      if (terminalPairs.length) {
         const driveGroups = new Map();
-        node.comboGlobalIndexes.forEach((gIdx, i) => {
-          const combo = node._combos[i];
+        terminalPairs.forEach(({ gIdx, combo }) => {
           const key = getTreeDriveReqKey(combo);
           if (!driveGroups.has(key)) driveGroups.set(key, []);
           driveGroups.get(key).push({ combo, index: gIdx });
@@ -34451,26 +34887,104 @@ ${table.outerHTML}
     renderMockupComboTree(root, targetEl, options);
   }
 
+  function cancelPendingComboTreeRebuild() {
+    if (treeRebuildTimer != null) {
+      window.clearTimeout(treeRebuildTimer);
+      treeRebuildTimer = null;
+    }
+    if (treeRebuildRafId != null) {
+      if (typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(treeRebuildRafId);
+      }
+      treeRebuildRafId = null;
+    }
+  }
+
+  /** Drop per-node _combos arrays after DOM render; pairs still resolve via state.combos[gIdx]. */
+  function shrinkTreeModelComboArrays(node) {
+    if (!node) return;
+    if (Array.isArray(node._combos)) node._combos.length = 0;
+    const kids = node.children || [];
+    for (let i = 0; i < kids.length; i += 1) shrinkTreeModelComboArrays(kids[i]);
+  }
+
+  function disposeComboTreeVisual() {
+    cancelPendingComboTreeRebuild();
+    const targetEl = qs('treeViewRoot');
+    if (targetEl) {
+      while (targetEl.firstChild) targetEl.removeChild(targetEl.firstChild);
+    }
+    treeRailState.lastRoot = null;
+    treeDriveStepResolveCache.clear();
+    treeTokenCache.clear();
+  }
+
   function doRebuildTree(options = {}) {
     treeRebuildTimer = null;
     treeRebuildRafId = null;
     treeDriveStepResolveCache.clear();
+    treeTokenCache.clear();
+    if (!document.body || document.body.getAttribute('data-view') !== 'tree') {
+      return;
+    }
     const targetEl = qs('treeViewRoot');
     if (!targetEl) return;
     const pairs = getTreeFilteredPairs();
-    const root = buildComboTree(pairs);
+    const { root, treePlacedRowCount } = buildComboTree(pairs);
+    treeTokenCache.clear();
     closeTreeNodeContextMenu();
     treeRailState.lastRoot = root;
-    treeRailState.lastPairs = pairs;
+    const keepIdx = Number(treeDetailState.comboIndex);
+    if (Number.isFinite(keepIdx) && keepIdx >= 0) {
+      const stillInTree = findTreeNodeIdsPathToComboIndex(root, keepIdx, []);
+      if (!stillInTree) treeDetailState.comboIndex = -1;
+    }
+    const keepNode = String(treeDetailState.selectedNodeId || '');
+    if (keepNode) {
+      const stillNode = findTreeNodeIdsPathToNodeId(root, keepNode, []);
+      if (!stillNode) treeDetailState.selectedNodeId = '';
+    }
+    const syncComboIdx = Number(treeDetailState.comboIndex);
+    if (Number.isFinite(syncComboIdx) && syncComboIdx >= 0) {
+      const pCombo = findTreeNodeIdsPathToComboIndex(root, syncComboIdx, []);
+      if (pCombo && pCombo.length) treeDetailState.selectedNodeId = pCombo[pCombo.length - 1];
+    }
+    const treeScrollEl = qs('treeViewScroll');
+    const prevScrollTop = treeScrollEl ? treeScrollEl.scrollTop : 0;
+    const prevScrollLeft = treeScrollEl ? treeScrollEl.scrollLeft : 0;
+    const restoreTreeScroll = () => {
+      if (!treeScrollEl) return;
+      treeScrollEl.scrollTop = prevScrollTop;
+      treeScrollEl.scrollLeft = prevScrollLeft;
+    };
+    const focusComboIdx = Number(options.focusComboIndex);
+    const scrollToOpenCombo = Number.isFinite(focusComboIdx) && focusComboIdx >= 0;
     renderMockupComboTree(root, targetEl, options);
+    shrinkTreeModelComboArrays(root);
+    if (!scrollToOpenCombo) {
+      restoreTreeScroll();
+      requestAnimationFrame(() => {
+        restoreTreeScroll();
+        requestAnimationFrame(restoreTreeScroll);
+      });
+      window.setTimeout(restoreTreeScroll, 130);
+    }
     syncTreeSelectionHighlight();
     renderTreeDetailPane();
+    if (scrollToOpenCombo) {
+      const runScroll = () => scrollTreeViewToComboIndex(focusComboIdx);
+      requestAnimationFrame(() => {
+        runScroll();
+        requestAnimationFrame(runScroll);
+      });
+      window.setTimeout(runScroll, 140);
+    }
     renderTreeInlineFilterGroups();
     refreshTreePillFilterButtons();
-    // Update count badge
+    // Badge: rows with a non-empty tree token path (excludes blank template rows). Counted in buildComboTree — no extra tree walk or re-parse.
     const countEl = qs('treeViewCount');
     if (countEl) {
-      const total = pairs.length;
+      const total = Number(treePlacedRowCount) || 0;
       countEl.textContent = total
         ? (getComboLang() === 'en' ? `${total} combos` : `${total} コンボ`)
         : '';
@@ -34478,7 +34992,7 @@ ${table.outerHTML}
   }
 
   function requestTreeRebuild() {
-    if (!isComboTreeViewActive()) return;
+    if (document.body && document.body.getAttribute('data-view') !== 'tree') return;
     if (treeRebuildRafId != null || treeRebuildTimer != null) return;
     if (typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function') {
       treeRebuildRafId = window.requestIdleCallback(() => doRebuildTree(), { timeout: 500 });
@@ -34518,11 +35032,73 @@ ${table.outerHTML}
     treeThemeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
   }
 
+  function installSetMainViewTreeWrapOnce() {
+    if (window.__lmWrapSetMainViewForTree) return false;
+    if (typeof window.setMainView !== 'function') return false;
+    window.__lmWrapSetMainViewForTree = true;
+    const origSetMainView = window.setMainView;
+    window.setMainView = function wrappedSetMainView(viewKey, opts) {
+      const before = document.body && document.body.getAttribute('data-view');
+      const ret = origSetMainView.apply(this, arguments);
+      const after = document.body && document.body.getAttribute('data-view');
+      if (before === 'tree' && after !== 'tree') {
+        const pendingIdx = Number(treeDetailState.comboIndex);
+        treeDetailState.comboIndex = -1;
+        treeDetailState.selectedNodeId = '';
+        closeFrameMeterDetailsModal({ restoreFocus: false });
+        disposeComboTreeVisual();
+        if (
+          !isVirtualScrollEnabled()
+          && Number.isFinite(pendingIdx)
+          && pendingIdx >= 0
+          && pendingIdx < state.combos.length
+        ) {
+          requestBottomJumpSelection(pendingIdx);
+          if (hasActiveComplexComboFilters()) applyFilters();
+        }
+      } else if (before !== 'tree' && after === 'tree') {
+        renderTreeDetailPane();
+        cancelPendingComboTreeRebuild();
+        const runTreeWhenVisible = () => {
+          if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
+        };
+        window.requestAnimationFrame(() => window.requestAnimationFrame(runTreeWhenVisible));
+      }
+      return ret;
+    };
+    return true;
+  }
+
+  /**
+   * init() can resume from await before DOMContentLoaded runs initMainTabs(), so
+   * setMainView may not exist yet. Retry until wrap installs; rebuild if already on tree.
+   */
+  function ensureSetMainViewTreeWrap() {
+    const afterInstallIfOnTree = () => {
+      if (!document.body || document.body.getAttribute('data-view') !== 'tree') return;
+      renderTreeDetailPane();
+      cancelPendingComboTreeRebuild();
+      const runTreeWhenVisible = () => {
+        if (document.body && document.body.getAttribute('data-view') === 'tree') doRebuildTree();
+      };
+      window.requestAnimationFrame(() => window.requestAnimationFrame(runTreeWhenVisible));
+    };
+    const tick = () => {
+      if (!installSetMainViewTreeWrapOnce()) return;
+      afterInstallIfOnTree();
+    };
+    tick();
+    document.addEventListener('DOMContentLoaded', tick, { once: true });
+    window.requestAnimationFrame(() => window.requestAnimationFrame(tick));
+    window.setTimeout(tick, 0);
+  }
+
   function initComboTreePanel() {
+    ensureSetMainViewTreeWrap();
     treeRailState.mode = getTreeRailStoredMode();
     treeDetailState.comboIndex = -1;
+    treeDetailState.selectedNodeId = '';
     syncTreeRailModeButtons();
-    updateTreeScaleColumnTitle();
     const railDriveBtn = qs('treeRailModeDrive');
     const railDamageBtn = qs('treeRailModeDamage');
     if (railDriveBtn) railDriveBtn.addEventListener('click', () => setTreeRailMode('drive'));
@@ -34531,11 +35107,39 @@ ${table.outerHTML}
     const refreshBtn = qs('treeViewRefreshBtn');
     const expandAllBtn = qs('treeViewExpandAllBtn');
     const collapseAllBtn = qs('treeViewCollapseAllBtn');
-    const detailToggleBtn = qs('treeDetailToggleBtn');
-    const detailSaveBtn = qs('treeDetailSaveBtn');
-    const detailDeleteBtn = qs('treeDetailDeleteBtn');
     const detailOpenModalBtn = qs('treeDetailOpenModalBtn');
     const treeFilterPills = Array.from(document.querySelectorAll('#treeView .tree-chart-pill[data-tree-filter]'));
+    const treeViewRoot = qs('treeViewRoot');
+    if (treeViewRoot && treeViewRoot.dataset.lmTreeCtxCapture !== '1') {
+      treeViewRoot.dataset.lmTreeCtxCapture = '1';
+      treeViewRoot.addEventListener('contextmenu', (ev) => {
+        if (document.body.getAttribute('data-view') !== 'tree') return;
+        const flowBox = ev.target && ev.target.closest ? ev.target.closest('.htree-box.tree-flow-box') : null;
+        if (flowBox) {
+          const nodeId = flowBox.dataset.nodeId;
+          const treeRoot = treeRailState.lastRoot;
+          const node = getTreeNodeById(treeRoot, nodeId);
+          if (node) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            openTreeNodeContextMenu(flowBox, node);
+          }
+          return;
+        }
+        const leaf = ev.target && ev.target.closest ? ev.target.closest('.htree-leaf') : null;
+        if (leaf) {
+          const idx = Number(leaf.dataset.comboIdx);
+          const treeRoot = treeRailState.lastRoot;
+          const node = Number.isFinite(idx) && treeRoot ? findTreeNodeOwningComboIndex(treeRoot, idx) : null;
+          if (node) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            openTreeNodeContextMenu(leaf, node);
+          }
+        }
+      }, true);
+    }
+
     if (refreshBtn) refreshBtn.addEventListener('click', () => doRebuildTree());
     if (expandAllBtn) expandAllBtn.addEventListener('click', () => {
       comboTreeState.expandedNodes.clear();
@@ -34545,12 +35149,6 @@ ${table.outerHTML}
       comboTreeState.expandedNodes.clear();
       doRebuildTree({ collapseAll: true });
     });
-    if (detailToggleBtn) detailToggleBtn.addEventListener('click', () => {
-      treeDetailState.hidden = !treeDetailState.hidden;
-      renderTreeDetailPane();
-    });
-    if (detailSaveBtn) detailSaveBtn.addEventListener('click', saveTreeDetailPaneEdits);
-    if (detailDeleteBtn) detailDeleteBtn.addEventListener('click', deleteTreeDetailSelectedCombo);
     if (detailOpenModalBtn) detailOpenModalBtn.addEventListener('click', () => {
       const idx = Number(treeDetailState.comboIndex);
       if (!Number.isFinite(idx) || idx < 0 || idx >= state.combos.length) return;
@@ -34586,6 +35184,18 @@ ${table.outerHTML}
     renderTreeDetailPane();
     renderTreeInlineFilterGroups();
     refreshTreePillFilterButtons();
+    const treeScrollClear = qs('treeViewScroll');
+    if (treeScrollClear && treeScrollClear.dataset.lmTreeClearSel !== '1') {
+      treeScrollClear.dataset.lmTreeClearSel = '1';
+      treeScrollClear.addEventListener('mousedown', (ev) => {
+        if (document.body.getAttribute('data-view') !== 'tree') return;
+        if (ev.button !== 0) return;
+        const t = ev.target;
+        if (!t || typeof t.closest !== 'function') return;
+        if (t.closest('.htree-box') || t.closest('.htree-leaf')) return;
+        setTreeDetailSelectedCombo(-1);
+      });
+    }
     initTreeDragScroll();
     const hoistTreeColheadToStickyHost = () => {
       const host = qs('treeStickyStripHost');
