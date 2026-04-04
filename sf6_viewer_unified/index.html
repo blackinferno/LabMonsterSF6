@@ -624,6 +624,11 @@
                     </label>
                     <button type="button" id="toggleAllRowsBtn" class="combo-action-btn"
                         data-i18n="combo.rows.all">ALL</button>
+                    <span id="comboCompareTray" class="combo-compare-tray" aria-live="polite">
+                        <span id="comboCompareTrayLabel" class="combo-compare-tray-label">Compare (0/4)</span>
+                        <button type="button" id="comboCompareOpenBtn" class="combo-action-btn combo-compare-open-btn" disabled>Compare</button>
+                        <button type="button" id="comboCompareClearBtn" class="combo-action-btn combo-compare-clear-btn" disabled>Clear</button>
+                    </span>
                     <button type="button" class="tutorial-flow-trigger tutorial-flow-trigger-inline"
                         data-tutorial-flow="input-section" aria-label="Input section guide"
                         title="Input section guide">?</button>
@@ -2788,6 +2793,18 @@
                         </td>
                     </tr>
                 </table>
+                <div id="comboCompareOverlay" class="combo-compare-overlay hidden" aria-hidden="true">
+                    <div class="combo-compare-dialog" role="dialog" aria-modal="true" aria-labelledby="comboCompareTitle">
+                        <div class="combo-compare-dialog-head">
+                            <h2 id="comboCompareTitle" class="combo-compare-title">Compare combos</h2>
+                            <button type="button" id="comboCompareCloseBtn" class="combo-compare-close" aria-label="Close">&times;</button>
+                        </div>
+                        <p class="combo-compare-rank-hint" id="comboCompareRankHint"></p>
+                        <div class="combo-compare-scroll">
+                            <div id="comboCompareTableHost"></div>
+                        </div>
+                    </div>
+                </div>
             </section>
             <section class="site-view" data-view="tree" id="treeView" aria-hidden="true">
                 <div class="tree-main-layout">

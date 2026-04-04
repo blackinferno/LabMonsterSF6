@@ -18060,3 +18060,219 @@ body[data-theme="light"] #frameMeterOverlay .combo-details-auto-toggles .combo-p
     color: #fff !important;
     background: var(--accent) !important;
 }
+
+/* Combo compare (up to 4, main table fields only) */
+#comboRowToggles .combo-compare-tray {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+body[data-theme="light"] #comboRowToggles .combo-compare-tray {
+    border-left-color: rgba(0, 0, 0, 0.12);
+}
+
+.combo-compare-tray-label {
+    font-size: 11px;
+    color: var(--text-dim, #aaa);
+    white-space: nowrap;
+}
+
+.combo-compare-open-btn:disabled,
+.combo-compare-clear-btn:disabled {
+    opacity: 0.45;
+}
+
+.combo-compare-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.combo-compare-overlay.hidden {
+    display: none;
+}
+
+.combo-compare-dialog {
+    width: min(96vw, 1200px);
+    max-height: min(88vh, 900px);
+    display: flex;
+    flex-direction: column;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+}
+
+body[data-theme="light"] .combo-compare-dialog {
+    background: #f6f6f6;
+    border-color: #c8c8c8;
+}
+
+.combo-compare-dialog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #2c2c2c;
+}
+
+body[data-theme="light"] .combo-compare-dialog-head {
+    border-bottom-color: #ccc;
+}
+
+.combo-compare-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.combo-compare-close {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.combo-compare-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.combo-compare-rank-hint {
+    margin: 0;
+    padding: 8px 14px 0;
+    font-size: 11px;
+    color: var(--text-dim, #999);
+    line-height: 1.35;
+}
+
+.combo-compare-scroll {
+    overflow: auto;
+    padding: 10px 12px 14px;
+    flex: 1;
+    min-height: 0;
+}
+
+.combo-compare-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.combo-compare-corner {
+    width: 160px;
+    min-width: 140px;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+body[data-theme="light"] .combo-compare-corner {
+    background: #f6f6f6;
+}
+
+.combo-compare-rowhead {
+    text-align: left;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #2a2a2a;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #161616;
+    white-space: nowrap;
+}
+
+body[data-theme="light"] .combo-compare-rowhead {
+    background: #ececec;
+    border-bottom-color: #bbb;
+    border-right-color: #ccc;
+}
+
+.combo-compare-colhead {
+    vertical-align: top;
+    padding: 8px 10px;
+    border-bottom: 1px solid #333;
+    border-left: 1px solid #2a2a2a;
+    min-width: 160px;
+    max-width: 240px;
+    background: #1f1f1f;
+}
+
+body[data-theme="light"] .combo-compare-colhead {
+    border-bottom-color: #bbb;
+    border-left-color: #ccc;
+    background: #eaeaea;
+}
+
+.combo-compare-head-snippet {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    line-height: 1.35;
+    word-break: break-word;
+    margin-bottom: 6px;
+}
+
+.combo-compare-remove {
+    float: right;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 2px 8px;
+}
+
+body[data-theme="light"] .combo-compare-remove {
+    border-color: #aaa;
+    background: #ddd;
+    color: #222;
+}
+
+.combo-compare-cell {
+    vertical-align: top;
+    padding: 8px 10px;
+    border-bottom: 1px solid #2a2a2a;
+    border-left: 1px solid #2a2a2a;
+    max-width: 280px;
+}
+
+body[data-theme="light"] .combo-compare-cell {
+    border-color: #ccc;
+}
+
+.combo-compare-val {
+    word-break: break-word;
+    line-height: 1.35;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+}
+
+.combo-compare-rank {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--accent, #6cf);
+    opacity: 0.95;
+}

@@ -277,6 +277,13 @@
         context_insert_rows: '行を挿入',
         context_clear_rows: '値をクリア',
         context_open_in_tree: 'ツリーで開く',
+        context_add_to_compare: '比較に追加',
+        compare_tray_label: '比較 ({n}/{max})',
+        compare_open: '比較表示',
+        compare_clear: 'リストをクリア',
+        compare_title: 'コンボ比較',
+        compare_close: '閉じる',
+        compare_rank_hint: '数値列の順位は、現在のフィルターで表示中のコンボ全体での順位です（1が最も有利）。',
         context_header_hide: '列を非表示',
         context_header_show: '列を表示',
         context_sort_asc: '昇順で並び替え',
@@ -680,6 +687,10 @@
         warn_unknown_notation: '未認識の表記: {value}',
         warn_modern_mismatch: 'モダンでクラシック専用入力が含まれています',
         warn_classic_mismatch: 'クラシックでモダン専用入力が含まれています',
+        compare_added: '{count}件を比較リストに追加しました。',
+        compare_full: '比較リストは最大4件までです。',
+        compare_need_two: '比較表示には2件以上のコンボが必要です。',
+        compare_none_valid: '有効なコンボがないため比較を表示できません。',
         save_status_saved: '保存済み',
         save_status_unsaved: '● 未保存',
         save_status_recovered: '● 復旧データ',
@@ -749,6 +760,13 @@
         context_insert_rows: 'Insert Rows',
         context_clear_rows: 'Clear Values',
         context_open_in_tree: 'Open in Tree',
+        context_add_to_compare: 'Add to compare',
+        compare_tray_label: 'Compare ({n}/{max})',
+        compare_open: 'Compare',
+        compare_clear: 'Clear list',
+        compare_title: 'Compare combos',
+        compare_close: 'Close',
+        compare_rank_hint: 'Numeric ranks are within the current filtered list (1 = best for that metric).',
         context_header_hide: 'Hide Column',
         context_header_show: 'Show Columns',
         context_sort_asc: 'Sort Ascending',
@@ -1152,6 +1170,10 @@
         warn_unknown_notation: 'Unrecognized notation: {value}',
         warn_modern_mismatch: 'Contains Classic-only tokens while mode is Modern',
         warn_classic_mismatch: 'Contains Modern-only tokens while mode is Classic',
+        compare_added: 'Added {count} combo(s) to the compare list.',
+        compare_full: 'Compare list is full (max 4).',
+        compare_need_two: 'Add at least two combos to compare.',
+        compare_none_valid: 'No valid combos to compare.',
         save_status_saved: 'Saved',
         save_status_unsaved: '● Unsaved',
         save_status_recovered: '● Recovered Draft',
@@ -2681,6 +2703,23 @@
     'frame_adv',
   ]);
 
+  const COMBO_COMPARE_MAX = 4;
+  const COMBO_COMPARE_TABLE_FIELDS = [
+    'command',
+    'buttons',
+    'combo_notes',
+    'tags',
+    'game_version',
+    ...FIELD_ORDER,
+  ];
+  const COMPARE_RANK_LOWER_IS_BETTER = new Set([
+    'drive_req',
+    'sa_req',
+    'd_guard',
+    'd_normal',
+    'd_pc',
+  ]);
+
   const XLSX_MAP_ALL_FIELDS = [
     'command',
     'buttons',
@@ -2738,6 +2777,7 @@
   const XLSX_FIELD_LABELS = {
     command: { jp: 'コマンド', en: 'Command' },
     buttons: { jp: 'ボタン', en: 'Buttons' },
+    tags: { jp: 'タグ', en: 'Tags' },
     combo_notes: { jp: '備考', en: 'Notes' },
     frame_meter: { jp: 'フレームメーター', en: 'Frame Meter' },
     game_version: { jp: 'Ver.', en: 'Ver.' },
@@ -3127,6 +3167,7 @@
     { action: 'delete-rows', labelKey: 'context_delete_rows', group: 'edit' },
     { action: 'clear-rows', labelKey: 'context_clear_rows', group: 'edit' },
     { action: 'frame-meter-details', labelKey: 'context_frame_meter_details', group: 'view' },
+    { action: 'add-to-compare', labelKey: 'context_add_to_compare', group: 'view' },
     { action: 'open-in-tree', labelKey: 'context_open_in_tree', group: 'view' },
   ];
   const HEADER_CONTEXT_MENU_ITEMS = [
@@ -3286,6 +3327,7 @@
       returnFocusEl: null,
     },
     comboClipboard: null,
+    compareComboIds: [],
     historyApplying: false,
     undoStack: [],
     redoStack: [],
@@ -3577,6 +3619,272 @@
       if (String(combo._id || '') === target) return i;
     }
     return -1;
+  }
+
+  function normalizeStoredCompareComboIds() {
+    if (!Array.isArray(state.compareComboIds)) state.compareComboIds = [];
+    state.compareComboIds = state.compareComboIds
+      .map((id) => String(id || '').trim())
+      .filter(Boolean)
+      .filter((id, i, arr) => arr.indexOf(id) === i)
+      .slice(0, COMBO_COMPARE_MAX);
+    const valid = [];
+    state.compareComboIds.forEach((id) => {
+      if (getComboIndexById(id) >= 0) valid.push(id);
+    });
+    if (valid.length !== state.compareComboIds.length) {
+      state.compareComboIds = valid;
+      saveUiPrefs();
+    }
+  }
+
+  function refreshCompareTrayUi() {
+    const lang = getComboLang();
+    const label = qs('comboCompareTrayLabel');
+    const openBtn = qs('comboCompareOpenBtn');
+    const clearBtn = qs('comboCompareClearBtn');
+    const n = Array.isArray(state.compareComboIds) ? state.compareComboIds.length : 0;
+    const tmpl = comboT('ui.compare_tray_label', lang) || 'Compare ({n}/{max})';
+    if (label) {
+      label.textContent = tmpl.replace('{n}', String(n)).replace('{max}', String(COMBO_COMPARE_MAX));
+    }
+    if (openBtn) {
+      openBtn.disabled = n < 2;
+      openBtn.textContent = comboT('ui.compare_open', lang) || 'Compare';
+    }
+    if (clearBtn) {
+      clearBtn.disabled = n < 1;
+      clearBtn.textContent = comboT('ui.compare_clear', lang) || 'Clear';
+    }
+  }
+
+  function addComboIndexesToCompare(indexes) {
+    const lang = getComboLang();
+    normalizeStoredCompareComboIds();
+    const existing = new Set(state.compareComboIds);
+    let added = 0;
+    const rows = Array.isArray(indexes) ? indexes : [];
+    rows.forEach((idx) => {
+      const row = Number(idx);
+      if (!Number.isFinite(row) || row < 0 || row >= state.combos.length) return;
+      if (state.compareComboIds.length >= COMBO_COMPARE_MAX) return;
+      const combo = state.combos[row];
+      if (!combo) return;
+      const id = ensureComboIdentity(combo);
+      if (existing.has(id)) return;
+      state.compareComboIds.push(id);
+      existing.add(id);
+      added += 1;
+    });
+    if (added) saveUiPrefs();
+    refreshCompareTrayUi();
+    if (added) {
+      showExportToast(comboMsg('compare_added', { count: added }, lang), false, { dim: true });
+    } else if (rows.length && state.compareComboIds.length >= COMBO_COMPARE_MAX) {
+      showExportToast(comboMsg('compare_full', null, lang), true, { dim: true });
+    }
+  }
+
+  function removeCompareComboId(comboId) {
+    const id = String(comboId || '').trim();
+    if (!id) return;
+    const next = state.compareComboIds.filter((x) => String(x) !== id);
+    if (next.length === state.compareComboIds.length) return;
+    state.compareComboIds = next;
+    saveUiPrefs();
+    refreshCompareTrayUi();
+    const overlay = qs('comboCompareOverlay');
+    if (overlay && !overlay.classList.contains('hidden')) {
+      renderComboCompareModalTable();
+      const host = qs('comboCompareTableHost');
+      if (!host || !host.querySelector('.combo-compare-table')) {
+        closeComboCompareModal();
+      }
+    }
+  }
+
+  function clearCompareComboList() {
+    if (!state.compareComboIds.length) return;
+    state.compareComboIds = [];
+    saveUiPrefs();
+    refreshCompareTrayUi();
+    const overlay = qs('comboCompareOverlay');
+    if (overlay && !overlay.classList.contains('hidden')) {
+      closeComboCompareModal();
+    }
+  }
+
+  function computeCompareGlobalRankMapForField(field) {
+    if (!NUMERIC_FIELDS.has(field)) return null;
+    const view = getViewIndexes();
+    const items = [];
+    view.forEach((comboIdx) => {
+      const combo = state.combos[comboIdx];
+      if (combo) items.push({ idx: comboIdx, combo });
+    });
+    if (!items.length) return new Map();
+    const higherBetter = !COMPARE_RANK_LOWER_IS_BETTER.has(field);
+    items.sort((a, b) => {
+      const c = compareComboField(a.combo, b.combo, field);
+      return higherBetter ? -c : c;
+    });
+    const rankMap = new Map();
+    let i = 0;
+    while (i < items.length) {
+      let j = i + 1;
+      while (j < items.length && compareComboField(items[i].combo, items[j].combo, field) === 0) {
+        j += 1;
+      }
+      const rank = i + 1;
+      const total = items.length;
+      for (let k = i; k < j; k += 1) {
+        rankMap.set(items[k].idx, { rank, total });
+      }
+      i = j;
+    }
+    return rankMap;
+  }
+
+  function getCompareTableFieldLabel(field, lang) {
+    const active = lang || getComboLang();
+    const entry = XLSX_FIELD_LABELS[field];
+    if (entry) return String((active === 'en' ? entry.en : entry.jp) || entry.en || field);
+    return field;
+  }
+
+  function formatCompareTableCell(field, combo, lang) {
+    const active = lang || getComboLang();
+    if (field === 'command') return formatCommandForDisplay(String(combo.command || ''), active) || '-';
+    if (field === 'buttons') return String(combo.buttons || combo.command || '').trim() || '-';
+    if (field === 'combo_notes') return String(combo.combo_notes || '').trim() || '-';
+    if (field === 'tags') return String(combo.tags || '').trim() || '-';
+    if (field === 'game_version') return String(combo.game_version || '').trim() || '-';
+    return formatMaybeNumberText(combo[field]);
+  }
+
+  function renderComboCompareModalTable() {
+    const host = qs('comboCompareTableHost');
+    if (!host) return;
+    const lang = getComboLang();
+    normalizeStoredCompareComboIds();
+    const ids = state.compareComboIds.slice(0, COMBO_COMPARE_MAX);
+    const indices = ids.map((id) => getComboIndexById(id)).filter((i) => i >= 0);
+    if (indices.length < 2) {
+      host.innerHTML = '';
+      return;
+    }
+    const rankMaps = new Map();
+    COMBO_COMPARE_TABLE_FIELDS.forEach((field) => {
+      if (NUMERIC_FIELDS.has(field)) {
+        rankMaps.set(field, computeCompareGlobalRankMapForField(field));
+      }
+    });
+    const esc = (s) => escapeHtml(String(s == null ? '' : s));
+    let header = '<tr><th class="combo-compare-corner"></th>';
+    indices.forEach((idx) => {
+      const combo = state.combos[idx];
+      const snippet = formatCompareTableCell('command', combo, lang);
+      const short = snippet.length > 56 ? `${snippet.slice(0, 54)}…` : snippet;
+      const id = esc(String(combo._id || ''));
+      header += `<th class="combo-compare-colhead"><div class="combo-compare-head-snippet">${esc(short)}</div><button type="button" class="combo-compare-remove" data-compare-remove="${id}" title="${esc(comboT('ui.compare_close', lang) || 'Remove')}">×</button></th>`;
+    });
+    header += '</tr>';
+    let body = '';
+    COMBO_COMPARE_TABLE_FIELDS.forEach((field) => {
+      const label = esc(getCompareTableFieldLabel(field, lang));
+      body += `<tr><th class="combo-compare-rowhead" scope="row">${label}</th>`;
+      const rm = rankMaps.get(field);
+      indices.forEach((idx) => {
+        const combo = state.combos[idx];
+        const display = esc(formatCompareTableCell(field, combo, lang));
+        const rk = rm ? rm.get(idx) : null;
+        const rankHtml = rk
+          ? `<span class="combo-compare-rank" title="">#${rk.rank} / ${rk.total}</span>`
+          : '';
+        body += `<td class="combo-compare-cell"><div class="combo-compare-val">${display}</div>${rankHtml}</td>`;
+      });
+      body += '</tr>';
+    });
+    host.innerHTML = `<table class="combo-compare-table" role="grid">${header}${body}</table>`;
+  }
+
+  function refreshComboCompareModalChrome() {
+    const lang = getComboLang();
+    const title = qs('comboCompareTitle');
+    const hint = qs('comboCompareRankHint');
+    const closeBtn = qs('comboCompareCloseBtn');
+    if (title) title.textContent = comboT('ui.compare_title', lang) || 'Compare';
+    if (hint) hint.textContent = comboT('ui.compare_rank_hint', lang) || '';
+    if (closeBtn) {
+      closeBtn.setAttribute('aria-label', comboT('ui.compare_close', lang) || 'Close');
+    }
+  }
+
+  function openComboCompareModal() {
+    const lang = getComboLang();
+    normalizeStoredCompareComboIds();
+    const ids = state.compareComboIds.filter((id) => getComboIndexById(id) >= 0);
+    if (ids.length < 2) {
+      showExportToast(comboMsg('compare_need_two', null, lang), true, { dim: true });
+      return;
+    }
+    const overlay = qs('comboCompareOverlay');
+    if (!overlay) return;
+    refreshComboCompareModalChrome();
+    renderComboCompareModalTable();
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    const closeBtn = qs('comboCompareCloseBtn');
+    if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus({ preventScroll: true });
+  }
+
+  function closeComboCompareModal() {
+    const overlay = qs('comboCompareOverlay');
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  let comboCompareUiBound = false;
+  function initComboCompareUi() {
+    if (comboCompareUiBound) return;
+    comboCompareUiBound = true;
+    normalizeStoredCompareComboIds();
+    refreshCompareTrayUi();
+    const openBtn = qs('comboCompareOpenBtn');
+    const clearBtn = qs('comboCompareClearBtn');
+    const overlay = qs('comboCompareOverlay');
+    const closeBtn = qs('comboCompareCloseBtn');
+    const host = qs('comboCompareTableHost');
+    if (openBtn) {
+      openBtn.addEventListener('click', () => openComboCompareModal());
+    }
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => clearCompareComboList());
+    }
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => closeComboCompareModal());
+    }
+    if (overlay) {
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) closeComboCompareModal();
+      });
+    }
+    if (host) {
+      host.addEventListener('click', (ev) => {
+        const btn = ev.target && ev.target.closest ? ev.target.closest('[data-compare-remove]') : null;
+        if (!btn) return;
+        ev.preventDefault();
+        removeCompareComboId(btn.getAttribute('data-compare-remove') || '');
+      });
+    }
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key !== 'Escape') return;
+      const o = qs('comboCompareOverlay');
+      if (!o || o.classList.contains('hidden')) return;
+      ev.preventDefault();
+      closeComboCompareModal();
+    });
   }
 
   function getGroupIndexFromRow(row) {
@@ -7246,6 +7554,13 @@
     updateSaveStatusUI(state.isDirty, !!state.recoverySource);
     if (state.frameMeterModal && state.frameMeterModal.open) {
       renderComboDetailsModal(state.frameMeterModal.rowIndex);
+    }
+
+    refreshCompareTrayUi();
+    const cmpOv = qs('comboCompareOverlay');
+    if (cmpOv && !cmpOv.classList.contains('hidden')) {
+      refreshComboCompareModalChrome();
+      renderComboCompareModalTable();
     }
 
     applyComboDetailsLabels(active);
@@ -17044,6 +17359,13 @@
       // Keep legacy layout as default until desktop/classic UI switching is reintroduced.
       state.uiLayout = 'legacy';
 
+      if (Array.isArray(parsed.compareComboIds)) {
+        state.compareComboIds = parsed.compareComboIds
+          .map((id) => String(id || '').trim())
+          .filter(Boolean)
+          .slice(0, COMBO_COMPARE_MAX);
+      }
+
     } catch { }
     const persistedMode = loadPersistedComboControlMode();
     if (persistedMode === 'classic' || persistedMode === 'modern') {
@@ -17071,6 +17393,9 @@
         },
         notationDisplayStyle: normalizeNotationDisplayStyle(state.notationDisplayStyle),
         uiLayout: normalizeUiLayoutMode(state.uiLayout),
+        compareComboIds: Array.isArray(state.compareComboIds)
+          ? state.compareComboIds.map((id) => String(id || '').trim()).filter(Boolean).slice(0, COMBO_COMPARE_MAX)
+          : [],
       };
       localStorage.setItem(UI_PREFS_KEY, JSON.stringify(payload));
     } catch { }
@@ -18389,6 +18714,7 @@
       document.addEventListener('paste', handleComboGridPaste, true);
     }
     bindRowContextMenu();
+    initComboCompareUi();
 
     ensureFilterPanel();
     applyUiButtonLayout();
@@ -22383,6 +22709,12 @@
         doRebuildTree({ focusComboIndex: idxOpen });
       };
       window.requestAnimationFrame(() => window.requestAnimationFrame(afterTreeShown));
+      return;
+    }
+    if (action === 'add-to-compare') {
+      const selectedRows = getSelectedRowIndexes(rowIndex);
+      closeRowContextMenu({ restoreFocus: true });
+      addComboIndexesToCompare(selectedRows);
       return;
     }
 
@@ -32878,6 +33210,8 @@ ${table.outerHTML}
     applyFilters();
     updateLoadMoreControl();
     setSelectedGroup(0);
+    normalizeStoredCompareComboIds();
+    refreshCompareTrayUi();
     requestTreeRebuild();
   }
 
@@ -32913,6 +33247,7 @@ ${table.outerHTML}
   let treePillFilterOutsideHandler = null;
   let treeNodeMenuOutsideHandler = null;
   let treeNodeContextNodeId = '';
+  let treeNodeContextComboIdx = -1;
   let treeThemeObserver = null;
   let treeBootRenderScheduled = false;
 
@@ -33083,6 +33418,7 @@ ${table.outerHTML}
       menu.style.visibility = '';
     }
     treeNodeContextNodeId = '';
+    treeNodeContextComboIdx = -1;
     if (treeNodeMenuOutsideHandler) {
       document.removeEventListener('mousedown', treeNodeMenuOutsideHandler, true);
       treeNodeMenuOutsideHandler = null;
@@ -33091,7 +33427,7 @@ ${table.outerHTML}
 
   function ensureTreeNodeContextMenu() {
     let menu = qs('treeNodeContextMenu');
-    const needsMarkup = !menu || !menu.querySelector('[data-action="expand-subtree"]');
+    const needsMarkup = !menu || !menu.querySelector('[data-action="add-combo-compare"]');
     if (!menu) {
       menu = document.createElement('div');
       menu.id = 'treeNodeContextMenu';
@@ -33105,6 +33441,8 @@ ${table.outerHTML}
       menu.setAttribute('role', 'menu');
       menu.setAttribute('aria-hidden', 'true');
       menu.innerHTML = `
+      <button type="button" class="combo-row-context-item tree-ctx-leaf-compare hidden" role="menuitem" data-action="add-combo-compare"></button>
+      <div class="combo-row-context-sep tree-ctx-leaf-compare-sep hidden" role="separator"></div>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="expand-subtree"></button>
       <button type="button" class="combo-row-context-item" role="menuitem" data-action="collapse-subtree"></button>
       <div class="combo-row-context-sep"></div>
@@ -33118,6 +33456,12 @@ ${table.outerHTML}
         const item = ev.target && ev.target.closest ? ev.target.closest('.combo-row-context-item[data-action]') : null;
         if (!item || item.disabled) return;
         const action = String(item.dataset.action || '');
+        if (action === 'add-combo-compare') {
+          const idx = Number(treeNodeContextComboIdx);
+          if (Number.isFinite(idx) && idx >= 0) addComboIndexesToCompare([idx]);
+          closeTreeNodeContextMenu();
+          return;
+        }
         const root = treeRailState.lastRoot;
         const node = getTreeNodeById(root, treeNodeContextNodeId);
         if (!node) {
@@ -33141,11 +33485,23 @@ ${table.outerHTML}
     return menu;
   }
 
-  function openTreeNodeContextMenu(anchorEl, node) {
+  function openTreeNodeContextMenu(anchorEl, node, options = {}) {
     if (!anchorEl || !node) return;
     const menu = ensureTreeNodeContextMenu();
     const lang = getComboLang();
+    const comboIdxOpt = options && options.comboIndex;
+    const comboIdx = Number.isFinite(Number(comboIdxOpt)) ? Number(comboIdxOpt) : -1;
+    treeNodeContextComboIdx = comboIdx;
     const hasChildren = !!(Array.isArray(node.children) && node.children.length);
+    const addCompareBtn = menu.querySelector('[data-action="add-combo-compare"]');
+    const addCompareSep = menu.querySelector('.tree-ctx-leaf-compare-sep');
+    if (addCompareBtn) {
+      addCompareBtn.textContent = comboT('ui.context_add_to_compare', lang) || 'Add to compare';
+      const showLeaf = comboIdx >= 0;
+      addCompareBtn.classList.toggle('hidden', !showLeaf);
+      addCompareBtn.disabled = !showLeaf;
+      if (addCompareSep) addCompareSep.classList.toggle('hidden', !showLeaf);
+    }
     const expandBtn = menu.querySelector('[data-action="expand-subtree"]');
     const collapseBtn = menu.querySelector('[data-action="collapse-subtree"]');
     const addBtn = menu.querySelector('[data-action="add-from-node"]');
@@ -35122,7 +35478,7 @@ ${table.outerHTML}
           if (node) {
             ev.preventDefault();
             ev.stopPropagation();
-            openTreeNodeContextMenu(flowBox, node);
+            openTreeNodeContextMenu(flowBox, node, {});
           }
           return;
         }
@@ -35134,7 +35490,7 @@ ${table.outerHTML}
           if (node) {
             ev.preventDefault();
             ev.stopPropagation();
-            openTreeNodeContextMenu(leaf, node);
+            openTreeNodeContextMenu(leaf, node, { comboIndex: idx });
           }
         }
       }, true);
