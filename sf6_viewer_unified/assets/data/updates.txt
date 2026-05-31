@@ -1,4 +1,13 @@
-CURRENT_VERSION: 1.0.5
+CURRENT_VERSION: 1.0.6
+## UPDATE 1.0.6 | 2026-05-28 | important | tags: Documentation
+### JP
+- イングリッドを追加。
+- フレーム表を更新。
+
+### EN
+- Added Ingrid.
+- Updated frame table.
+
 ## UPDATE 1.0.5 | 2026-04-04 | important | tags: Help, UI, UX, ComboTree, Documentation
 ### JP
 - コンボツリー表示を追加。
