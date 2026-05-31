@@ -38,9 +38,9 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "092": "480 DPA_STD_START",
         "100": "715 NGS",
         "110": "855 ATK_CTA",
@@ -50,13 +50,17 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)",
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)",
         "171": "1495 DEM_APPEAL_01",
         "181": "1100 _1100",
         "185": "1104 _1104",
@@ -74,8 +78,8 @@
         "073": "962 SPA_CondorDive_Wind",
         "126": "1209 SAA_THUNDERBIRD_AIR",
         "127": "1211 SAA_THUNDERBIRD_AIR(2)",
-        "146": "958 SPA_CondorDive(1)",
-        "154": "967 SPA_CondorDive_Wind(2)"
+        "147": "958 SPA_CondorDive(1)",
+        "155": "972 SPA_CondorDive_Wind(4)"
     },
     "002": {
         "017": "633 ATK_8LP",
@@ -110,9 +114,9 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "092": "480 DPA_STD_START",
         "110": "855 ATK_CTA",
         "120": "1200 SAA_BREATHING_START",
@@ -121,13 +125,17 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)"
     },
     "004": {
         "050": "900 SPA_CondorWind_START",
@@ -151,22 +159,26 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "120": "1200 SAA_BREATHING_START",
         "123": "1206 SAA_THUNDERBIRD",
         "124": "1207 SAA_THUNDERBIRD(1)",
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)"
     },
     "005": {
         "001": "18 BAS_DASH_B",
@@ -191,9 +203,9 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "092": "480 DPA_STD_START",
         "110": "855 ATK_CTA",
         "120": "1200 SAA_BREATHING_START",
@@ -202,13 +214,17 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)"
     },
     "010": {
         "090": "740 ATK_CTA_RUSH(1)",
@@ -218,10 +234,10 @@
         "111": "850 ATK_CTA_4"
     },
     "012": {
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
+        "165": "1010 NGS_MexicanTyphoon(3)"
     },
     "015": {
         "050": "900 SPA_CondorWind_START",
@@ -245,9 +261,9 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "092": "480 DPA_STD_START",
         "100": "715 NGS",
         "110": "855 ATK_CTA",
@@ -257,13 +273,17 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)",
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)",
         "171": "1495 DEM_APPEAL_01"
     },
     "017": {
@@ -273,12 +293,16 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)"
     },
     "019": {
         "126": "1209 SAA_THUNDERBIRD_AIR",
@@ -287,8 +311,8 @@
     "021": {
         "126": "1209 SAA_THUNDERBIRD_AIR",
         "127": "1211 SAA_THUNDERBIRD_AIR(2)",
-        "146": "958 SPA_CondorDive(1)",
-        "154": "967 SPA_CondorDive_Wind(2)"
+        "147": "958 SPA_CondorDive(1)",
+        "155": "972 SPA_CondorDive_Wind(4)"
     },
     "023": {
         "120": "1200 SAA_BREATHING_START",
@@ -296,28 +320,27 @@
         "124": "1207 SAA_THUNDERBIRD(1)",
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "165": "1010 NGS_MexicanTyphoon(3)"
     },
     "025": {
         "092": "480 DPA_STD_START"
     },
     "026": {
-        "146": "958 SPA_CondorDive(1)",
-        "154": "967 SPA_CondorDive_Wind(2)"
+        "147": "958 SPA_CondorDive(1)",
+        "155": "972 SPA_CondorDive_Wind(4)"
     },
     "027": {
         "072": "955 SPA_CondorDive",
         "073": "962 SPA_CondorDive_Wind",
-        "146": "958 SPA_CondorDive(1)",
-        "154": "967 SPA_CondorDive_Wind(2)"
+        "147": "958 SPA_CondorDive(1)",
+        "155": "972 SPA_CondorDive_Wind(4)"
     },
     "028": {
-        "033": "601 ATK_5LP_B",
-        "041": "617 ATK_2LP_B"
+        "074": "963 SPA_CondorDive_Wind(1)",
+        "156": "973 SPA_CondorDive_Wind(5)"
     },
     "029": {
-        "034": "602 ATK_5LP_C",
-        "038": "618 ATK_2LP_C"
+        "156": "973 SPA_CondorDive_Wind(5)"
     },
     "032": {
         "050": "900 SPA_CondorWind_START",
@@ -348,12 +371,16 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)"
     },
     "033": {
         "120": "1200 SAA_BREATHING_START",
@@ -405,16 +432,16 @@
         "040": "626 ATK_2LK_C"
     },
     "050": {
-        "148": "959 SPA_CondorDive(2)",
-        "156": "969 SPA_CondorDive_Wind(4)"
+        "149": "959 SPA_CondorDive(2)",
+        "158": "976 SPA_CondorDive_Wind(8)"
     },
     "053": {
         "072": "955 SPA_CondorDive",
         "073": "962 SPA_CondorDive_Wind",
         "126": "1209 SAA_THUNDERBIRD_AIR",
         "127": "1211 SAA_THUNDERBIRD_AIR(2)",
-        "146": "958 SPA_CondorDive(1)",
-        "154": "967 SPA_CondorDive_Wind(2)"
+        "147": "958 SPA_CondorDive(1)",
+        "155": "972 SPA_CondorDive_Wind(4)"
     },
     "054": {
         "126": "1209 SAA_THUNDERBIRD_AIR",
@@ -476,9 +503,9 @@
         "080": "927 SPA_CondorSpire_Wind_END",
         "081": "928 SPA_CondorSpire_Wind_END(1)",
         "082": "929 SPA_CondorSpire_Wind_END(2)",
-        "084": "987 NGS_MexicanTyphoon",
-        "085": "992 NGS_MexicanTyphoon(1)",
-        "086": "997 NGS_MexicanTyphoon(2)",
+        "084": "995 NGS_MexicanTyphoon",
+        "085": "1000 NGS_MexicanTyphoon(1)",
+        "086": "1005 NGS_MexicanTyphoon(2)",
         "100": "715 NGS",
         "110": "855 ATK_CTA",
         "120": "1200 SAA_BREATHING_START",
@@ -487,12 +514,16 @@
         "130": "1216 SAA_RAGINGTYPHOON_START",
         "131": "1220 SAA_RAGINGTYPHOON_START(1)",
         "140": "915 SPA_CondorWind_START(3)",
-        "142": "924 SPA_CondorSpire_EX",
-        "144": "937 SPA_TomahawkBuster(3)",
-        "149": "930 SPA_CondorSpire_Wind_END(3)",
-        "151": "942 SPA_TomahawkBuster_Wind(3)",
-        "159": "924 SPA_CondorSpire_EX",
-        "160": "930 SPA_CondorSpire_Wind_END(3)",
-        "162": "1002 NGS_MexicanTyphoon(3)"
+        "142": "925 SPA_CondorSpire_EX(1)",
+        "143": "924 SPA_CondorSpire_EX",
+        "145": "937 SPA_TomahawkBuster(3)",
+        "150": "931 SPA_CondorSpire_Wind_END(4)",
+        "151": "930 SPA_CondorSpire_Wind_END(3)",
+        "152": "942 SPA_TomahawkBuster_Wind(3)",
+        "161": "925 SPA_CondorSpire_EX(1)",
+        "162": "924 SPA_CondorSpire_EX",
+        "163": "931 SPA_CondorSpire_Wind_END(4)",
+        "164": "930 SPA_CondorSpire_Wind_END(3)",
+        "165": "1010 NGS_MexicanTyphoon(3)"
     }
 }
