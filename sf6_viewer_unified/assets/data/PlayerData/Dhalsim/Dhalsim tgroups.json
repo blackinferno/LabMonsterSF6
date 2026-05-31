@@ -19,9 +19,9 @@
         "028": "661 ATK_4HK",
         "029": "656 ATK_4HP",
         "033": "654 ATK_1HP",
-        "035": "620 ATK_2MK",
-        "037": "621 ATK_2HK",
-        "039": "617 ATK_2LK",
+        "035": "621 ATK_2MK",
+        "037": "622 ATK_2HK",
+        "039": "618 ATK_2LK",
         "062": "900 SPA_YOGAFIRE",
         "063": "904 SPA_YOGAFIRE(3)",
         "064": "908 SPA_YOGAFIRE(6)",
@@ -67,11 +67,11 @@
     },
     "001": {
         "017": "640 ATK_8LP",
-        "018": "643 ATK_8LK",
+        "018": "644 ATK_8LK",
         "019": "641 ATK_8MP",
-        "020": "644 ATK_8MK",
+        "020": "645 ATK_8MK",
         "021": "642 ATK_8HP",
-        "022": "645 ATK_8HK",
+        "023": "646 ATK_8HK",
         "100": "1054 SPA_YOGACOMET",
         "102": "1055 SPA_YOGACOMET(1)",
         "104": "1056 SPA_YOGACOMET(2)",
@@ -79,11 +79,11 @@
     },
     "002": {
         "017": "640 ATK_8LP",
-        "018": "643 ATK_8LK",
+        "018": "644 ATK_8LK",
         "019": "641 ATK_8MP",
-        "020": "644 ATK_8MK",
+        "020": "645 ATK_8MK",
         "021": "642 ATK_8HP",
-        "022": "645 ATK_8HK",
+        "023": "646 ATK_8HK",
         "100": "1054 SPA_YOGACOMET",
         "102": "1055 SPA_YOGACOMET(1)",
         "104": "1056 SPA_YOGACOMET(2)",
@@ -429,36 +429,34 @@
     },
     "037": {
         "041": "601 ATK_5LP_B",
-        "045": "618 ATK_2LK_B"
+        "045": "619 ATK_2LK_B"
     },
     "038": {
         "041": "601 ATK_5LP_B",
-        "046": "619 ATK_2LK_C"
+        "046": "620 ATK_2LK_C"
     },
     "039": {
         "043": "613 ATK_2LP(1)"
     },
     "040": {
         "041": "601 ATK_5LP_B",
-        "045": "618 ATK_2LK_B"
+        "045": "619 ATK_2LK_B"
     },
     "041": {
         "043": "613 ATK_2LP(1)"
     },
     "042": {
         "041": "601 ATK_5LP_B",
-        "046": "619 ATK_2LK_C"
-    },
-    "043": {
-        "043": "613 ATK_2LP(1)"
-    },
-    "044": {
-        "047": "613 ATK_2LP(1)"
+        "046": "620 ATK_2LK_C"
     },
     "046": {
         "100": "1054 SPA_YOGACOMET",
         "102": "1055 SPA_YOGACOMET(1)",
         "104": "1056 SPA_YOGACOMET(2)",
+        "112": "666 ATK_82K_L_Loop",
+        "113": "668 ATK_82K_M_Loop",
+        "114": "670 ATK_82K_H_Loop",
+        "118": "681 ATK_82P_H_Loop",
         "125": "1045 SPA_YOGAFLOAT_N_Loop(1)",
         "215": "1057 SPA_YOGACOMET(3)",
         "218": "1036 SPA_YOGATELEPORT_AIR_END",
@@ -476,18 +474,33 @@
         "222": "1038 SPA_YOGATELEPORT_AIR_END(2)",
         "224": "1039 SPA_YOGATELEPORT_AIR_END(3)"
     },
-    "048": {
-        "041": "601 ATK_5LP_B",
-        "043": "613 ATK_2LP(1)",
-        "045": "618 ATK_2LK_B"
-    },
     "058": {
         "017": "640 ATK_8LP",
-        "018": "643 ATK_8LK",
+        "018": "644 ATK_8LK",
         "019": "641 ATK_8MP",
-        "020": "644 ATK_8MK",
+        "020": "645 ATK_8MK",
         "021": "642 ATK_8HP",
-        "022": "645 ATK_8HK",
+        "023": "646 ATK_8HK",
+        "100": "1054 SPA_YOGACOMET",
+        "102": "1055 SPA_YOGACOMET(1)",
+        "104": "1056 SPA_YOGACOMET(2)",
+        "112": "666 ATK_82K_L_Loop",
+        "113": "668 ATK_82K_M_Loop",
+        "114": "670 ATK_82K_H_Loop",
+        "118": "681 ATK_82P_H_Loop",
+        "215": "1057 SPA_YOGACOMET(3)",
+        "218": "1036 SPA_YOGATELEPORT_AIR_END",
+        "220": "1037 SPA_YOGATELEPORT_AIR_END(1)",
+        "222": "1038 SPA_YOGATELEPORT_AIR_END(2)",
+        "224": "1039 SPA_YOGATELEPORT_AIR_END(3)"
+    },
+    "059": {
+        "017": "640 ATK_8LP",
+        "018": "644 ATK_8LK",
+        "019": "641 ATK_8MP",
+        "020": "645 ATK_8MK",
+        "022": "643 ATK_8HP(1)",
+        "023": "646 ATK_8HK",
         "100": "1054 SPA_YOGACOMET",
         "102": "1055 SPA_YOGACOMET(1)",
         "104": "1056 SPA_YOGACOMET(2)",
@@ -522,9 +535,9 @@
         "028": "661 ATK_4HK",
         "029": "656 ATK_4HP",
         "033": "654 ATK_1HP",
-        "035": "620 ATK_2MK",
-        "037": "621 ATK_2HK",
-        "039": "617 ATK_2LK",
+        "035": "621 ATK_2MK",
+        "037": "622 ATK_2HK",
+        "039": "618 ATK_2LK",
         "062": "900 SPA_YOGAFIRE",
         "063": "904 SPA_YOGAFIRE(3)",
         "064": "908 SPA_YOGAFIRE(6)",

@@ -1,14 +1,27 @@
 {
     "PlData": {
+        "AdjustRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16416,
+        "ConvertRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
+        "FootRotMax": 0.0,
+        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.0,
         "Gauge": 30000,
+        "HeadHeight": 0,
         "MaxShotNum": 5,
         "MultiJumpCount": 0,
         "Physique": {
@@ -16,9 +29,7 @@
             "Height": 157.06304931640625,
             "Leg": 102.22709655761719
         },
-        "Priority0": 22,
-        "RecoverDrvJust": 10000,
-        "RecoverDrvNorm": 10000,
+        "Priority0": 24,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -81,19 +92,6 @@
                     "_Name2": "InterruptAction(Revoke)",
                     "_Name3": "InterruptAction(Start)",
                     "_Name4": "InterruptAction(End)"
-                },
-                "Basic": {
-                    "DefensiveScale": 100,
-                    "FluctuationSA": 0,
-                    "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 20,
-                    "FocusRecoverNM": 40,
-                    "FocusRecoverNMA": 20,
-                    "GaugeGainRatio": 100,
-                    "LifeFluctuation": 0,
-                    "MoveSpeedScale": 100,
-                    "OffensiveScale": 100,
-                    "TimeLimit": 0
                 },
                 "Entity": 0,
                 "Motion": {
@@ -193,7 +191,7 @@
                     "OffensiveScale": 100,
                     "TimeLimit": 0
                 },
-                "Entity": 95,
+                "Entity": 94,
                 "Facial": {
                     "Atck00FCE": {
                         "0": {
@@ -357,7 +355,7 @@
                 },
                 "Version": 200,
                 "_IsAction": true,
-                "_IsBasic": true,
+                "_IsBasic": false,
                 "_IsFacial": false,
                 "_IsMotion": true,
                 "_IsParts": true,
