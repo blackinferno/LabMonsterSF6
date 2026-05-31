@@ -1,14 +1,27 @@
 {
     "PlData": {
+        "AdjustRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16544,
+        "ConvertRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
+        "FootRotMax": 0.0,
+        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.0,
         "Gauge": 30000,
+        "HeadHeight": 0,
         "MaxShotNum": 5,
         "MultiJumpCount": 0,
         "Physique": {
@@ -16,9 +29,7 @@
             "Height": 163.92555236816406,
             "Leg": 103.23423767089844
         },
-        "Priority0": 18,
-        "RecoverDrvJust": 10000,
-        "RecoverDrvNorm": 10000,
+        "Priority0": 21,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -81,19 +92,6 @@
                     "_Name2": "InterruptAction(Revoke)",
                     "_Name3": "InterruptAction(Start)",
                     "_Name4": "InterruptAction(End)"
-                },
-                "Basic": {
-                    "DefensiveScale": 100,
-                    "FluctuationSA": 0,
-                    "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 20,
-                    "FocusRecoverNM": 40,
-                    "FocusRecoverNMA": 20,
-                    "GaugeGainRatio": 100,
-                    "LifeFluctuation": 0,
-                    "MoveSpeedScale": 100,
-                    "OffensiveScale": 100,
-                    "TimeLimit": 0
                 },
                 "Entity": 0,
                 "Facial": {
@@ -301,16 +299,16 @@
                     "DefensiveScale": 100,
                     "FluctuationSA": 0,
                     "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 10,
-                    "FocusRecoverNM": 50,
-                    "FocusRecoverNMA": 10,
+                    "FocusRecoverICA": 20,
+                    "FocusRecoverNM": 40,
+                    "FocusRecoverNMA": 20,
                     "GaugeGainRatio": 100,
                     "LifeFluctuation": 0,
                     "MoveSpeedScale": 100,
                     "OffensiveScale": 100,
                     "TimeLimit": 0
                 },
-                "Entity": 127,
+                "Entity": 126,
                 "Facial": {
                     "_NameA0": "Attack (Weak)",
                     "_NameA1": "Attack (Norm)",
@@ -364,7 +362,7 @@
                 },
                 "Version": 200,
                 "_IsAction": true,
-                "_IsBasic": true,
+                "_IsBasic": false,
                 "_IsFacial": true,
                 "_IsMotion": true,
                 "_IsParts": true,
