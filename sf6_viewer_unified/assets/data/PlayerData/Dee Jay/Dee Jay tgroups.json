@@ -16,7 +16,8 @@
         "015": "632 ATK_2HK",
         "026": "661 ATK_3MK",
         "027": "664 ATK_4HK",
-        "056": "685 ATK_22_PP_1_START",
+        "055": "685 ATK_22_PP_1_START",
+        "056": "688 ATK_22_PP_2_START",
         "057": "985 SPA_5_Joschool",
         "064": "921 SPA_4_L_Macinegunapper",
         "065": "925 SPA_4_M_Macinegunapper",
@@ -36,17 +37,17 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR",
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR",
         "173": "1497 DEM_APPEAL_01(1)",
         "178": "1150 _1150",
         "182": "1154 _1154",
@@ -87,17 +88,17 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "004": {
         "057": "985 SPA_5_Joschool",
@@ -116,21 +117,22 @@
         "087": "957 SPA_2_JackKnife_H_AIR",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "005": {
         "001": "18 BAS_DASH_B",
-        "056": "685 ATK_22_PP_1_START",
+        "055": "685 ATK_22_PP_1_START",
+        "056": "688 ATK_22_PP_2_START",
         "057": "985 SPA_5_Joschool",
         "064": "921 SPA_4_L_Macinegunapper",
         "065": "925 SPA_4_M_Macinegunapper",
@@ -149,25 +151,25 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "150": "1268 SAA_Lv3_SaturdayNight_Start",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "153": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "008": {
         "085": "955 SPA_2_JackKnife_L_AIR",
         "086": "956 SPA_2_JackKnife_M_AIR",
         "087": "957 SPA_2_JackKnife_H_AIR",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "010": {
         "092": "740 ATK_CTA_DASH(1)",
@@ -177,7 +179,8 @@
         "107": "850 ATK_CTA_4"
     },
     "015": {
-        "056": "685 ATK_22_PP_1_START",
+        "055": "685 ATK_22_PP_1_START",
+        "056": "688 ATK_22_PP_2_START",
         "057": "985 SPA_5_Joschool",
         "064": "921 SPA_4_L_Macinegunapper",
         "065": "925 SPA_4_M_Macinegunapper",
@@ -197,38 +200,34 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
+        "165": "981 SPA_3_EX_DowbleRollingSobat",
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR",
         "173": "1497 DEM_APPEAL_01(1)"
     },
     "017": {
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "164": "935 SPA_4_H_Macinegunapper(2)",
+        "165": "981 SPA_3_EX_DowbleRollingSobat",
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "025": {
         "094": "480 DPA_STD_START"
-    },
-    "027": {
-        "033": "601 ATK_5LP_B",
-        "039": "618 ATK_2LP_B"
     },
     "032": {
         "052": "739 ATK_CTA_DASH",
@@ -250,31 +249,32 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "157": "989 SPA_5_EX_Joschool(1)",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "033": {
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)"
     },
     "034": {
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "118": "1240 SAA_Lv2_sunrisefestival(5)",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "118": "1240 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "150": "1268 SAA_Lv3_SaturdayNight_Start",
         "153": "1272 SAA_Lv3_SaturdayNight_Start(1)"
     },
@@ -326,17 +326,17 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "047": {
         "052": "739 ATK_CTA_DASH",
@@ -431,7 +431,8 @@
         "015": "632 ATK_2HK",
         "026": "661 ATK_3MK",
         "027": "664 ATK_4HK",
-        "056": "685 ATK_22_PP_1_START",
+        "055": "685 ATK_22_PP_1_START",
+        "056": "688 ATK_22_PP_2_START",
         "057": "985 SPA_5_Joschool",
         "064": "921 SPA_4_L_Macinegunapper",
         "065": "925 SPA_4_M_Macinegunapper",
@@ -450,41 +451,52 @@
         "106": "855 ATK_CTA",
         "112": "1200 SAA_Lv1",
         "117": "1205 SAA_Lv2_sunrisefestival",
-        "126": "1218 SAA_Lv2_sunrisefestival(3)",
-        "139": "1229 SAA_Lv2_sunrisefestival(4)",
+        "126": "1218 SAA_Lv2_sunrisefestival(2)",
+        "139": "1229 SAA_Lv2_sunrisefestival(3)",
         "151": "1268 SAA_Lv3_SaturdayNight_Start",
         "154": "1272 SAA_Lv3_SaturdayNight_Start(1)",
         "156": "988 SPA_5_EX_Joschool",
-        "162": "935 SPA_4_H_Macinegunapper(2)",
-        "163": "981 SPA_3_EX_DowbleRollingSobat",
-        "164": "981 SPA_3_EX_DowbleRollingSobat",
+        "164": "935 SPA_4_H_Macinegunapper(2)",
         "165": "981 SPA_3_EX_DowbleRollingSobat",
-        "166": "907 SPA_1_Airslasher_H(2)",
-        "167": "959 SPA_2_JackKnife_EX_AIR"
+        "166": "981 SPA_3_EX_DowbleRollingSobat",
+        "167": "981 SPA_3_EX_DowbleRollingSobat",
+        "168": "907 SPA_1_Airslasher_H(2)",
+        "169": "959 SPA_2_JackKnife_EX_AIR"
     },
     "125": {
-        "058": "990 SPA_5_Joschool_1_funkeyslycer",
-        "059": "993 SPA_5_Joschool_2_wanningmoon",
-        "060": "994 SPA_5_Joschool_3_maximamstrike",
+        "058": "991 SPA_5_Joschool_1_funkeyslycer",
+        "059": "994 SPA_5_Joschool_2_wanningmoon",
+        "060": "995 SPA_5_Joschool_3_maximamstrike",
         "062": "1006 SPA_5_Joschool_4_juglinstep"
     },
     "126": {
         "061": "1007 SPA_5_Joschool_5_juglinsway"
     },
-    "128": {
-        "157": "999 SPA_5_Joschool_1_funkeyslycer(3)",
-        "158": "1000 SPA_5_Joschool_2_wanningmoon(1)",
-        "159": "1001 SPA_5_Joschool_3_maximamstrike(1)"
+    "127": {
+        "058": "991 SPA_5_Joschool_1_funkeyslycer",
+        "059": "994 SPA_5_Joschool_2_wanningmoon",
+        "060": "995 SPA_5_Joschool_3_maximamstrike"
     },
     "129": {
-        "061": "1007 SPA_5_Joschool_5_juglinsway",
-        "161": "1010 SPA_5_Joschool_5_juglinsway(1)"
+        "158": "999 SPA_5_Joschool_1_funkeyslycer(3)",
+        "159": "1000 SPA_5_Joschool_2_wanningmoon(1)",
+        "160": "1001 SPA_5_Joschool_3_maximamstrike(1)"
     },
     "130": {
-        "160": "1009 SPA_5_Joschool_4_juglinstep(1)"
+        "158": "999 SPA_5_Joschool_1_funkeyslycer(3)",
+        "159": "1000 SPA_5_Joschool_2_wanningmoon(1)",
+        "161": "1001 SPA_5_Joschool_3_maximamstrike(1)"
     },
-    "133": {
-        "055": "697 ATK_22_PP_1_START(1)"
+    "131": {
+        "061": "1007 SPA_5_Joschool_5_juglinsway",
+        "163": "1010 SPA_5_Joschool_5_juglinsway(1)"
+    },
+    "132": {
+        "162": "1009 SPA_5_Joschool_4_juglinstep(1)"
+    },
+    "135": {
+        "053": "697 ATK_22_PP_1_START(1)",
+        "054": "700 ATK_22_PP_2_START(2)"
     },
     "140": {
         "127": "1219 SAA_Lv2_sunrisefestival_P1(1)"
