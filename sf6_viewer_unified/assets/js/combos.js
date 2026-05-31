@@ -632,6 +632,10 @@
         fuha1: '風破1',
         fuha2: '風破2',
         fuha3: '風破3',
+        crest1: 'シンボル1',
+        crest2: 'シンボル2',
+        crest3: 'シンボル3',
+        crest4: 'シンボル4',
       },
       sa_filters: {
         sa1: 'SA1',
@@ -1136,6 +1140,10 @@
         fuha1: 'Fuha 1',
         fuha2: 'Fuha 2',
         fuha3: 'Fuha 3',
+        crest1: 'Crest 1',
+        crest2: 'Crest 2',
+        crest3: 'Crest 3',
+        crest4: 'Crest 4',
       },
       sa_filters: {
         sa1: 'SA1',
@@ -4328,7 +4336,7 @@
       const fromApi = window.getCurrentFrameDataVersion();
       if (fromApi) return String(fromApi).trim();
     }
-    return '2026.03.17';
+    return '2026.05.28';
   }
 
   function updateComboFrameVersionInfo(lang) {
@@ -9930,6 +9938,7 @@
     fuha: 3,
     flame: 5,
     wind: 3,
+    crest: 4,
   });
 
   function getCalcStackableSpecialLevel(activeSet, prefix, maxLevel) {
@@ -10008,6 +10017,7 @@
       return;
     }
     for (const [prefix, maxLevel] of Object.entries(CALC_STACKABLE_SPECIAL_STATES)) {
+      if (prefix === 'crest') continue;
       if (requiredKeys.some((key) => key.startsWith(prefix))) {
         if (consumeCalcStackableSpecial(activeSet, prefix, maxLevel)) return;
       }
@@ -27319,14 +27329,14 @@
           group._filterVisible = visible;
           if (!hadState) visibilityChanged = true;
         }
-      if (setGroupRowDisplayVisibility(group, visible)) visibilityChanged = true;
-    });
-    if (visibilityChanged) refreshVisibleGroupRowClasses();
-    // Rebuild tree when list visibility changes, or when leaving complex filters (tree pair set
-    // can widen even if loaded rows' visibility is unchanged). Skip redundant rebuilds — scheduling
-    // doRebuildTree on every applyFilters stalls the tab and spikes memory on large sheets.
-    if (visibilityChanged || prevHadComplex === true) requestTreeRebuild();
-    return;
+        if (setGroupRowDisplayVisibility(group, visible)) visibilityChanged = true;
+      });
+      if (visibilityChanged) refreshVisibleGroupRowClasses();
+      // Rebuild tree when list visibility changes, or when leaving complex filters (tree pair set
+      // can widen even if loaded rows' visibility is unchanged). Skip redundant rebuilds — scheduling
+      // doRebuildTree on every applyFilters stalls the tab and spikes memory on large sheets.
+      if (visibilityChanged || prevHadComplex === true) requestTreeRebuild();
+      return;
     }
 
     const toNumber = (value) => {
@@ -32711,6 +32721,10 @@ ${table.outerHTML}
     { value: '風破1', key: 'fuha1', fallback: '風破1' },
     { value: '風破2', key: 'fuha2', fallback: '風破2' },
     { value: '風破3', key: 'fuha3', fallback: '風破3' },
+    { value: 'シンボル1', key: 'crest1', fallback: 'シンボル1' },
+    { value: 'シンボル2', key: 'crest2', fallback: 'シンボル2' },
+    { value: 'シンボル3', key: 'crest3', fallback: 'シンボル3' },
+    { value: 'シンボル4', key: 'crest4', fallback: 'シンボル4' },
   ];
 
   const SPECIAL_CONDITION_BY_CHARACTER = {
@@ -32725,9 +32739,11 @@ ${table.outerHTML}
     lily: ['none', 'wind1', 'wind2', 'wind3'],
     mai: ['none', 'flame1', 'flame2', 'flame3', 'flame4', 'flame5'],
     manon: ['none', 'medal2', 'medal3', 'medal4', 'medal5'],
+    ingrid: ['none', 'crest1', 'crest2', 'crest3', 'crest4'],
     vega_mbison: ['none', 'mine'],
     rashid: ['none', 'sa2'],
     ryu: ['none', 'focus'],
+
   };
 
   const SPECIAL_CONDITION_TABLE_MULTI_CHARACTERS = new Set(['blanka', 'juri', 'kimberly']);
@@ -33102,7 +33118,7 @@ ${table.outerHTML}
     const comboVersions = Array.isArray(state && state.combos)
       ? state.combos.map((combo) => String(combo && combo.game_version ? combo.game_version : '').trim()).filter(Boolean)
       : [];
-    const versionValues = ['2025.12.16', '2026.03.17', currentVersion, ...comboVersions]
+    const versionValues = ['2026.03.17', '2026.05.28', currentVersion, ...comboVersions]
       .map((v) => String(v || '').trim())
       .filter(Boolean);
     const uniqueVersions = [...new Set(versionValues)];
