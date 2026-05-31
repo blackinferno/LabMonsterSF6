@@ -32799,7 +32799,7 @@
                 "command_no": 23,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 6,
+                "ng_key_flags": 0,
                 "ok_key_cond_flags": 81952,
                 "ok_key_flags": 16,
                 "preceding_time": 4
@@ -33718,7 +33718,7 @@
                 "command_no": 23,
                 "dc_exc_flags": 16,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 6,
+                "ng_key_flags": 0,
                 "ok_key_cond_flags": 0,
                 "ok_key_flags": 0,
                 "preceding_time": 4
