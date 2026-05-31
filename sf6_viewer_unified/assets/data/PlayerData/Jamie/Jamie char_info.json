@@ -1,14 +1,27 @@
 {
     "PlData": {
+        "AdjustRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16416,
+        "ConvertRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
+        "FootRotMax": 0.0,
+        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.013000000268220901,
         "Gauge": 30000,
+        "HeadHeight": 0,
         "MaxShotNum": 5,
         "MultiJumpCount": 0,
         "Physique": {
@@ -16,9 +29,7 @@
             "Height": 156.66065979003906,
             "Leg": 105.58663940429688
         },
-        "Priority0": 17,
-        "RecoverDrvJust": 10000,
-        "RecoverDrvNorm": 10000,
+        "Priority0": 20,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
@@ -1207,20 +1218,7 @@
                     "_Name3": "InterruptAction(Start)",
                     "_Name4": "InterruptAction(End)  >>> [ 5 / 1206 ]"
                 },
-                "Basic": {
-                    "DefensiveScale": 100,
-                    "FluctuationSA": 0,
-                    "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 20,
-                    "FocusRecoverNM": 40,
-                    "FocusRecoverNMA": 20,
-                    "GaugeGainRatio": 0,
-                    "LifeFluctuation": 0,
-                    "MoveSpeedScale": 100,
-                    "OffensiveScale": 105,
-                    "TimeLimit": 0
-                },
-                "Entity": 95,
+                "Entity": 94,
                 "Motion": {
                     "AirNorm": {
                         "MotionBank": 10,
@@ -1337,7 +1335,7 @@
                 },
                 "Version": 200,
                 "_IsAction": true,
-                "_IsBasic": true,
+                "_IsBasic": false,
                 "_IsFacial": false,
                 "_IsMotion": true,
                 "_IsParts": true,
@@ -1375,20 +1373,7 @@
                     "_Name3": "InterruptAction(Start)",
                     "_Name4": "InterruptAction(End)  >>> [ 5 / 1206 ]"
                 },
-                "Basic": {
-                    "DefensiveScale": 100,
-                    "FluctuationSA": 0,
-                    "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 20,
-                    "FocusRecoverNM": 40,
-                    "FocusRecoverNMA": 20,
-                    "GaugeGainRatio": 0,
-                    "LifeFluctuation": 0,
-                    "MoveSpeedScale": 100,
-                    "OffensiveScale": 105,
-                    "TimeLimit": 0
-                },
-                "Entity": 95,
+                "Entity": 94,
                 "Motion": {
                     "AirNorm": {
                         "MotionBank": 10,
@@ -1505,7 +1490,7 @@
                 },
                 "Version": 200,
                 "_IsAction": true,
-                "_IsBasic": true,
+                "_IsBasic": false,
                 "_IsFacial": false,
                 "_IsMotion": true,
                 "_IsParts": true,
@@ -1543,20 +1528,7 @@
                     "_Name3": "InterruptAction(Start)",
                     "_Name4": "InterruptAction(End)  >>> [ 5 / 1206 ]"
                 },
-                "Basic": {
-                    "DefensiveScale": 100,
-                    "FluctuationSA": 0,
-                    "FocusRecoverIC": 50,
-                    "FocusRecoverICA": 20,
-                    "FocusRecoverNM": 40,
-                    "FocusRecoverNMA": 20,
-                    "GaugeGainRatio": 0,
-                    "LifeFluctuation": 0,
-                    "MoveSpeedScale": 100,
-                    "OffensiveScale": 105,
-                    "TimeLimit": 0
-                },
-                "Entity": 95,
+                "Entity": 94,
                 "Motion": {
                     "AirNorm": {
                         "MotionBank": 10,
@@ -1673,7 +1645,7 @@
                 },
                 "Version": 200,
                 "_IsAction": true,
-                "_IsBasic": true,
+                "_IsBasic": false,
                 "_IsFacial": false,
                 "_IsMotion": true,
                 "_IsParts": true,

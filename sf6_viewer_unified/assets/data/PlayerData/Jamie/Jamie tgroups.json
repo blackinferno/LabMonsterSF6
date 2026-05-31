@@ -44,7 +44,7 @@
         "144": "908 SPA2_P(2)",
         "147": "480 DPA_STD_START",
         "152": "715 NGS",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -99,7 +99,7 @@
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
         "147": "480 DPA_STD_START",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -168,7 +168,7 @@
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
         "147": "480 DPA_STD_START",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "168": "1211 SAA_GETUGASAIHOU_START",
@@ -214,7 +214,7 @@
         "144": "908 SPA2_P(2)",
         "147": "480 DPA_STD_START",
         "152": "715 NGS",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -251,7 +251,7 @@
         "144": "908 SPA2_P(2)",
         "147": "480 DPA_STD_START",
         "152": "715 NGS",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -299,9 +299,6 @@
     "025": {
         "147": "480 DPA_STD_START"
     },
-    "027": {
-        "060": "624 ATK_2LP(1)"
-    },
     "032": {
         "064": "1010 ATK_22P",
         "066": "900 SPA2_P",
@@ -322,7 +319,7 @@
         "142": "900 SPA2_P",
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -399,7 +396,7 @@
         "142": "900 SPA2_P",
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
@@ -432,7 +429,7 @@
         "142": "900 SPA2_P",
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "168": "1211 SAA_GETUGASAIHOU_START",
@@ -555,7 +552,7 @@
         "018": "684 ATK_6HK_DRINK"
     },
     "096": {
-        "011": "661 ATK_6MK_MK"
+        "011": "661 ATK_6MK_MK_Y3"
     },
     "097": {
         "012": "662 ATK_6MK_MK_P"
@@ -622,7 +619,7 @@
         "143": "904 SPA2_P(1)",
         "144": "908 SPA2_P(2)",
         "152": "715 NGS",
-        "157": "858 ATK_CTA",
+        "157": "860 ATK_CTA(2)",
         "164": "1200 SAA1_BREAKIN_Y2",
         "166": "1205 SAA2_ZESHO_MASIN(8)",
         "170": "1211 SAA_GETUGASAIHOU_START",
