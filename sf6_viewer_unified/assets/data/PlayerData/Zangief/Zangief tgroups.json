@@ -28,6 +28,7 @@
         "095": "940 SPA_PILEDRIVER_NGS(2)",
         "107": "480 DPA_STD_START",
         "113": "716 NGS_R(3)",
+        "115": "900 SPA_DLARIAT_END",
         "124": "854 ATK_CTA",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
@@ -72,6 +73,7 @@
         "094": "935 SPA_PILEDRIVER_NGS(1)",
         "095": "940 SPA_PILEDRIVER_NGS(2)",
         "107": "480 DPA_STD_START",
+        "115": "900 SPA_DLARIAT_END",
         "124": "854 ATK_CTA",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
@@ -91,6 +93,7 @@
         "093": "930 SPA_PILEDRIVER_NGS",
         "094": "935 SPA_PILEDRIVER_NGS(1)",
         "095": "940 SPA_PILEDRIVER_NGS(2)",
+        "115": "900 SPA_DLARIAT_END",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
         "139": "1206 SAA_SLARIAT",
@@ -158,6 +161,7 @@
         "095": "940 SPA_PILEDRIVER_NGS(2)",
         "107": "480 DPA_STD_START",
         "113": "716 NGS_R(3)",
+        "115": "900 SPA_DLARIAT_END",
         "124": "854 ATK_CTA",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
@@ -204,6 +208,7 @@
         "094": "935 SPA_PILEDRIVER_NGS(1)",
         "095": "940 SPA_PILEDRIVER_NGS(2)",
         "111": "504 ATK_CTA_RUSH(1)",
+        "115": "900 SPA_DLARIAT_END",
         "124": "854 ATK_CTA",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
@@ -233,10 +238,6 @@
         "060": "602 ATK_5LP_C",
         "062": "619 ATK_2LP_C",
         "064": "629 ATK_2LK_C"
-    },
-    "038": {
-        "059": "601 ATK_5LP_B",
-        "065": "618 ATK_2LP_B"
     },
     "041": {
         "091": "952 SPA_BORSCHT_NGS(2)",
@@ -296,6 +297,7 @@
         "094": "935 SPA_PILEDRIVER_NGS(1)",
         "095": "940 SPA_PILEDRIVER_NGS(2)",
         "113": "716 NGS_R(3)",
+        "115": "900 SPA_DLARIAT_END",
         "124": "854 ATK_CTA",
         "136": "1195 SAA_RUSSIASLAM_START",
         "137": "1200 SAA_RUSSIASLAM_START(1)",
