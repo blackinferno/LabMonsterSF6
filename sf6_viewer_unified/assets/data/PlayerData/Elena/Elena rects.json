@@ -1381,7 +1381,7 @@
             "SizeY": 61
         },
         "107": {
-            "OffsetX": 77,
+            "OffsetX": 78,
             "OffsetY": 142,
             "PhyCoeffRateDesc": {
                 "CoeffType": 5,
@@ -1407,7 +1407,7 @@
                 },
                 "_type": 5
             },
-            "SizeX": 38,
+            "SizeX": 39,
             "SizeY": 77
         },
         "109": {
