@@ -937,7 +937,15 @@ const CHARACTER_ART_PRESETS = {
     "width": "min(52.7083vw, 1012px)",
     "height": "min(83.1771vw, 1597px)",
     "shift": "17%"
-  }
+  },
+  "ingrid": {
+    "top": "calc(1px - min(4.16667vw, 80px))",
+    "left": "calc(50% - min(34.375vw, 660px))",
+    "width": "min(63.0208vw, 1210px)",
+    "height": "min(80.7292vw, 1550px)",
+    "shift": "-1%",
+    "shiftx": "0%"
+  },
 };
 const CHARACTER_ART_DEFAULT = {
   top: '0px',
@@ -964,7 +972,8 @@ const CHARACTER_SELECT_SPECIAL = {
   jp: 'assets/images/characters/select_character15_over.png',
   deejay: 'assets/images/characters/select_character12_over.png',
   marisa: 'assets/images/characters/select_character14_over.png',
-  manon: 'assets/images/characters/select_character13_over.png'
+  manon: 'assets/images/characters/select_character13_over.png',
+  ingrid: 'assets/images/characters/select_character30_over.png'
 };
 
 const CHARACTER_NAME_OVERRIDES = {
