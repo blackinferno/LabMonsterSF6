@@ -138,19 +138,13 @@
         "078": "480 DPA_STD_START",
         "085": "855 ATK_CTA",
         "090": "1200 SAA_KNEEPRESS_NIGHTMARE_HIT",
-        "092": "1209 SAA_FINAL_PSYCHO_CRUSHER_START",
         "093": "1205 SAA2_START",
         "100": "1216 SAA_START",
         "101": "1221 SAA_START(2)",
         "104": "999 SPA_BACKFIST_COMBO_EX_1P",
         "105": "906 SPA_DOUBLE_KNEEPRESS_EX",
         "106": "1038 SPA_PSYCHO_CRUSHER_EX_START",
-        "107": "943 HEADPRESS_START(3)",
-        "109": "1085 SPA_PSYCHO_FIELD",
-        "110": "1080 SPA_VEGA_WARP_END",
-        "111": "1081 SPA_VEGA_WARP_END(1)",
-        "112": "1082 SPA_VEGA_WARP_END(2)",
-        "113": "1083 SPA_VEGA_WARP_END(3)"
+        "107": "943 HEADPRESS_START(3)"
     },
     "008": {
         "062": "908 HEADPRESS_START",
