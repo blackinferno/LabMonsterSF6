@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/combo_tree.css" />
 </head>
 
-<body data-theme="dark" data-lang="jp" data-version="1.0.5">
+<body data-theme="dark" data-lang="jp" data-version="1.0.6">
     <header id="mainHeader" class="site-header">
         <div class="site-header-inner">
             <div class="site-brand">
@@ -42,8 +42,8 @@
                     data-i18n="nav.combo">COMBO LIST</button>
                 <button class="app-tab" data-view-tab="frame" role="tab" aria-selected="false"
                     data-i18n="nav.frame">FRAME DATA</button>
-                <button class="app-tab" data-view-tab="tree" role="tab" aria-selected="false"
-                    data-i18n="nav.tree">COMBO TREE</button>
+                <button class="app-tab" data-view-tab="tree" role="tab" aria-selected="false" data-i18n="nav.tree">COMBO
+                    TREE</button>
                 <div class="app-tools">
                     <button type="button" id="appHelpBtn" class="header-help-btn" data-i18n="help.button">HELP</button>
                     <button type="button" id="appInfoBtn" class="header-help-btn" data-i18n="info.button">INFO</button>
@@ -631,7 +631,8 @@
                 <div id="comboTreePanel" class="combo-tree-panel hidden" aria-label="Combo Tree View" hidden>
                     <div class="combo-tree-header">
                         <span class="combo-tree-title" data-i18n="combo.tree_view">Tree</span>
-                        <button type="button" id="comboTreeCloseBtn" class="combo-tree-close" aria-label="Close tree">&times;</button>
+                        <button type="button" id="comboTreeCloseBtn" class="combo-tree-close"
+                            aria-label="Close tree">&times;</button>
                     </div>
                     <div id="comboTreeBody" class="combo-tree-body"></div>
                 </div>
@@ -2794,16 +2795,19 @@
                     <div class="tree-page-chrome">
                         <div class="combo-tree-topstrip">
                             <div id="treeCharBtn" class="combo-tree-char-btn">
-                                <img id="treeCharImg" src="assets/images/characters/select_character_random_over.png" alt="Character">
+                                <img id="treeCharImg" src="assets/images/characters/select_character_random_over.png"
+                                    alt="Character">
                                 <span class="combo-portrait-caret">▼</span>
                             </div>
                             <div class="char-control-tabs combo-control-tabs tree-control-tabs">
                                 <ul class="char-control-tabs-list">
                                     <li id="treeTabClassic" class="combo-control-tab" tabindex="0">
-                                        <img src="assets/images/misc/logo-classic.png" alt="Classic" width="90" height="23">
+                                        <img src="assets/images/misc/logo-classic.png" alt="Classic" width="90"
+                                            height="23">
                                     </li>
                                     <li id="treeTabModern" class="combo-control-tab" tabindex="0">
-                                        <img src="assets/images/misc/logo-modern.png" alt="Modern" width="90" height="23">
+                                        <img src="assets/images/misc/logo-modern.png" alt="Modern" width="90"
+                                            height="23">
                                     </li>
                                 </ul>
                             </div>
@@ -2821,12 +2825,17 @@
                             <div id="treeStickyStripHost" class="tree-sticky-strip-host">
                                 <div class="tree-strip-inline">
                                     <div class="tree-order-toggle" aria-label="Tree rail scale">
-                                        <button type="button" id="treeRailModeDrive" class="tree-order-btn is-active">D Gauge</button>
-                                        <button type="button" id="treeRailModeDamage" class="tree-order-btn">Damage</button>
+                                        <button type="button" id="treeRailModeDrive" class="tree-order-btn is-active">D
+                                            Gauge</button>
+                                        <button type="button" id="treeRailModeDamage"
+                                            class="tree-order-btn">Damage</button>
                                     </div>
-                                    <button type="button" id="treeViewRefreshBtn" class="combo-search-secondary">Refresh</button>
-                                    <button type="button" id="treeViewExpandAllBtn" class="combo-search-secondary">Expand All</button>
-                                    <button type="button" id="treeViewCollapseAllBtn" class="combo-search-secondary">Collapse All</button>
+                                    <button type="button" id="treeViewRefreshBtn"
+                                        class="combo-search-secondary">Refresh</button>
+                                    <button type="button" id="treeViewExpandAllBtn"
+                                        class="combo-search-secondary">Expand All</button>
+                                    <button type="button" id="treeViewCollapseAllBtn"
+                                        class="combo-search-secondary">Collapse All</button>
                                     <span id="treeViewCount" class="tree-view-count">0 COMBOS</span>
                                 </div>
                             </div>
@@ -2837,28 +2846,38 @@
                         <aside id="treeDetailPane" class="tree-detail-pane">
                             <div class="tree-detail-head">
                                 <span id="treeDetailHeadText">SELECTED COMBO</span>
-                                <button type="button" id="treeDetailOpenModalBtn" class="header-help-btn">Combo Details</button>
+                                <button type="button" id="treeDetailOpenModalBtn" class="header-help-btn">Combo
+                                    Details</button>
                             </div>
                             <div id="treeDetailEmpty">Select a branch to show details.</div>
                             <div id="treeDetailModalHost" class="tree-detail-modal-host"></div>
                             <div id="treeAutoInputToggleWrap" class="combo-auto-input-toggles">
                                 <div class="combo-poison-toggle">
-                                    <span id="treeToggleAutoInputLabel" class="combo-poison-toggle-label">Auto Input</span>
-                                    <div class="lang-toggle combo-poison-toggle-group" role="group" aria-labelledby="treeToggleAutoInputLabel">
-                                        <button type="button" id="treeToggleAutoInputOn" class="lang-btn combo-poison-toggle-btn">ON</button>
-                                        <button type="button" id="treeToggleAutoInputOff" class="lang-btn combo-poison-toggle-btn active">OFF</button>
+                                    <span id="treeToggleAutoInputLabel" class="combo-poison-toggle-label">Auto
+                                        Input</span>
+                                    <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                        aria-labelledby="treeToggleAutoInputLabel">
+                                        <button type="button" id="treeToggleAutoInputOn"
+                                            class="lang-btn combo-poison-toggle-btn">ON</button>
+                                        <button type="button" id="treeToggleAutoInputOff"
+                                            class="lang-btn combo-poison-toggle-btn active">OFF</button>
                                     </div>
                                 </div>
                                 <div class="combo-poison-toggle">
-                                    <span id="treeToggleAutoInputOverwriteLabel" class="combo-poison-toggle-label">Overwrite</span>
-                                    <div class="lang-toggle combo-poison-toggle-group" role="group" aria-labelledby="treeToggleAutoInputOverwriteLabel">
-                                        <button type="button" id="treeToggleAutoInputOverwriteOn" class="lang-btn combo-poison-toggle-btn">ON</button>
-                                        <button type="button" id="treeToggleAutoInputOverwriteOff" class="lang-btn combo-poison-toggle-btn active">OFF</button>
+                                    <span id="treeToggleAutoInputOverwriteLabel"
+                                        class="combo-poison-toggle-label">Overwrite</span>
+                                    <div class="lang-toggle combo-poison-toggle-group" role="group"
+                                        aria-labelledby="treeToggleAutoInputOverwriteLabel">
+                                        <button type="button" id="treeToggleAutoInputOverwriteOn"
+                                            class="lang-btn combo-poison-toggle-btn">ON</button>
+                                        <button type="button" id="treeToggleAutoInputOverwriteOff"
+                                            class="lang-btn combo-poison-toggle-btn active">OFF</button>
                                     </div>
                                 </div>
                             </div>
                             <div id="treeDetailMedia" hidden>
-                                <a id="treeDetailUrlLink" href="#" target="_blank" rel="noopener noreferrer">Open URL</a>
+                                <a id="treeDetailUrlLink" href="#" target="_blank" rel="noopener noreferrer">Open
+                                    URL</a>
                                 <img id="treeDetailVideoThumb" hidden alt="Video thumbnail">
                             </div>
                             <div id="treeDetailButtons"></div>
@@ -2878,20 +2897,23 @@
         <footer class="site-footer">
             <p>Unofficial reference built for lab work. All assets &copy; CAPCOM CO., LTD.</p>
             <div class="site-footer-meta">
-                <span id="footerAppVersionText">Tool Ver.: 1.0.5</span>
-                <span id="footerGameVersionText">Game Ver.: 2025.03.17</span>
+                <span id="footerAppVersionText">Tool Ver.: 1.0.6</span>
+                <span id="footerGameVersionText">Game Ver.: 2026.05.28</span>
             </div>
         </footer>
         <div id="comboCompareDock" class="combo-compare-dock" hidden aria-hidden="true" aria-label="Compare list">
             <span id="comboCompareTray" class="combo-compare-tray" aria-live="polite">
                 <span id="comboCompareTrayLabel" class="combo-compare-tray-label">Compare (0/4)</span>
-                <button type="button" id="comboCompareOpenBtn" class="combo-action-btn combo-compare-open-btn" disabled>Compare</button>
-                <button type="button" id="comboCompareClearBtn" class="combo-action-btn combo-compare-clear-btn" disabled>Clear</button>
+                <button type="button" id="comboCompareOpenBtn" class="combo-action-btn combo-compare-open-btn"
+                    disabled>Compare</button>
+                <button type="button" id="comboCompareClearBtn" class="combo-action-btn combo-compare-clear-btn"
+                    disabled>Clear</button>
             </span>
         </div>
         <div id="comboCompareOverlay" class="modal-overlay combo-compare-modal-overlay hidden" aria-hidden="true">
             <div class="overlay-bg modal-backdrop" aria-hidden="true"></div>
-            <div class="modal-panel combo-compare-panel" role="dialog" aria-modal="true" aria-labelledby="comboCompareTitle">
+            <div class="modal-panel combo-compare-panel" role="dialog" aria-modal="true"
+                aria-labelledby="comboCompareTitle">
                 <button type="button" id="comboCompareCloseBtn" class="modal-close" aria-label="Close">&times;</button>
                 <h2 id="comboCompareTitle" class="modal-title">Compare combos</h2>
                 <div class="combo-compare-scroll">
@@ -2981,7 +3003,8 @@
                         </ul>
                         <h3>Compare combos</h3>
                         <ul class="help-list-tight">
-                            <li>Right-click one or more selected rows and choose <b>Add to compare</b> to queue combos in
+                            <li>Right-click one or more selected rows and choose <b>Add to compare</b> to queue combos
+                                in
                                 the compare tray at the bottom of the page.</li>
                             <li>The tray shows <b>Compare (n/4)</b>. You can queue up to four combos at once.</li>
                             <li>Click <b>Compare</b> to open a side-by-side modal: command, buttons, notes, tags, game
@@ -3015,7 +3038,8 @@
                             <li>The combo tree visualizes routes for the <b>current character</b> and <b>Classic /
                                     Modern</b> combo list as a branching chart.</li>
                             <li>Branches follow your command notation; ordering along the vertical rail can follow
-                                <b>D Gauge</b> requirements or <b>Damage</b> totals.</li>
+                                <b>D Gauge</b> requirements or <b>Damage</b> totals.
+                            </li>
                         </ul>
                         <h3>Layout and controls</h3>
                         <ul class="help-list-tight">
@@ -3028,9 +3052,11 @@
                         </ul>
                         <h3>Filters</h3>
                         <ul class="help-list-tight">
-                            <li>Pill chips open filters for <b>Distance</b>, <b>Position</b>, <b>Counter</b>, <b>BO/Stun</b>,
+                            <li>Pill chips open filters for <b>Distance</b>, <b>Position</b>, <b>Counter</b>,
+                                <b>BO/Stun</b>,
                                 and <b>Special Conditions</b>; the inline filter groups under the header use the same
-                                filter state.</li>
+                                filter state.
+                            </li>
                             <li>Choose values, then <b>Apply</b> (or <b>Clear</b>) so only matching combos are included
                                 when the tree is built.</li>
                         </ul>
@@ -3039,9 +3065,11 @@
                             <li>Click a branch box or a combo leaf to select it; the <b>right-hand detail pane</b> shows
                                 fields for that combo.</li>
                             <li>Click empty space in the tree scroll area to clear the selection.</li>
-                            <li>Right-click a branch or leaf for <b>Add to compare</b>, <b>Expand subtree</b> / <b>Collapse
+                            <li>Right-click a branch or leaf for <b>Add to compare</b>, <b>Expand subtree</b> /
+                                <b>Collapse
                                     subtree</b>, <b>Add combo from this path</b>, and <b>Delete child combos</b> (when
-                                applicable).</li>
+                                applicable).
+                            </li>
                         </ul>
                         <h3>Detail pane</h3>
                         <ul class="help-list-tight">
@@ -3196,15 +3224,18 @@
                                 <ul class="help-list-tight">
                                     <li>Opens a side-by-side modal comparing two to four combos from the current
                                         character and control mode.</li>
-                                    <li>Lists command, notes, tags, version, and the main numeric fields in one table for
+                                    <li>Lists command, notes, tags, version, and the main numeric fields in one table
+                                        for
                                         quick scanning.</li>
                                 </ul>
                                 <h3 data-i18n="help.common.how_to_do">How To Do It</h3>
                                 <ol class="help-steps">
                                     <li>Select one or more rows, right-click, and choose <b>Add to compare</b>.</li>
-                                    <li>Watch the bottom tray for <b>Compare (n/4)</b>; add up to four combos total.</li>
+                                    <li>Watch the bottom tray for <b>Compare (n/4)</b>; add up to four combos total.
+                                    </li>
                                     <li>Click <b>Compare</b> when at least two combos are queued to open the modal.</li>
-                                    <li>Use <b>Remove from compare</b> on a column header or <b>Clear list</b> to reset the
+                                    <li>Use <b>Remove from compare</b> on a column header or <b>Clear list</b> to reset
+                                        the
                                         tray.</li>
                                 </ol>
                             </div>
@@ -3236,7 +3267,8 @@
                                         filter groups, then <b>Apply</b>.</li>
                                     <li>Switch <b>D Gauge</b> or <b>Damage</b> to change vertical ordering; use
                                         <b>Refresh</b> after edits, <b>Expand All</b> / <b>Collapse All</b> for
-                                        navigation.</li>
+                                        navigation.
+                                    </li>
                                     <li>Click a branch or leaf to load the right pane; right-click for <b>Add to
                                             compare</b>, subtree actions, <b>Add combo from this path</b>, or <b>Delete
                                             child combos</b> when applicable.</li>
@@ -4062,8 +4094,9 @@
                             </div>
                         </div>
                         <div class="combo-details-bar combo-details-bar-command">
-                            <div id="comboDetailsCommandEdit" class="combo-details-command-edit cmd-input" contenteditable="true"
-                                spellcheck="false" role="textbox" aria-multiline="true" data-field="command"></div>
+                            <div id="comboDetailsCommandEdit" class="combo-details-command-edit cmd-input"
+                                contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true"
+                                data-field="command"></div>
                         </div>
                         <div class="combo-details-bar combo-details-bar-buttons">
                             <div id="comboDetailsButtonsIcons" class="combo-details-buttons-icons"></div>
@@ -4098,8 +4131,8 @@
                         <div class="combo-poison-toggle combo-details-auto-toggle">
                             <span id="comboDetailsToggleAutoInputLabel"
                                 class="combo-poison-toggle-label combo-details-auto-toggle-label">Auto Input</span>
-                            <div class="lang-toggle combo-poison-toggle-group combo-details-auto-toggle-group" role="group"
-                                aria-labelledby="comboDetailsToggleAutoInputLabel">
+                            <div class="lang-toggle combo-poison-toggle-group combo-details-auto-toggle-group"
+                                role="group" aria-labelledby="comboDetailsToggleAutoInputLabel">
                                 <button type="button" id="comboDetailsToggleAutoInputOn"
                                     class="lang-btn combo-poison-toggle-btn combo-details-auto-toggle-btn"
                                     aria-pressed="false">ON</button>
@@ -4111,8 +4144,8 @@
                         <div class="combo-poison-toggle combo-details-auto-toggle">
                             <span id="comboDetailsToggleAutoInputOverwriteLabel"
                                 class="combo-poison-toggle-label combo-details-auto-toggle-label">Overwrite</span>
-                            <div class="lang-toggle combo-poison-toggle-group combo-details-auto-toggle-group" role="group"
-                                aria-labelledby="comboDetailsToggleAutoInputOverwriteLabel">
+                            <div class="lang-toggle combo-poison-toggle-group combo-details-auto-toggle-group"
+                                role="group" aria-labelledby="comboDetailsToggleAutoInputOverwriteLabel">
                                 <button type="button" id="comboDetailsToggleAutoInputOverwriteOn"
                                     class="lang-btn combo-poison-toggle-btn combo-details-auto-toggle-btn"
                                     aria-pressed="false">ON</button>
@@ -4240,14 +4273,14 @@
                 <div class="modal-actions combo-details-actions">
                     <div class="combo-details-actions-tree">
                         <button type="button" id="comboDetailsOpenTreeBtn"
-                            class="header-help-btn combo-details-open-tree-btn"
-                            data-combo-details-label="open_tree" title="Open combo tree">Combo Tree</button>
+                            class="header-help-btn combo-details-open-tree-btn" data-combo-details-label="open_tree"
+                            title="Open combo tree">Combo Tree</button>
                     </div>
                     <div class="combo-details-actions-main">
                         <button type="button" id="comboDetailsBtnDuplicate" class="header-help-btn"
                             title="Duplicate row">Duplicate</button>
-                        <button type="button" id="comboDetailsBtnDelete" class="header-help-btn combo-details-btn-danger"
-                            title="Delete row">Delete</button>
+                        <button type="button" id="comboDetailsBtnDelete"
+                            class="header-help-btn combo-details-btn-danger" title="Delete row">Delete</button>
                         <button type="button" id="comboDetailsBtnSave" class="header-help-btn active"
                             title="Save changes">Save</button>
                     </div>
@@ -4356,6 +4389,10 @@
                     <li class="char-card" data-char="guile">
                         <img src="assets/images/characters/guile.png" alt="Guile" />
                         <span>Guile</span>
+                    </li>
+                    <li class="char-card" data-char="ingrid">
+                        <img src="assets/images/characters/ingrid.png" alt="Ingrid" />
+                        <span>Ingrid</span>
                     </li>
                     <li class="char-card" data-char="jamie">
                         <img src="assets/images/characters/jamie.png" alt="Jamie" />
