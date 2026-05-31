@@ -3257,7 +3257,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 512,
+                "ng_key_flags": 0,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 128,
                 "preceding_time": 4
@@ -5818,7 +5818,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 2,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 512,
+                "ng_key_flags": 0,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 256,
                 "preceding_time": 4
@@ -19200,7 +19200,7 @@
     "0993": {
         "56": {
             "AtckType": 0,
-            "_IgnoreEasy80": false,
+            "_IgnoreEasy80": true,
             "_IgnoreStrength": false,
             "_InheritEasy80": false,
             "_InheritRush": false,
@@ -19362,7 +19362,7 @@
                 "preceding_time": 4
             },
             "norm_NG": false,
-            "option_flags": 0,
+            "option_flags": 32,
             "sprt": {
                 "attribute": 4,
                 "command_index": -1,
