@@ -152,6 +152,7 @@
         "070": "935 SPA_BOMB",
         "071": "936 SPA_BOMB(1)",
         "072": "937 SPA_BOMB(2)",
+        "073": "1001 ATK_2MPK_START(1)",
         "074": "954 SPA_BST_ROLLING_START(4)",
         "075": "958 SPA_BST_ROLLING_START(5)",
         "076": "962 SPA_BST_ROLLING_START(6)",
@@ -475,9 +476,6 @@
     },
     "081": {
         "151": "1132 _1132"
-    },
-    "084": {
-        "036": "614 ATK_2LP(3)"
     },
     "122": {
         "042": "502 ATK_CTA_DASH(1)",
