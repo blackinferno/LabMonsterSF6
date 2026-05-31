@@ -1,14 +1,27 @@
 {
     "PlData": {
+        "AdjustRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "AirDashHeight": 70,
         "ArmorPoint": 100,
         "ArmorTimer": 50,
         "Attribute": 16480,
+        "ConvertRatio": {
+            "Arm": 1.0,
+            "Height": 1.0,
+            "Leg": 1.0
+        },
         "Entity": 0,
         "FlySpeed": 10.0,
         "FootJointHeight": 0.0,
+        "FootRotMax": 0.0,
+        "FootRotMin": 0.0,
         "FootTipJointHeight": 0.0,
         "Gauge": 30000,
+        "HeadHeight": 0,
         "MaxShotNum": 5,
         "MultiJumpCount": 0,
         "Physique": {
@@ -16,9 +29,7 @@
             "Height": 163.3820343017578,
             "Leg": 112.92732238769531
         },
-        "Priority0": 14,
-        "RecoverDrvJust": 10000,
-        "RecoverDrvNorm": 10000,
+        "Priority0": 17,
         "SizeB": 50,
         "SizeD": 0,
         "SizeF": 50,
