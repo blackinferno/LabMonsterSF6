@@ -12826,7 +12826,7 @@
             "vital_need": 0
         }
     },
-    "0924": {
+    "0926": {
         "059": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -12931,7 +12931,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 256,
             "action_dir": 2,
-            "action_id": 924,
+            "action_id": 926,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879136,
@@ -13126,7 +13126,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 256,
             "action_dir": 2,
-            "action_id": 924,
+            "action_id": 926,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879136,

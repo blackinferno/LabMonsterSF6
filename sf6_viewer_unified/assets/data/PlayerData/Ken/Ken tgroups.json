@@ -346,6 +346,9 @@
         "099": "1009 SPA_TATSUMAKI_AIR_END",
         "170": "1012 SPA_TATSUMAKI_AIR_END(1)"
     },
+    "046": {
+        "055": "683 ATK_MK_FUMIKOMI"
+    },
     "047": {
         "115": "680 KK_LK_FUNJIN",
         "178": "680 KK_LK_FUNJIN"
@@ -353,7 +356,6 @@
     "048": {
         "053": "681 KK_LK_FUNJIN_STOP",
         "054": "682 ATK_HK_SHIDEN",
-        "055": "683 ATK_MK_FUMIKOMI",
         "092": "959 SPA_SYORYU_START_FUNJIN(1)",
         "097": "1003 SPA_TATSUMAKI_END(3)",
         "098": "1003 SPA_TATSUMAKI_END(3)",

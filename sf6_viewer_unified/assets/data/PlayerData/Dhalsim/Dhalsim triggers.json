@@ -8380,15 +8380,15 @@
             "sprt": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 514,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 16,
+                "preceding_time": 6
             },
-            "sprt_NG": true,
+            "sprt_NG": false,
             "supr": {
                 "attribute": 0,
                 "command_index": -1,
@@ -8402,7 +8402,7 @@
             },
             "supr_NG": true,
             "turn_around": 2,
-            "use_sprt": false,
+            "use_sprt": true,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0
@@ -9980,7 +9980,7 @@
             "vital_need": 0
         }
     },
-    "0854": {
+    "0855": {
         "152": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
@@ -10085,7 +10085,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 854,
+            "action_id": 855,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 65601,
@@ -10312,15 +10312,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 8,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ng_key_flags": 2,
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -10329,7 +10329,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 10,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -10526,7 +10526,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 10,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -11069,15 +11069,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": -1,
+                "command_no": 0,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 14,
-                "ok_key_cond_flags": 16416,
-                "ok_key_flags": 32,
-                "preceding_time": 4
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
             },
-            "easy_NG": false,
+            "easy_NG": true,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -11086,7 +11086,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 10,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -11266,15 +11266,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 520,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ng_key_flags": 2,
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 20000,
             "focus_need": 1,
@@ -11283,7 +11283,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -11480,7 +11480,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -11660,15 +11660,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": -1,
-                "dc_exc_flags": 512,
+                "command_no": 0,
+                "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 14,
-                "ok_key_cond_flags": 16416,
-                "ok_key_flags": 32,
-                "preceding_time": 4
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
             },
-            "easy_NG": false,
+            "easy_NG": true,
             "fightstyle_flags": 65535,
             "focus_consume": 20000,
             "focus_need": 1,
@@ -11677,7 +11677,7 @@
             "gauge_need": 0,
             "kind_level": 1,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -11857,15 +11857,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 6,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -11913,7 +11913,7 @@
             },
             "supr_NG": true,
             "turn_around": 0,
-            "use_sprt": false,
+            "use_sprt": true,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0
@@ -12057,7 +12057,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 2,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
+                "ng_key_flags": 12,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 32,
                 "preceding_time": 4
@@ -12251,15 +12251,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 10,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -13450,7 +13450,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 18,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -13631,9 +13631,9 @@
                 "attribute": 0,
                 "command_index": -1,
                 "command_no": -1,
-                "dc_exc_flags": 8,
+                "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
+                "ng_key_flags": 14,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 32,
                 "preceding_time": 4
@@ -13647,7 +13647,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 18,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -13844,7 +13844,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 18,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -14041,7 +14041,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -14222,9 +14222,9 @@
                 "attribute": 0,
                 "command_index": -1,
                 "command_no": -1,
-                "dc_exc_flags": 520,
+                "dc_exc_flags": 512,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
+                "ng_key_flags": 14,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 32,
                 "preceding_time": 4
@@ -14238,7 +14238,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -14435,7 +14435,7 @@
             "gauge_need": 0,
             "kind_level": 2,
             "kind_sub": 0,
-            "limit_shot_category": 2,
+            "limit_shot_category": 26,
             "norm": {
                 "attribute": 0,
                 "command_index": 0,
@@ -16024,17 +16024,17 @@
             "norm_NG": false,
             "option_flags": 0,
             "sprt": {
-                "attribute": 0,
+                "attribute": 4,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 4,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16544,
+                "ok_key_flags": 400,
+                "preceding_time": 6
             },
-            "sprt_NG": true,
+            "sprt_NG": false,
             "supr": {
                 "attribute": 0,
                 "command_index": -1,
@@ -16048,7 +16048,7 @@
             },
             "supr_NG": true,
             "turn_around": 0,
-            "use_sprt": false,
+            "use_sprt": true,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0
@@ -19242,17 +19242,17 @@
             "cond_vital_ope": 0,
             "cond_vital_ratio": 0,
             "easy": {
-                "attribute": 4,
+                "attribute": 0,
                 "command_index": -1,
-                "command_no": -1,
+                "command_no": 0,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 7,
-                "ok_key_cond_flags": 16480,
-                "ok_key_flags": 288,
-                "preceding_time": 4
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
             },
-            "easy_NG": false,
+            "easy_NG": true,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -19277,16 +19277,16 @@
             "option_flags": 0,
             "sprt": {
                 "attribute": 0,
-                "command_index": 4,
-                "command_no": 23,
+                "command_index": -1,
+                "command_no": 0,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 81952,
-                "ok_key_flags": 16,
-                "preceding_time": 4
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
             },
-            "sprt_NG": false,
+            "sprt_NG": true,
             "supr": {
                 "attribute": 0,
                 "command_index": -1,
@@ -19300,7 +19300,7 @@
             },
             "supr_NG": false,
             "turn_around": 0,
-            "use_sprt": true,
+            "use_sprt": false,
             "use_super": true,
             "vital_consume": 0,
             "vital_need": 0
@@ -19442,9 +19442,9 @@
                 "attribute": 4,
                 "command_index": -1,
                 "command_no": -1,
-                "dc_exc_flags": 8,
+                "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 3,
+                "ng_key_flags": 2,
                 "ok_key_cond_flags": 16480,
                 "ok_key_flags": 288,
                 "preceding_time": 4
@@ -19474,16 +19474,16 @@
             "option_flags": 0,
             "sprt": {
                 "attribute": 0,
-                "command_index": -1,
-                "command_no": 0,
+                "command_index": 4,
+                "command_no": 23,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 16,
+                "preceding_time": 4
             },
-            "sprt_NG": true,
+            "sprt_NG": false,
             "supr": {
                 "attribute": 0,
                 "command_index": -1,
@@ -19671,16 +19671,16 @@
             "option_flags": 0,
             "sprt": {
                 "attribute": 0,
-                "command_index": 4,
-                "command_no": 23,
+                "command_index": -1,
+                "command_no": 0,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 81952,
-                "ok_key_flags": 16,
-                "preceding_time": 4
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
             },
-            "sprt_NG": false,
+            "sprt_NG": true,
             "supr": {
                 "attribute": 0,
                 "command_index": -1,
@@ -19694,7 +19694,7 @@
             },
             "supr_NG": true,
             "turn_around": 0,
-            "use_sprt": true,
+            "use_sprt": false,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0

@@ -15742,7 +15742,7 @@
             "vital_need": 0
         }
     },
-    "0953": {
+    "0951": {
         "98": {
             "AtckType": 8,
             "_IgnoreEasy80": false,
@@ -15847,7 +15847,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 953,
+            "action_id": 951,
             "action_status_sub": 0,
             "atck_type_bit": 8,
             "category_flags": 536879122,
@@ -16302,7 +16302,7 @@
             "vital_need": 0
         }
     },
-    "0954": {
+    "0953": {
         "99": {
             "AtckType": 16,
             "_IgnoreEasy80": false,
@@ -16407,7 +16407,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 954,
+            "action_id": 953,
             "action_status_sub": 0,
             "atck_type_bit": 16,
             "category_flags": 536879138,

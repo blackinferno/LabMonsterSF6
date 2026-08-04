@@ -3971,12 +3971,12 @@
     "081": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 4,
+            "flag1": 16,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 4,
+                "p1": 16,
                 "p2": 0,
                 "p3": 0
             }
@@ -4009,7 +4009,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 66,
+        "TriggerID": 68,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -4019,13 +4019,13 @@
     },
     "082": {
         "ActualTriggerID": {
-            "flag0": -9223372036854775808,
-            "flag1": 0,
+            "flag0": 0,
+            "flag1": 8,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": -9223372036854775808,
-                "p1": 0,
+                "p0": 0,
+                "p1": 8,
                 "p2": 0,
                 "p3": 0
             }
@@ -4039,7 +4039,7 @@
         },
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
-        "ConditionErrorEndFrame": -1,
+        "ConditionErrorEndFrame": 31,
         "ConditionFlag": 115769,
         "Delay": 27,
         "ForceEndFrame": 41,
@@ -4058,7 +4058,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 63,
+        "TriggerID": 67,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -4461,12 +4461,12 @@
     "091": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 4,
+            "flag1": 16,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 4,
+                "p1": 16,
                 "p2": 0,
                 "p3": 0
             }
@@ -4499,7 +4499,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 66,
+        "TriggerID": 68,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -4509,13 +4509,13 @@
     },
     "092": {
         "ActualTriggerID": {
-            "flag0": -9223372036854775808,
-            "flag1": 0,
+            "flag0": 0,
+            "flag1": 8,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": -9223372036854775808,
-                "p1": 0,
+                "p0": 0,
+                "p1": 8,
                 "p2": 0,
                 "p3": 0
             }
@@ -4529,7 +4529,7 @@
         },
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
-        "ConditionErrorEndFrame": -1,
+        "ConditionErrorEndFrame": 31,
         "ConditionFlag": 115769,
         "Delay": 27,
         "ForceEndFrame": 41,
@@ -4548,7 +4548,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 63,
+        "TriggerID": 67,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -4951,12 +4951,12 @@
     "101": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 4,
+            "flag1": 16,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 4,
+                "p1": 16,
                 "p2": 0,
                 "p3": 0
             }
@@ -4989,7 +4989,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 66,
+        "TriggerID": 68,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -4999,12 +4999,12 @@
     },
     "102": {
         "ActualTriggerID": {
-            "flag0": 9007199254740992,
+            "flag0": 36028797018963968,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 9007199254740992,
+                "p0": 36028797018963968,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -5019,7 +5019,7 @@
         },
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
-        "ConditionErrorEndFrame": -1,
+        "ConditionErrorEndFrame": 31,
         "ConditionFlag": 115769,
         "Delay": 27,
         "ForceEndFrame": 41,
@@ -5038,7 +5038,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 53,
+        "TriggerID": 55,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -5441,12 +5441,12 @@
     "111": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 4,
+            "flag1": 16,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 4,
+                "p1": 16,
                 "p2": 0,
                 "p3": 0
             }
@@ -5479,7 +5479,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 66,
+        "TriggerID": 68,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,

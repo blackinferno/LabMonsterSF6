@@ -4900,7 +4900,7 @@
             "SizeY": 30
         },
         "064": {
-            "OffsetX": 103,
+            "OffsetX": 82,
             "OffsetY": 146,
             "PhyCoeffRateDesc": {
                 "CoeffType": 5,
@@ -4926,7 +4926,7 @@
                 },
                 "_type": 5
             },
-            "SizeX": 61,
+            "SizeX": 82,
             "SizeY": 17
         },
         "066": {
@@ -9226,6 +9226,36 @@
             },
             "SizeX": 26,
             "SizeY": 18
+        },
+        "022": {
+            "OffsetX": 56,
+            "OffsetY": -10,
+            "PhyCoeffRateDesc": {
+                "CoeffType": 5,
+                "OffsetXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "OffsetYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "_type": 5
+            },
+            "SizeX": 117,
+            "SizeY": 21
         },
         "023": {
             "OffsetX": 28,

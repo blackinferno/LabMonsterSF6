@@ -113368,7 +113368,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -113381,9 +113381,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -113950,7 +113950,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -113963,9 +113963,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -114066,7 +114066,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -114079,9 +114079,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -114298,7 +114298,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -114311,9 +114311,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 23,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -116274,7 +116274,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -116287,9 +116287,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -116856,7 +116856,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -116869,9 +116869,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -116972,7 +116972,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -116985,9 +116985,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 13,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,
@@ -117204,7 +117204,7 @@
                 "FocusTgt": 0,
                 "HitStopOwner": 0,
                 "HitStopTarget": 0,
-                "HitStun": 16,
+                "HitStun": 19,
                 "Hitmark": 7,
                 "HitmarkDirX": 8,
                 "HitmarkDirY": 0,
@@ -117217,9 +117217,9 @@
                 "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 80,
-                    "y": 30
+                    "y": 90
                 },
-                "MoveTime": 16,
+                "MoveTime": 19,
                 "MoveType": 23,
                 "MutekiTime": 0,
                 "ParryStopOwner": -1,

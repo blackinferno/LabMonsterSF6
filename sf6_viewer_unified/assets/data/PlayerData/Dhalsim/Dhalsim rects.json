@@ -2,7 +2,7 @@
     "00": {
         "001": {
             "OffsetX": 64,
-            "OffsetY": 91,
+            "OffsetY": 93,
             "PhyCoeffRateDesc": {
                 "CoeffType": 5,
                 "OffsetXRate": {
@@ -28,7 +28,7 @@
                 "_type": 5
             },
             "SizeX": 24,
-            "SizeY": 20
+            "SizeY": 22
         },
         "003": {
             "OffsetX": 82,

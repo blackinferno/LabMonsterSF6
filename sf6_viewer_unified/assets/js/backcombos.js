@@ -529,6 +529,10 @@
         fuha1: '風破1',
         fuha2: '風破2',
         fuha3: '風破3',
+        symbol1: 'シンボル1',
+        symbol2: 'シンボル2',
+        symbol3: 'シンボル3',
+        symbol4: 'シンボル4',
       },
       sa_filters: {
         sa1: 'SA1',
@@ -2771,7 +2775,7 @@
       const fromApi = window.getCurrentFrameDataVersion();
       if (fromApi) return String(fromApi).trim();
     }
-    return '2025.12.16';
+    return '2025.05.28';
   }
 
   function updateComboFrameVersionInfo(lang) {

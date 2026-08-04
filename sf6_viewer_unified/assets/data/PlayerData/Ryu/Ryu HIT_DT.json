@@ -162,7 +162,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 13,
@@ -510,7 +510,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 9,
@@ -1092,7 +1092,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 13,
@@ -1208,7 +1208,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 13,
@@ -1324,7 +1324,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 13,
@@ -1440,7 +1440,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 13,
@@ -2484,7 +2484,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 9,
@@ -2600,7 +2600,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 9,
@@ -2716,7 +2716,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 9,
@@ -2832,7 +2832,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 34,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 9,
@@ -84436,7 +84436,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -84784,7 +84784,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -85366,7 +85366,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -85482,7 +85482,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -85598,7 +85598,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -85714,7 +85714,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -86758,7 +86758,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -86874,7 +86874,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -86990,7 +86990,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -87106,7 +87106,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 0,
                 "MoveDest": {
-                    "x": 45,
+                    "x": 30,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -154061,8 +154061,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -154177,8 +154177,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -154293,8 +154293,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -154409,8 +154409,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -154525,8 +154525,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -154643,8 +154643,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -154759,8 +154759,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -154875,8 +154875,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 60,
                     "y": 90
@@ -154991,8 +154991,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -155107,8 +155107,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -155223,8 +155223,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -155339,8 +155339,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -155455,8 +155455,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -155571,8 +155571,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -155687,8 +155687,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -155803,8 +155803,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 60,
                     "y": 90
@@ -155919,8 +155919,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -156035,8 +156035,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -156151,8 +156151,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -156267,8 +156267,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 60,
                     "y": 90
@@ -156383,8 +156383,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 20,
                     "y": 200
@@ -156499,8 +156499,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -156615,8 +156615,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -156731,8 +156731,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -156847,8 +156847,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 6,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -156967,8 +156967,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -157083,8 +157083,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -157199,8 +157199,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -157315,8 +157315,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -157431,8 +157431,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -157549,8 +157549,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -157665,8 +157665,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -157781,8 +157781,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 315
@@ -157897,8 +157897,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -158013,8 +158013,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -158129,8 +158129,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -158245,8 +158245,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -158361,8 +158361,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -158477,8 +158477,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -158593,8 +158593,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -158709,8 +158709,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 315
@@ -158825,8 +158825,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -158941,8 +158941,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -159057,8 +159057,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -159173,8 +159173,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 315
@@ -159289,8 +159289,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 180,
                     "y": 350
@@ -159405,8 +159405,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -159521,8 +159521,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -159637,8 +159637,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -159753,8 +159753,8 @@
                 "HitmarkStrength": 3,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 7,
+                "JuggleAdd": 0,
+                "JuggleLimit": 10,
                 "MoveDest": {
                     "x": 70,
                     "y": 0
@@ -183124,7 +183124,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -183356,7 +183356,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -183472,7 +183472,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -183706,7 +183706,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -183822,7 +183822,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -184054,7 +184054,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -184634,7 +184634,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -184750,7 +184750,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -184982,7 +184982,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -185098,7 +185098,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -185214,7 +185214,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -185446,7 +185446,7 @@
                 "JuggleAdd": 4,
                 "JuggleLimit": 3,
                 "MoveDest": {
-                    "x": 150,
+                    "x": 130,
                     "y": 85
                 },
                 "MoveTime": 25,
@@ -220898,9 +220898,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221014,9 +221014,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -221130,9 +221130,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221246,9 +221246,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221362,9 +221362,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -221480,9 +221480,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221596,9 +221596,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221712,8 +221712,8 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
                 "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 50,
@@ -221828,9 +221828,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -221944,9 +221944,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -222060,9 +222060,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -222176,9 +222176,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -222292,9 +222292,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -222408,9 +222408,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -222524,9 +222524,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -222640,8 +222640,8 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
                 "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 50,
@@ -222756,9 +222756,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -222872,9 +222872,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -222988,9 +222988,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -223104,8 +223104,8 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
                 "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 50,
@@ -223220,9 +223220,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 20,
                     "y": 10
@@ -223336,9 +223336,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -223452,9 +223452,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -223568,9 +223568,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -223684,9 +223684,9 @@
                 "HitmarkID": 0,
                 "HitmarkStrength": 2,
                 "IsDummy": false,
-                "Juggle1st": 1,
-                "JuggleAdd": 1,
-                "JuggleLimit": 2,
+                "Juggle1st": 0,
+                "JuggleAdd": 0,
+                "JuggleLimit": 3,
                 "MoveDest": {
                     "x": 30,
                     "y": 0
@@ -223805,7 +223805,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -223921,7 +223921,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -224037,7 +224037,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224153,7 +224153,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224269,7 +224269,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -224387,7 +224387,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224503,7 +224503,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224619,7 +224619,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224735,7 +224735,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -224851,7 +224851,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -224967,7 +224967,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -225083,7 +225083,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -225199,7 +225199,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -225315,7 +225315,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -225431,7 +225431,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -225547,7 +225547,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -225663,7 +225663,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -225779,7 +225779,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -225895,7 +225895,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -226011,7 +226011,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -226127,7 +226127,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 140,
@@ -226243,7 +226243,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -226359,7 +226359,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -226475,7 +226475,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,
@@ -226591,7 +226591,7 @@
                 "HitmarkStrength": 2,
                 "IsDummy": false,
                 "Juggle1st": 1,
-                "JuggleAdd": 1,
+                "JuggleAdd": 3,
                 "JuggleLimit": 6,
                 "MoveDest": {
                     "x": 70,

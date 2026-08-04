@@ -7841,12 +7841,12 @@
     },
     "160": {
         "ActualTriggerID": {
-            "flag0": 64,
+            "flag0": 4096,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 64,
+                "p0": 4096,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -7880,7 +7880,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 4,
-        "TriggerID": 6,
+        "TriggerID": 12,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -7924,7 +7924,7 @@
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
-        "NextInputDelay": 6,
+        "NextInputDelay": 5,
         "NextInputLimit": 10,
         "OKLever": 0,
         "OKLeverExc": 0,
@@ -8038,12 +8038,12 @@
     "164": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 65536,
+            "flag1": 1048576,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 65536,
+                "p1": 1048576,
                 "p2": 0,
                 "p3": 0
             }
@@ -8076,7 +8076,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 80,
+        "TriggerID": 84,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -8331,12 +8331,12 @@
     },
     "170": {
         "ActualTriggerID": {
-            "flag0": 64,
+            "flag0": 4096,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 64,
+                "p0": 4096,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -8370,7 +8370,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 4,
-        "TriggerID": 6,
+        "TriggerID": 12,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -8414,7 +8414,7 @@
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
-        "NextInputDelay": 6,
+        "NextInputDelay": 5,
         "NextInputLimit": 10,
         "OKLever": 0,
         "OKLeverExc": 0,
@@ -8821,12 +8821,12 @@
     },
     "180": {
         "ActualTriggerID": {
-            "flag0": 64,
+            "flag0": 4096,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 64,
+                "p0": 4096,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -8860,7 +8860,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 4,
-        "TriggerID": 6,
+        "TriggerID": 12,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -8904,7 +8904,7 @@
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
-        "NextInputDelay": 6,
+        "NextInputDelay": 5,
         "NextInputLimit": 10,
         "OKLever": 0,
         "OKLeverExc": 0,
@@ -9311,12 +9311,12 @@
     },
     "190": {
         "ActualTriggerID": {
-            "flag0": 64,
+            "flag0": 4096,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 64,
+                "p0": 4096,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -9350,7 +9350,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 4,
-        "TriggerID": 6,
+        "TriggerID": 12,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -9394,7 +9394,7 @@
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
-        "NextInputDelay": 6,
+        "NextInputDelay": 5,
         "NextInputLimit": 10,
         "OKLever": 0,
         "OKLeverExc": 0,

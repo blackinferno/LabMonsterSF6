@@ -636,6 +636,7 @@
         crest2: 'シンボル2',
         crest3: 'シンボル3',
         crest4: 'シンボル4',
+        bayani: 'バヤニ',
       },
       sa_filters: {
         sa1: 'SA1',
@@ -1144,6 +1145,7 @@
         crest2: 'Crest 2',
         crest3: 'Crest 3',
         crest4: 'Crest 4',
+        bayani: 'Bayani',
       },
       sa_filters: {
         sa1: 'SA1',
@@ -9939,6 +9941,10 @@
     flame: 5,
     wind: 3,
     crest: 4,
+    medal: 5,
+    drunk: 4,
+    doll: 5,
+    spray: 3,
   });
 
   function getCalcStackableSpecialLevel(activeSet, prefix, maxLevel) {
@@ -10514,10 +10520,11 @@
   function getEntryBaseDamageForCalc(entry) {
     if (!entry || typeof entry !== 'object') return null;
     const frameDamage = parseNumericText(entry.damage);
-    const isModernShortVariant = String(entry.input_token_variant || '').toLowerCase() === 'modern_short';
-    if (isModernShortVariant && frameDamage != null && frameDamage > 0) {
-      // Modern short rows in combo_calc_index already carry adjusted damage values.
-      // Prefer explicit row damage to avoid re-deriving from MMDK and overcounting.
+    const inputTokenVariant = String(entry.input_token_variant || '').toLowerCase();
+    const isModernVariant = inputTokenVariant === 'modern_short' || inputTokenVariant === 'modern_full';
+    if (isModernVariant && frameDamage != null && frameDamage > 0) {
+      // Modern rows in combo_calc_index already carry the correct shortcut/full-command damage.
+      // Prefer explicit row damage to avoid re-deriving from MMDK and overcounting variants.
       return frameDamage;
     }
     const actionClass = getCalcEntryActionClass(entry);
@@ -19409,7 +19416,9 @@
     state.autoInputOverwriteManual = nextEnabled;
     updateAutoInputToggleUi(getComboLang());
     saveUiPrefs();
-    refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
+    if (nextEnabled) {
+      refreshDerivedDamageForAllRows({ forceDamage: true, forceAll: true });
+    }
   }
 
   function bindRowToggles() {
@@ -32690,15 +32699,15 @@ ${table.outerHTML}
     { value: '毒', key: 'poison', fallback: '毒' },
     { value: '集中', key: 'focus', fallback: '集中' },
     { value: '肩屋入り', key: 'spirit', fallback: '肩屋入り' },
-    { value: 'é…"1', key: 'drunk1', fallback: 'é…"1' },
-    { value: 'é…"2', key: 'drunk2', fallback: 'é…"2' },
-    { value: 'é…"3', key: 'drunk3', fallback: 'é…"3' },
-    { value: 'é…"4', key: 'drunk4', fallback: 'é…"4' },
-    { value: 'ç""1', key: 'flame1', fallback: 'ç""1' },
-    { value: 'ç""2', key: 'flame2', fallback: 'ç""2' },
-    { value: 'ç""3', key: 'flame3', fallback: 'ç""3' },
-    { value: 'ç""4', key: 'flame4', fallback: 'ç""4' },
-    { value: 'ç""5', key: 'flame5', fallback: 'ç""5' },
+    { value: '酒1', key: 'drunk1', fallback: '酒1' },
+    { value: '酒2', key: 'drunk2', fallback: '酒2' },
+    { value: '酒3', key: 'drunk3', fallback: '酒3' },
+    { value: '酒4', key: 'drunk4', fallback: '酒4' },
+    { value: '焔1', key: 'flame1', fallback: '焔1' },
+    { value: '焔2', key: 'flame2', fallback: '焔2' },
+    { value: '焔3', key: 'flame3', fallback: '焔3' },
+    { value: '焔4', key: 'flame4', fallback: '焔4' },
+    { value: '焔5', key: 'flame5', fallback: '焔5' },
     { value: 'マイン', key: 'mine', fallback: 'マイン' },
     { value: 'SA1時', key: 'sa1', fallback: 'SA1時' },
     { value: 'SA2時', key: 'sa2', fallback: 'SA2時' },
@@ -32725,6 +32734,7 @@ ${table.outerHTML}
     { value: 'シンボル2', key: 'crest2', fallback: 'シンボル2' },
     { value: 'シンボル3', key: 'crest3', fallback: 'シンボル3' },
     { value: 'シンボル4', key: 'crest4', fallback: 'シンボル4' },
+    { value: 'バヤニ', key: 'bayani', fallback: 'バヤニ' },
   ];
 
   const SPECIAL_CONDITION_BY_CHARACTER = {
@@ -32743,6 +32753,7 @@ ${table.outerHTML}
     vega_mbison: ['none', 'mine'],
     rashid: ['none', 'sa2'],
     ryu: ['none', 'focus'],
+    yasmine: ['none', 'bayani', 'sa2'],
 
   };
 

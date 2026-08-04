@@ -8602,7 +8602,7 @@
         }
     },
     "0900": {
-        "83": {
+        "87": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -9162,7 +9162,7 @@
         }
     },
     "0901": {
-        "84": {
+        "88": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -9722,7 +9722,7 @@
         }
     },
     "0902": {
-        "85": {
+        "89": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -12645,8 +12645,599 @@
             "vital_need": 0
         }
     },
-    "0942": {
-        "87": {
+    "0933": {
+        "63": {
+            "AtckType": 1,
+            "_IgnoreEasy80": false,
+            "_IgnoreStrength": false,
+            "_InheritEasy80": false,
+            "_InheritRush": false,
+            "_IsAir": false,
+            "_IsAppeal": false,
+            "_IsAtemi": false,
+            "_IsAutoPilot": false,
+            "_IsBackward": false,
+            "_IsBodyAtck": false,
+            "_IsChainCombo": false,
+            "_IsCrouch": false,
+            "_IsDImpact": false,
+            "_IsDReversal": false,
+            "_IsDashB": false,
+            "_IsDashF": false,
+            "_IsDashKind": false,
+            "_IsDrive": false,
+            "_IsDriveDash": false,
+            "_IsExtra": false,
+            "_IsFB": false,
+            "_IsFly": false,
+            "_IsForward": false,
+            "_IsGCancel": false,
+            "_IsGimmick": false,
+            "_IsGround": true,
+            "_IsHeadButt": false,
+            "_IsHeavy": false,
+            "_IsJump": false,
+            "_IsKick": false,
+            "_IsLight": true,
+            "_IsLinker": false,
+            "_IsLv1": false,
+            "_IsLv2": false,
+            "_IsLv3": false,
+            "_IsLv4": false,
+            "_IsMiddle": false,
+            "_IsNoWinPose": false,
+            "_IsNormal": false,
+            "_IsNormalKind": false,
+            "_IsParry": false,
+            "_IsParryDash": false,
+            "_IsProjectile": false,
+            "_IsPunch": true,
+            "_IsReversal": false,
+            "_IsShortRange": false,
+            "_IsShungoku": false,
+            "_IsSpecial": true,
+            "_IsSpecialKind": true,
+            "_IsSpecial_1": true,
+            "_IsSpecial_10": false,
+            "_IsSpecial_11": false,
+            "_IsSpecial_12": false,
+            "_IsSpecial_13": false,
+            "_IsSpecial_14": false,
+            "_IsSpecial_15": false,
+            "_IsSpecial_2": false,
+            "_IsSpecial_3": false,
+            "_IsSpecial_4": false,
+            "_IsSpecial_5": false,
+            "_IsSpecial_6": false,
+            "_IsSpecial_7": false,
+            "_IsSpecial_8": false,
+            "_IsSpecial_9": false,
+            "_IsSuper": false,
+            "_IsSuper1": false,
+            "_IsSuper2": false,
+            "_IsSuper3": false,
+            "_IsSuper35": false,
+            "_IsSuper_1": false,
+            "_IsSuper_2": false,
+            "_IsSuper_3": false,
+            "_IsSuper_4": false,
+            "_IsSuper_5": false,
+            "_IsTarCombo": false,
+            "_IsTheEnd": false,
+            "_IsThrowCommand": false,
+            "_IsThrowKind": false,
+            "_IsThrowNormal": false,
+            "_IsThrowShell": false,
+            "_IsThrowSpecial": false,
+            "_IsUnique": false,
+            "_IsUnique_1": false,
+            "_IsUnique_10": false,
+            "_IsUnique_11": false,
+            "_IsUnique_12": false,
+            "_IsUnique_13": false,
+            "_IsUnique_14": false,
+            "_IsUnique_15": false,
+            "_IsUnique_2": false,
+            "_IsUnique_3": false,
+            "_IsUnique_4": false,
+            "_IsUnique_5": false,
+            "_IsUnique_6": false,
+            "_IsUnique_7": false,
+            "_IsUnique_8": false,
+            "_IsUnique_9": false,
+            "_NotResetComboID": false,
+            "_RegistInput": false,
+            "_UseUniqueParam": true,
+            "_kind_all": 258,
+            "action_dir": 2,
+            "action_id": 933,
+            "action_status_sub": 0,
+            "atck_type_bit": 1,
+            "category_flags": 536879121,
+            "charge_group_bit": {
+                "easy": 0,
+                "normal": 0,
+                "raw": 0,
+                "sporty": 0,
+                "super": 0
+            },
+            "combo_inst": 0,
+            "combo_sp_gain": 100,
+            "command_group_id": -1,
+            "cond_air_jump_count": 0,
+            "cond_atk_limit": 0,
+            "cond_jump_cmd_count": 0,
+            "cond_limit_shot_num": 0,
+            "cond_master_id": -1,
+            "cond_owner_state_flags": 0,
+            "cond_param_id": 0,
+            "cond_param_ope": 0,
+            "cond_param_value": 1,
+            "cond_range": 0,
+            "cond_range_param": 0.0,
+            "cond_vital_ope": 0,
+            "cond_vital_ratio": 0,
+            "easy": {
+                "attribute": 0,
+                "command_index": -1,
+                "command_no": -1,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 10,
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
+            },
+            "easy_NG": false,
+            "fightstyle_flags": 65535,
+            "focus_consume": 0,
+            "focus_need": 0,
+            "function_id": 2,
+            "gauge_consume": 0,
+            "gauge_need": 0,
+            "kind_level": 1,
+            "kind_sub": 2,
+            "limit_shot_category": 65535,
+            "norm": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 16,
+                "preceding_time": 4
+            },
+            "norm_NG": false,
+            "option_flags": 8,
+            "sprt": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 16,
+                "preceding_time": 4
+            },
+            "sprt_NG": false,
+            "supr": {
+                "attribute": 0,
+                "command_index": -1,
+                "command_no": -1,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 8192,
+                "preceding_time": 4
+            },
+            "supr_NG": false,
+            "turn_around": 0,
+            "use_sprt": true,
+            "use_super": true,
+            "vital_consume": 0,
+            "vital_need": 0
+        }
+    },
+    "0934": {
+        "64": {
+            "AtckType": 2,
+            "_IgnoreEasy80": false,
+            "_IgnoreStrength": false,
+            "_InheritEasy80": false,
+            "_InheritRush": false,
+            "_IsAir": false,
+            "_IsAppeal": false,
+            "_IsAtemi": false,
+            "_IsAutoPilot": false,
+            "_IsBackward": false,
+            "_IsBodyAtck": false,
+            "_IsChainCombo": false,
+            "_IsCrouch": false,
+            "_IsDImpact": false,
+            "_IsDReversal": false,
+            "_IsDashB": false,
+            "_IsDashF": false,
+            "_IsDashKind": false,
+            "_IsDrive": false,
+            "_IsDriveDash": false,
+            "_IsExtra": false,
+            "_IsFB": false,
+            "_IsFly": false,
+            "_IsForward": false,
+            "_IsGCancel": false,
+            "_IsGimmick": false,
+            "_IsGround": true,
+            "_IsHeadButt": false,
+            "_IsHeavy": false,
+            "_IsJump": false,
+            "_IsKick": false,
+            "_IsLight": false,
+            "_IsLinker": false,
+            "_IsLv1": false,
+            "_IsLv2": false,
+            "_IsLv3": false,
+            "_IsLv4": false,
+            "_IsMiddle": true,
+            "_IsNoWinPose": false,
+            "_IsNormal": false,
+            "_IsNormalKind": false,
+            "_IsParry": false,
+            "_IsParryDash": false,
+            "_IsProjectile": false,
+            "_IsPunch": true,
+            "_IsReversal": false,
+            "_IsShortRange": false,
+            "_IsShungoku": false,
+            "_IsSpecial": true,
+            "_IsSpecialKind": true,
+            "_IsSpecial_1": true,
+            "_IsSpecial_10": false,
+            "_IsSpecial_11": false,
+            "_IsSpecial_12": false,
+            "_IsSpecial_13": false,
+            "_IsSpecial_14": false,
+            "_IsSpecial_15": false,
+            "_IsSpecial_2": false,
+            "_IsSpecial_3": false,
+            "_IsSpecial_4": false,
+            "_IsSpecial_5": false,
+            "_IsSpecial_6": false,
+            "_IsSpecial_7": false,
+            "_IsSpecial_8": false,
+            "_IsSpecial_9": false,
+            "_IsSuper": false,
+            "_IsSuper1": false,
+            "_IsSuper2": false,
+            "_IsSuper3": false,
+            "_IsSuper35": false,
+            "_IsSuper_1": false,
+            "_IsSuper_2": false,
+            "_IsSuper_3": false,
+            "_IsSuper_4": false,
+            "_IsSuper_5": false,
+            "_IsTarCombo": false,
+            "_IsTheEnd": false,
+            "_IsThrowCommand": false,
+            "_IsThrowKind": false,
+            "_IsThrowNormal": false,
+            "_IsThrowShell": false,
+            "_IsThrowSpecial": false,
+            "_IsUnique": false,
+            "_IsUnique_1": false,
+            "_IsUnique_10": false,
+            "_IsUnique_11": false,
+            "_IsUnique_12": false,
+            "_IsUnique_13": false,
+            "_IsUnique_14": false,
+            "_IsUnique_15": false,
+            "_IsUnique_2": false,
+            "_IsUnique_3": false,
+            "_IsUnique_4": false,
+            "_IsUnique_5": false,
+            "_IsUnique_6": false,
+            "_IsUnique_7": false,
+            "_IsUnique_8": false,
+            "_IsUnique_9": false,
+            "_NotResetComboID": false,
+            "_RegistInput": false,
+            "_UseUniqueParam": true,
+            "_kind_all": 258,
+            "action_dir": 2,
+            "action_id": 934,
+            "action_status_sub": 0,
+            "atck_type_bit": 2,
+            "category_flags": 536879137,
+            "charge_group_bit": {
+                "easy": 0,
+                "normal": 0,
+                "raw": 0,
+                "sporty": 0,
+                "super": 0
+            },
+            "combo_inst": 0,
+            "combo_sp_gain": 100,
+            "command_group_id": -1,
+            "cond_air_jump_count": 0,
+            "cond_atk_limit": 0,
+            "cond_jump_cmd_count": 0,
+            "cond_limit_shot_num": 0,
+            "cond_master_id": -1,
+            "cond_owner_state_flags": 0,
+            "cond_param_id": 0,
+            "cond_param_ope": 0,
+            "cond_param_value": 1,
+            "cond_range": 0,
+            "cond_range_param": 0.0,
+            "cond_vital_ope": 0,
+            "cond_vital_ratio": 0,
+            "easy": {
+                "attribute": 0,
+                "command_index": -1,
+                "command_no": 0,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
+            },
+            "easy_NG": true,
+            "fightstyle_flags": 65535,
+            "focus_consume": 0,
+            "focus_need": 0,
+            "function_id": 2,
+            "gauge_consume": 0,
+            "gauge_need": 0,
+            "kind_level": 1,
+            "kind_sub": 2,
+            "limit_shot_category": 65535,
+            "norm": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 32,
+                "preceding_time": 4
+            },
+            "norm_NG": false,
+            "option_flags": 8,
+            "sprt": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 128,
+                "preceding_time": 4
+            },
+            "sprt_NG": false,
+            "supr": {
+                "attribute": 0,
+                "command_index": -1,
+                "command_no": 0,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
+            },
+            "supr_NG": true,
+            "turn_around": 0,
+            "use_sprt": true,
+            "use_super": false,
+            "vital_consume": 0,
+            "vital_need": 0
+        }
+    },
+    "0935": {
+        "65": {
+            "AtckType": 4,
+            "_IgnoreEasy80": false,
+            "_IgnoreStrength": false,
+            "_InheritEasy80": false,
+            "_InheritRush": false,
+            "_IsAir": false,
+            "_IsAppeal": false,
+            "_IsAtemi": false,
+            "_IsAutoPilot": false,
+            "_IsBackward": false,
+            "_IsBodyAtck": false,
+            "_IsChainCombo": false,
+            "_IsCrouch": false,
+            "_IsDImpact": false,
+            "_IsDReversal": false,
+            "_IsDashB": false,
+            "_IsDashF": false,
+            "_IsDashKind": false,
+            "_IsDrive": false,
+            "_IsDriveDash": false,
+            "_IsExtra": false,
+            "_IsFB": false,
+            "_IsFly": false,
+            "_IsForward": false,
+            "_IsGCancel": false,
+            "_IsGimmick": false,
+            "_IsGround": true,
+            "_IsHeadButt": false,
+            "_IsHeavy": true,
+            "_IsJump": false,
+            "_IsKick": false,
+            "_IsLight": false,
+            "_IsLinker": false,
+            "_IsLv1": false,
+            "_IsLv2": false,
+            "_IsLv3": false,
+            "_IsLv4": false,
+            "_IsMiddle": false,
+            "_IsNoWinPose": false,
+            "_IsNormal": false,
+            "_IsNormalKind": false,
+            "_IsParry": false,
+            "_IsParryDash": false,
+            "_IsProjectile": false,
+            "_IsPunch": true,
+            "_IsReversal": false,
+            "_IsShortRange": false,
+            "_IsShungoku": false,
+            "_IsSpecial": true,
+            "_IsSpecialKind": true,
+            "_IsSpecial_1": true,
+            "_IsSpecial_10": false,
+            "_IsSpecial_11": false,
+            "_IsSpecial_12": false,
+            "_IsSpecial_13": false,
+            "_IsSpecial_14": false,
+            "_IsSpecial_15": false,
+            "_IsSpecial_2": false,
+            "_IsSpecial_3": false,
+            "_IsSpecial_4": false,
+            "_IsSpecial_5": false,
+            "_IsSpecial_6": false,
+            "_IsSpecial_7": false,
+            "_IsSpecial_8": false,
+            "_IsSpecial_9": false,
+            "_IsSuper": false,
+            "_IsSuper1": false,
+            "_IsSuper2": false,
+            "_IsSuper3": false,
+            "_IsSuper35": false,
+            "_IsSuper_1": false,
+            "_IsSuper_2": false,
+            "_IsSuper_3": false,
+            "_IsSuper_4": false,
+            "_IsSuper_5": false,
+            "_IsTarCombo": false,
+            "_IsTheEnd": false,
+            "_IsThrowCommand": false,
+            "_IsThrowKind": false,
+            "_IsThrowNormal": false,
+            "_IsThrowShell": false,
+            "_IsThrowSpecial": false,
+            "_IsUnique": false,
+            "_IsUnique_1": false,
+            "_IsUnique_10": false,
+            "_IsUnique_11": false,
+            "_IsUnique_12": false,
+            "_IsUnique_13": false,
+            "_IsUnique_14": false,
+            "_IsUnique_15": false,
+            "_IsUnique_2": false,
+            "_IsUnique_3": false,
+            "_IsUnique_4": false,
+            "_IsUnique_5": false,
+            "_IsUnique_6": false,
+            "_IsUnique_7": false,
+            "_IsUnique_8": false,
+            "_IsUnique_9": false,
+            "_NotResetComboID": false,
+            "_RegistInput": false,
+            "_UseUniqueParam": true,
+            "_kind_all": 258,
+            "action_dir": 2,
+            "action_id": 935,
+            "action_status_sub": 0,
+            "atck_type_bit": 4,
+            "category_flags": 536879169,
+            "charge_group_bit": {
+                "easy": 0,
+                "normal": 0,
+                "raw": 0,
+                "sporty": 0,
+                "super": 0
+            },
+            "combo_inst": 0,
+            "combo_sp_gain": 100,
+            "command_group_id": -1,
+            "cond_air_jump_count": 0,
+            "cond_atk_limit": 0,
+            "cond_jump_cmd_count": 0,
+            "cond_limit_shot_num": 0,
+            "cond_master_id": -1,
+            "cond_owner_state_flags": 0,
+            "cond_param_id": 0,
+            "cond_param_ope": 0,
+            "cond_param_value": 1,
+            "cond_range": 0,
+            "cond_range_param": 0.0,
+            "cond_vital_ope": 0,
+            "cond_vital_ratio": 0,
+            "easy": {
+                "attribute": 0,
+                "command_index": -1,
+                "command_no": 0,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 0,
+                "preceding_time": 0
+            },
+            "easy_NG": true,
+            "fightstyle_flags": 65535,
+            "focus_consume": 0,
+            "focus_need": 0,
+            "function_id": 2,
+            "gauge_consume": 0,
+            "gauge_need": 0,
+            "kind_level": 1,
+            "kind_sub": 2,
+            "limit_shot_category": 65535,
+            "norm": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 64,
+                "preceding_time": 4
+            },
+            "norm_NG": false,
+            "option_flags": 8,
+            "sprt": {
+                "attribute": 0,
+                "command_index": 1,
+                "command_no": 2,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 81952,
+                "ok_key_flags": 256,
+                "preceding_time": 4
+            },
+            "sprt_NG": false,
+            "supr": {
+                "attribute": 2,
+                "command_index": -1,
+                "command_no": -1,
+                "dc_exc_flags": 0,
+                "dc_inc_flags": 0,
+                "ng_key_flags": 0,
+                "ok_key_cond_flags": 0,
+                "ok_key_flags": 2147483648,
+                "preceding_time": 4
+            },
+            "supr_NG": false,
+            "turn_around": 0,
+            "use_sprt": true,
+            "use_super": true,
+            "vital_consume": 0,
+            "vital_need": 0
+        }
+    },
+    "0946": {
+        "91": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -12750,7 +13341,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 768,
             "action_dir": 2,
-            "action_id": 942,
+            "action_id": 946,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879128,
@@ -13205,8 +13796,8 @@
             "vital_need": 0
         }
     },
-    "0943": {
-        "88": {
+    "0947": {
+        "92": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -13310,7 +13901,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 768,
             "action_dir": 2,
-            "action_id": 943,
+            "action_id": 947,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879144,
@@ -13402,8 +13993,8 @@
             "vital_need": 0
         }
     },
-    "0944": {
-        "89": {
+    "0948": {
+        "93": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -13507,7 +14098,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 768,
             "action_dir": 2,
-            "action_id": 944,
+            "action_id": 948,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879176,
@@ -13599,7 +14190,7 @@
             "vital_need": 0
         }
     },
-    "0945": {
+    "0949": {
         "169": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -13704,7 +14295,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 768,
             "action_dir": 2,
-            "action_id": 945,
+            "action_id": 949,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -13796,8 +14387,8 @@
             "vital_need": 0
         }
     },
-    "0955": {
-        "67": {
+    "0959": {
+        "71": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -13901,7 +14492,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1792,
             "action_dir": 2,
-            "action_id": 955,
+            "action_id": 959,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879104,
@@ -14356,7 +14947,7 @@
             "vital_need": 0
         }
     },
-    "0956": {
+    "0960": {
         "166": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -14461,7 +15052,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1792,
             "action_dir": 2,
-            "action_id": 956,
+            "action_id": 960,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887296,
@@ -14553,7 +15144,7 @@
             "vital_need": 0
         }
     },
-    "0957": {
+    "0961": {
         "167": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -14658,7 +15249,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1792,
             "action_dir": 2,
-            "action_id": 957,
+            "action_id": 961,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887296,
@@ -14750,8 +15341,8 @@
             "vital_need": 0
         }
     },
-    "0959": {
-        "69": {
+    "0963": {
+        "73": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -14855,7 +15446,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 959,
+            "action_id": 963,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975832641,
@@ -14909,7 +15500,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 768,
+                "ng_key_flags": 770,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 112,
                 "preceding_time": 4
@@ -14922,7 +15513,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 0,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
+                "ng_key_flags": 2,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 432,
                 "preceding_time": 4
@@ -14947,8 +15538,8 @@
             "vital_need": 0
         }
     },
-    "0960": {
-        "74": {
+    "0964": {
+        "78": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -15052,7 +15643,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2048,
             "action_dir": 2,
-            "action_id": 960,
+            "action_id": 964,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975832641,
@@ -15144,8 +15735,8 @@
             "vital_need": 0
         }
     },
-    "0961": {
-        "79": {
+    "0965": {
+        "83": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -15249,7 +15840,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2304,
             "action_dir": 2,
-            "action_id": 961,
+            "action_id": 965,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975832641,
@@ -15341,8 +15932,8 @@
             "vital_need": 0
         }
     },
-    "0964": {
-        "70": {
+    "0968": {
+        "74": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -15446,7 +16037,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 964,
+            "action_id": 968,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -15537,7 +16128,7 @@
             "vital_consume": 0,
             "vital_need": 0
         },
-        "71": {
+        "75": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -15641,7 +16232,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 964,
+            "action_id": 968,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -15733,8 +16324,8 @@
             "vital_need": 0
         }
     },
-    "0965": {
-        "72": {
+    "0969": {
+        "76": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -15838,7 +16429,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 965,
+            "action_id": 969,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -15930,8 +16521,8 @@
             "vital_need": 0
         }
     },
-    "0966": {
-        "75": {
+    "0970": {
+        "79": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -16035,7 +16626,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2048,
             "action_dir": 2,
-            "action_id": 966,
+            "action_id": 970,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -16126,7 +16717,7 @@
             "vital_consume": 0,
             "vital_need": 0
         },
-        "76": {
+        "80": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -16230,7 +16821,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2048,
             "action_dir": 2,
-            "action_id": 966,
+            "action_id": 970,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -16322,8 +16913,8 @@
             "vital_need": 0
         }
     },
-    "0967": {
-        "80": {
+    "0971": {
+        "84": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -16427,7 +17018,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2304,
             "action_dir": 2,
-            "action_id": 967,
+            "action_id": 971,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -16518,7 +17109,7 @@
             "vital_consume": 0,
             "vital_need": 0
         },
-        "81": {
+        "85": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -16622,7 +17213,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2304,
             "action_dir": 2,
-            "action_id": 967,
+            "action_id": 971,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -16713,7 +17304,7 @@
             "vital_consume": 0,
             "vital_need": 0
         },
-        "82": {
+        "86": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -16817,7 +17408,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 2304,
             "action_dir": 2,
-            "action_id": 967,
+            "action_id": 971,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 137975840833,
@@ -16909,7 +17500,7 @@
             "vital_need": 0
         }
     },
-    "0970": {
+    "0974": {
         "48": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -17014,7 +17605,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1024,
             "action_dir": 2,
-            "action_id": 970,
+            "action_id": 974,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 34896617472,
@@ -17832,7 +18423,7 @@
             "vital_need": 0
         }
     },
-    "0972": {
+    "0976": {
         "49": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -17937,7 +18528,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1024,
             "action_dir": 2,
-            "action_id": 972,
+            "action_id": 976,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 34896617472,
@@ -18392,7 +18983,7 @@
             "vital_need": 0
         }
     },
-    "0977": {
+    "0981": {
         "47": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
@@ -18497,7 +19088,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1536,
             "action_dir": 2,
-            "action_id": 977,
+            "action_id": 981,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 536879169,
@@ -18589,8 +19180,8 @@
             "vital_need": 0
         }
     },
-    "0979": {
-        "63": {
+    "0983": {
+        "67": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -18694,7 +19285,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 979,
+            "action_id": 983,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -19871,8 +20462,8 @@
             "vital_need": 0
         }
     },
-    "0984": {
-        "64": {
+    "0988": {
+        "68": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -19976,7 +20567,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 984,
+            "action_id": 988,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -20068,8 +20659,8 @@
             "vital_need": 0
         }
     },
-    "0989": {
-        "65": {
+    "0993": {
+        "69": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
             "_IgnoreStrength": false,
@@ -20173,7 +20764,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 989,
+            "action_id": 993,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -20265,7 +20856,7 @@
             "vital_need": 0
         }
     },
-    "0994": {
+    "0998": {
         "165": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -20370,7 +20961,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 994,
+            "action_id": 998,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537149440,

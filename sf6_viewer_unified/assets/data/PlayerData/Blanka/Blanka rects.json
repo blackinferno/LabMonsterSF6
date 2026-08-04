@@ -2911,6 +2911,36 @@
             },
             "SizeX": 19,
             "SizeY": 26
+        },
+        "097": {
+            "OffsetX": 32,
+            "OffsetY": 52,
+            "PhyCoeffRateDesc": {
+                "CoeffType": 5,
+                "OffsetXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "OffsetYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "_type": 5
+            },
+            "SizeX": 75,
+            "SizeY": 50
         }
     },
     "02": {
@@ -7574,7 +7604,7 @@
                 "_type": 5
             },
             "SizeX": 39,
-            "SizeY": 51
+            "SizeY": 80
         },
         "095": {
             "OffsetX": 84,
@@ -10065,6 +10095,36 @@
             },
             "SizeX": 35,
             "SizeY": 21
+        },
+        "195": {
+            "OffsetX": 66,
+            "OffsetY": 83,
+            "PhyCoeffRateDesc": {
+                "CoeffType": 5,
+                "OffsetXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "OffsetYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "_type": 5
+            },
+            "SizeX": 14,
+            "SizeY": 83
         },
         "196": {
             "OffsetX": 33,

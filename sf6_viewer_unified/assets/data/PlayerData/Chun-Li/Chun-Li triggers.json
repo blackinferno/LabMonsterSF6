@@ -11917,7 +11917,7 @@
             "vital_need": 0
         }
     },
-    "0854": {
+    "0855": {
         "178": {
             "AtckType": 32,
             "_IgnoreEasy80": false,
@@ -12022,7 +12022,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 854,
+            "action_id": 855,
             "action_status_sub": 0,
             "atck_type_bit": 32,
             "category_flags": 65602,
@@ -18326,15 +18326,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 6,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -18745,7 +18745,7 @@
             },
             "supr_NG": true,
             "turn_around": 0,
-            "use_sprt": false,
+            "use_sprt": true,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0
@@ -18889,7 +18889,7 @@
                 "command_no": -1,
                 "dc_exc_flags": 2,
                 "dc_inc_flags": 0,
-                "ng_key_flags": 0,
+                "ng_key_flags": 12,
                 "ok_key_cond_flags": 16416,
                 "ok_key_flags": 32,
                 "preceding_time": 4
@@ -19083,15 +19083,15 @@
             "easy": {
                 "attribute": 0,
                 "command_index": -1,
-                "command_no": 0,
-                "dc_exc_flags": 0,
+                "command_no": -1,
+                "dc_exc_flags": 10,
                 "dc_inc_flags": 0,
                 "ng_key_flags": 0,
-                "ok_key_cond_flags": 0,
-                "ok_key_flags": 0,
-                "preceding_time": 0
+                "ok_key_cond_flags": 16416,
+                "ok_key_flags": 32,
+                "preceding_time": 4
             },
-            "easy_NG": true,
+            "easy_NG": false,
             "fightstyle_flags": 65535,
             "focus_consume": 0,
             "focus_need": 0,
@@ -19139,7 +19139,7 @@
             },
             "supr_NG": true,
             "turn_around": 0,
-            "use_sprt": false,
+            "use_sprt": true,
             "use_super": false,
             "vital_consume": 0,
             "vital_need": 0

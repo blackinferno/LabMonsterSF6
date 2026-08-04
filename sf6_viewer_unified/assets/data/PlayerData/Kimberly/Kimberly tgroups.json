@@ -18,9 +18,9 @@
         "028": "632 ATK_6HK(4)",
         "032": "637 ATK_3MK(3)",
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -28,7 +28,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "116": "480 DPA_STD_START",
         "124": "715 NGS(2)",
         "140": "855 ATK_CTA(7)",
@@ -39,13 +39,12 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H",
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H",
         "211": "1500 DEM_APPEAL_04",
         "219": "1150 _1150",
         "229": "1160 _1160",
@@ -59,7 +58,7 @@
         "021": "624 ATK_8HP",
         "022": "627 ATK_8HK",
         "101": "1015 SPA_Tengu_MISS",
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "002": {
         "017": "622 ATK_8LP",
@@ -69,7 +68,7 @@
         "021": "624 ATK_8HP",
         "022": "627 ATK_8HK",
         "101": "1015 SPA_Tengu_MISS",
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "003": {
         "116": "480 DPA_STD_START",
@@ -77,9 +76,9 @@
     },
     "004": {
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -88,7 +87,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "146": "1200 SPA_Hayagake_LP(10)",
         "147": "1203 SPA_Hayagake_LP(11)",
         "151": "1209 SAA_Lv2_START",
@@ -96,19 +95,19 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H"
     },
     "005": {
         "001": "18 BAS_DASH_B(1)",
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -116,7 +115,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "116": "480 DPA_STD_START",
         "140": "855 ATK_CTA(7)",
         "146": "1200 SPA_Hayagake_LP(10)",
@@ -126,26 +125,25 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H"
     },
     "010": {
         "117": "500 ATK_CTA_DASH(4)",
         "118": "500 ATK_CTA_DASH(4)"
     },
     "011": {
-        "141": "850 ATK_CTA_4(4)"
+        "141": "850 ATK_CTA_4(5)"
     },
     "015": {
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -153,7 +151,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "116": "480 DPA_STD_START",
         "124": "715 NGS(2)",
         "140": "855 ATK_CTA(7)",
@@ -164,13 +162,12 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H",
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H",
         "211": "1500 DEM_APPEAL_04"
     },
     "017": {
@@ -181,32 +178,31 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H"
     },
     "019": {
         "101": "1015 SPA_Tengu_MISS",
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "021": {
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "022": {
         "101": "1015 SPA_Tengu_MISS",
         "102": "949 SPA_BushinSenpu_Air",
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "205": "1023 SPA_Tengu_MISS(1)",
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "023": {
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "205": "1023 SPA_Tengu_MISS(1)",
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "025": {
         "035": "601 ATK_5LP_B(2)",
@@ -253,62 +249,71 @@
         "055": "655 BAS_JUMP_F_START(1)"
     },
     "040": {
-        "084": "907 SPA_Hayagake_LK(4)",
-        "085": "909 SPA_Hayagake_MK(4)",
+        "084": "908 SPA_Hayagake_LK(4)",
+        "085": "910 SPA_Hayagake_MK(4)",
         "086": "912 SPA_Hayagake_HK(4)",
-        "087": "905 SPA_Hayagake_LP(8)",
-        "088": "905 SPA_Hayagake_LP(8)",
-        "089": "905 SPA_Hayagake_LP(8)"
+        "087": "906 SPA_Hayagake_LP(8)",
+        "088": "906 SPA_Hayagake_LP(8)",
+        "089": "906 SPA_Hayagake_LP(8)"
     },
     "041": {
-        "084": "907 SPA_Hayagake_LK(4)",
-        "085": "909 SPA_Hayagake_MK(4)",
+        "084": "908 SPA_Hayagake_LK(4)",
+        "085": "910 SPA_Hayagake_MK(4)",
         "086": "912 SPA_Hayagake_HK(4)",
-        "087": "905 SPA_Hayagake_LP(8)",
-        "088": "905 SPA_Hayagake_LP(8)",
-        "089": "905 SPA_Hayagake_LP(8)",
-        "092": "909 SPA_Hayagake_MK(4)"
+        "087": "906 SPA_Hayagake_LP(8)",
+        "088": "906 SPA_Hayagake_LP(8)",
+        "089": "906 SPA_Hayagake_LP(8)",
+        "092": "910 SPA_Hayagake_MK(4)"
     },
     "042": {
-        "081": "907 SPA_Hayagake_LK(4)",
-        "082": "909 SPA_Hayagake_MK(4)",
+        "081": "908 SPA_Hayagake_LK(4)",
+        "082": "910 SPA_Hayagake_MK(4)",
         "083": "912 SPA_Hayagake_HK(4)"
     },
     "043": {
-        "185": "908 SPA_Hayagake_LK(5)",
-        "186": "908 SPA_Hayagake_LK(5)",
-        "187": "910 SPA_Hayagake_MK(5)",
-        "188": "910 SPA_Hayagake_MK(5)",
-        "189": "913 SPA_Hayagake_HK(5)",
+        "186": "909 SPA_Hayagake_LK(5)",
+        "188": "911 SPA_Hayagake_MK(5)",
         "190": "913 SPA_Hayagake_HK(5)",
-        "191": "906 SPA_Hayagake_LP(9)",
-        "193": "906 SPA_Hayagake_LP(9)",
-        "194": "906 SPA_Hayagake_LP(9)"
+        "192": "907 SPA_Hayagake_LP(9)",
+        "194": "907 SPA_Hayagake_LP(9)",
+        "195": "907 SPA_Hayagake_LP(9)"
     },
     "044": {
-        "182": "908 SPA_Hayagake_LK(5)",
-        "183": "910 SPA_Hayagake_MK(5)",
-        "184": "913 SPA_Hayagake_HK(5)"
+        "187": "909 SPA_Hayagake_LK(5)",
+        "189": "911 SPA_Hayagake_MK(5)",
+        "191": "913 SPA_Hayagake_HK(5)"
     },
     "045": {
-        "191": "906 SPA_Hayagake_LP(9)",
-        "193": "906 SPA_Hayagake_LP(9)",
-        "194": "906 SPA_Hayagake_LP(9)"
+        "183": "909 SPA_Hayagake_LK(5)",
+        "184": "911 SPA_Hayagake_MK(5)",
+        "185": "913 SPA_Hayagake_HK(5)"
     },
     "046": {
+        "192": "907 SPA_Hayagake_LP(9)",
+        "194": "907 SPA_Hayagake_LP(9)",
+        "195": "907 SPA_Hayagake_LP(9)"
+    },
+    "047": {
+        "193": "907 SPA_Hayagake_LP(9)"
+    },
+    "048": {
         "090": "931 SPA_Hayagake_Jump_Kick_Start",
         "091": "920 SPA_Hayagake_IZUNA_Miss"
     },
-    "047": {
-        "195": "934 SPA_Hayagake_Jump_Kick_EX",
-        "197": "924 SPA_Hayagake_IZUNA_Miss(1)"
-    },
     "049": {
+        "196": "934 SPA_Hayagake_Jump_Kick_EX",
+        "198": "924 SPA_Hayagake_IZUNA_Miss(1)"
+    },
+    "050": {
+        "197": "934 SPA_Hayagake_Jump_Kick_EX",
+        "199": "924 SPA_Hayagake_IZUNA_Miss(1)"
+    },
+    "051": {
         "060": "501 ATK_CTA_DASH(5)",
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -317,7 +322,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "120": "501 ATK_CTA_DASH(5)",
         "140": "855 ATK_CTA(7)",
         "146": "1200 SPA_Hayagake_LP(10)",
@@ -327,13 +332,13 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "181": "905 SPA_Hayagake_Start(5)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H"
     },
     "052": {
         "151": "1209 SAA_Lv2_START",
@@ -346,7 +351,7 @@
     },
     "056": {
         "101": "1015 SPA_Tengu_MISS",
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "058": {
         "160": "1211 SAA_Lv2_START(2)"
@@ -364,8 +369,8 @@
         "101": "1015 SPA_Tengu_MISS",
         "102": "949 SPA_BushinSenpu_Air",
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "205": "1023 SPA_Tengu_MISS(1)",
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "063": {
         "017": "622 ATK_8LP",
@@ -376,26 +381,26 @@
         "022": "627 ATK_8HK",
         "101": "1015 SPA_Tengu_MISS",
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)"
+        "205": "1023 SPA_Tengu_MISS(1)"
     },
     "064": {
         "101": "1015 SPA_Tengu_MISS",
         "102": "949 SPA_BushinSenpu_Air",
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "205": "1023 SPA_Tengu_MISS(1)",
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "066": {
         "102": "949 SPA_BushinSenpu_Air",
         "158": "1210 SAA_Lv2_START(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "067": {
         "101": "1015 SPA_Tengu_MISS",
         "102": "949 SPA_BushinSenpu_Air",
         "158": "1210 SAA_Lv2_START(1)",
-        "204": "1023 SPA_Tengu_MISS(1)",
-        "205": "951 SPA_BushinSenpu_Air(1)"
+        "205": "1023 SPA_Tengu_MISS(1)",
+        "206": "951 SPA_BushinSenpu_Air(1)"
     },
     "068": {
         "023": "639 ATK_82HP"
@@ -417,9 +422,9 @@
         "028": "632 ATK_6HK(4)",
         "032": "637 ATK_3MK(3)",
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -436,18 +441,17 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)"
     },
     "071": {
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -464,12 +468,11 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
         "211": "1500 DEM_APPEAL_04"
     },
     "074": {
@@ -478,9 +481,6 @@
     },
     "076": {
         "116": "480 DPA_STD_START"
-    },
-    "079": {
-        "180": "979 SPA_SprayBomb_M(5)"
     },
     "123": {
         "003": "600 ATK_5LP(5)",
@@ -499,9 +499,9 @@
         "028": "632 ATK_6HK(4)",
         "032": "637 ATK_3MK(3)",
         "067": "973 SPA_SprayBomb_R(4)",
-        "068": "975 SPA_SprayBomb_L(4)",
-        "069": "976 SPA_SprayBomb_M(4)",
-        "070": "977 SPA_SprayBomb_H(4)",
+        "068": "975 SPA_SprayBomb_L(6)",
+        "069": "977 SPA_SprayBomb_M(6)",
+        "070": "979 SPA_SprayBomb_H(6)",
         "074": "957 SPA_ChargeChop_L_START(6)",
         "075": "958 SPA_ChargeChop_M(2)",
         "076": "960 SPA_ChargeChop_H(4)",
@@ -509,7 +509,7 @@
         "094": "940 SPA_BushinSenpu_Start",
         "095": "941 SPA_BushinSenpu_Start(1)",
         "096": "942 SPA_BushinSenpu_Start(2)",
-        "097": "966 SPA_SpraySmoke_M(2)",
+        "098": "965 SPA_SpraySmoke_M",
         "124": "715 NGS(2)",
         "140": "855 ATK_CTA(7)",
         "146": "1200 SPA_Hayagake_LP(10)",
@@ -519,12 +519,11 @@
         "167": "1224 SAA_Lv3_START(1)",
         "175": "962 SPA_ChargeChop_H(5)",
         "176": "974 SPA_SprayBomb_R(5)",
-        "177": "978 SPA_SprayBomb_L(5)",
-        "178": "979 SPA_SprayBomb_M(5)",
-        "179": "980 SPA_SprayBomb_H(5)",
-        "180": "979 SPA_SprayBomb_M(5)",
-        "181": "903 SPA_Hayagake_Start(3)",
-        "199": "943 SPA_BushinSenpu_Start(3)",
-        "201": "970 SPA_SpraySmoke_H"
+        "177": "981 SPA_SprayBomb_L(8)",
+        "178": "982 SPA_SprayBomb_M(8)",
+        "179": "983 SPA_SprayBomb_H(8)",
+        "182": "903 SPA_Hayagake_Start(3)",
+        "203": "943 SPA_BushinSenpu_Start(3)",
+        "204": "970 SPA_SpraySmoke_H"
     }
 }

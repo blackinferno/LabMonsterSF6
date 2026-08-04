@@ -298,6 +298,9 @@
         "067": "501 ATK_CTA_RUSH(1)",
         "152": "501 ATK_CTA_RUSH(1)"
     },
+    "044": {
+        "027": "653 ATK_92HP_Start"
+    },
     "050": {
         "174": "1215 SAA_2_KATAYOKU_START"
     },

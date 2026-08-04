@@ -4,7 +4,7 @@
         "001": "18 BAS_DASH_B",
         "002": "600 ATK_5LP",
         "003": "611 ATK_5LK",
-        "004": "605 ATK_5MP",
+        "004": "605 ATK_5MP(1)",
         "005": "614 ATK_5MK",
         "006": "608 ATK_5HP",
         "007": "617 ATK_5HK",
@@ -38,7 +38,7 @@
         "097": "903 SPA_GOHADO_Full(3)",
         "101": "480 DPA_STD_START",
         "106": "715 NGS",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "133": "1220 SAA_SHINRA_START",
@@ -173,7 +173,7 @@
         "096": "902 SPA_GOHADO_Full(2)",
         "097": "903 SPA_GOHADO_Full(3)",
         "101": "480 DPA_STD_START",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "135": "1220 SAA_SHINRA_START",
@@ -215,7 +215,7 @@
         "097": "903 SPA_GOHADO_Full(3)",
         "101": "480 DPA_STD_START",
         "106": "715 NGS",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "135": "1220 SAA_SHINRA_START",
@@ -287,7 +287,7 @@
         "096": "902 SPA_GOHADO_Full(2)",
         "097": "903 SPA_GOHADO_Full(3)",
         "104": "739 ATK_CTA_DASH",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "135": "1220 SAA_SHINRA_START",
@@ -365,7 +365,7 @@
     "046": {
         "002": "600 ATK_5LP",
         "003": "611 ATK_5LK",
-        "004": "605 ATK_5MP",
+        "004": "605 ATK_5MP(1)",
         "005": "614 ATK_5MK",
         "006": "608 ATK_5HP",
         "007": "617 ATK_5HK",
@@ -398,7 +398,7 @@
         "096": "902 SPA_GOHADO_Full(2)",
         "097": "903 SPA_GOHADO_Full(3)",
         "106": "715 NGS",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "135": "1220 SAA_SHINRA_START",
@@ -427,12 +427,8 @@
     "051": {
         "034": "670 ATK_6HP_TC_TC"
     },
-    "055": {
-        "036": "601 ATK_5LP_B",
-        "042": "623 ATK_2LP_B"
-    },
     "057": {
-        "115": "854 ATK_CTA"
+        "115": "855 ATK_CTA"
     },
     "058": {
         "049": "900 SPA_GOHADO_Full",
@@ -453,7 +449,7 @@
         "095": "900 SPA_GOHADO_Full",
         "096": "902 SPA_GOHADO_Full(2)",
         "097": "903 SPA_GOHADO_Full(3)",
-        "115": "854 ATK_CTA",
+        "115": "855 ATK_CTA",
         "125": "1200 SAA_GOHADO",
         "129": "1213 BAS_STD_Loop(2)",
         "135": "1220 SAA_SHINRA_START",
@@ -502,7 +498,8 @@
         "070": "1007 SPA_HYAKKI_GOZIN_H(1)",
         "071": "1008 SPA_HYAKKI_GOSHO(1)",
         "073": "1033 SPA_HYAKKI_GORASEN_MISS",
-        "074": "952 SPA_ZANKU_Ex(2)"
+        "074": "952 SPA_ZANKU_Ex(2)",
+        "127": "1207 SAA_GOZANKU_START"
     },
     "074": {
         "127": "1207 SAA_GOZANKU_START",

@@ -4299,6 +4299,36 @@
             "SizeX": 25,
             "SizeY": 70
         },
+        "033": {
+            "OffsetX": -18,
+            "OffsetY": 205,
+            "PhyCoeffRateDesc": {
+                "CoeffType": 5,
+                "OffsetXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "OffsetYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "_type": 5
+            },
+            "SizeX": 7,
+            "SizeY": 27
+        },
         "038": {
             "OffsetX": 0,
             "OffsetY": 109,
@@ -5685,7 +5715,7 @@
             "SizeY": 27
         },
         "104": {
-            "OffsetX": 78,
+            "OffsetX": 85,
             "OffsetY": 100,
             "PhyCoeffRateDesc": {
                 "CoeffType": 5,
@@ -5833,6 +5863,36 @@
             },
             "SizeX": 10,
             "SizeY": 36
+        },
+        "109": {
+            "OffsetX": 55,
+            "OffsetY": 69,
+            "PhyCoeffRateDesc": {
+                "CoeffType": 5,
+                "OffsetXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "OffsetYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeXRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "SizeYRate": {
+                    "Arm": 0.0,
+                    "Height": 1.0,
+                    "Leg": 0.0
+                },
+                "_type": 5
+            },
+            "SizeX": 15,
+            "SizeY": 69
         },
         "112": {
             "OffsetX": 62,

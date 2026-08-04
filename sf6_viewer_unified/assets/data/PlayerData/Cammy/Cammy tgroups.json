@@ -233,9 +233,6 @@
         "193": "1025 SPA_CANNONSTRIKE_H_START(1)",
         "197": "1024 SPA_CANNONSTRIKE_H_START"
     },
-    "022": {
-        "038": "651 ATK_4MP_HK"
-    },
     "023": {
         "041": "652 ATK_TC_5HP_5HK"
     },
@@ -254,6 +251,9 @@
         "194": "1025 SPA_CANNONSTRIKE_H_START(1)",
         "197": "1024 SPA_CANNONSTRIKE_H_START",
         "198": "1024 SPA_CANNONSTRIKE_H_START"
+    },
+    "026": {
+        "038": "651 ATK_4MP_HK"
     },
     "027": {
         "097": "970 SPA_FC_THROW_MISS"

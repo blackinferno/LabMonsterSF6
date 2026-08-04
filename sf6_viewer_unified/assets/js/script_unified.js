@@ -941,11 +941,20 @@ const CHARACTER_ART_PRESETS = {
   "ingrid": {
     "top": "calc(1px - min(4.16667vw, 80px))",
     "left": "calc(50% - min(34.375vw, 660px))",
-    "width": "min(63.0208vw, 1210px)",
-    "height": "min(80.7292vw, 1550px)",
+    "width": "min(63.0208vw, 1462px)",
+    "height": "min(80.7292vw, 1552px)",
     "shift": "-1%",
     "shiftx": "0%"
   },
+  "yasmine": {
+    "top": "calc(1px - min(4.16667vw, 80px))",
+    "left": "calc(50% - min(34.375vw, 660px))",
+    "width": "min(96.5625vw, 1703px)",
+    "height": "min(76.9792vw, 1580px)",
+    "shift": "16%",
+    "shiftx": "0%"
+  },
+
 };
 const CHARACTER_ART_DEFAULT = {
   top: '0px',
@@ -973,7 +982,8 @@ const CHARACTER_SELECT_SPECIAL = {
   deejay: 'assets/images/characters/select_character12_over.png',
   marisa: 'assets/images/characters/select_character14_over.png',
   manon: 'assets/images/characters/select_character13_over.png',
-  ingrid: 'assets/images/characters/select_character30_over.png'
+  ingrid: 'assets/images/characters/select_character30_over.png',
+  yasmine: 'assets/images/characters/select_character31_over.png'
 };
 
 const CHARACTER_NAME_OVERRIDES = {
@@ -1153,13 +1163,12 @@ async function loadCharacterData(char = '', control = 'classic') {
               'jp'
             );
             if (Array.isArray(jpCurrentData.moves) && jpCurrentData.moves.length
-              && Array.isArray(jpCompareData.moves) && jpCompareData.moves.length
-              && jpCurrentData.moves.length === moves.length) {
+              && Array.isArray(jpCompareData.moves) && jpCompareData.moves.length) {
               diffCurrentMoves = jpCurrentData.moves;
               diffCompareMoves = jpCompareData.moves;
               hasComparableBaseline = true;
             } else {
-              console.warn('Frame compare JP baseline row mismatch. Skipping compare highlight.');
+              console.warn('Frame compare JP baseline unavailable. Skipping compare highlight.');
             }
           } catch (jpCompareErr) {
             console.warn('Frame compare JP baseline load failed. Skipping compare highlight:', jpCompareErr);
@@ -1175,10 +1184,10 @@ async function loadCharacterData(char = '', control = 'classic') {
           hasComparableBaseline = Array.isArray(diffCompareMoves) && diffCompareMoves.length > 0;
         }
         if (hasComparableBaseline && Array.isArray(diffCompareMoves) && diffCompareMoves.length) {
-          if (Array.isArray(diffCurrentMoves) && diffCurrentMoves.length === diffCompareMoves.length) {
+          if (Array.isArray(diffCurrentMoves) && diffCurrentMoves.length) {
             diffMap = buildFrameDiffMap(diffCurrentMoves, diffCompareMoves, control);
           } else {
-            console.warn('Frame compare row mismatch. Skipping compare highlight.');
+            console.warn('Frame compare current rows unavailable. Skipping compare highlight.');
           }
         }
       } catch (compareErr) {
@@ -1396,6 +1405,13 @@ function rowHtml(m, control, diffInfo = null) {
       const oldText = String(diff.old || '-').trim() || '-';
       const nextText = String(diff.next || '-').trim() || '-';
       title = `Prev: ${oldText} -> ${nextText}`;
+    } else if (isNewRow && fieldKey === 'name') {
+      classes.push('frame-cell-changed');
+      const nextText = extractFrameNameCompareText(
+        filterModeHtml(String(m.nameHtml || ''), control),
+        m.name,
+      ) || String(m.name || '-').trim() || '-';
+      title = `Prev: - -> ${nextText}`;
     }
     const classAttr = classes.length ? ` class="${classes.join(' ')}"` : '';
     const titleAttr = title ? ` title="${escapeHtmlCompat(title)}"` : '';
@@ -1493,6 +1509,58 @@ function extractTextFromTd(html) {
   const container = td || wrap;
   return container.textContent.trim();
 }
+
+function frameCommandIconTokenFromSrc(src) {
+  const file = String(src || '').split(/[\\/]/).pop().toLowerCase();
+  const map = {
+    'modern_l.png': 'L',
+    'modern_m.png': 'M',
+    'modern_h.png': 'H',
+    'modern_sp.png': 'SP',
+    'modern_auto.png': 'Auto',
+    'modern_dl.png': 'DI',
+    'modern_dr.png': 'DR',
+    'modern_dp.png': 'DP',
+    'modern_cr.png': 'CR',
+    'key-plus.png': '+',
+    'key-or.png': 'or',
+    'key-all.png': 'Any',
+    'key-nutral.png': 'N',
+    'key-u.png': '8',
+    'key-d.png': '2',
+    'key-l.png': '4',
+    'key-r.png': '6',
+    'key-ul.png': '7',
+    'key-ur.png': '9',
+    'key-dl.png': '1',
+    'key-dr.png': '3',
+    'arrow_3.png': '>',
+  };
+  return map[file] || '';
+}
+
+function extractFrameCommandIconText(html) {
+  if (!html || typeof html !== 'string') return '';
+  const wrap = document.createElement('div');
+  wrap.innerHTML = html;
+  const tokens = Array.from(wrap.querySelectorAll('img'))
+    .map((img) => frameCommandIconTokenFromSrc(img.getAttribute('src') || ''))
+    .filter(Boolean);
+  if (!tokens.length) return '';
+  return tokens.join(' ')
+    .replace(/\s*\+\s*/g, '+')
+    .replace(/\s*>\s*/g, ' > ')
+    .replace(/\s+or\s+/g, ' or ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function extractFrameNameCompareText(html, fallbackText = '') {
+  const text = extractTextFromTd(html) || String(fallbackText || '').trim();
+  const icons = extractFrameCommandIconText(html);
+  return [text, icons].filter(Boolean).join(' | ');
+}
+
 function extractInnerFromTd(html) {
   if (!html || typeof html !== 'string') return '';
   const wrap = document.createElement('div');
@@ -3241,7 +3309,7 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
     return result;
   }
   const fields = [
-    'startup', 'active', 'recovery', 'hitAdv', 'guardAdv', 'cancel', 'damage',
+    'name', 'startup', 'active', 'recovery', 'hitAdv', 'guardAdv', 'cancel', 'damage',
     'comboMod', 'driveGain', 'driveLossGuard', 'driveLossPunish', 'saGain',
     'attribute', 'notes',
   ];
@@ -3267,6 +3335,16 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
       if (text) return text;
     }
     return String(move[field] || '');
+  };
+  const comparableDiffText = (move, field) => {
+    if (field !== 'name') return comparableText(move, field);
+    if (!move || typeof move !== 'object') return '';
+    let html = typeof move.nameHtml === 'string' ? move.nameHtml : '';
+    if (html.trim()) {
+      html = filterModeHtml(html, control);
+      return extractFrameNameCompareText(html, move.name);
+    }
+    return String(move.name || '');
   };
   const normalizeKey = (text) => {
     const localized = localizeFrameInlineText(String(text || ''), 'en');
@@ -3294,7 +3372,7 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
   const diffCount = (aMove, bMove) => {
     let count = 0;
     fields.forEach((field) => {
-      if (normalizeValue(comparableText(aMove, field)) !== normalizeValue(comparableText(bMove, field))) count += 1;
+      if (normalizeValue(comparableDiffText(aMove, field)) !== normalizeValue(comparableDiffText(bMove, field))) count += 1;
     });
     return count;
   };
@@ -3390,7 +3468,7 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
       matched = findClosest(buckets.byCore.get(coreKey), move);
       if (matched) sharedMatch = true;
     }
-    if (!matched) {
+    if (!matched && currentMoves.length === compareMoves.length) {
       const direct = buckets.byIndex.get(idx);
       if (direct && !direct.used) matched = direct;
     }
@@ -3465,8 +3543,8 @@ function buildFrameDiffMap(currentMoves, compareMoves, control = 'classic') {
     const other = matched.move;
     const diffFields = {};
     fields.forEach((field) => {
-      const nowRaw = comparableText(move, field);
-      const oldRaw = comparableText(other, field);
+      const nowRaw = comparableDiffText(move, field);
+      const oldRaw = comparableDiffText(other, field);
       const nowVal = normalizeValue(nowRaw);
       const oldVal = normalizeValue(oldRaw);
       if (nowVal !== oldVal) {

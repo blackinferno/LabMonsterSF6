@@ -21456,7 +21456,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -22287,7 +22287,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -24358,7 +24358,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -26579,7 +26579,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -28999,7 +28999,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -30076,7 +30076,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 9
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -31193,7 +31193,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 9
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -32883,7 +32883,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -33959,7 +33959,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -35113,7 +35113,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -36370,7 +36370,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -37440,7 +37440,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "EventKey": {
             "1": {
@@ -38847,7 +38847,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -40327,7 +40327,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -42035,7 +42035,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -43605,7 +43605,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -47766,7 +47766,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -48514,7 +48514,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -50748,7 +50748,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": -18,
+                    "X": -1,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -51050,7 +51050,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 12
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -52259,7 +52259,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -53626,7 +53626,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -54554,7 +54554,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "MergeKey": {
             "1": {
@@ -55207,7 +55207,7 @@
                 "_ShotCategory": 0,
                 "_StartFrame": 0
             },
-            "keys_index": 52
+            "keys_index": 53
         },
         "EventKey": {
             "1": {
@@ -71785,7 +71785,7 @@
             "1": {
                 "ATTR": 9,
                 "Flags": 1,
-                "Option": 0,
+                "Option": 1,
                 "Timer": -5,
                 "Type": 0,
                 "_EndFrame": 6,
@@ -72573,7 +72573,7 @@
             "1": {
                 "ATTR": 9,
                 "Flags": 1,
-                "Option": 0,
+                "Option": 1,
                 "Timer": -5,
                 "Type": 0,
                 "_EndFrame": 6,
@@ -73991,6 +73991,170 @@
                 "p04_TRIGGER_INPUT": 0,
                 "p04_UNIQUE_PARAM": 0
             },
+            "2": {
+                "Action": 854,
+                "ActionFrame": 0,
+                "ActionList": 0,
+                "Attr": 288,
+                "Param00": 0,
+                "Param01": 0,
+                "Param02": 0,
+                "Param03": 0,
+                "Param04": 0,
+                "Param05": 0,
+                "TriggerID": -1,
+                "Type": 0,
+                "_ActionName": "Action = 854",
+                "_EndFrame": 18,
+                "_InBattle": false,
+                "_InheritFrame": false,
+                "_InheritFrameX": true,
+                "_InheritLoopCount": false,
+                "_IsACTION_ID": false,
+                "_IsAREA_ALL": false,
+                "_IsAREA_OFFSET": false,
+                "_IsAREA_PARENT": false,
+                "_IsAREA_RIVAL_TEAM": false,
+                "_IsAREA_SCREEN": false,
+                "_IsAREA_TARGET": false,
+                "_IsAction00": false,
+                "_IsAction01": false,
+                "_IsAction02": false,
+                "_IsAction03": false,
+                "_IsAction04": false,
+                "_IsAction05": false,
+                "_IsBrowse00": false,
+                "_IsBrowse01": false,
+                "_IsBrowse02": false,
+                "_IsBrowse03": false,
+                "_IsBrowse04": false,
+                "_IsBrowse05": false,
+                "_IsCOMMAND": false,
+                "_IsCOMMAND_E": false,
+                "_IsCOMMAND_N": false,
+                "_IsCOMMAND_S": false,
+                "_IsChangeStyle": false,
+                "_IsFIGHT_STYLE": false,
+                "_IsHighPriority": false,
+                "_IsStyle00": false,
+                "_IsStyle01": false,
+                "_IsStyle02": false,
+                "_IsStyle03": false,
+                "_IsStyle04": false,
+                "_IsStyle05": false,
+                "_IsTRIGGER": false,
+                "_IsTRIGGER_INPUT": false,
+                "_IsTRIGGER_INPUT_E": false,
+                "_IsTRIGGER_INPUT_N": false,
+                "_IsTRIGGER_INPUT_S": false,
+                "_IsTrigger00": false,
+                "_IsTrigger01": false,
+                "_IsTrigger02": false,
+                "_IsTrigger03": false,
+                "_IsTrigger04": false,
+                "_IsTrigger05": false,
+                "_KeepPlace": true,
+                "_Names00": "Param00 @",
+                "_Names01": "Param01 @",
+                "_Names02": "Param02 @",
+                "_Names03": "Param03 @",
+                "_Names04": "Param04 @",
+                "_Names05": "Param05 @",
+                "_ResetComboID": false,
+                "_StartFrame": 0,
+                "_TriggerTriggerId": 17,
+                "_TypeID": 0,
+                "_TypeX": 0,
+                "_TypesName": "Types = ALWAYS",
+                "__Attr": 288,
+                "__AttrX": 288,
+                "p00_AREA_ALL": 0,
+                "p00_ARMOR": 0,
+                "p00_ATEMI": 0,
+                "p00_CATCH": 0,
+                "p00_CERTAIN_REASONS": 0,
+                "p00_CHARA_ID": 0,
+                "p00_COMMAND": 0,
+                "p00_COUNTER": 0,
+                "p00_GAUGE": 0,
+                "p00_HEIGHT": 0,
+                "p00_HIT": 0,
+                "p00_HIT_CATCH": 0,
+                "p00_HIT_CHARA_ID": 0,
+                "p00_INCAPACITATED": 0,
+                "p00_LANDING": false,
+                "p00_LOOP_COUNT": 0,
+                "p00_NEGATIVE": 0,
+                "p00_OBSTACLE": 0,
+                "p00_PARRY": 0,
+                "p00_PARTNER_NO": 0,
+                "p00_PARTS_VITAL": 0,
+                "p00_RANDOM": 0,
+                "p00_RANGE": 0,
+                "p00_SHOT_COUNT": 0,
+                "p00_SIDE": 0,
+                "p00_STATUS": 0,
+                "p00_STEER": 0,
+                "p00_SWING": 0,
+                "p00_TIMER_COUNT": 0,
+                "p00_TOUCH": 0,
+                "p00_TRIGGER_INPUT": 0,
+                "p00_UNIQUE_PARAM": 0,
+                "p00_UNIQUE_TIMER": 0,
+                "p00_WALL": 0,
+                "p01_ARMOR": 0,
+                "p01_ATEMI": 0,
+                "p01_CATCH": 0,
+                "p01_COMMAND": 0,
+                "p01_COMMAND_E": 0,
+                "p01_COMMAND_S": 0,
+                "p01_GAUGE": 0,
+                "p01_HEIGHT": 0,
+                "p01_HIT": 0,
+                "p01_HIT_CATCH": 0,
+                "p01_LANDING": 0,
+                "p01_LOOP_COUNT": 0,
+                "p01_PARRY": 0,
+                "p01_PARTS_VITAL": 0,
+                "p01_RANGE": 0,
+                "p01_SHOT_COUNT": 0,
+                "p01_STATUS": 0,
+                "p01_STEER": 0,
+                "p01_TIMER_COUNT": 0,
+                "p01_TOUCH": 0,
+                "p01_TRIGGER": 0,
+                "p01_TRIGGER_INPUT": 0,
+                "p01_TRIGGER_INPUT_E": 0,
+                "p01_TRIGGER_INPUT_S": 0,
+                "p01_UNIQUE_PARAM": 0,
+                "p01_UNIQUE_TIMER": 0,
+                "p02_ACTION_ID": 0,
+                "p02_ARMOR": 0,
+                "p02_CHARA_ID": 0,
+                "p02_GAUGE": 0,
+                "p02_HEIGHT": 0,
+                "p02_HIT": 0,
+                "p02_PARRY": 0,
+                "p02_PARTS_VITAL": 0,
+                "p02_SHOT_COUNT": 0,
+                "p02_STATUS": 0,
+                "p02_STEER": 0.0,
+                "p02_TRIGGER_CHECK_TYPE": 0,
+                "p02_TRIGGER_INPUT": false,
+                "p02_UNIQUE_PARAM": 0,
+                "p02_UNIQUE_TIMER": 0,
+                "p03_ACTION_ID": 0,
+                "p03_AREA_ALL": 0,
+                "p03_COMMAND": 0,
+                "p03_GAUGE": 0,
+                "p03_PARTS_VITAL": 0,
+                "p03_SHOT_COUNT": 0,
+                "p03_TRIGGER_INPUT": 0,
+                "p03_UNIQUE_PARAM": 0,
+                "p04_STATUS": 0,
+                "p04_TRIGGER_INPUT": 0,
+                "p04_UNIQUE_PARAM": 0
+            },
             "keys_index": 0
         },
         "DamageCollisionKey": {
@@ -74554,6 +74718,20 @@
             },
             "keys_index": 25
         },
+        "WorldKey": {
+            "1": {
+                "ATTR": 9,
+                "Flags": 0,
+                "Option": 0,
+                "Timer": 12,
+                "Type": 3,
+                "_EndFrame": 18,
+                "_IsFLAGS": true,
+                "_IsTIMER": true,
+                "_StartFrame": 0
+            },
+            "keys_index": 9
+        },
         "_PL_StyleID": 0,
         "fab": {
             "ActionFrame": {
@@ -74619,6 +74797,898 @@
         "id": 853,
         "mot_name": "esf005_ATK_CTA_4",
         "name": "ATK_CTA_4(3)"
+    },
+    "ATK_CTA_4(4)": {
+        "AttackCollisionKey": {
+            "1": {
+                "ATTR": 10,
+                "AttackDataListIndex": -1,
+                "BoxList": {
+                    "0": 50
+                },
+                "CollisionType": 3,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": 0,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 8389248,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 20,
+                "_IsGuardBit": true,
+                "_IsHitID": false,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 0,
+                "_ValidStyle": 0,
+                "__KindFlag": 8389248,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": true,
+                "_isStr": false,
+                "_isThr": false
+            },
+            "2": {
+                "ATTR": 10,
+                "AttackDataListIndex": 179,
+                "BoxList": {
+                    "0": 64
+                },
+                "CollisionType": 0,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": 0,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 33408,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 20,
+                "_IsGuardBit": true,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 17,
+                "_ValidStyle": 0,
+                "__KindFlag": 33408,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": true,
+                "_isThr": false
+            },
+            "keys_index": 10
+        },
+        "BranchKey": {
+            "1": {
+                "Action": 851,
+                "ActionFrame": 26,
+                "ActionList": 0,
+                "Attr": 32,
+                "Param00": 0,
+                "Param01": 0,
+                "Param02": 0,
+                "Param03": 0,
+                "Param04": 0,
+                "Param05": 0,
+                "TriggerID": -1,
+                "Type": 2,
+                "_ActionName": "Action = 851",
+                "_EndFrame": 21,
+                "_InBattle": false,
+                "_InheritFrame": false,
+                "_InheritFrameX": false,
+                "_InheritLoopCount": false,
+                "_IsACTION_ID": false,
+                "_IsAREA_ALL": false,
+                "_IsAREA_OFFSET": false,
+                "_IsAREA_PARENT": false,
+                "_IsAREA_RIVAL_TEAM": false,
+                "_IsAREA_SCREEN": false,
+                "_IsAREA_TARGET": false,
+                "_IsAction00": false,
+                "_IsAction01": false,
+                "_IsAction02": false,
+                "_IsAction03": false,
+                "_IsAction04": false,
+                "_IsAction05": false,
+                "_IsBrowse00": false,
+                "_IsBrowse01": false,
+                "_IsBrowse02": false,
+                "_IsBrowse03": false,
+                "_IsBrowse04": false,
+                "_IsBrowse05": false,
+                "_IsCOMMAND": false,
+                "_IsCOMMAND_E": false,
+                "_IsCOMMAND_N": false,
+                "_IsCOMMAND_S": false,
+                "_IsChangeStyle": false,
+                "_IsFIGHT_STYLE": false,
+                "_IsHighPriority": false,
+                "_IsStyle00": false,
+                "_IsStyle01": false,
+                "_IsStyle02": false,
+                "_IsStyle03": false,
+                "_IsStyle04": false,
+                "_IsStyle05": false,
+                "_IsTRIGGER": false,
+                "_IsTRIGGER_INPUT": false,
+                "_IsTRIGGER_INPUT_E": false,
+                "_IsTRIGGER_INPUT_N": false,
+                "_IsTRIGGER_INPUT_S": false,
+                "_IsTrigger00": false,
+                "_IsTrigger01": false,
+                "_IsTrigger02": false,
+                "_IsTrigger03": false,
+                "_IsTrigger04": false,
+                "_IsTrigger05": false,
+                "_KeepPlace": true,
+                "_Names00": "Param00 @",
+                "_Names01": "Param01 @",
+                "_Names02": "Param02 @",
+                "_Names03": "Param03 @",
+                "_Names04": "Param04 @",
+                "_Names05": "Param05 @",
+                "_ResetComboID": false,
+                "_StartFrame": 20,
+                "_TriggerTriggerId": 17,
+                "_TypeID": 2,
+                "_TypeX": 2,
+                "_TypesName": "Types = HIT",
+                "__Attr": 32,
+                "__AttrX": 32,
+                "p00_AREA_ALL": 0,
+                "p00_ARMOR": 0,
+                "p00_ATEMI": 0,
+                "p00_CATCH": 0,
+                "p00_CERTAIN_REASONS": 0,
+                "p00_CHARA_ID": 0,
+                "p00_COMMAND": 0,
+                "p00_COUNTER": 0,
+                "p00_GAUGE": 0,
+                "p00_HEIGHT": 0,
+                "p00_HIT": 0,
+                "p00_HIT_CATCH": 0,
+                "p00_HIT_CHARA_ID": 0,
+                "p00_INCAPACITATED": 0,
+                "p00_LANDING": false,
+                "p00_LOOP_COUNT": 0,
+                "p00_NEGATIVE": 0,
+                "p00_OBSTACLE": 0,
+                "p00_PARRY": 0,
+                "p00_PARTNER_NO": 0,
+                "p00_PARTS_VITAL": 0,
+                "p00_RANDOM": 0,
+                "p00_RANGE": 0,
+                "p00_SHOT_COUNT": 0,
+                "p00_SIDE": 0,
+                "p00_STATUS": 0,
+                "p00_STEER": 0,
+                "p00_SWING": 0,
+                "p00_TIMER_COUNT": 0,
+                "p00_TOUCH": 0,
+                "p00_TRIGGER_INPUT": 0,
+                "p00_UNIQUE_PARAM": 0,
+                "p00_UNIQUE_TIMER": 0,
+                "p00_WALL": 0,
+                "p01_ARMOR": 0,
+                "p01_ATEMI": 0,
+                "p01_CATCH": 0,
+                "p01_COMMAND": 0,
+                "p01_COMMAND_E": 0,
+                "p01_COMMAND_S": 0,
+                "p01_GAUGE": 0,
+                "p01_HEIGHT": 0,
+                "p01_HIT": 0,
+                "p01_HIT_CATCH": 0,
+                "p01_LANDING": 0,
+                "p01_LOOP_COUNT": 0,
+                "p01_PARRY": 0,
+                "p01_PARTS_VITAL": 0,
+                "p01_RANGE": 0,
+                "p01_SHOT_COUNT": 0,
+                "p01_STATUS": 0,
+                "p01_STEER": 0,
+                "p01_TIMER_COUNT": 0,
+                "p01_TOUCH": 0,
+                "p01_TRIGGER": 0,
+                "p01_TRIGGER_INPUT": 0,
+                "p01_TRIGGER_INPUT_E": 0,
+                "p01_TRIGGER_INPUT_S": 0,
+                "p01_UNIQUE_PARAM": 0,
+                "p01_UNIQUE_TIMER": 0,
+                "p02_ACTION_ID": 0,
+                "p02_ARMOR": 0,
+                "p02_CHARA_ID": 0,
+                "p02_GAUGE": 0,
+                "p02_HEIGHT": 0,
+                "p02_HIT": 0,
+                "p02_PARRY": 0,
+                "p02_PARTS_VITAL": 0,
+                "p02_SHOT_COUNT": 0,
+                "p02_STATUS": 0,
+                "p02_STEER": 0.0,
+                "p02_TRIGGER_CHECK_TYPE": 0,
+                "p02_TRIGGER_INPUT": false,
+                "p02_UNIQUE_PARAM": 0,
+                "p02_UNIQUE_TIMER": 0,
+                "p03_ACTION_ID": 0,
+                "p03_AREA_ALL": 0,
+                "p03_COMMAND": 0,
+                "p03_GAUGE": 0,
+                "p03_PARTS_VITAL": 0,
+                "p03_SHOT_COUNT": 0,
+                "p03_TRIGGER_INPUT": 0,
+                "p03_UNIQUE_PARAM": 0,
+                "p04_STATUS": 0,
+                "p04_TRIGGER_INPUT": 0,
+                "p04_UNIQUE_PARAM": 0
+            },
+            "keys_index": 0
+        },
+        "DamageCollisionKey": {
+            "1": {
+                "ATTR": 13,
+                "AtemiDataListIndex": -1,
+                "BodyList": {
+                    "0": 8
+                },
+                "CollisionType": 0,
+                "Condition": 0,
+                "Extend": 0,
+                "HeadList": {
+                    "0": 7
+                },
+                "Immune": 0,
+                "LegList": {
+                    "0": 9
+                },
+                "Level": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "ThrowList": {
+                    "0": 1
+                },
+                "TypeFlag": 3,
+                "_AtemiDataId": 4,
+                "_EndFrame": 98,
+                "_IsHitNo": false,
+                "_RectHurtId": 31,
+                "_RectHurtThrowId": 30,
+                "_StartFrame": 20,
+                "_isArm": false,
+                "_isAtAm": false,
+                "_isAtm": false,
+                "_isNrm": true
+            },
+            "2": {
+                "ATTR": 13,
+                "AtemiDataListIndex": -1,
+                "BodyList": {
+                    "0": 196
+                },
+                "CollisionType": 0,
+                "Condition": 0,
+                "Extend": 0,
+                "Immune": 0,
+                "Level": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "TypeFlag": 3,
+                "_AtemiDataId": 4,
+                "_EndFrame": 35,
+                "_IsHitNo": false,
+                "_RectHurtId": 31,
+                "_RectHurtThrowId": 30,
+                "_StartFrame": 20,
+                "_isArm": false,
+                "_isAtAm": false,
+                "_isAtm": false,
+                "_isNrm": true
+            },
+            "3": {
+                "ATTR": 13,
+                "AtemiDataListIndex": -1,
+                "CollisionType": 0,
+                "Condition": 0,
+                "Extend": 0,
+                "Immune": 0,
+                "Level": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "ThrowList": {
+                    "0": 10
+                },
+                "TypeFlag": 3,
+                "_AtemiDataId": 4,
+                "_EndFrame": 46,
+                "_IsHitNo": false,
+                "_RectHurtId": 31,
+                "_RectHurtThrowId": 30,
+                "_StartFrame": 20,
+                "_isArm": false,
+                "_isAtAm": false,
+                "_isAtm": false,
+                "_isNrm": true
+            },
+            "keys_index": 13
+        },
+        "FacialAutoKey": {
+            "1": {
+                "ATTR": 19,
+                "MotionEndFrame": 104,
+                "MotionID": 10,
+                "MotionStartFrame": 0,
+                "MotionType": 220,
+                "OptionFlag": 0,
+                "ValidCharaID": 0,
+                "_EndFrame": 98,
+                "_StartFrame": 0
+            },
+            "keys_index": 20,
+            "names": {
+                "1": "esf005_ATK_CTA_4"
+            }
+        },
+        "MergeKey": {
+            "1": {
+                "ATTR": 21,
+                "FCurveL": {
+                    "KeysCount": 2,
+                    "_EnableClamp": true,
+                    "_Length": 2,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "FCurveU": {
+                    "KeysCount": 2,
+                    "_EnableClamp": true,
+                    "_Length": 2,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "MasterID": 0,
+                "OnlyOnce": false,
+                "Option": 10,
+                "Type": 1,
+                "_EndFrame": 82,
+                "_StartFrame": 69,
+                "_useLower": true
+            },
+            "keys_index": 21
+        },
+        "MotionKey": {
+            "1": {
+                "ATTR": 15,
+                "IgnoreWTMConv": false,
+                "MotionEndFrame": 6,
+                "MotionID": 10,
+                "MotionStartFrame": 0,
+                "MotionType": 500220,
+                "OptionFlag": 0,
+                "_EndFrame": 3,
+                "_StartFrame": 0
+            },
+            "2": {
+                "ATTR": 15,
+                "IgnoreWTMConv": false,
+                "MotionEndFrame": 23,
+                "MotionID": 10,
+                "MotionStartFrame": 6,
+                "MotionType": 500220,
+                "OptionFlag": 0,
+                "_EndFrame": 17,
+                "_StartFrame": 3
+            },
+            "3": {
+                "ATTR": 15,
+                "IgnoreWTMConv": false,
+                "MotionEndFrame": 104,
+                "MotionID": 10,
+                "MotionStartFrame": 23,
+                "MotionType": 500220,
+                "OptionFlag": 0,
+                "_EndFrame": 98,
+                "_StartFrame": 17
+            },
+            "keys_index": 15,
+            "names": {
+                "1": "esf005_ATK_CTA_4"
+            }
+        },
+        "PlaceKey": {
+            "1": {
+                "ATTR": 31,
+                "Axis": 0,
+                "OptionFlag": 0,
+                "PosList": {
+                    "00": 0.0,
+                    "01": 1.8432159423828125,
+                    "02": 9.81884765625,
+                    "03": 23.422927856445313,
+                    "04": 33.31358337402344,
+                    "05": 43.63368225097656,
+                    "06": 53.83232116699219,
+                    "07": 63.358673095703125,
+                    "08": 71.5797119140625,
+                    "09": 78.02644348144531,
+                    "10": 82.92001342773438,
+                    "11": 86.52043151855469,
+                    "12": 89.03007507324219,
+                    "13": 90.51628112792969,
+                    "14": 91.217529296875,
+                    "15": 91.442626953125,
+                    "16": 91.47157287597656,
+                    "17": 91.47157287597656,
+                    "18": 91.47157287597656,
+                    "19": 91.47157287597656,
+                    "20": 91.47157287597656,
+                    "21": 91.58219909667969,
+                    "22": 92.00547790527344,
+                    "23": 92.91456604003906,
+                    "24": 94.3431396484375,
+                    "25": 96.20458984375,
+                    "26": 98.41238403320313,
+                    "27": 100.87989807128906,
+                    "28": 103.52056884765625,
+                    "29": 106.24781799316406,
+                    "30": 108.97508239746094,
+                    "31": 111.61575317382813,
+                    "32": 114.08328247070313,
+                    "33": 116.29106140136719,
+                    "34": 118.15251159667969,
+                    "35": 119.58108520507813,
+                    "36": 120.49015808105469,
+                    "37": 120.9134521484375,
+                    "38": 121.02407836914063,
+                    "39": 121.02407836914063,
+                    "40": 121.02407836914063,
+                    "41": 121.02407836914063,
+                    "42": 121.02407836914063,
+                    "43": 121.02407836914063,
+                    "44": 121.02407836914063,
+                    "45": 121.02407836914063,
+                    "46": 121.02407836914063,
+                    "47": 121.02407836914063,
+                    "48": 121.02407836914063,
+                    "49": 121.02407836914063,
+                    "50": 121.02407836914063,
+                    "51": 121.02407836914063,
+                    "52": 121.02407836914063,
+                    "53": 121.02407836914063,
+                    "54": 121.02407836914063,
+                    "55": 121.02407836914063,
+                    "56": 121.02407836914063,
+                    "57": 121.02407836914063,
+                    "58": 121.02407836914063,
+                    "59": 121.02407836914063,
+                    "60": 121.02407836914063,
+                    "61": 121.02407836914063,
+                    "62": 121.02407836914063,
+                    "63": 121.02407836914063,
+                    "64": 121.02407836914063,
+                    "65": 121.02407836914063,
+                    "66": 121.02407836914063,
+                    "67": 121.02407836914063,
+                    "68": 121.02407836914063,
+                    "69": 121.02407836914063,
+                    "70": 121.02407836914063,
+                    "71": 121.02407836914063,
+                    "72": 121.02407836914063,
+                    "73": 121.02407836914063,
+                    "74": 121.02407836914063,
+                    "75": 121.02407836914063,
+                    "76": 121.02407836914063,
+                    "77": 121.02407836914063,
+                    "78": 121.02407836914063,
+                    "79": 121.02407836914063,
+                    "80": 121.02407836914063,
+                    "81": 121.02407836914063,
+                    "82": 121.02407836914063,
+                    "83": 121.02407836914063,
+                    "84": 121.02407836914063,
+                    "85": 121.02407836914063,
+                    "86": 121.02407836914063,
+                    "87": 121.02407836914063,
+                    "88": 121.02407836914063,
+                    "89": 121.02407836914063,
+                    "90": 121.02407836914063,
+                    "91": 121.02407836914063,
+                    "92": 121.02407836914063,
+                    "93": 121.02407836914063,
+                    "94": 121.02407836914063,
+                    "95": 121.02407836914063,
+                    "96": 121.02407836914063,
+                    "97": 121.02407836914063
+                },
+                "Ratio": 1.0,
+                "_EndFrame": 98,
+                "_StartFrame": 0
+            },
+            "keys_index": 31
+        },
+        "PushCollisionKey": {
+            "1": {
+                "ATTR": 14,
+                "Attribute": 0,
+                "BoxNo": 1,
+                "Condition": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "_EndFrame": 98,
+                "_RectPushId": 25,
+                "_StartFrame": 0
+            },
+            "keys_index": 14
+        },
+        "SEKey": {
+            "1": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 436,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 14,
+                "_StartFrame": 13
+            },
+            "2": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 412,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 16,
+                "_StartFrame": 15
+            },
+            "3": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 1,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 8,
+                "_StartFrame": 7
+            },
+            "4": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 1,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 49,
+                "_StartFrame": 48
+            },
+            "5": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 0,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 69,
+                "_StartFrame": 68
+            },
+            "6": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 296,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 2,
+                "_StartFrame": 1
+            },
+            "keys_index": 22
+        },
+        "StatusKey": {
+            "1": {
+                "ATTR": 1,
+                "ActionDir": 2,
+                "ActionStatus": -1,
+                "AttackCategory": 0,
+                "Double": 0,
+                "JumpStatus": 0,
+                "LandingAdjust": 0,
+                "PoseStatus": 1,
+                "Side": 1,
+                "_EndFrame": 1,
+                "_StartFrame": 0
+            },
+            "keys_index": 1
+        },
+        "SwitchKey": {
+            "1": {
+                "ATTR": 2,
+                "OperationFlag": 0,
+                "SystemFlag": 2,
+                "_EndFrame": 20,
+                "_OperationBit": 0,
+                "_StartFrame": 0,
+                "_SystemBit": 2
+            },
+            "2": {
+                "ATTR": 2,
+                "OperationFlag": 0,
+                "SystemFlag": 8388608,
+                "_EndFrame": 46,
+                "_OperationBit": 0,
+                "_StartFrame": 20,
+                "_SystemBit": 8388608
+            },
+            "keys_index": 2
+        },
+        "VfxKey": {
+            "1": {
+                "ATTR": 30,
+                "BuffCondType": 0,
+                "BuffParam0": 0,
+                "BuffParam1": 0,
+                "Category": 2,
+                "ConditionFlag": 0,
+                "ContainerID": 550,
+                "DamageStatus": 2,
+                "ElementID": 100,
+                "EndType": 0,
+                "FighterID": 0,
+                "HitPos": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "HitStrength": 0,
+                "HitType": 1,
+                "HitmarkID": -1,
+                "IsAffectedRollforward": true,
+                "IsAllEffects": false,
+                "IsUseColorGroup": false,
+                "IsUseCondition": false,
+                "IsUseWho": false,
+                "Life": 0.0,
+                "MasterID": 0,
+                "Operation": 4,
+                "OwnerType": 0,
+                "PartsID": -1,
+                "VfxType": 0,
+                "_BuffStyleID": 0,
+                "_BuffUniqueParamIndex": 0,
+                "_BuffUniqueParamValue": 0,
+                "_EndFrame": 20,
+                "_HitmarkCategory": 3,
+                "_IsAtemi": false,
+                "_IsBuffStyleChange": false,
+                "_IsBuffUniqueParamChange": false,
+                "_IsDemoSkip": false,
+                "_IsDriveDash": false,
+                "_IsHit": false,
+                "_IsHitMarkNeedID": false,
+                "_IsNotColor": true,
+                "_IsNotWho": true,
+                "_IsOnly1on1": false,
+                "_IsOwnerParts": false,
+                "_IsRangeOperation": true,
+                "_IsSpawnOperation": true,
+                "_IsSpawnRangeOperation": true,
+                "_IsUseBuffVfxID": false,
+                "_IsUseElementVfxID": true,
+                "_IsUseHitMarkVfxID": false,
+                "_IsUseNormalVfxID": true,
+                "_IsUseStatusVfxID": false,
+                "_IsUseVfxID": true,
+                "_StartFrame": 0,
+                "_ValidStyle": 0
+            },
+            "2": {
+                "ATTR": 30,
+                "BuffCondType": 0,
+                "BuffParam0": 0,
+                "BuffParam1": 0,
+                "Category": 0,
+                "ConditionFlag": 0,
+                "ContainerID": 500,
+                "DamageStatus": 2,
+                "ElementID": 153,
+                "EndType": 0,
+                "FighterID": 0,
+                "HitPos": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "HitStrength": 0,
+                "HitType": 1,
+                "HitmarkID": -1,
+                "IsAffectedRollforward": false,
+                "IsAllEffects": false,
+                "IsUseColorGroup": false,
+                "IsUseCondition": false,
+                "IsUseWho": false,
+                "Life": 0.0,
+                "MasterID": 0,
+                "Operation": 4,
+                "OwnerType": 0,
+                "PartsID": -1,
+                "VfxType": 0,
+                "_BuffStyleID": 0,
+                "_BuffUniqueParamIndex": 0,
+                "_BuffUniqueParamValue": 0,
+                "_EndFrame": 8,
+                "_HitmarkCategory": 3,
+                "_IsAtemi": false,
+                "_IsBuffStyleChange": false,
+                "_IsBuffUniqueParamChange": false,
+                "_IsDemoSkip": false,
+                "_IsDriveDash": false,
+                "_IsHit": false,
+                "_IsHitMarkNeedID": false,
+                "_IsNotColor": true,
+                "_IsNotWho": true,
+                "_IsOnly1on1": false,
+                "_IsOwnerParts": false,
+                "_IsRangeOperation": true,
+                "_IsSpawnOperation": true,
+                "_IsSpawnRangeOperation": true,
+                "_IsUseBuffVfxID": false,
+                "_IsUseElementVfxID": true,
+                "_IsUseHitMarkVfxID": false,
+                "_IsUseNormalVfxID": true,
+                "_IsUseStatusVfxID": false,
+                "_IsUseVfxID": true,
+                "_StartFrame": 0,
+                "_ValidStyle": 0
+            },
+            "keys_index": 30
+        },
+        "VoiceKey": {
+            "1": {
+                "ATTR": 25,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 522,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 1,
+                "_StartFrame": 0
+            },
+            "keys_index": 25
+        },
+        "_PL_StyleID": 0,
+        "fab": {
+            "ActionFrame": {
+                "FollowFrame": 20,
+                "MainFrame": 17,
+                "MarginFrame": 46
+            },
+            "ActionID": 854,
+            "Category": {
+                "Auto": 983041,
+                "Flags": 983041,
+                "Manual": 0,
+                "_Guard": 1,
+                "_Invincible": 983040,
+                "_IsBurnOutAction": false,
+                "_IsCamHurdleJump": false,
+                "_IsHigh": true,
+                "_IsLow": false,
+                "_IsMutekiAll": true,
+                "_IsMutekiShell": true,
+                "_IsMutekiStrike": true,
+                "_IsMutekiThrow": true,
+                "_IsOverhead": false,
+                "_IsStandbyAction": false,
+                "_State": 0
+            },
+            "Combo": {
+                "ComboScaling": -1,
+                "InstScaling": -1,
+                "_StartScaling": -1
+            },
+            "Frame": 98,
+            "Inherit": {
+                "Accelaleration": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "KindFlag": 0,
+                "Velocity": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "_BasePositionX": false,
+                "_BasePositionY": false,
+                "_BasePositionZ": false,
+                "_HitID": false,
+                "_HitInfo": false,
+                "_PlinkSteer": false
+            },
+            "Projectile": {
+                "DataIndex": -1,
+                "_ProjectileDataId": 15
+            },
+            "State": {
+                "DrawPriority": 0,
+                "EndStateParam": 0,
+                "LoopCount": 0,
+                "__DrawPriority": 0
+            }
+        },
+        "id": 854,
+        "mot_name": "esf005_ATK_CTA_4",
+        "name": "ATK_CTA_4(4)"
     },
     "ATK_CTA_RUSH": {
         "BranchKey": {
@@ -163053,6 +164123,17 @@
             "names": {
                 "1": "esf005_DPA_STD_Loop"
             }
+        },
+        "FacialMergeKey": {
+            "1": {
+                "ATTR": 47,
+                "OnlyOnce": false,
+                "Type": 0,
+                "ValidCharaID": 32,
+                "_EndFrame": 10,
+                "_StartFrame": 0
+            },
+            "keys_index": 47
         },
         "MotionKey": {
             "1": {
@@ -255698,6 +256779,626 @@
         "mot_name": "esf005_SPA_04_CAN",
         "name": "SPA_04_CAN"
     },
+    "SPA_04_CAN(1)": {
+        "DamageCollisionKey": {
+            "1": {
+                "ATTR": 13,
+                "AtemiDataListIndex": -1,
+                "BodyList": {
+                    "0": 8
+                },
+                "CollisionType": 0,
+                "Condition": 0,
+                "Extend": 0,
+                "HeadList": {
+                    "0": 7
+                },
+                "Immune": 0,
+                "LegList": {
+                    "0": 9
+                },
+                "Level": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "ThrowList": {
+                    "0": 1
+                },
+                "TypeFlag": 3,
+                "_AtemiDataId": 4,
+                "_EndFrame": 58,
+                "_IsHitNo": false,
+                "_RectHurtId": 31,
+                "_RectHurtThrowId": 30,
+                "_StartFrame": 0,
+                "_isArm": false,
+                "_isAtAm": false,
+                "_isAtm": false,
+                "_isNrm": true
+            },
+            "keys_index": 13
+        },
+        "EventKey": {
+            "1": {
+                "ATTR": 8,
+                "ID": 78,
+                "MasterID": 0,
+                "OnlyOnce": false,
+                "Param01": 4,
+                "Param02": 0,
+                "Param03": 0,
+                "Param04": 0,
+                "Param05": 0,
+                "Param06": 0,
+                "Param07": 0,
+                "Type": 11,
+                "_CommandGroupId": 3,
+                "_EndFrame": 6,
+                "_IsActionList01": false,
+                "_IsActionList04": false,
+                "_IsAttackData01": false,
+                "_IsBrowse01": false,
+                "_IsBrowse02": false,
+                "_IsBrowse04": false,
+                "_IsBrowse06": false,
+                "_IsCHARA": false,
+                "_IsCHARA_GAUGE_ADD": false,
+                "_IsCHARA_GAUGE_ADD_PARAM_03": false,
+                "_IsCHARA_RESET_COMMAND": false,
+                "_IsCHARA_SPEED_UP": false,
+                "_IsCHARA_STYLE_CHANGE": false,
+                "_IsCHARA_STYLE_CHANGE_02": false,
+                "_IsCommandGroup01": false,
+                "_IsGIMMICK": false,
+                "_IsGIMMICK_EXT_EFFECT": false,
+                "_IsJointID06": false,
+                "_IsOWNER": false,
+                "_IsOWNER_HIT_TARGET_OFFSET": false,
+                "_IsOWNER_LOCK_TARGET_OFFSET": false,
+                "_IsOWNER_PARENT_OFFSET": false,
+                "_IsOWNER_POSITION_LOCK_START": false,
+                "_IsOWNER_POSITION_LOCK_START_02": false,
+                "_IsOWNER_RIVAL_OFFSET": false,
+                "_IsOWNER_SELF_OFFSET": false,
+                "_IsSYSTEM": false,
+                "_IsSYSTEM_DAMAGE_SET": false,
+                "_IsStyleList02": false,
+                "_IsUNIQUE": false,
+                "_IsUNIQUE_UNIQUE_PARAM": false,
+                "_IsUNIQUE_UNIQUE_PARAM_05": false,
+                "_IsUNIQUE_UNIQUE_PARAM_COPY": false,
+                "_IsWTM": false,
+                "_IsWTM_WTM_SET_ESCAPE": false,
+                "_Name_p02_OWNER_LEVER_MOVE": "",
+                "_Name_p03_OWNER_LEVER_MOVE": "",
+                "_Names01": "",
+                "_Names02": "",
+                "_Names04": "",
+                "_Names06": "",
+                "_Param01_": 4,
+                "_Param02_": 0,
+                "_Param04_": 0,
+                "_Param06_": 0,
+                "_StartFrame": 0,
+                "_TriggerDataId": 17,
+                "_ValidStyle": 0,
+                "_p01_AIR_COMMAND_COUNT": 4,
+                "_p01_CAMERA_CAMERA_FLAG": 4,
+                "_p01_CAMERA_IGNORE_VIB": 4,
+                "_p01_CAMERA_MOTION_CAMERA_OFFSET": 4,
+                "_p01_CAMERA_POSITION": 4,
+                "_p01_CHARA_DISABLE_COMMAND": 4,
+                "_p01_CHARA_FACIAL": 4,
+                "_p01_CHARA_FLY_START": 4,
+                "_p01_CHARA_GAUGE_ADD": 4,
+                "_p01_CHARA_HITMARK": 4,
+                "_p01_CHARA_LANDING": 4,
+                "_p01_CHARA_RESET_CHARGE": 4,
+                "_p01_CHARA_RESET_CLOTHING": 4,
+                "_p01_CHARA_RESET_CONDITION": 4,
+                "_p01_CHARA_RESET_HIT_BUFF": 4,
+                "_p01_CHARA_SPEED_UP": 4,
+                "_p01_CHARA_STYLE_CHANGE": 4,
+                "_p01_CHARA_STYLE_TIMER": 4,
+                "_p01_COMMENTARY_CMNT_INFO": 4,
+                "_p01_COMMENTARY_INFO_SA": 4,
+                "_p01_FIELD_OBSTACLE": 4,
+                "_p01_FIELD_RUTHLESS_WALL": 4,
+                "_p01_GIMMICK_EXT_EFFECT": 4,
+                "_p01_GIMMICK_SET_BLINK": 4,
+                "_p01_GIMMICK_SET_PARENT": 4,
+                "_p01_HUD_NOTICE": 4,
+                "_p01_OWNER_HIT_TARGET_OFFSET": 4,
+                "_p01_OWNER_LEVER_MOVE": 4,
+                "_p01_OWNER_LOCK_TARGET_OFFSET": 4,
+                "_p01_OWNER_OBJECT_PRIORITY": 4,
+                "_p01_OWNER_PARENT_OFFSET": 4,
+                "_p01_OWNER_POSITION_LOCK_START": 4,
+                "_p01_OWNER_POSITION_SCREEN": 4,
+                "_p01_OWNER_POSITION_WORLD": 4,
+                "_p01_OWNER_RIVAL_OFFSET": 4,
+                "_p01_OWNER_SELECT_TARGET": 4,
+                "_p01_OWNER_SELF_OFFSET": 4,
+                "_p01_SHOT_ERASE_BY_CATEGORY": 4,
+                "_p01_SHOT_ORBIT_OFFSET": 4,
+                "_p01_SHOT_ORBIT_PARAM": 4,
+                "_p01_SHOT_SOUND_REQ": 4,
+                "_p01_SHOT_STENCIL_TYPE": 4,
+                "_p01_SYSTEM_NOTIFY": 4,
+                "_p01_SYSTEM_PARTS_INIT": 4,
+                "_p01_UNIQUE_EXTEND_TIMER_INIT": 4,
+                "_p01_UNIQUE_EXTEND_TIMER_UPDATE": 4,
+                "_p01_UNIQUE_UNIQUE_PARAM": 4,
+                "_p01_UNIQUE_UNIQUE_PARAM_COPY": 4,
+                "_p01_UNIQUE_UNIQUE_TIMER": 4,
+                "_p01_WTM_BUFF_EVENT": 4,
+                "_p01_WTM_CALL_MINION": 4,
+                "_p01_WTM_SET_GIMMICK_ACTION": 4,
+                "_p01x_OWNER_OBJECT_PRIORITY": 4,
+                "_p02_AIR_COMMAND_COUNT": 0,
+                "_p02_CAMERA_CAMERA_FLAG": 0,
+                "_p02_CAMERA_MOTION_CAMERA_OFFSET": 0,
+                "_p02_CAMERA_POSITION": 0,
+                "_p02_CHARA_FACIAL": 0,
+                "_p02_CHARA_GAUGE_ADD": 0,
+                "_p02_CHARA_HITMARK": 0,
+                "_p02_CHARA_LANDING": false,
+                "_p02_CHARA_RESET_CONDITION": 0,
+                "_p02_CHARA_SPEED_UP": 0,
+                "_p02_CHARA_STYLE_CHANGE": 0,
+                "_p02_CHARA_STYLE_TIMER": 0,
+                "_p02_FIELD_OBSTACLE": 0,
+                "_p02_FIELD_RUTHLESS_WALL": 0,
+                "_p02_GIMMICK_SET_BLINK": 0,
+                "_p02_HUD_NOTICE": 0,
+                "_p02_OWNER_HIT_TARGET_OFFSET": 0,
+                "_p02_OWNER_LOCK_TARGET_OFFSET": 0,
+                "_p02_OWNER_OBJECT_PRIORITY": 0,
+                "_p02_OWNER_PARENT_OFFSET": 0,
+                "_p02_OWNER_POSITION_SCREEN": 0,
+                "_p02_OWNER_POSITION_WORLD": 0,
+                "_p02_OWNER_RIVAL_OFFSET": 0,
+                "_p02_OWNER_SELF_OFFSET": 0,
+                "_p02_SHOT_ERASE_BY_CATEGORY": 0,
+                "_p02_SHOT_ORBIT_PARAM": 0,
+                "_p02_SYSTEM_PARTS_INIT": 0,
+                "_p02_UNIQUE_EXTEND_TIMER_UPDATE": 0,
+                "_p02_UNIQUE_UNIQUE_PARAM": 0,
+                "_p02_UNIQUE_UNIQUE_PARAM_COPY": 0,
+                "_p02_WTM_CALL_MINION": 0,
+                "_p02_WTM_SET_ESCAPE": 0,
+                "_p02_WTM_SET_GIMMICK_ACTION": 0,
+                "_p03_CAMERA_MOTION_CAMERA_OFFSET": 0,
+                "_p03_CAMERA_POSITION": 0,
+                "_p03_CHARA_GAUGE_ADD": 0,
+                "_p03_CHARA_HITMARK": 0,
+                "_p03_CHARA_LANDING": false,
+                "_p03_CHARA_SPEED_UP": 0,
+                "_p03_CHARA_STYLE_CHANGE": false,
+                "_p03_FIELD_OBSTACLE": 0,
+                "_p03_FIELD_RUTHLESS_WALL": false,
+                "_p03_GIMMICK_SET_BLINK": 0,
+                "_p03_OWNER_HIT_TARGET_OFFSET": 0,
+                "_p03_OWNER_LOCK_TARGET_OFFSET": 0,
+                "_p03_OWNER_PARENT_OFFSET": 0,
+                "_p03_OWNER_POSITION_SCREEN": 0,
+                "_p03_OWNER_POSITION_WORLD": 0,
+                "_p03_OWNER_RIVAL_OFFSET": 0,
+                "_p03_OWNER_SELF_OFFSET": 0,
+                "_p03_SHOT_ERASE_BY_CATEGORY": 0,
+                "_p03_SHOT_ORBIT_PARAM": 0,
+                "_p03_SYSTEM_PARTS_INIT": 0,
+                "_p03_UNIQUE_UNIQUE_PARAM": 0,
+                "_p03_UNIQUE_UNIQUE_TIMER": 0,
+                "_p03_WTM_SET_ESCAPE": 0,
+                "_p04_CAMERA_POSITION": 0,
+                "_p04_CAMERA_SCREEN_VIB": 0,
+                "_p04_CHARA_HITMARK": 0,
+                "_p04_CHARA_LANDING": false,
+                "_p04_CHARA_STYLE_CHANGE": 0,
+                "_p04_GIMMICK_SET_BLINK": 0,
+                "_p04_OWNER_HIT_TARGET_OFFSET": 0,
+                "_p04_OWNER_LOCK_TARGET_OFFSET": 0,
+                "_p04_OWNER_PARENT_OFFSET": 0,
+                "_p04_OWNER_POSITION_SCREEN": 0,
+                "_p04_OWNER_POSITION_WORLD": 0,
+                "_p04_OWNER_RIVAL_OFFSET": 0,
+                "_p04_OWNER_SELF_OFFSET": 0,
+                "_p04_SHOT_ORBIT_PARAM": 0,
+                "_p04_UNIQUE_UNIQUE_PARAM": 0,
+                "_p04_UNIQUE_UNIQUE_PARAM_COPY": 0,
+                "_p04_UNIQUE_UNIQUE_TIMER": 0,
+                "_p05_CAMERA_POSITION": false,
+                "_p05_CAMERA_SCREEN_VIB": 0,
+                "_p05_CHARA_HITMARK": 0,
+                "_p05_CHARA_LANDING": false,
+                "_p05_GIMMICK_SET_BLINK": 0,
+                "_p05_OWNER_HIT_TARGET_OFFSET": false,
+                "_p05_OWNER_LOCK_TARGET_OFFSET": false,
+                "_p05_OWNER_PARENT_OFFSET": false,
+                "_p05_OWNER_POSITION_SCREEN": false,
+                "_p05_OWNER_POSITION_WORLD": false,
+                "_p05_OWNER_RIVAL_OFFSET": false,
+                "_p05_OWNER_SELF_OFFSET": false,
+                "_p05_SHOT_ORBIT_PARAM": 0,
+                "_p05_UNIQUE_UNIQUE_PARAM": 0,
+                "_p05_UNIQUE_UNIQUE_PARAM_COPY": 0,
+                "_p06_CAMERA_SCREEN_VIB": 0,
+                "_p06_CHARA_HITMARK": 0,
+                "_p06_SHOT_ORBIT_PARAM": 0,
+                "_p06_UNIQUE_UNIQUE_PARAM": 0,
+                "_p06_UNIQUE_UNIQUE_PARAM_COPY": 0,
+                "_p07_SHOT_ORBIT_PARAM": false
+            },
+            "keys_index": 8
+        },
+        "FacialAutoKey": {
+            "1": {
+                "ATTR": 19,
+                "MotionEndFrame": 100,
+                "MotionID": 1001,
+                "MotionStartFrame": 0,
+                "MotionType": 603,
+                "OptionFlag": 0,
+                "ValidCharaID": 0,
+                "_EndFrame": 58,
+                "_StartFrame": 0
+            },
+            "keys_index": 20,
+            "names": {
+                "1": "esf005_SPA_04_CAN"
+            }
+        },
+        "MergeKey": {
+            "1": {
+                "ATTR": 21,
+                "FCurveL": {
+                    "KeysCount": 2,
+                    "_EnableClamp": true,
+                    "_Length": 2,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "FCurveU": {
+                    "KeysCount": 2,
+                    "_EnableClamp": true,
+                    "_Length": 2,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "MasterID": 0,
+                "OnlyOnce": false,
+                "Option": 0,
+                "Type": 0,
+                "_EndFrame": 4,
+                "_StartFrame": 0,
+                "_useLower": false
+            },
+            "2": {
+                "ATTR": 21,
+                "FCurveL": {
+                    "KeysCount": 2,
+                    "_EnableClamp": true,
+                    "_Length": 2,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "FCurveU": {
+                    "KeysCount": 3,
+                    "_EnableClamp": true,
+                    "_Length": 3,
+                    "_LoopCount": 0,
+                    "_LoopEndTime": 100.0,
+                    "_LoopStartTime": 0.0,
+                    "_LoopWrapNo": 2,
+                    "_MaxTime": 1.0,
+                    "_MaxValue": 1.0,
+                    "_MinTime": 0.0,
+                    "_MinValue": 0.0
+                },
+                "MasterID": 0,
+                "OnlyOnce": false,
+                "Option": 2,
+                "Type": 1,
+                "_EndFrame": 32,
+                "_StartFrame": 18,
+                "_useLower": false
+            },
+            "keys_index": 21
+        },
+        "MotionKey": {
+            "1": {
+                "ATTR": 15,
+                "IgnoreWTMConv": false,
+                "MotionEndFrame": 58,
+                "MotionID": 1001,
+                "MotionStartFrame": 0,
+                "MotionType": 500603,
+                "OptionFlag": 0,
+                "_EndFrame": 58,
+                "_StartFrame": 0
+            },
+            "keys_index": 15,
+            "names": {
+                "1": "esf005_SPA_04_CAN"
+            }
+        },
+        "PushCollisionKey": {
+            "1": {
+                "ATTR": 14,
+                "Attribute": 0,
+                "BoxNo": 1,
+                "Condition": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "_EndFrame": 58,
+                "_RectPushId": 25,
+                "_StartFrame": 0
+            },
+            "keys_index": 14
+        },
+        "SEKey": {
+            "1": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 5237,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 2,
+                "_StartFrame": 1
+            },
+            "2": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 1,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 11,
+                "_StartFrame": 10
+            },
+            "3": {
+                "ATTR": 22,
+                "AfterBranch": false,
+                "InBattle": false,
+                "IsOverWriteFadeTime": false,
+                "OnlyOnce": false,
+                "OverWriteFadeTime": 100.0,
+                "SoundID": 0,
+                "StopMode": 0,
+                "TargetData": 0,
+                "TargetPos": 0,
+                "_EndFrame": 27,
+                "_StartFrame": 26
+            },
+            "keys_index": 22
+        },
+        "SteerKey": {
+            "1": {
+                "ATTR": 5,
+                "CalcValueFrame": 0,
+                "FixTargetOffsetX": 0.0,
+                "FixTargetOffsetY": 0.0,
+                "FixTargetOffsetZ": 0.0,
+                "FixValue": 2.5,
+                "LimitAngle": 0.0,
+                "MasterID": -1,
+                "MultiValueType": 0,
+                "OnlyOnce": false,
+                "OpeType": 2,
+                "OperationType": 1,
+                "Param": 0,
+                "TarType": 1,
+                "TargetType": 0,
+                "ValueType": 0,
+                "_CollisionID": 0,
+                "_EndFrame": 1,
+                "_IgnoreMirroring": false,
+                "_IsCalcValueFrame": false,
+                "_IsFixTarOffset": false,
+                "_IsFixValue": true,
+                "_IsLimitAngle": false,
+                "_IsMultiValueType": false,
+                "_IsParam": false,
+                "_IsParam00": false,
+                "_IsParam01": false,
+                "_IsParam02": false,
+                "_IsTarType": false,
+                "_IsValueType": true,
+                "_MultiValueType_": 0,
+                "_OperationTypeX": 1,
+                "_ShotCategory": 0,
+                "_StartFrame": 0
+            },
+            "2": {
+                "ATTR": 5,
+                "CalcValueFrame": 0,
+                "FixTargetOffsetX": 0.0,
+                "FixTargetOffsetY": 0.0,
+                "FixTargetOffsetZ": 0.0,
+                "FixValue": 0.0,
+                "LimitAngle": 0.0,
+                "MasterID": -1,
+                "MultiValueType": 0,
+                "OnlyOnce": false,
+                "OpeType": 2,
+                "OperationType": 1,
+                "Param": 0,
+                "TarType": 1,
+                "TargetType": 0,
+                "ValueType": 0,
+                "_CollisionID": 0,
+                "_EndFrame": 10,
+                "_IgnoreMirroring": false,
+                "_IsCalcValueFrame": false,
+                "_IsFixTarOffset": false,
+                "_IsFixValue": true,
+                "_IsLimitAngle": false,
+                "_IsMultiValueType": false,
+                "_IsParam": false,
+                "_IsParam00": false,
+                "_IsParam01": false,
+                "_IsParam02": false,
+                "_IsTarType": false,
+                "_IsValueType": true,
+                "_MultiValueType_": 0,
+                "_OperationTypeX": 1,
+                "_ShotCategory": 0,
+                "_StartFrame": 9
+            },
+            "keys_index": 5
+        },
+        "SwitchKey": {
+            "1": {
+                "ATTR": 2,
+                "OperationFlag": 0,
+                "SystemFlag": 2,
+                "_EndFrame": 11,
+                "_OperationBit": 0,
+                "_StartFrame": 0,
+                "_SystemBit": 2
+            },
+            "keys_index": 2
+        },
+        "TriggerKey": {
+            "1": {
+                "ATTR": 6,
+                "ConditionFlag": 119931,
+                "MasterID": 0,
+                "NoticeOFF": 0,
+                "NoticeON": 0,
+                "TriggerGroup": 0,
+                "_Condition": 5131,
+                "_EndFrame": 10,
+                "_Exception": 0,
+                "_Input": 114688,
+                "_NotDefer": false,
+                "_OFF_Prop": 0,
+                "_ON_Prop": 0,
+                "_Other": 64,
+                "_StartFrame": 3,
+                "_State": 48,
+                "_TriggerGroupId": 16,
+                "_ValidStyle": 0
+            },
+            "2": {
+                "ATTR": 6,
+                "ConditionFlag": 119871,
+                "MasterID": 0,
+                "NoticeOFF": 0,
+                "NoticeON": 0,
+                "TriggerGroup": 0,
+                "_Condition": 5135,
+                "_EndFrame": 11,
+                "_Exception": 0,
+                "_Input": 114688,
+                "_NotDefer": true,
+                "_OFF_Prop": 0,
+                "_ON_Prop": 0,
+                "_Other": 0,
+                "_StartFrame": 10,
+                "_State": 48,
+                "_TriggerGroupId": 16,
+                "_ValidStyle": 0
+            },
+            "keys_index": 6
+        },
+        "_PL_StyleID": 0,
+        "fab": {
+            "ActionFrame": {
+                "FollowFrame": -1,
+                "MainFrame": -1,
+                "MarginFrame": 11
+            },
+            "ActionID": 1040,
+            "Category": {
+                "Auto": 0,
+                "Flags": 0,
+                "Manual": 0,
+                "_Guard": 0,
+                "_Invincible": 0,
+                "_IsBurnOutAction": false,
+                "_IsCamHurdleJump": false,
+                "_IsHigh": false,
+                "_IsLow": false,
+                "_IsMutekiAll": false,
+                "_IsMutekiShell": false,
+                "_IsMutekiStrike": false,
+                "_IsMutekiThrow": false,
+                "_IsOverhead": false,
+                "_IsStandbyAction": false,
+                "_State": 0
+            },
+            "Combo": {
+                "ComboScaling": -1,
+                "InstScaling": -1,
+                "_StartScaling": -1
+            },
+            "Frame": 58,
+            "Inherit": {
+                "Accelaleration": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "KindFlag": 0,
+                "Velocity": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "_BasePositionX": false,
+                "_BasePositionY": false,
+                "_BasePositionZ": false,
+                "_HitID": false,
+                "_HitInfo": false,
+                "_PlinkSteer": false
+            },
+            "Projectile": {
+                "DataIndex": -1,
+                "_ProjectileDataId": 15
+            },
+            "State": {
+                "DrawPriority": 0,
+                "EndStateParam": 0,
+                "LoopCount": 0,
+                "__DrawPriority": 0
+            }
+        },
+        "id": 1040,
+        "mot_name": "esf005_SPA_04_CAN",
+        "name": "SPA_04_CAN(1)"
+    },
     "SPA_04_GF": {
         "AttackCollisionKey": {
             "1": {
@@ -256416,7 +258117,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 8388608,
-                "_EndFrame": 38,
+                "_EndFrame": 36,
                 "_OperationBit": 0,
                 "_StartFrame": 16,
                 "_SystemBit": 8388608
@@ -256822,7 +258523,7 @@
             "ActionFrame": {
                 "FollowFrame": 16,
                 "MainFrame": 10,
-                "MarginFrame": 38
+                "MarginFrame": 36
             },
             "ActionID": 1013,
             "Category": {
@@ -256846,7 +258547,7 @@
             "Combo": {
                 "ComboScaling": -1,
                 "InstScaling": 10,
-                "_StartScaling": -1
+                "_StartScaling": 20
             },
             "Frame": 111,
             "Inherit": {
@@ -303833,7 +305534,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 21,
+                "_EndFrame": 23,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -303873,7 +305574,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 21,
+                "_StartFrame": 23,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -303894,7 +305595,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 23,
                 "_IsHitNo": false,
@@ -305267,7 +306968,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 21,
+                "_EndFrame": 23,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -305307,7 +307008,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 21,
+                "_StartFrame": 23,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -305328,7 +307029,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 23,
                 "_IsHitNo": false,
@@ -306490,7 +308191,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 30,
                 "_IsHitNo": false,
@@ -306564,7 +308265,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 28,
+                "_EndFrame": 30,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -306604,7 +308305,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 28,
+                "_StartFrame": 30,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -307864,7 +309565,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 30,
                 "_IsHitNo": false,
@@ -307938,7 +309639,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 28,
+                "_EndFrame": 30,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -307978,7 +309679,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 28,
+                "_StartFrame": 30,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -309238,7 +310939,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 30,
                 "_IsHitNo": false,
@@ -309312,7 +311013,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 28,
+                "_EndFrame": 30,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -309352,7 +311053,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 28,
+                "_StartFrame": 30,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -310612,7 +312313,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 30,
                 "_IsHitNo": false,
@@ -310686,7 +312387,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 28,
+                "_EndFrame": 30,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -310726,7 +312427,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 28,
+                "_StartFrame": 30,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -311958,7 +313659,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 30,
                 "_IsHitNo": false,
@@ -312032,7 +313733,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 28,
+                "_EndFrame": 30,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -312072,7 +313773,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 28,
+                "_StartFrame": 30,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -313151,7 +314852,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "2": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -313163,7 +314864,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -313315,7 +315016,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "3": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -313327,7 +315028,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -314695,7 +316396,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "2": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -314707,7 +316408,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -314859,7 +316560,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "3": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -314871,7 +316572,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -316239,7 +317940,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "2": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -316251,7 +317952,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -316403,7 +318104,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "3": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -316415,7 +318116,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -317783,7 +319484,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "2": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -317795,7 +319496,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -317947,7 +319648,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "3": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -317959,7 +319660,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -319327,7 +321028,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "2": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -319339,7 +321040,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -319491,7 +321192,7 @@
                 "p04_UNIQUE_PARAM": 0
             },
             "3": {
-                "Action": 1039,
+                "Action": 1040,
                 "ActionFrame": 0,
                 "ActionList": 0,
                 "Attr": 0,
@@ -319503,7 +321204,7 @@
                 "Param05": 0,
                 "TriggerID": -1,
                 "Type": 20,
-                "_ActionName": "Action = 1039",
+                "_ActionName": "Action = 1040",
                 "_EndFrame": 17,
                 "_InBattle": false,
                 "_InheritFrame": false,
@@ -321263,7 +322964,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 21,
+                "_EndFrame": 23,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -321303,7 +323004,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 21,
+                "_StartFrame": 23,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -321324,7 +323025,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 23,
                 "_IsHitNo": false,
@@ -322697,7 +324398,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 21,
+                "_EndFrame": 23,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -322737,7 +324438,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 21,
+                "_StartFrame": 23,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -322758,7 +324459,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 23,
                 "_IsHitNo": false,
@@ -324131,7 +325832,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 21,
+                "_EndFrame": 23,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -324171,7 +325872,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 21,
+                "_StartFrame": 23,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -324192,7 +325893,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 23,
                 "_IsHitNo": false,
@@ -325893,7 +327594,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 24,
+                "_EndFrame": 26,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -325933,7 +327634,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 24,
+                "_StartFrame": 26,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -325954,7 +327655,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 26,
                 "_IsHitNo": false,
@@ -327755,7 +329456,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 24,
+                "_EndFrame": 26,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -327795,7 +329496,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 24,
+                "_StartFrame": 26,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -327816,7 +329517,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 26,
                 "_IsHitNo": false,
@@ -329617,7 +331318,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 24,
+                "_EndFrame": 26,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -329657,7 +331358,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 24,
+                "_StartFrame": 26,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -329678,7 +331379,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 26,
                 "_IsHitNo": false,
@@ -331451,7 +333152,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 24,
+                "_EndFrame": 26,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -331491,7 +333192,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 24,
+                "_StartFrame": 26,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -331512,7 +333213,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 26,
                 "_IsHitNo": false,
@@ -333313,7 +335014,7 @@
                 },
                 "TypeFlag": 1,
                 "_AtemiDataId": 4,
-                "_EndFrame": 24,
+                "_EndFrame": 26,
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
@@ -333353,7 +335054,7 @@
                 "_IsHitNo": false,
                 "_RectHurtId": 31,
                 "_RectHurtThrowId": 30,
-                "_StartFrame": 24,
+                "_StartFrame": 26,
                 "_isArm": false,
                 "_isAtAm": false,
                 "_isAtm": false,
@@ -333374,7 +335075,7 @@
                     "X": 0,
                     "Y": 0
                 },
-                "TypeFlag": 3,
+                "TypeFlag": 1,
                 "_AtemiDataId": 4,
                 "_EndFrame": 26,
                 "_IsHitNo": false,
@@ -364433,7 +366134,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": 0,
+                    "X": 2,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -364495,6 +366196,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 12,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 11,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -364512,7 +366253,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 905",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -364676,7 +366417,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 903",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -365707,7 +367448,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -365718,7 +367459,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 11,
+                "_StartFrame": 12,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -366088,6 +367829,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -6,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -366105,7 +367886,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 905",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -366269,7 +368050,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 903",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -367201,7 +368982,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -367212,7 +368993,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -367582,6 +369363,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -12,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 7,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 6,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -367599,7 +369420,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 931",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -367763,7 +369584,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 929",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -368789,7 +370610,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -368800,7 +370621,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 6,
+                "_StartFrame": 7,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -369170,6 +370991,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 18
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -369187,7 +371048,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 936",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -369351,7 +371212,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 934",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -370358,7 +372219,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -370369,7 +372230,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -370770,7 +372631,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": 0,
+                    "X": 2,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -370832,6 +372693,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 12,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 11,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -370849,7 +372750,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 944",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -371013,7 +372914,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 942",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -372044,7 +373945,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -372055,7 +373956,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 11,
+                "_StartFrame": 12,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -372425,6 +374326,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -6,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -372442,7 +374383,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 944",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -372606,7 +374547,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 942",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -373538,7 +375479,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -373549,7 +375490,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -373919,6 +375860,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -12,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 7,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 6,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -373936,7 +375917,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 944",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -374100,7 +376081,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 942",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -375126,7 +377107,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -375137,7 +377118,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 6,
+                "_StartFrame": 7,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -375507,6 +377488,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 18
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -375524,7 +377545,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 949",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -375688,7 +377709,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 947",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -376695,7 +378716,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -376706,7 +378727,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -377107,7 +379128,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": 0,
+                    "X": 2,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -377169,6 +379190,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 12,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 11,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -377186,7 +379247,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 957",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -377350,7 +379411,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 955",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -378381,7 +380442,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -378392,7 +380453,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 11,
+                "_StartFrame": 12,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -378762,6 +380823,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -6,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -378779,7 +380880,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 957",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -378943,7 +381044,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 955",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -379875,7 +381976,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -379886,7 +381987,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -380256,6 +382357,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -12,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 7,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 6,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -380273,7 +382414,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 957",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -380437,7 +382578,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 955",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -381463,7 +383604,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -381474,7 +383615,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 6,
+                "_StartFrame": 7,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -381844,6 +383985,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 18
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -381861,7 +384042,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 962",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -382025,7 +384206,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 960",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -383032,7 +385213,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -383043,7 +385224,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -383506,6 +385687,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -12,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 7,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 6,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -383523,7 +385744,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 905",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -383687,7 +385908,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 903",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -384713,7 +386934,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -384724,7 +386945,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 6,
+                "_StartFrame": 7,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -385094,6 +387315,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 18
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -385111,7 +387372,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 910",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -385275,7 +387536,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 908",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -386282,7 +388543,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -386293,7 +388554,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -386694,7 +388955,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": 0,
+                    "X": 2,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -386756,6 +389017,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 12,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 11,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -386773,7 +389074,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 918",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -386937,7 +389238,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 916",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -387968,7 +390269,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -387979,7 +390280,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 11,
+                "_StartFrame": 12,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -388349,6 +390650,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -6,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -388366,7 +390707,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 918",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -388530,7 +390871,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 916",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -389462,7 +391803,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -389473,7 +391814,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -389843,6 +392184,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -12,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 7,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 6,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -389860,7 +392241,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 918",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -390024,7 +392405,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 916",
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -391050,7 +393431,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 6,
+                "_EndFrame": 7,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -391061,7 +393442,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 6,
+                "_StartFrame": 7,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -391431,6 +393812,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 18
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -391448,7 +393869,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 923",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -391612,7 +394033,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 921",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -392619,7 +395040,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -392630,7 +395051,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -393031,7 +395452,7 @@
                 "MasterID": 0,
                 "PlaceFG": 0,
                 "RootOffset": {
-                    "X": 0,
+                    "X": 2,
                     "Y": 0
                 },
                 "SteerFG": 0,
@@ -393093,6 +395514,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -2,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 12,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 11,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -393110,7 +395571,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 931",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -393274,7 +395735,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 929",
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -394305,7 +396766,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 11,
+                "_EndFrame": 12,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -394316,7 +396777,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 11,
+                "_StartFrame": 12,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -394686,6 +397147,46 @@
                 "_isStr": false,
                 "_isThr": true
             },
+            "3": {
+                "ATTR": 10,
+                "AttackDataListIndex": 119,
+                "BoxList": {
+                    "0": 15
+                },
+                "CollisionType": 2,
+                "Condition": 0,
+                "GuardBit": 7,
+                "HitID": -1,
+                "HitOffset": {
+                    "x": 0,
+                    "y": 0
+                },
+                "KindFlag": 704,
+                "MasterID": 0,
+                "PlaceFG": 0,
+                "RootOffset": {
+                    "X": -6,
+                    "Y": 0
+                },
+                "SteerFG": 0,
+                "_EndFrame": 10,
+                "_IsGuardBit": false,
+                "_IsHitID": true,
+                "_IsKindFlag": true,
+                "_RectProjectileId": 21,
+                "_RectProximityId": 23,
+                "_RectStrikeId": 20,
+                "_RectThrowId": 22,
+                "_StartFrame": 9,
+                "_ValidStyle": 0,
+                "__KindFlag": 704,
+                "__PlaceFG": 0.0,
+                "__SteerFG": 0.0,
+                "_isPrj": false,
+                "_isPrx": false,
+                "_isStr": false,
+                "_isThr": true
+            },
             "keys_index": 10
         },
         "BranchKey": {
@@ -394703,7 +397204,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 931",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -394867,7 +397368,7 @@
                 "TriggerID": -1,
                 "Type": 36,
                 "_ActionName": "Action = 929",
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_InBattle": false,
                 "_InheritFrame": false,
                 "_InheritFrameX": false,
@@ -395799,7 +398300,7 @@
                 "ATTR": 2,
                 "OperationFlag": 0,
                 "SystemFlag": 2,
-                "_EndFrame": 9,
+                "_EndFrame": 10,
                 "_OperationBit": 0,
                 "_StartFrame": 0,
                 "_SystemBit": 2
@@ -395810,7 +398311,7 @@
                 "SystemFlag": 8388608,
                 "_EndFrame": 60,
                 "_OperationBit": 0,
-                "_StartFrame": 9,
+                "_StartFrame": 10,
                 "_SystemBit": 8388608
             },
             "keys_index": 2
@@ -453818,6 +456319,45 @@
         "name": "SPD_04_Lv1(2)"
     },
     "SPD_04_Lv1(3)": {
+        "DamageCollisionKey": {
+            "1": {
+                "ATTR": 13,
+                "AtemiDataListIndex": -1,
+                "BodyList": {
+                    "0": 8
+                },
+                "CollisionType": 0,
+                "Condition": 0,
+                "Extend": 0,
+                "HeadList": {
+                    "0": 0
+                },
+                "Immune": 0,
+                "LegList": {
+                    "0": 0
+                },
+                "Level": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 0
+                },
+                "ThrowList": {
+                    "0": 0
+                },
+                "TypeFlag": 3,
+                "_AtemiDataId": 4,
+                "_EndFrame": 10,
+                "_IsHitNo": false,
+                "_RectHurtId": 31,
+                "_RectHurtThrowId": 30,
+                "_StartFrame": 1,
+                "_isArm": false,
+                "_isAtAm": false,
+                "_isAtm": false,
+                "_isNrm": true
+            },
+            "keys_index": 13
+        },
         "EventKey": {
             "1": {
                 "ATTR": 8,
@@ -454205,6 +456745,22 @@
                 "_StartFrame": 0
             },
             "keys_index": 31
+        },
+        "PushCollisionKey": {
+            "1": {
+                "ATTR": 14,
+                "Attribute": 0,
+                "BoxNo": 1,
+                "Condition": 0,
+                "RootOffset": {
+                    "X": 0,
+                    "Y": 30
+                },
+                "_EndFrame": 10,
+                "_RectPushId": 25,
+                "_StartFrame": 0
+            },
+            "keys_index": 14
         },
         "SEKey": {
             "1": {

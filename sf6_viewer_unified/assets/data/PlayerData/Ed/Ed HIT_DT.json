@@ -72696,7 +72696,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 20,
@@ -72928,7 +72928,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -73044,7 +73044,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 24,
@@ -73278,7 +73278,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 20,
@@ -73394,7 +73394,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 20,
@@ -73626,7 +73626,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 20,
@@ -74206,7 +74206,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -74322,7 +74322,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -74554,7 +74554,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 22,
@@ -74670,7 +74670,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 24,
@@ -74786,7 +74786,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 24,
@@ -75018,7 +75018,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 2,
                 "MoveDest": {
-                    "x": 20,
+                    "x": 15,
                     "y": 0
                 },
                 "MoveTime": 24,
@@ -183240,7 +183240,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 30,
@@ -183588,7 +183588,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -184170,7 +184170,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 30,
@@ -184286,7 +184286,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 30,
@@ -184402,7 +184402,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 30,
@@ -184518,7 +184518,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 30,
@@ -185562,7 +185562,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -185678,7 +185678,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -185794,7 +185794,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 26,
@@ -185910,7 +185910,7 @@
                 "JuggleAdd": 1,
                 "JuggleLimit": 20,
                 "MoveDest": {
-                    "x": -200,
+                    "x": -100,
                     "y": 0
                 },
                 "MoveTime": 26,

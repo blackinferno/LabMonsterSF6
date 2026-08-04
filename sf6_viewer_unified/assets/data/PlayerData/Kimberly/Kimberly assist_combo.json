@@ -7892,12 +7892,12 @@
         "ActualTriggerID": {
             "flag0": 0,
             "flag1": 0,
-            "flag2": 140737488355328,
+            "flag2": 9007199254740992,
             "flag3": 0,
             "flags": {
                 "p0": 0,
                 "p1": 0,
-                "p2": 140737488355328,
+                "p2": 9007199254740992,
                 "p3": 0
             }
         },
@@ -7929,7 +7929,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 175,
+        "TriggerID": 181,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -7939,15 +7939,15 @@
     },
     "162": {
         "ActualTriggerID": {
-            "flag0": 36028797018963968,
+            "flag0": 0,
             "flag1": 0,
             "flag2": 0,
-            "flag3": 0,
+            "flag3": 32,
             "flags": {
-                "p0": 36028797018963968,
+                "p0": 0,
                 "p1": 0,
                 "p2": 0,
-                "p3": 0
+                "p3": 32
             }
         },
         "AssistComboCondition": {
@@ -7959,7 +7959,7 @@
         },
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
-        "ConditionErrorEndFrame": 39,
+        "ConditionErrorEndFrame": 47,
         "ConditionFlag": 115769,
         "Delay": 0,
         "ForceEndFrame": -1,
@@ -7974,11 +7974,11 @@
         "NGLever": 0,
         "NGLeverExc": 0,
         "NextInputDelay": 16,
-        "NextInputLimit": 38,
+        "NextInputLimit": 46,
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 55,
+        "TriggerID": 197,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -7988,12 +7988,61 @@
     },
     "163": {
         "ActualTriggerID": {
-            "flag0": 524288,
+            "flag0": 0,
+            "flag1": 0,
+            "flag2": 4294967296,
+            "flag3": 0,
+            "flags": {
+                "p0": 0,
+                "p1": 0,
+                "p2": 4294967296,
+                "p3": 0
+            }
+        },
+        "AssistComboCondition": {
+            "DriveGaugeCondition": 0,
+            "UniqueParam0": 0,
+            "UniqueParam1": 0,
+            "UniqueParam2": 0,
+            "UniqueParam3": 0
+        },
+        "AvaliableToReserveInCancelAfterThisFrame": -1,
+        "ChargeID": -1,
+        "ConditionErrorEndFrame": 33,
+        "ConditionFlag": 115769,
+        "Delay": 30,
+        "ForceEndFrame": -1,
+        "IsCheckCommandTriggerable": false,
+        "IsCheckEndJump": false,
+        "IsCheckMarginDefffer": true,
+        "IsConsideringTriggerItsSameSkillID": false,
+        "IsContinuedWhileDelayCount": false,
+        "IsEndAtNormal": false,
+        "IsNeedCharge": false,
+        "IsNoCheckCommandNo": false,
+        "NGLever": 0,
+        "NGLeverExc": 0,
+        "NextInputDelay": 12,
+        "NextInputLimit": 32,
+        "OKLever": 0,
+        "OKLeverExc": 0,
+        "PrecedeFrame": 2,
+        "TriggerID": 160,
+        "WTComboData": {
+            "WTFighterActionIsAir": false,
+            "WTFighterActionStrength": 0,
+            "WTFighterActionTrigger": 0
+        },
+        "_Condition": 1033
+    },
+    "164": {
+        "ActualTriggerID": {
+            "flag0": 0,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 524288,
+                "p0": 0,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -8009,7 +8058,7 @@
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
         "ConditionErrorEndFrame": -1,
-        "ConditionFlag": 130111,
+        "ConditionFlag": 119867,
         "Delay": 0,
         "ForceEndFrame": -1,
         "IsCheckCommandTriggerable": false,
@@ -8023,66 +8072,17 @@
         "NGLever": 0,
         "NGLeverExc": 0,
         "NextInputDelay": 2,
-        "NextInputLimit": 34,
-        "OKLever": 0,
-        "OKLeverExc": 0,
-        "PrecedeFrame": 2,
-        "TriggerID": 19,
-        "WTComboData": {
-            "WTFighterActionIsAir": false,
-            "WTFighterActionStrength": 0,
-            "WTFighterActionTrigger": 0
-        },
-        "_Condition": 15375
-    },
-    "164": {
-        "ActualTriggerID": {
-            "flag0": 0,
-            "flag1": 0,
-            "flag2": 1073741824,
-            "flag3": 0,
-            "flags": {
-                "p0": 0,
-                "p1": 0,
-                "p2": 1073741824,
-                "p3": 0
-            }
-        },
-        "AssistComboCondition": {
-            "DriveGaugeCondition": 0,
-            "UniqueParam0": 0,
-            "UniqueParam1": 0,
-            "UniqueParam2": 0,
-            "UniqueParam3": 0
-        },
-        "AvaliableToReserveInCancelAfterThisFrame": -1,
-        "ChargeID": -1,
-        "ConditionErrorEndFrame": -1,
-        "ConditionFlag": 115769,
-        "Delay": 0,
-        "ForceEndFrame": -1,
-        "IsCheckCommandTriggerable": false,
-        "IsCheckEndJump": false,
-        "IsCheckMarginDefffer": true,
-        "IsConsideringTriggerItsSameSkillID": false,
-        "IsContinuedWhileDelayCount": false,
-        "IsEndAtNormal": true,
-        "IsNeedCharge": false,
-        "IsNoCheckCommandNo": false,
-        "NGLever": 0,
-        "NGLeverExc": 0,
-        "NextInputDelay": 2,
-        "NextInputLimit": 18,
+        "NextInputLimit": -1,
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 158,
+        "TriggerID": -1,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
             "WTFighterActionTrigger": 0
         },
-        "_Condition": 1033
+        "_Condition": 5131
     },
     "165": {
         "ActualTriggerID": {
@@ -8381,18 +8381,18 @@
     "171": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 0,
-            "flag2": 140737488355328,
+            "flag1": 2048,
+            "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 0,
-                "p2": 140737488355328,
+                "p1": 2048,
+                "p2": 0,
                 "p3": 0
             }
         },
         "AssistComboCondition": {
-            "DriveGaugeCondition": 0,
+            "DriveGaugeCondition": 2,
             "UniqueParam0": 0,
             "UniqueParam1": 0,
             "UniqueParam2": 0,
@@ -8419,7 +8419,7 @@
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 175,
+        "TriggerID": 75,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -8429,111 +8429,13 @@
     },
     "172": {
         "ActualTriggerID": {
-            "flag0": 36028797018963968,
-            "flag1": 0,
-            "flag2": 0,
-            "flag3": 0,
-            "flags": {
-                "p0": 36028797018963968,
-                "p1": 0,
-                "p2": 0,
-                "p3": 0
-            }
-        },
-        "AssistComboCondition": {
-            "DriveGaugeCondition": 0,
-            "UniqueParam0": 0,
-            "UniqueParam1": 0,
-            "UniqueParam2": 0,
-            "UniqueParam3": 0
-        },
-        "AvaliableToReserveInCancelAfterThisFrame": -1,
-        "ChargeID": -1,
-        "ConditionErrorEndFrame": 39,
-        "ConditionFlag": 115769,
-        "Delay": 0,
-        "ForceEndFrame": -1,
-        "IsCheckCommandTriggerable": false,
-        "IsCheckEndJump": false,
-        "IsCheckMarginDefffer": true,
-        "IsConsideringTriggerItsSameSkillID": false,
-        "IsContinuedWhileDelayCount": false,
-        "IsEndAtNormal": false,
-        "IsNeedCharge": false,
-        "IsNoCheckCommandNo": false,
-        "NGLever": 0,
-        "NGLeverExc": 0,
-        "NextInputDelay": 16,
-        "NextInputLimit": 38,
-        "OKLever": 0,
-        "OKLeverExc": 0,
-        "PrecedeFrame": 0,
-        "TriggerID": 55,
-        "WTComboData": {
-            "WTFighterActionIsAir": false,
-            "WTFighterActionStrength": 0,
-            "WTFighterActionTrigger": 0
-        },
-        "_Condition": 1033
-    },
-    "173": {
-        "ActualTriggerID": {
-            "flag0": 524288,
-            "flag1": 0,
-            "flag2": 0,
-            "flag3": 0,
-            "flags": {
-                "p0": 524288,
-                "p1": 0,
-                "p2": 0,
-                "p3": 0
-            }
-        },
-        "AssistComboCondition": {
-            "DriveGaugeCondition": 0,
-            "UniqueParam0": 0,
-            "UniqueParam1": 0,
-            "UniqueParam2": 0,
-            "UniqueParam3": 0
-        },
-        "AvaliableToReserveInCancelAfterThisFrame": -1,
-        "ChargeID": -1,
-        "ConditionErrorEndFrame": -1,
-        "ConditionFlag": 130111,
-        "Delay": 0,
-        "ForceEndFrame": -1,
-        "IsCheckCommandTriggerable": false,
-        "IsCheckEndJump": false,
-        "IsCheckMarginDefffer": true,
-        "IsConsideringTriggerItsSameSkillID": false,
-        "IsContinuedWhileDelayCount": false,
-        "IsEndAtNormal": false,
-        "IsNeedCharge": false,
-        "IsNoCheckCommandNo": false,
-        "NGLever": 0,
-        "NGLeverExc": 0,
-        "NextInputDelay": 2,
-        "NextInputLimit": 34,
-        "OKLever": 0,
-        "OKLeverExc": 0,
-        "PrecedeFrame": 2,
-        "TriggerID": 19,
-        "WTComboData": {
-            "WTFighterActionIsAir": false,
-            "WTFighterActionStrength": 0,
-            "WTFighterActionTrigger": 0
-        },
-        "_Condition": 15375
-    },
-    "174": {
-        "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 274877906944,
+            "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 274877906944,
+                "p1": 0,
                 "p2": 0,
                 "p3": 0
             }
@@ -8548,7 +8450,7 @@
         "AvaliableToReserveInCancelAfterThisFrame": -1,
         "ChargeID": -1,
         "ConditionErrorEndFrame": -1,
-        "ConditionFlag": 115769,
+        "ConditionFlag": 119867,
         "Delay": 0,
         "ForceEndFrame": -1,
         "IsCheckCommandTriggerable": false,
@@ -8556,23 +8458,121 @@
         "IsCheckMarginDefffer": true,
         "IsConsideringTriggerItsSameSkillID": false,
         "IsContinuedWhileDelayCount": false,
-        "IsEndAtNormal": true,
+        "IsEndAtNormal": false,
         "IsNeedCharge": false,
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
         "NextInputDelay": 2,
-        "NextInputLimit": 18,
+        "NextInputLimit": -1,
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 102,
+        "TriggerID": -1,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
             "WTFighterActionTrigger": 0
         },
-        "_Condition": 1033
+        "_Condition": 5131
+    },
+    "173": {
+        "ActualTriggerID": {
+            "flag0": 0,
+            "flag1": 0,
+            "flag2": 0,
+            "flag3": 0,
+            "flags": {
+                "p0": 0,
+                "p1": 0,
+                "p2": 0,
+                "p3": 0
+            }
+        },
+        "AssistComboCondition": {
+            "DriveGaugeCondition": 0,
+            "UniqueParam0": 0,
+            "UniqueParam1": 0,
+            "UniqueParam2": 0,
+            "UniqueParam3": 0
+        },
+        "AvaliableToReserveInCancelAfterThisFrame": -1,
+        "ChargeID": -1,
+        "ConditionErrorEndFrame": -1,
+        "ConditionFlag": 119867,
+        "Delay": 0,
+        "ForceEndFrame": -1,
+        "IsCheckCommandTriggerable": false,
+        "IsCheckEndJump": false,
+        "IsCheckMarginDefffer": true,
+        "IsConsideringTriggerItsSameSkillID": false,
+        "IsContinuedWhileDelayCount": false,
+        "IsEndAtNormal": false,
+        "IsNeedCharge": false,
+        "IsNoCheckCommandNo": false,
+        "NGLever": 0,
+        "NGLeverExc": 0,
+        "NextInputDelay": 2,
+        "NextInputLimit": -1,
+        "OKLever": 0,
+        "OKLeverExc": 0,
+        "PrecedeFrame": 0,
+        "TriggerID": -1,
+        "WTComboData": {
+            "WTFighterActionIsAir": false,
+            "WTFighterActionStrength": 0,
+            "WTFighterActionTrigger": 0
+        },
+        "_Condition": 5131
+    },
+    "174": {
+        "ActualTriggerID": {
+            "flag0": 0,
+            "flag1": 0,
+            "flag2": 0,
+            "flag3": 0,
+            "flags": {
+                "p0": 0,
+                "p1": 0,
+                "p2": 0,
+                "p3": 0
+            }
+        },
+        "AssistComboCondition": {
+            "DriveGaugeCondition": 0,
+            "UniqueParam0": 0,
+            "UniqueParam1": 0,
+            "UniqueParam2": 0,
+            "UniqueParam3": 0
+        },
+        "AvaliableToReserveInCancelAfterThisFrame": -1,
+        "ChargeID": -1,
+        "ConditionErrorEndFrame": -1,
+        "ConditionFlag": 119867,
+        "Delay": 0,
+        "ForceEndFrame": -1,
+        "IsCheckCommandTriggerable": false,
+        "IsCheckEndJump": false,
+        "IsCheckMarginDefffer": true,
+        "IsConsideringTriggerItsSameSkillID": false,
+        "IsContinuedWhileDelayCount": false,
+        "IsEndAtNormal": false,
+        "IsNeedCharge": false,
+        "IsNoCheckCommandNo": false,
+        "NGLever": 0,
+        "NGLeverExc": 0,
+        "NextInputDelay": 2,
+        "NextInputLimit": -1,
+        "OKLever": 0,
+        "OKLeverExc": 0,
+        "PrecedeFrame": 0,
+        "TriggerID": -1,
+        "WTComboData": {
+            "WTFighterActionIsAir": false,
+            "WTFighterActionStrength": 0,
+            "WTFighterActionTrigger": 0
+        },
+        "_Condition": 5131
     },
     "175": {
         "ActualTriggerID": {
@@ -8821,12 +8821,12 @@
     },
     "180": {
         "ActualTriggerID": {
-            "flag0": 64,
+            "flag0": 0,
             "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
-                "p0": 64,
+                "p0": 0,
                 "p1": 0,
                 "p2": 0,
                 "p3": 0
@@ -8859,8 +8859,8 @@
         "NextInputLimit": -1,
         "OKLever": 0,
         "OKLeverExc": 0,
-        "PrecedeFrame": 4,
-        "TriggerID": 6,
+        "PrecedeFrame": 0,
+        "TriggerID": -1,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,
@@ -8871,18 +8871,18 @@
     "181": {
         "ActualTriggerID": {
             "flag0": 0,
-            "flag1": 2048,
+            "flag1": 0,
             "flag2": 0,
             "flag3": 0,
             "flags": {
                 "p0": 0,
-                "p1": 2048,
+                "p1": 0,
                 "p2": 0,
                 "p3": 0
             }
         },
         "AssistComboCondition": {
-            "DriveGaugeCondition": 2,
+            "DriveGaugeCondition": 0,
             "UniqueParam0": 0,
             "UniqueParam1": 0,
             "UniqueParam2": 0,
@@ -8899,17 +8899,17 @@
         "IsCheckMarginDefffer": true,
         "IsConsideringTriggerItsSameSkillID": false,
         "IsContinuedWhileDelayCount": false,
-        "IsEndAtNormal": true,
+        "IsEndAtNormal": false,
         "IsNeedCharge": false,
         "IsNoCheckCommandNo": false,
         "NGLever": 0,
         "NGLeverExc": 0,
-        "NextInputDelay": 6,
-        "NextInputLimit": 10,
+        "NextInputDelay": 2,
+        "NextInputLimit": -1,
         "OKLever": 0,
         "OKLeverExc": 0,
         "PrecedeFrame": 0,
-        "TriggerID": 75,
+        "TriggerID": -1,
         "WTComboData": {
             "WTFighterActionIsAir": false,
             "WTFighterActionStrength": 0,

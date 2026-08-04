@@ -8995,7 +8995,7 @@
             "vital_need": 0
         }
     },
-    "0854": {
+    "0855": {
         "115": {
             "AtckType": 32,
             "_IgnoreEasy80": false,
@@ -9100,7 +9100,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 0,
             "action_dir": 2,
-            "action_id": 854,
+            "action_id": 855,
             "action_status_sub": 0,
             "atck_type_bit": 32,
             "category_flags": 65602,

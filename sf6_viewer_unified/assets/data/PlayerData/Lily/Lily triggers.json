@@ -10146,7 +10146,7 @@
             "vital_need": 0
         }
     },
-    "0905": {
+    "0907": {
         "51": {
             "AtckType": 2,
             "_IgnoreEasy80": false,
@@ -10251,7 +10251,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 256,
             "action_dir": 2,
-            "action_id": 905,
+            "action_id": 907,
             "action_status_sub": 0,
             "atck_type_bit": 2,
             "category_flags": 536879137,
@@ -10343,7 +10343,7 @@
             "vital_need": 0
         }
     },
-    "0910": {
+    "0912": {
         "52": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
@@ -10448,7 +10448,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 256,
             "action_dir": 2,
-            "action_id": 910,
+            "action_id": 912,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 536879169,
@@ -10540,7 +10540,7 @@
             "vital_need": 0
         }
     },
-    "0915": {
+    "0917": {
         "140": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -10645,7 +10645,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 256,
             "action_dir": 2,
-            "action_id": 915,
+            "action_id": 917,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887297,
@@ -10737,7 +10737,7 @@
             "vital_need": 0
         }
     },
-    "0921": {
+    "0923": {
         "54": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -10842,7 +10842,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 921,
+            "action_id": 923,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879128,
@@ -11400,7 +11400,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 921,
+            "action_id": 923,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879128,
@@ -12216,7 +12216,7 @@
             "vital_need": 0
         }
     },
-    "0922": {
+    "0924": {
         "55": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -12321,7 +12321,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 922,
+            "action_id": 924,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879144,
@@ -12516,7 +12516,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 922,
+            "action_id": 924,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879144,
@@ -12608,7 +12608,7 @@
             "vital_need": 0
         }
     },
-    "0923": {
+    "0925": {
         "56": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -12713,7 +12713,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 923,
+            "action_id": 925,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879176,
@@ -12908,7 +12908,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 923,
+            "action_id": 925,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879176,
@@ -13000,7 +13000,7 @@
             "vital_need": 0
         }
     },
-    "0924": {
+    "0926": {
         "143": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -13105,7 +13105,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 924,
+            "action_id": 926,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -13300,7 +13300,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 924,
+            "action_id": 926,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -13392,7 +13392,7 @@
             "vital_need": 0
         }
     },
-    "0925": {
+    "0927": {
         "142": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -13497,7 +13497,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 925,
+            "action_id": 927,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -13692,7 +13692,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 513,
             "action_dir": 2,
-            "action_id": 925,
+            "action_id": 927,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -13784,7 +13784,7 @@
             "vital_need": 0
         }
     },
-    "0927": {
+    "0929": {
         "58": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -13889,7 +13889,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 927,
+            "action_id": 929,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879128,
@@ -14084,7 +14084,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 927,
+            "action_id": 929,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879128,
@@ -14176,7 +14176,7 @@
             "vital_need": 0
         }
     },
-    "0928": {
+    "0930": {
         "59": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -14281,7 +14281,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 928,
+            "action_id": 930,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879144,
@@ -14476,7 +14476,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 928,
+            "action_id": 930,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879144,
@@ -14568,7 +14568,7 @@
             "vital_need": 0
         }
     },
-    "0929": {
+    "0931": {
         "60": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -14673,7 +14673,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 929,
+            "action_id": 931,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879176,
@@ -14868,7 +14868,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 929,
+            "action_id": 931,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536879176,
@@ -14960,7 +14960,7 @@
             "vital_need": 0
         }
     },
-    "0930": {
+    "0932": {
         "151": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -15065,7 +15065,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 930,
+            "action_id": 932,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -15260,7 +15260,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 930,
+            "action_id": 932,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -15352,7 +15352,7 @@
             "vital_need": 0
         }
     },
-    "0931": {
+    "0933": {
         "150": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -15457,7 +15457,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 931,
+            "action_id": 933,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -15652,7 +15652,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 514,
             "action_dir": 2,
-            "action_id": 931,
+            "action_id": 933,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887304,
@@ -15744,7 +15744,7 @@
             "vital_need": 0
         }
     },
-    "0934": {
+    "0936": {
         "63": {
             "AtckType": 1,
             "_IgnoreEasy80": false,
@@ -15849,7 +15849,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 769,
             "action_dir": 2,
-            "action_id": 934,
+            "action_id": 936,
             "action_status_sub": 0,
             "atck_type_bit": 1,
             "category_flags": 536879121,
@@ -16304,7 +16304,7 @@
             "vital_need": 0
         }
     },
-    "0935": {
+    "0937": {
         "64": {
             "AtckType": 2,
             "_IgnoreEasy80": false,
@@ -16409,7 +16409,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 769,
             "action_dir": 2,
-            "action_id": 935,
+            "action_id": 937,
             "action_status_sub": 0,
             "atck_type_bit": 2,
             "category_flags": 536879137,
@@ -16501,7 +16501,7 @@
             "vital_need": 0
         }
     },
-    "0936": {
+    "0938": {
         "65": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
@@ -16606,7 +16606,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 769,
             "action_dir": 2,
-            "action_id": 936,
+            "action_id": 938,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 536879169,
@@ -16698,7 +16698,7 @@
             "vital_need": 0
         }
     },
-    "0937": {
+    "0939": {
         "145": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -16803,7 +16803,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 769,
             "action_dir": 2,
-            "action_id": 937,
+            "action_id": 939,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887297,
@@ -16895,7 +16895,7 @@
             "vital_need": 0
         }
     },
-    "0939": {
+    "0941": {
         "67": {
             "AtckType": 1,
             "_IgnoreEasy80": false,
@@ -17000,7 +17000,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 770,
             "action_dir": 2,
-            "action_id": 939,
+            "action_id": 941,
             "action_status_sub": 0,
             "atck_type_bit": 1,
             "category_flags": 536879121,
@@ -17092,7 +17092,7 @@
             "vital_need": 0
         }
     },
-    "0940": {
+    "0942": {
         "68": {
             "AtckType": 2,
             "_IgnoreEasy80": false,
@@ -17197,7 +17197,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 770,
             "action_dir": 2,
-            "action_id": 940,
+            "action_id": 942,
             "action_status_sub": 0,
             "atck_type_bit": 2,
             "category_flags": 536879137,
@@ -17289,7 +17289,7 @@
             "vital_need": 0
         }
     },
-    "0941": {
+    "0943": {
         "69": {
             "AtckType": 4,
             "_IgnoreEasy80": false,
@@ -17394,7 +17394,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 770,
             "action_dir": 2,
-            "action_id": 941,
+            "action_id": 943,
             "action_status_sub": 0,
             "atck_type_bit": 4,
             "category_flags": 536879169,
@@ -17486,7 +17486,7 @@
             "vital_need": 0
         }
     },
-    "0942": {
+    "0944": {
         "152": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -17591,7 +17591,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 770,
             "action_dir": 2,
-            "action_id": 942,
+            "action_id": 944,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 536887297,
@@ -17683,7 +17683,7 @@
             "vital_need": 0
         }
     },
-    "0955": {
+    "0957": {
         "72": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -17788,7 +17788,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1025,
             "action_dir": 2,
-            "action_id": 955,
+            "action_id": 957,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073750088,
@@ -17880,7 +17880,7 @@
             "vital_need": 0
         }
     },
-    "0958": {
+    "0960": {
         "147": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -17985,7 +17985,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1025,
             "action_dir": 2,
-            "action_id": 958,
+            "action_id": 960,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073758216,
@@ -18077,7 +18077,7 @@
             "vital_need": 0
         }
     },
-    "0959": {
+    "0961": {
         "149": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -18182,7 +18182,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1025,
             "action_dir": 2,
-            "action_id": 959,
+            "action_id": 961,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073758216,
@@ -18274,7 +18274,7 @@
             "vital_need": 0
         }
     },
-    "0962": {
+    "0964": {
         "73": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -18379,7 +18379,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 1025,
             "action_dir": 2,
-            "action_id": 962,
+            "action_id": 964,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073750088,
@@ -18471,7 +18471,7 @@
             "vital_need": 0
         }
     },
-    "0963": {
+    "0965": {
         "74": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -18576,7 +18576,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 1025,
             "action_dir": 2,
-            "action_id": 963,
+            "action_id": 965,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073750088,
@@ -18668,7 +18668,7 @@
             "vital_need": 0
         }
     },
-    "0972": {
+    "0974": {
         "155": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -18773,7 +18773,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 1026,
             "action_dir": 2,
-            "action_id": 972,
+            "action_id": 974,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073758216,
@@ -18865,7 +18865,7 @@
             "vital_need": 0
         }
     },
-    "0973": {
+    "0975": {
         "156": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -18970,7 +18970,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 1026,
             "action_dir": 2,
-            "action_id": 973,
+            "action_id": 975,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073758216,
@@ -19062,7 +19062,7 @@
             "vital_need": 0
         }
     },
-    "0976": {
+    "0978": {
         "158": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -19167,7 +19167,7 @@
             "_UseUniqueParam": true,
             "_kind_all": 1026,
             "action_dir": 2,
-            "action_id": 976,
+            "action_id": 978,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 1073758216,
@@ -19259,7 +19259,7 @@
             "vital_need": 0
         }
     },
-    "0995": {
+    "0997": {
         "84": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -19364,7 +19364,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 995,
+            "action_id": 997,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -19819,7 +19819,7 @@
             "vital_need": 0
         }
     },
-    "1000": {
+    "1002": {
         "85": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -19924,7 +19924,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 1000,
+            "action_id": 1002,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -20016,7 +20016,7 @@
             "vital_need": 0
         }
     },
-    "1005": {
+    "1007": {
         "86": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -20121,7 +20121,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 1005,
+            "action_id": 1007,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537141248,
@@ -20213,7 +20213,7 @@
             "vital_need": 0
         }
     },
-    "1010": {
+    "1012": {
         "165": {
             "AtckType": 0,
             "_IgnoreEasy80": false,
@@ -20318,7 +20318,7 @@
             "_UseUniqueParam": false,
             "_kind_all": 1280,
             "action_dir": 2,
-            "action_id": 1010,
+            "action_id": 1012,
             "action_status_sub": 0,
             "atck_type_bit": 0,
             "category_flags": 537149440,
