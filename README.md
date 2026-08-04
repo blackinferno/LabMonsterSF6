@@ -4,8 +4,8 @@ Public runtime repository for the Lab Monster SF6 tool.
 
 ## Current Status
 
-- Latest public version: `v1.0.6`
-- Last release refresh: `2026-05-28` (published `v1.0.6` package)
+- Latest public version: `v1.0.7`
+- Last release refresh: `2026-08-03` (published `v1.0.7` package)
 - GitHub Pages and release ZIP are synchronized.
 
 ## Access
