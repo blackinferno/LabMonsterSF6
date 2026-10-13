@@ -261939,7 +261939,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -261949,7 +261949,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -276044,7 +276044,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -276054,7 +276054,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -290561,7 +290561,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -290571,7 +290571,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -299905,7 +299905,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -299915,7 +299915,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -309421,7 +309421,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -309431,7 +309431,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -318879,7 +318879,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -318889,7 +318889,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -328450,7 +328450,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -328460,7 +328460,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
@@ -338546,7 +338546,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "KindFlag": 32,
+                "KindFlag": 0,
                 "Velocity": {
                     "x": 0.0,
                     "y": 0.0,
@@ -338556,7 +338556,7 @@
                 "_BasePositionY": false,
                 "_BasePositionZ": false,
                 "_HitID": false,
-                "_HitInfo": true,
+                "_HitInfo": false,
                 "_PlinkSteer": false
             },
             "Projectile": {
