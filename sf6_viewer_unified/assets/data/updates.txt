@@ -1,5 +1,14 @@
-CURRENT_VERSION: 1.0.7
-## UPDATE 1.0.6 | 2026-08-06 | important | tags: Documentation
+CURRENT_VERSION: 1.0.8
+## UPDATE 1.0.8 | 2026-10-13 | important | tags: Documentation
+### EN
+- Added Arjun.
+- Updated frame table.
+
+### JP
+- アルジュンを追加。
+- フレーム表を更新。
+
+## UPDATE 1.0.7 | 2026-08-06 | important | tags: Documentation
 ### JP
 - ヤスミンを追加。
 - フレーム表を更新。
@@ -8,7 +17,6 @@ CURRENT_VERSION: 1.0.7
 - Added Yasmine.
 - Updated frame table.
 
-CURRENT_VERSION: 1.0.7
 ## UPDATE 1.0.6 | 2026-08-06 | important | tags: Documentation
 ### JP
 - イングリッドを追加。
