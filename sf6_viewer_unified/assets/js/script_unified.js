@@ -954,6 +954,14 @@ const CHARACTER_ART_PRESETS = {
     "shift": "16%",
     "shiftx": "0%"
   },
+  "arjun": {
+    "top": "calc(1px - min(4.16667vw, 80px))",
+    "left": "calc(50% - min(34.375vw, 660px))",
+    "width": "min(96.5625vw, 1703px)",
+    "height": "min(76.9792vw, 1580px)",
+    "shift": "20%",
+    "shiftx": "0%"
+  },
 
 };
 const CHARACTER_ART_DEFAULT = {
@@ -983,7 +991,8 @@ const CHARACTER_SELECT_SPECIAL = {
   marisa: 'assets/images/characters/select_character14_over.png',
   manon: 'assets/images/characters/select_character13_over.png',
   ingrid: 'assets/images/characters/select_character30_over.png',
-  yasmine: 'assets/images/characters/select_character31_over.png'
+  yasmine: 'assets/images/characters/select_character31_over.png',
+  arjun: 'assets/images/characters/select_character32_over.png'
 };
 
 const CHARACTER_NAME_OVERRIDES = {
